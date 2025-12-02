@@ -14,7 +14,6 @@ import { isDefined } from "../../utils/helpers";
 import { ImportModal } from "../CreateProject/Import/ImportModal";
 import { ExportPage } from "../ExportPage/ExportPage";
 import { APIConfig } from "./api-config";
-import { ProjectMembersModal } from "./MembersModal";
 
 import "./DataManager.scss";
 
@@ -238,7 +237,6 @@ DataManagerPage.pages = {
 DataManagerPage.context = ({ dmRef }) => {
   const { project } = useProject();
   const [mode, setMode] = useState(dmRef?.mode ?? "explorer");
-  const [membersModalOpen, setMembersModalOpen] = useState(false);
 
   const links = {
     "/settings": "Settings",
@@ -320,10 +318,6 @@ DataManagerPage.context = ({ dmRef }) => {
           {label}
         </Link>
       ))}
-      <Button size="small" look="outlined" onClick={() => setMembersModalOpen(true)}>
-        Members
-      </Button>
-      {membersModalOpen && <ProjectMembersModal onClose={() => setMembersModalOpen(false)} />}
     </Space>
   ) : null;
 };
