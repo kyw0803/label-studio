@@ -16,7 +16,7 @@ const shouldGenerateRawColorValue = (name) => {
   return RAW_COLOR_VALUE_TOKENS.some((token) => name.includes(token));
 };
 
-// Determine correct paths for the workspace
+// Determine correct paths for the workspaces
 const findWorkspaceRoot = () => {
   // We'll start with this file's directory and go up until we find the web directory
   let currentDir = __dirname;
@@ -25,7 +25,7 @@ const findWorkspaceRoot = () => {
   }
 
   if (!currentDir.endsWith("web")) {
-    throw new Error("Could not find workspace root directory");
+    throw new Error("Could not find workspaces root directory");
   }
 
   return currentDir;

@@ -124,7 +124,7 @@ LABEL_STUDIO_URL = 'https://app.humansignal.com/'
 # Your API key (find it in Account & Settings > Personal Access Token)
 API_KEY = '<Token>'
 
-# ID of the workspace to create the project (make sure it's not the Personal Sandbox)
+# ID of the workspaces to create the project (make sure it's not the Personal Sandbox)
 # Find the Workspace ID in the URL when you click on it in the sidebar
 WORKSPACE_ID = 0
 ```
@@ -196,7 +196,7 @@ label_config = '''
   </View>
 </View>
 '''
-# Creating project in the configured workspace
+# Creating project in the configured workspaces
 project = ls.projects.create(
     title='Phishing Benchmark Tutorial',
     workspace=WORKSPACE_ID,

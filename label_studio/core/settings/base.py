@@ -234,6 +234,7 @@ INSTALLED_APPS = [
     'data_import',
     'data_export',
     'projects',
+    'workspaces',
     'tasks',
     'data_manager',
     'io_storages',

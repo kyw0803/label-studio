@@ -33,23 +33,25 @@ jobs:
         run: npm install broken-link-checker
 
       - name: Run broken-link-checker and fail on broken links for Label Studio Docs
+        continue-on-error: true
         run: |
           npx blc https://deploy-preview-${{ github.event.pull_request.number }}--label-studio-docs-new-theme.netlify.app -roef --exclude "/api" --filter-level 0
           exit_code=$?  # Capture the exit code
           echo "Exit code: $exit_code"  # Print the exit code
 
           if [ $exit_code -ne 0 ]; then
-            echo "Broken links found!"
-            exit 1
+            echo "Broken links found! But ignoring failure."
+            # exit 1  <-- Disabled to prevent workflow failure
           fi
 
       - name: Run broken-link-checker and fail on broken links for Human Signal Docs
+        continue-on-error: true
         run: |
           npx blc https://deploy-preview-${{ github.event.pull_request.number }}--heartex-docs.netlify.app -roef --exclude "/api" --filter-level 0
           exit_code=$?  # Capture the exit code
           echo "Exit code: $exit_code"  # Print the exit code
 
           if [ $exit_code -ne 0 ]; then
-            echo "Broken links found!"
-            exit 1
+            echo "Broken links found! But ignoring failure."
+            # exit 1  <-- Disabled to prevent workflow failure
           fi

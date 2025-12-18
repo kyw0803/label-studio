@@ -3,6 +3,7 @@
 import base64
 import datetime
 import logging
+import math
 import numbers
 import os
 import random
@@ -37,6 +38,7 @@ from django.urls import reverse
 from django.utils.timesince import timesince
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
+from django_fsm import FSMField
 from fsm.models import FsmHistoryStateModel
 from fsm.queryset_mixins import FSMStateQuerySetMixin
 from label_studio_sdk.label_interface.objects import PredictionValue
@@ -51,6 +53,23 @@ TaskMixin = load_func(settings.TASK_MIXIN)
 class Task(TaskMixin, FsmHistoryStateModel):
     """Business tasks from project"""
 
+    class Status(models.TextChoices):
+        UPLOADED = 'UPLOADED'
+        ASSIGNED = 'ASSIGNED'
+        ANNOTATED = 'ANNOTATED'
+        WILLREVIEWED = 'WILLREVIEWED'
+        REVIEWED = 'REVIEWED'
+        ACCEPTED = 'ACCEPTED'
+        REJECTED = 'REJECTED'
+
+    status = FSMField(
+        verbose_name=_('status'),
+        max_length=20,
+        choices=Status.choices,
+        protected=True,
+        default=Status.UPLOADED,
+        db_index=True,
+    )
     id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -192,6 +211,41 @@ class Task(TaskMixin, FsmHistoryStateModel):
     @property
     def file_upload_name(self):
         return os.path.basename(self.file_upload.file.name)
+
+    @classmethod
+    def task_random_sampling(cls, project, percentage):
+        task_ids = list(Task.objects.filter(project=project, status=Task.Status.UPLOADED).values_list('id', flat=True))
+        fetch_count = math.ceil(len(task_ids) * (percentage / 100))
+
+        random_ids = random.sample(task_ids, fetch_count)
+
+        return random_ids
+
+    def allocate_task_with_ratio(cls, ids, id__ratio):
+        total_tasks = len(ids)
+        if total_tasks == 0:
+            return []
+
+        random.shuffle(ids)
+        result = []
+        current_index = 0
+
+        for user_id, ratio in id__ratio.items():
+            if ratio <= 0:
+                continue
+
+            count = int(total_tasks * (ratio / 100))
+
+            if current_index + count > total_tasks:
+                count = total_tasks - current_index
+
+            assigned_ids = ids[current_index : current_index + count]
+            result.append(user_id, assigned_ids)
+            current_index += count
+
+            if current_index >= total_tasks:
+                break
+        return result
 
     @classmethod
     def get_random(cls, project):
@@ -568,8 +622,13 @@ class Task(TaskMixin, FsmHistoryStateModel):
         return result
 
 
-pre_bulk_create = Signal()   # providing args 'objs' and 'batch_size'
-post_bulk_create = Signal()   # providing args 'objs' and 'batch_size'
+pre_bulk_create = Signal()  # providing args 'objs' and 'batch_size'
+post_bulk_create = Signal()  # providing args 'objs' and 'batch_size'
+
+
+class TaskAssignment(models.Model):
+    processed_by = models.ForeignKey('projects.ProjectMember', on_delete=models.CASCADE, related_name='tasks')
+    task = models.ForeignKey('tasks.Task', on_delete=models.CASCADE, related_name='worker')
 
 
 class AnnotationQuerySet(models.QuerySet):
