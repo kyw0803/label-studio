@@ -50,7 +50,7 @@ jobs:
 
       - name: Team details
         id: team_details
-        uses: ./.github/actions-hub/actions/team-details
+        uses: ./.github/actions-hub/actions/teams-details
         with:
           jira-server: "${{ vars.JIRA_SERVER }}"
           jira-username: "${{ secrets.JIRA_USERNAME }}"

@@ -282,7 +282,7 @@ try:
         <div style="padding: 15px; background: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 5px;">
             <strong>✅ Organization configured for embedding!</strong><br><br>
 
-            <strong>📋 ADMIN: Save this private key for your team</strong><br>
+            <strong>📋 ADMIN: Save this private key for your teams</strong><br>
             <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 11px; max-height: 150px; overflow-y: auto; white-space: pre-wrap; word-break: break-all;">
 {private_key_str}</div>
 
@@ -294,7 +294,7 @@ try:
             </button>
 
             <br><br>
-            <strong>⚠️ Next steps for your team:</strong><br>
+            <strong>⚠️ Next steps for your teams:</strong><br>
             1. Store this private key securely (password manager, secrets vault)<br>
             2. Share it with ML engineers who will use embedding<br>
             3. They should set: <code>export EMBED_PRIVATE_KEY="&lt;key_above&gt;"</code><br>

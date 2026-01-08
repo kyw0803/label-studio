@@ -109,8 +109,9 @@ class ProjectManager(models.Manager):
         """Return ProjectQuerySet with FSM state annotation support"""
         return ProjectQuerySetWithFSM(self.model, using=self._db)
 
+    # 프로젝트의 contributor
     def for_user(self, user):
-        return self.get_queryset().filter(organization=user.active_organization)
+        return self.get_queryset().filter(contributor=user)
 
     def with_state(self):
         """
@@ -156,9 +157,26 @@ class ProjectVisibleManager(ProjectManager):
 
 ProjectMixin = load_func(settings.PROJECT_MIXIN)
 
-
 # LSE recalculate all stats
 recalculate_all_stats = load_func(settings.RECALCULATE_ALL_STATS)
+
+
+class ProjectMember(models.Model):
+    class Role(models.TextChoices):
+        ANNOTATOR = 'annotator', _('Annotator')
+        REVIEWER = 'reviewer', _('Reviewer')
+        PROJECT_MANAGER = 'project_manager', _('Project Manager')
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='project_memberships', help_text='User ID'
+    )
+    project = models.ForeignKey('projects.Project', on_delete=models.CASCADE, related_name='members',
+                                help_text='Project ID')
+    enabled = models.BooleanField(default=True, help_text='Project member is enabled')
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('updated at'), auto_now=True)
+    role = models.CharField(max_length=64, choices=Role.choices, default=Role.ANNOTATOR)
+
 
 
 class Project(ProjectMixin, FsmHistoryStateModel):
@@ -174,6 +192,8 @@ class Project(ProjectMixin, FsmHistoryStateModel):
     objects = ProjectVisibleManager()
     all_objects = ProjectManager()
     __original_label_config = None
+
+    contributor = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='projects', through=ProjectMember)
 
     title = models.CharField(
         _('title'),
@@ -259,8 +279,8 @@ class Project(ProjectMixin, FsmHistoryStateModel):
         _('maximum annotation number'),
         default=1,
         help_text='Maximum number of annotations for one task. '
-        'If the number of annotations per task is equal or greater '
-        'to this value, the task is completed (is_labeled=True)',
+                  'If the number of annotations per task is equal or greater '
+                  'to this value, the task is completed (is_labeled=True)',
     )
     min_annotations_to_start_training = models.IntegerField(
         _('min_annotations_to_start_training'),
@@ -273,10 +293,10 @@ class Project(ProjectMixin, FsmHistoryStateModel):
         null=True,
         default=dict,
         help_text='Dict of weights for each control tag in metric calculation. Each control tag (e.g. label or choice) will '
-        "have it's own key in control weight dict with weight for each label and overall weight."
-        'For example, if bounding box annotation with control tag named my_bbox should be included with 0.33 weight in agreement calculation, '
-        'and the first label Car should be twice more important than Airplaine, then you have to need the specify: '
-        "{'my_bbox': {'type': 'RectangleLabels', 'labels': {'Car': 1.0, 'Airplaine': 0.5}, 'overall': 0.33}",
+                  "have it's own key in control weight dict with weight for each label and overall weight."
+                  'For example, if bounding box annotation with control tag named my_bbox should be included with 0.33 weight in agreement calculation, '
+                  'and the first label Car should be twice more important than Airplaine, then you have to need the specify: '
+                  "{'my_bbox': {'type': 'RectangleLabels', 'labels': {'Car': 1.0, 'Airplaine': 0.5}, 'overall': 0.33}",
     )
 
     # Welcome reader! You might be wondering how `model_version` is
@@ -475,13 +495,17 @@ class Project(ProjectMixin, FsmHistoryStateModel):
         self.token = create_hash()
         self.save(update_fields=['token'])
 
-    def add_collaborator(self, user):
+    # project에 collaborator 추가
+    def add_collaborator(self, user, role=None):
+        if role is None:
+            role = ProjectMember.Role.ANNOTATOR
+
         created = False
         with transaction.atomic():
             try:
                 ProjectMember.objects.get(user=user, project=self)
             except ProjectMember.DoesNotExist:
-                ProjectMember.objects.create(user=user, project=self)
+                ProjectMember.objects.create(user=user, project=self, role=role)
                 created = True
             else:
                 logger.debug(f'Project membership {self} for user {user} already exists')
@@ -495,7 +519,7 @@ class Project(ProjectMixin, FsmHistoryStateModel):
         return membership.exists() and membership.first().enabled
 
     def _update_tasks_states(
-        self, maximum_annotations_changed, overlap_cohort_percentage_changed, tasks_number_changed
+            self, maximum_annotations_changed, overlap_cohort_percentage_changed, tasks_number_changed
     ):
         """
         Update tasks states after settings change
@@ -686,9 +710,9 @@ class Project(ProjectMixin, FsmHistoryStateModel):
                 if t.lower() == 'textarea':  # avoid textarea to_name check (see DEV-1598)
                     continue
                 if (
-                    not check_control_in_config_by_regex(config_string, from_name)
-                    or not check_toname_in_config_by_regex(config_string, to_name)
-                    or t not in get_all_types(config_string)
+                        not check_control_in_config_by_regex(config_string, from_name)
+                        or not check_toname_in_config_by_regex(config_string, to_name)
+                        or t not in get_all_types(config_string)
                 ):
                     diff_str.append(
                         f'{self.summary.created_annotations[ann_tuple]} '
@@ -715,12 +739,12 @@ class Project(ProjectMixin, FsmHistoryStateModel):
         for control_tag_from_data, labels_from_data in created_labels.items():
             # Check if labels created in annotations, and their control tag has been removed
             if (
-                labels_from_data
-                and (
+                    labels_from_data
+                    and (
                     (control_tag_from_data not in labels_from_config)
                     and (control_tag_from_data not in dynamic_label_from_config)
-                )
-                and not check_control_in_config_by_regex(config_string, control_tag_from_data)
+            )
+                    and not check_control_in_config_by_regex(config_string, control_tag_from_data)
             ):
                 raise ValidationError(
                     f'There are {sum(labels_from_data.values(), 0)} annotation(s) created with tag '
@@ -754,12 +778,12 @@ class Project(ProjectMixin, FsmHistoryStateModel):
                         diff_str += f'{label} ({", ".join(display)})\n'
 
                 if (strict is True) and (
-                    (control_tag_from_data not in dynamic_label_from_config)
-                    and (
-                        not check_control_in_config_by_regex(
-                            config_string, control_tag_from_data, filter=dynamic_label_from_config.keys()
+                        (control_tag_from_data not in dynamic_label_from_config)
+                        and (
+                                not check_control_in_config_by_regex(
+                                    config_string, control_tag_from_data, filter=dynamic_label_from_config.keys()
+                                )
                         )
-                    )
                 ):
                     # raise error if labels not dynamic and not in regex rules
                     raise ValidationError(
@@ -929,28 +953,25 @@ class Project(ProjectMixin, FsmHistoryStateModel):
 
     def get_member_ids(self):
         if hasattr(self, 'team_link'):
-            # project has defined team scope
-            # TODO: avoid checking team but rather add all project members when creating a project
+            # project has defined teams scope
+            # TODO: avoid checking teams but rather add all project members when creating a project
             return self.team_link.team.members.values_list('user', flat=True)
         else:
-            from users.models import User
-
-            # TODO: may want to return all users from organization
-            return User.objects.none()
+            return ProjectMember.objects.filter(project=self.pk).values_list('user', flat=True)
 
     def has_team_user(self, user):
         return hasattr(self, 'team_link') and self.team_link.team.has_user(user)
 
     def annotators(self):
-        """Annotators connected to this project including team members"""
+        """Annotators connected to this project including teams members"""
         from users.models import User
 
         member_ids = self.get_member_ids()
         team_members = User.objects.filter(id__in=member_ids).order_by('email')
 
         # add members from invited projects
-        project_member_ids = self.members.values_list('user__id', flat=True)
-        project_members = User.objects.filter(id__in=project_member_ids)
+        project_member_ids = self.members.values_list('user__id', flat=True)  # projectmember 테이블의 id 칼럼 값을 가져옴
+        project_members = User.objects.filter(id__in=project_member_ids)  # 위에서 가져온 id를 가지고 필터링
 
         annotators = team_members | project_members
 
@@ -1186,7 +1207,7 @@ class Project(ProjectMixin, FsmHistoryStateModel):
         num_tasks_updated = 0
         page_idx = 0
 
-        while task_ids_slice := task_ids[page_idx * settings.BATCH_SIZE : (page_idx + 1) * settings.BATCH_SIZE]:
+        while task_ids_slice := task_ids[page_idx * settings.BATCH_SIZE: (page_idx + 1) * settings.BATCH_SIZE]:
             with transaction.atomic():
                 # If counters are updated, is_labeled must be updated as well. Hence, if either fails, we
                 # will roll back.
@@ -1197,13 +1218,13 @@ class Project(ProjectMixin, FsmHistoryStateModel):
         return num_tasks_updated
 
     def _update_tasks_counters_and_task_states(
-        self,
-        queryset,
-        maximum_annotations_changed,
-        overlap_cohort_percentage_changed,
-        tasks_number_changed,
-        from_scratch=True,
-        recalculate_stats_counts: Optional[Mapping[str, int]] = None,
+            self,
+            queryset,
+            maximum_annotations_changed,
+            overlap_cohort_percentage_changed,
+            tasks_number_changed,
+            from_scratch=True,
+            recalculate_stats_counts: Optional[Mapping[str, int]] = None,
     ):
         """
         Update tasks counters and update tasks states (rearrange and/or is_labeled)
@@ -1235,11 +1256,10 @@ class Project(ProjectMixin, FsmHistoryStateModel):
                 """
                 SELECT id,
                        octet_length(result::text) AS bytes
-                FROM   task_completion
-                WHERE  project_id = %s
-                ORDER  BY octet_length(result::text) DESC
-                LIMIT  1
-            """,
+                FROM task_completion
+                WHERE project_id = %s
+                ORDER BY octet_length(result::text) DESC LIMIT  1
+                """,
                 [self.id],
             )
 
@@ -1262,11 +1282,10 @@ class Project(ProjectMixin, FsmHistoryStateModel):
                 """
                 SELECT id,
                        octet_length(data::text) AS bytes
-                FROM   task
-                WHERE  project_id = %s
-                ORDER  BY octet_length(data::text) DESC
-                LIMIT  1
-            """,
+                FROM task
+                WHERE project_id = %s
+                ORDER BY octet_length(data::text) DESC LIMIT  1
+                """,
                 [self.id],
             )
 
@@ -1371,7 +1390,6 @@ class ProjectOnboarding(models.Model):
 
 
 class LabelStreamHistory(models.Model):
-
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='histories', help_text='User ID'
     )
@@ -1382,19 +1400,7 @@ class LabelStreamHistory(models.Model):
         constraints = [models.UniqueConstraint(fields=['user', 'project'], name='unique_history')]
 
 
-class ProjectMember(models.Model):
-
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='project_memberships', help_text='User ID'
-    )
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='members', help_text='Project ID')
-    enabled = models.BooleanField(default=True, help_text='Project member is enabled')
-    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
-    updated_at = models.DateTimeField(_('updated at'), auto_now=True)
-
-
 class ProjectSummary(models.Model):
-
     project = AutoOneToOneField(Project, primary_key=True, on_delete=models.CASCADE, related_name='summary')
     created_at = models.DateTimeField(_('created at'), auto_now_add=True, help_text='Creation time')
 

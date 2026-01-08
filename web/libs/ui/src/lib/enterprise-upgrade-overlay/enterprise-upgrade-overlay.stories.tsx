@@ -43,7 +43,7 @@ export const ProjectDashboards: Story = {
   args: {
     title: "Get access to Project Dashboards!",
     description:
-      "Performance analytics are available within the Enterprise plan. Contact our sales team to get access to this and more!",
+      "Performance analytics are available within the Enterprise plan. Contact our sales teams to get access to this and more!",
     feature: "Project Dashboards",
     learnMoreUrl: "https://docs.humansignal.com/guide/dashboards.html",
   },
