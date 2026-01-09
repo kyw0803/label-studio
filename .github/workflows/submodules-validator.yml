@@ -28,6 +28,7 @@ jobs:
       - name: Validate
         uses: actions/github-script@v8
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const {repo, owner} = context.repo;
             const head_sha = '${{ github.event.pull_request.head.sha || github.event.after }}'

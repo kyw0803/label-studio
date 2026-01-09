@@ -6,7 +6,7 @@ tier: enterprise
 order: 0
 order_enterprise: 360
 meta_title: Support reports
-meta_description: Generate anonymized support reports so the HumanSignal team can diagnose issues, tune performance, and suggest better workflows for your Label Studio deployment.
+meta_description: Generate anonymized support reports so the HumanSignal teams can diagnose issues, tune performance, and suggest better workflows for your Label Studio deployment.
 section: "Manage Your Organization"
 parent_enterprise: "admin_settings"
 ---

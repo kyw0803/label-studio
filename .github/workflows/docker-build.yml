@@ -226,6 +226,7 @@ jobs:
       - name: Create Docker image tag Check
         uses: actions/github-script@v8
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { repo, owner } = context.repo;
             const details = {

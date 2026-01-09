@@ -1,5 +1,69 @@
 .projects-page {
+  display: flex;
   min-height: calc(100vh - var(--header-height));
+
+  &__sidebar {
+    width: 250px;
+    min-width: 250px;
+    border-right: 1px solid var(--color-neutral-border);
+    background: var(--color-neutral-surface);
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  &__workspaces-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-neutral-content);
+    margin: 0 0 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__workspaces-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__workspace-item {
+    padding: 10px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--color-neutral-content);
+    transition: all 0.2s ease;
+    background: transparent;
+
+    &:hover {
+      background: var(--color-neutral-surface-hover);
+    }
+
+    &_active {
+      background: var(--color-primary-surface);
+      color: var(--color-primary-content);
+      font-weight: 500;
+    }
+  }
+
+  &__empty-workspaces {
+    padding: 12px;
+    font-size: 14px;
+    color: var(--color-neutral-content-subtle);
+    text-align: center;
+  }
+
+  &__main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
 
   &__loading {
     width: 100%;
@@ -8,6 +72,16 @@
     align-items: center;
     justify-content: center;
     min-height: calc(100vh - var(--header-height));
+  }
+
+  &__error {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - var(--header-height));
+    color: var(--color-negative-content);
   }
 
   &__list {

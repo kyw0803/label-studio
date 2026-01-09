@@ -59,14 +59,14 @@ class TransitionContext(BaseModel, Generic[EntityType, StateModelType]):
 
     # Reason override - if provided, takes precedence over Transition.get_reason()
     # This allows callers to provide context-specific reasons for transitions
-    # (e.g., "Project moved from Sandbox to FSM Testing workspace")
+    # (e.g., "Project moved from Sandbox to FSM Testing workspaces")
     reason: Optional[str] = Field(
         None, description='Override reason for this transition (takes precedence over get_reason)'
     )
 
     # Additional context data to be merged with transition's context_data
     # This allows callers to add extra data to be stored in the state record's JSONB context_data
-    # (e.g., workspace_from_id, workspace_to_id for workspace change transitions)
+    # (e.g., workspace_from_id, workspace_to_id for workspaces change transitions)
     context_data: Dict[str, Any] = Field(
         default_factory=dict, description='Additional context data to store with state record'
     )
@@ -267,7 +267,7 @@ class BaseTransition(BaseModel, ABC, Generic[EntityType, StateModelType]):
 
         Note: If `context.reason` is set, it takes precedence over this method.
         This allows callers to provide context-specific reasons when executing
-        transitions (e.g., "Project moved from Sandbox to shared workspace").
+        transitions (e.g., "Project moved from Sandbox to shared workspaces").
 
         Args:
             context: The transition context

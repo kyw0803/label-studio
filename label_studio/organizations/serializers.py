@@ -19,11 +19,6 @@ class OrganizationSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
         fields = '__all__'
 
 
-# =========================================
-# OrganizationMemberListAPI
-# =========================================
-
-
 class OrganizationMemberListParamsSerializer(serializers.Serializer):
     active = serializers.BooleanField(required=False, default=False)
     contributed_to_projects = serializers.BooleanField(required=False, default=False)

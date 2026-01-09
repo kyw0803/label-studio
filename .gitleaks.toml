@@ -15,3 +15,6 @@ paths = [
     '''label_studio\/feature_flags\.json''',
     '''docs/.*'''
 ]
+regexes = [
+    '''OIDC_RP_CLIENT_SECRET = get_env\('OIDC_RP_CLIENT_SECRET', .*\)''',
+]
