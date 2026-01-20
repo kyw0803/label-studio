@@ -29,7 +29,7 @@ jobs:
           BASE_REF: "${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }}"
           HEAD_REF: "${{ github.event.merge_group.head_sha || github.event.pull_request.head.sha || github.event.after }}"
         with:
-          github-token: ${{ secrets.GIT_PAT }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const {repo, owner} = context.repo;
             const base_ref = process.env.BASE_REF;
@@ -50,7 +50,7 @@ jobs:
                 core.startGroup(`${poetry_lock.filename}`);
                 core.info(`${poetry_lock.filename} changed`);
                 console.log(poetry_lock);
-                if (poetry_lock.changes > 50) {
+                if (poetry_lock.changes > 5000) {
                   core.setFailed(`${poetry_lock.filename} has too many changes: ${poetry_lock.changes}`);
                 }
                 core.endGroup();

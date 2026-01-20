@@ -452,7 +452,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='projecttemplate',
             name='is_private',
-            field=models.BooleanField(default=True, help_text='If template is private, it is accessible only from private team', verbose_name='private'),
+            field=models.BooleanField(default=True, help_text='If template is private, it is accessible only from private teams', verbose_name='private'),
         ),
         migrations.AddField(
             model_name='projecttemplate',

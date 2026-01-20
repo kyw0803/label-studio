@@ -106,7 +106,7 @@ jobs:
         uses: softprops/action-gh-release@v2.5.0
         with:
           token: ${{ secrets.GIT_PAT }}
-          body_path: ${{ github.workspace }}-CHANGELOG.txt
+          body_path: ${{ github.workspaces }}-CHANGELOG.txt
           tag_name: nightly
           name: ${{ needs.calculate-version.outputs.version }}
           generate_release_notes: false

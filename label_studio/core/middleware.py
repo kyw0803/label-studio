@@ -113,6 +113,37 @@ class SetSessionUIDMiddleware(CommonMiddleware):
             request.session['uid'] = str(uuid4())
 
 
+class SessionCookieDebugMiddleware(CommonMiddleware):
+    """세션 쿠키 디버깅용 미들웨어"""
+    def process_request(self, request):
+        # 요청에 쿠키가 있는지 확인
+        cookie_header = request.META.get('HTTP_COOKIE', '')
+        session_cookie = request.COOKIES.get('sessionid', None)
+        
+        # 세션 데이터 확인 (인증 미들웨어 이후에 실행되므로 user 정보도 확인 가능)
+        session_user_id = None
+        if hasattr(request, 'session'):
+            session_user_id = request.session.get('_auth_user_id', None)
+        
+        user_info = 'AnonymousUser'
+        if hasattr(request, 'user'):
+            user_info = f"{request.user} (authenticated: {request.user.is_authenticated})"
+        
+        logger.error(f"DEBUG: [REQUEST] Path: {request.path}")
+        logger.error(f"DEBUG: [REQUEST] sessionid cookie: {session_cookie}")
+        logger.error(f"DEBUG: [REQUEST] Session key: {request.session.session_key if hasattr(request, 'session') else 'NO SESSION'}")
+        logger.error(f"DEBUG: [REQUEST] Session _auth_user_id: {session_user_id}")
+        logger.error(f"DEBUG: [REQUEST] request.user: {user_info}")
+        
+    def process_response(self, request, response):
+        # 응답에 Set-Cookie가 있는지 확인
+        set_cookie = response.get('Set-Cookie', '')
+        if set_cookie or request.path in ['/oidc/callback/', '/projects/']:
+            logger.error(f"DEBUG: [RESPONSE] Path: {request.path}")
+            logger.error(f"DEBUG: [RESPONSE] Set-Cookie header: {set_cookie[:200] if set_cookie else 'NONE'}")
+        return response
+
+
 class ContextLogMiddleware(CommonMiddleware):
     def __init__(self, get_response):
         self.get_response = get_response

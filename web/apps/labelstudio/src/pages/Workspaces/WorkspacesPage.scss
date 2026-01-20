@@ -1,0 +1,103 @@
+.workspaces-page {
+  display: flex;
+  height: 100%;
+  width: 100%;
+
+  &__sidebar {
+    width: 250px;
+    min-width: 250px;
+    border-right: 1px solid var(--color-neutral-border);
+    background: var(--color-neutral-surface);
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  &__workspaces-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-neutral-content);
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__workspaces-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__workspace-item {
+    padding: 10px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--color-neutral-content);
+    transition: all 0.2s ease;
+    background: transparent;
+
+    &:hover {
+      background: var(--color-neutral-surface-hover);
+    }
+
+    &_active {
+      background: var(--color-primary-surface);
+      color: var(--color-primary-content);
+      font-weight: 500;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  &__header {
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--color-neutral-content);
+      margin: 0;
+    }
+  }
+
+  &__loading,
+  &__error,
+  &__empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+  }
+
+  &__error {
+    color: var(--color-negative-content);
+  }
+
+  &__empty {
+    color: var(--color-neutral-content-subtle);
+  }
+
+  &__projects-content {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+

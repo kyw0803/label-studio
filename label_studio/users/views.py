@@ -103,6 +103,7 @@ def user_signup(request):
 @enforce_csrf_checks
 def user_login(request):
     """Login page"""
+    logger.info('login')
     user = request.user
     next_page = request.GET.get('next')
 
@@ -110,8 +111,12 @@ def user_login(request):
     if not next_page or not url_has_allowed_host_and_scheme(url=next_page, allowed_hosts=request.get_host()):
         if flag_set('fflag_all_feat_dia_1777_ls_homepage_short', user):
             next_page = reverse('main')
+            logger.error('go to main')
+
         else:
             next_page = reverse('projects:project-index')
+            logger.error('go to project')
+
 
     login_form = load_func(settings.USER_LOGIN_FORM)
     form = login_form()
@@ -124,6 +129,8 @@ def user_login(request):
         if form.is_valid():
             user = form.cleaned_data['user']
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            logger.error(f"DEBUG: Traditional Login Session Key: {request.session.session_key}")
+
             if form.cleaned_data['persist_session'] is not True:
                 # Set the session to expire when the browser is closed
                 request.session['keep_me_logged_in'] = False

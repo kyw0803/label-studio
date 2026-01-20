@@ -2,7 +2,7 @@ title: Red-Teaming in Chat
 type: enterprise
 group: Chat
 order: 4
-image: /static/templates/chat-red-team-exercises.png
+image: /static/templates/chat-red-teams-exercises.png
 details: |
   <h1>Stress-test your GenAI agent with structured red-teaming</h1>
   <dl>

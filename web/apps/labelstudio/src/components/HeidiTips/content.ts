@@ -32,7 +32,7 @@ export const defaultTipsCollection: TipsCollection = {
     {
       title: "Did you know?",
       content:
-        "In the Enterprise platform, admins can view annotator performance dashboards to optimize resource allocation, improve team management, and inform compensation.",
+        "In the Enterprise platform, admins can view annotator performance dashboards to optimize resource allocation, improve teams management, and inform compensation.",
       closable: true,
       link: {
         label: "Learn more",
@@ -46,7 +46,7 @@ export const defaultTipsCollection: TipsCollection = {
     {
       title: "Did you know?",
       content:
-        "You can control access to specific projects and workspaces for internal team members and external annotators using Label Studio Enterprise.",
+        "You can control access to specific projects and workspaces for internal teams members and external annotators using Label Studio Enterprise.",
       closable: true,
       link: {
         label: "Learn more",
@@ -88,9 +88,9 @@ export const defaultTipsCollection: TipsCollection = {
   ],
   organizationPage: [
     {
-      title: "It looks like your team is growing!",
+      title: "It looks like your teams is growing!",
       content:
-        "Assign roles to your team using Label Studio Enterprise and control access to sensitive data at the project and workspace levels.",
+        "Assign roles to your teams using Label Studio Enterprise and control access to sensitive data at the project and workspaces levels.",
       closable: true,
       link: {
         label: "Learn more",
@@ -103,7 +103,7 @@ export const defaultTipsCollection: TipsCollection = {
     },
     {
       title: "Want to simplify and secure logging in?",
-      content: "Enable Single Sign-On for your team using SAML, SCIM2 or LDAP with Label Studio Enterprise.",
+      content: "Enable Single Sign-On for your teams using SAML, SCIM2 or LDAP with Label Studio Enterprise.",
       closable: true,
       link: {
         label: "Learn more",
@@ -230,7 +230,7 @@ export const defaultTipsCollection: TipsCollection = {
     {
       title: "Did you know?",
       content:
-        "You can save time managing infrastructure and upgrades, plus access more features for automation, quality, and team management, by using the Enterprise cloud service.",
+        "You can save time managing infrastructure and upgrades, plus access more features for automation, quality, and teams management, by using the Enterprise cloud service.",
       closable: true,
       link: {
         label: "Learn more",

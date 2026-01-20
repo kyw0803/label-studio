@@ -34,9 +34,9 @@ export const GeneralSettings = () => {
 
               <TextArea name="description" label="Description" style={{ minHeight: 128 }} />
               {isFF(FF_LSDV_E_297) && (
-                <div className={cn("workspace-placeholder").toClassName()}>
-                  <div className={cn("workspace-placeholder").elem("badge-wrapper").toClassName()}>
-                    <div className={cn("workspace-placeholder").elem("title").toClassName()}>Workspace</div>
+                <div className={cn("workspaces-placeholder").toClassName()}>
+                  <div className={cn("workspaces-placeholder").elem("badge-wrapper").toClassName()}>
+                    <div className={cn("workspaces-placeholder").elem("title").toClassName()}>Workspace</div>
                     <EnterpriseBadge className="ml-2" />
                   </div>
                   <Select placeholder="Select an option" disabled options={[]} />

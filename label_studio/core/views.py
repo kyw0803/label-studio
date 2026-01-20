@@ -30,10 +30,13 @@ _PARAGRAPH_SAMPLE = None
 
 def main(request):
     user = request.user
+    logger.info(f"Main view accessed. User: {user}, Is Authenticated: {user.is_authenticated}")
 
     if user.is_authenticated:
+        logger.info(f"User active organization: {user.active_organization}")
 
         if user.active_organization is None and 'organization_pk' not in request.session:
+            logger.warning("User has no active organization, logging out.")
             logout(request)
             return redirect(reverse('user-login'))
 

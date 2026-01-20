@@ -24,7 +24,7 @@ env:
 jobs:
   sync:
     name: Sync PR
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latestb
     outputs:
       label-studio-sdk: "${{ fromJSON(steps.upstream-prs.outputs.shas).label-studio-sdk }}"
     steps:

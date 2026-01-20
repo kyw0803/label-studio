@@ -19,4 +19,10 @@
     <p><button type="submit" aria-label="Log In" class="lsf-button-ls lsf-button-ls_look_primary">Log in</button></p>
   </form>
 
+  <div class="field" style="margin-top: 20px;">
+<a href="{% url 'oidc_authentication_init' %}">
+    Login with Keycloak
+</a>
+  </div>
+
 {% endblock %}

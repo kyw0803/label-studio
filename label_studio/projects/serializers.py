@@ -29,7 +29,7 @@ from label_studio_sdk.label_interface.control_tags import (
     TimeSeriesLabelsTag,
     VideoRectangleTag,
 )
-from projects.models import Project, ProjectImport, ProjectOnboarding, ProjectReimport, ProjectSummary
+from projects.models import Project, ProjectImport, ProjectMember, ProjectOnboarding, ProjectReimport, ProjectSummary
 from rest_flex_fields import FlexFieldsModelSerializer
 from rest_framework import serializers
 from rest_framework.serializers import SerializerMethodField
@@ -255,6 +255,7 @@ class ProjectSerializer(FlexFieldsModelSerializer):
             'queue_done',
             'config_suitable_for_bulk_annotation',
             'state',
+            'workspace'
         ]
 
     def validate_label_config(self, value):
@@ -329,10 +330,25 @@ class ProjectCountsSerializer(ProjectSerializer):
         ]
 
 
+class AllocateProjectMemberTaskSerializer(serializers.ModelSerializer):
+    user = UserSimpleSerializer(read_only=True)
+
+    class Meta:
+        model = ProjectMember
+        fields = ['allocation_ratio', 'user', 'is_labeled']
+
+
+class ProjectMemberSerializer(serializers.ModelSerializer):
+    user = UserSimpleSerializer(read_only=True)
+
+    class Meta:
+        model = ProjectMember
+        fields = ('id', 'project', 'user', 'role')
+
+
 class ProjectOnboardingSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectOnboarding
-        fields = '__all__'
 
 
 class ProjectLabelConfigSerializer(serializers.Serializer):

@@ -13,6 +13,8 @@ DATABASES = {'default': DATABASES_ALL[DJANGO_DB]}
 
 MIDDLEWARE.append('organizations.middleware.DummyGetSessionMiddleware')
 MIDDLEWARE.append('core.middleware.UpdateLastActivityMiddleware')
+# 세션 쿠키 디버깅 미들웨어 (세션 미들웨어 이후에 추가)
+MIDDLEWARE.append('core.middleware.SessionCookieDebugMiddleware')
 if INACTIVITY_SESSION_TIMEOUT_ENABLED:
     MIDDLEWARE.append('core.middleware.InactivitySessionTimeoutMiddleWare')
 
@@ -26,7 +28,7 @@ DEBUG_PROPAGATE_EXCEPTIONS = get_bool_env('DEBUG_PROPAGATE_EXCEPTIONS', False)
 
 SESSION_COOKIE_SECURE = get_bool_env('SESSION_COOKIE_SECURE', False)
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 SENTRY_DSN = get_env('SENTRY_DSN', 'https://68b045ab408a4d32a910d339be8591a4@o227124.ingest.sentry.io/5820521')
 SENTRY_ENVIRONMENT = get_env('SENTRY_ENVIRONMENT', 'opensource')
@@ -63,3 +65,9 @@ except IOError:
     FEATURE_FLAGS_FROM_FILE = False
 
 STORAGE_PERSISTENCE = get_bool_env('STORAGE_PERSISTENCE', True)
+
+# [FIX] OIDC/Localhost 쿠키 문제 해결을 위한 강제 설정
+SESSION_COOKIE_SAMESITE = 'Lax'      # 크롬 등 최신 브라우저 호환성
+SESSION_COOKIE_SECURE = False        # HTTP(http://127.0.0.1)에서도 쿠키 허용
+CSRF_COOKIE_SECURE = False           # CSRF 쿠키도 HTTP 허용
+SESSION_SAVE_EVERY_REQUEST = True    # 매 요청마다 세션 저장/갱신 시도 (안전장치)

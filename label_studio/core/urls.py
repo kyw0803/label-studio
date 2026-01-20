@@ -31,6 +31,8 @@ from drf_spectacular.views import (
     SpectacularYAMLAPIView,
 )
 
+from users.oidc import CustomOIDCAuthenticationCallbackView
+
 urlpatterns = [
     re_path(r'^$', views.main, name='main'),
     re_path(r'^sw\.js$', views.static_file_with_host_resolver('js/sw.js', content_type='text/javascript')),
@@ -61,6 +63,13 @@ urlpatterns = [
     re_path(r'^static/(?P<path>.*)$', serve, kwargs={'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
     re_path(r'^', include('organizations.urls')),
     re_path(r'^', include('projects.urls')),
+    
+    # [추가] 워크스페이스 URL 포함
+    re_path(r'^', include('workspaces.urls')),
+    # OIDC 콜백 (세션 키 로그 확인용)
+    path('oidc/callback/', CustomOIDCAuthenticationCallbackView.as_view(), name='oidc_authentication_callback'),
+    path('oidc/', include('mozilla_django_oidc.urls')),
+
     re_path(r'^', include('data_import.urls')),
     re_path(r'^', include('data_manager.urls')),
     re_path(r'^', include('data_export.urls')),
