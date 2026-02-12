@@ -41,7 +41,7 @@ LANGSMITH_API_KEY=your_langsmith_api_key
 LANGSMITH_PROJECT=your_project_name
 LANGSMITH_TRACING=true
 
-# Label Studio Configuration  
+# Label Studio Configuration
 # Get your API key from Label Studio settings: https://docs.humansignal.com/
 LABEL_STUDIO_URL=https://app.humansignal.com  # or your Label Studio instance URL
 LABEL_STUDIO_API_KEY=your_label_studio_api_key
@@ -191,13 +191,13 @@ for i, question in enumerate(questions, 1):
     print(f"Response: {result['output'][:200]}...")
 ```
 
-    
+
 ```
     [1m> Entering new AgentExecutor chain...[0m
     [32;1m[1;3mTo answer this question, I should search for the latest research articles on Visual Language Models on arXiv. This will provide me with the most recent developments and studies in this field.
     Action: arxiv
     Action Input: "Visual Language Models" latest[0m[36;1m[1;3mNo good Arxiv Result was found[0m[32;1m[1;3mIt seems that the search query needs to be adjusted to find relevant and recent papers on Visual Language Models. I should try using related terms or recent developments in Visual Language Models to refine the search.
-    
+
     Action: arxiv
     Action Input: "Visual Grounding Language Models 2023"[0m[36;1m[1;3mPublished: 2024-01-09
     Title: Expand BERT Representation with Visual Information via Grounded Language Learning with Multimodal Partial Alignment
@@ -219,7 +219,7 @@ for i, question in enumerate(questions, 1):
     between the two modalities. Our proposed method significantly outperforms the
     baseline language models on various language tasks of the GLUE and SQuAD
     datasets.
-    
+
     Published: 2023-02-25
     Title: Visually-Augmented Language Modeling
     Authors: Weizhi Wang, Li Dong, Hao Cheng, Haoyu Song, Xiaodong Liu, Xifeng Yan, Jianfeng Gao, Furu Wei
@@ -239,7 +239,7 @@ for i, question in enumerate(questions, 1):
     VaLM outperforms all strong language-only and vision-language baselines with
     substantial gains in reasoning object commonsense including color, size, and
     shape. Our code is available at https://github.com/Victorwz/VaLM.
-    
+
     Published: 2023-02-13
     Title: Like a bilingual baby: The advantage of visually grounding a bilingual language model
     Authors: Khai-Nguyen Nguyen, Zixin Tang, Ankur Mali, Alex Kelly
@@ -254,35 +254,35 @@ for i, question in enumerate(questions, 1):
     advantages of visually grounded language models and point to the need for more
     naturalistic language data from multilingual speakers and multilingual datasets
     with perceptual grounding.[0m[32;1m[1;3mThe latest research on Visual Language Models explores various methods to enhance and ground language models with visual information. Here are some recent developments:
-    
+
     1. **GroundedBERT**: This study proposes a method to enhance BERT representations with visually grounded information. It combines BERT's contextual word representations with a visual grounding module that captures visual data. The approach uses Optimal Transport for partial alignment between these modalities and shows improved performance on language tasks compared to baseline models.
-    
+
     2. **VaLM (Visually-Augmented Language Modeling)**: This framework augments text tokens with images retrieved based on the textual context to enrich language models with visual knowledge such as colors, sizes, and shapes. The visually augmented context is processed using a visual knowledge fusion layer. VaLM has shown substantial improvements in visual commonsense reasoning tasks over traditional language-only models and vision-language baselines.
-    
+
     3. **Bilingual Language Modeling with Visual Grounding**: This research trains an LSTM model using bilingual (English and Spanish) datasets with visual grounding. It finds that visual grounding enhances the model's semantic understanding across languages and improves perplexity but does not significantly benefit the comprehension of abstract terms. This highlights the potential of visually grounded models but also their limitations with abstract language.
-    
+
     These studies indicate ongoing efforts to integrate visual information into language models for improved performance in multimodal and multilingual contexts.[0mInvalid Format: Missing 'Action:' after 'Thought:'[32;1m[1;3mFinal Answer: The latest research in Visual Language Models includes several innovative approaches:
-    
+
     1. **GroundedBERT**: This method enhances BERT with visually grounded information to improve the contextual understanding of text by addressing misalignments between text and visual data using Optimal Transport. It has shown superior performance on language tasks like GLUE and SQuAD.
-    
+
     2. **VaLM (Visually-Augmented Language Modeling)**: VaLM incorporates visual information by augmenting text with context-relevant images, using a visual knowledge fusion layer. It has demonstrated improved performance in visual commonsense reasoning tasks, surpassing both language-only and vision-language models.
-    
-    3. **Bilingual Language Modeling with Visual Grounding**: This research employs visual grounding in bilingual (English-Spanish) language models to enhance semantic similarity understanding across languages, although it shows less impact on abstract concepts. It underscores the benefits and limitations of using visual data in multilingual contexts. 
-    
+
+    3. **Bilingual Language Modeling with Visual Grounding**: This research employs visual grounding in bilingual (English-Spanish) language models to enhance semantic similarity understanding across languages, although it shows less impact on abstract concepts. It underscores the benefits and limitations of using visual data in multilingual contexts.
+
     These studies illustrate the significant impact of integrating visual information into language models, optimizing them for varied and complex tasks by providing them with additional contextual data from images.[0m
-    
+
     [1m> Finished chain.[0m
-    
+
     ✓ Run 1 completed. Run ID: 2401fa2a-9e96-4bbb-9441-f48375729d2a
     Question: What is the latest research on Visual Language Models?
     Response: The latest research in Visual Language Models includes several innovative approaches:
-    
+
     1. **GroundedBERT**: This method enhances BERT with visually grounded information to improve the contextual under...
-    
-    
+
+
     [1m> Entering new AgentExecutor chain...[0m
     [32;1m[1;3mTo find papers about reinforcement learning in robotics from the last year, I should search the arXiv database with a query that includes "reinforcement learning", "robotics", and filters the results to the last year. This should provide relevant and recent academic papers on the topic.
-    
+
     Action: arxiv
     Action Input: reinforcement learning robotics submittedDate:[2022-10-01 TO 2023-10-01][0m[36;1m[1;3mPublished: 2022-10-13
     Title: A Concise Introduction to Reinforcement Learning in Robotics
@@ -305,7 +305,7 @@ for i, question in enumerate(questions, 1):
     mind. Through a thorough analysis of this problem, we are able to manifest how
     reinforcement learning could be applied profitably, and also focus on
     open-ended questions, as well as the potential for future research.
-    
+
     Published: 2022-09-07
     Title: A Deep Reinforcement Learning Strategy for UAV Autonomous Landing on a Platform
     Authors: Z. Jiang, G. Song
@@ -329,7 +329,7 @@ for i, question in enumerate(questions, 1):
     problem of autonomous landing of drones. Experiments show the effectiveness of
     the algorithm, the task of autonomous landing of drones based on reinforcement
     learning achieved full success.
-    
+
     Published: 2022-05-20
     Title: Adversarial joint attacks on legged robots
     Authors: Takuto Otomo, Hiroshi Kera, Kazuhiko Kawamoto
@@ -343,92 +343,92 @@ for i, question in enumerate(questions, 1):
     neural networks trained by deep reinforcement learning. The black box attack
     can be applied to legged robots regardless of the architecture and algorithms
     of deep r[0m[32;1m[1;3mThe search returned relevant papers on reinforcement learning in robotics, published within the last year. Here are the details of the papers identified:
-    
+
     1. **A Concise Introduction to Reinforcement Learning in Robotics**
        - **Published:** 2022-10-13
        - **Authors:** Akash Nagaraj, Mukund Sood, Bhagya M Patil
        - **Summary:** This paper provides a survey of reinforcement learning in robotics, discussing its potential to address complex behaviors in robotics and evaluating its successes and challenges. It's aimed at aspiring researchers and provides essential concepts needed for research in this field.
-    
+
     2. **A Deep Reinforcement Learning Strategy for UAV Autonomous Landing on a Platform**
        - **Published:** 2022-09-07
        - **Authors:** Z. Jiang, G. Song
        - **Summary:** This paper explores the application of deep reinforcement learning for the autonomous landing of drones. The authors propose a framework using a physical simulation platform and demonstrate the effectiveness of continuous action space reinforcement learning algorithms for this task.
-    
+
     3. **Adversarial Joint Attacks on Legged Robots**
        - **Published:** 2022-05-20
        - **Authors:** Takuto Otomo, Hiroshi Kera, Kazuhiko Kawamoto
        - **Summary:** This study addresses adversarial attacks on the actuators of legged robots trained by deep reinforcement learning. The paper explores black-box adversarial attacks to demonstrate the vulnerability of robots and the impact on their stability and safety.
-    
+
     These papers provide a broad insight into recent research and developments in the use of reinforcement learning in robotics.[0mInvalid Format: Missing 'Action:' after 'Thought:'[32;1m[1;3mThe search returned relevant papers on reinforcement learning in robotics, published within the last year. Here are the details of the papers identified:
-    
+
     1. **A Concise Introduction to Reinforcement Learning in Robotics**
        - **Published:** 2022-10-13
        - **Authors:** Akash Nagaraj, Mukund Sood, Bhagya M Patil
        - **Summary:** This paper provides a survey of reinforcement learning in robotics, discussing its potential to address complex behaviors in robotics and evaluating its successes and challenges. It's aimed at aspiring researchers and provides essential concepts needed for research in this field.
-    
+
     2. **A Deep Reinforcement Learning Strategy for UAV Autonomous Landing on a Platform**
        - **Published:** 2022-09-07
        - **Authors:** Z. Jiang, G. Song
        - **Summary:** This paper explores the application of deep reinforcement learning for the autonomous landing of drones. The authors propose a framework using a physical simulation platform and demonstrate the effectiveness of continuous action space reinforcement learning algorithms for this task.
-    
+
     3. **Adversarial Joint Attacks on Legged Robots**
        - **Published:** 2022-05-20
        - **Authors:** Takuto Otomo, Hiroshi Kera, Kazuhiko Kawamoto
        - **Summary:** This study addresses adversarial attacks on the actuators of legged robots trained by deep reinforcement learning. The paper explores black-box adversarial attacks to demonstrate the vulnerability of robots and the impact on their stability and safety.
-    
+
     These papers provide a broad insight into recent research and developments in the use of reinforcement learning in robotics.[0mInvalid Format: Missing 'Action:' after 'Thought:'[32;1m[1;3mHere are the recent papers on reinforcement learning in robotics from the last year:
-    
+
     1. **A Concise Introduction to Reinforcement Learning in Robotics**
        - **Published:** 2022-10-13
        - **Authors:** Akash Nagaraj, Mukund Sood, Bhagya M Patil
        - **Summary:** This paper surveys the field of reinforcement learning in robotics, focusing on its application in addressing sophisticated behaviors in robotics and evaluating both its successes and challenges. It serves as a reference for aspiring researchers by introducing essential concepts needed for research in this area.
-    
+
     2. **A Deep Reinforcement Learning Strategy for UAV Autonomous Landing on a Platform**
        - **Published:** 2022-09-07
        - **Authors:** Z. Jiang, G. Song
        - **Summary:** The paper discusses using deep reinforcement learning for the autonomous landing of drones. It presents a framework utilizing physical simulation platforms, demonstrating the effectiveness of continuous action space reinforcement learning algorithms in achieving successful drone landings.
-    
+
     These papers highlight ongoing research and developments in the application of reinforcement learning techniques to robotics.[0mInvalid Format: Missing 'Action:' after 'Thought:'[32;1m[1;3mI found some recent papers related to reinforcement learning in robotics. Here are the details:
-    
+
     1. **A Concise Introduction to Reinforcement Learning in Robotics**
        - **Published:** 2022-10-13
        - **Authors:** Akash Nagaraj, Mukund Sood, Bhagya M Patil
        - **Summary:** This paper surveys the field of reinforcement learning in robotics, highlighting its potential to address complex behaviors and challenges in robotics. It serves as an introductory reference for researchers interested in reinforcement learning applications in robotics.
-    
+
     2. **A Deep Reinforcement Learning Strategy for UAV Autonomous Landing on a Platform**
        - **Published:** 2022-09-07
        - **Authors:** Z. Jiang, G. Song
        - **Summary:** This study explores the use of deep reinforcement learning for the autonomous landing of drones, demonstrating the effectiveness of continuous action space reinforcement learning algorithms when integrated with a physical simulation platform.
-    
+
     These papers offer insights into the current research landscape of reinforcement learning in robotics from the last year.[0mInvalid Format: Missing 'Action:' after 'Thought:'[32;1m[1;3mI now know the final answer.
-    
+
     Final Answer: Here are some recent papers on reinforcement learning in robotics from the last year:
-    
+
     1. **A Concise Introduction to Reinforcement Learning in Robotics**
        - **Published:** 2022-10-13
        - **Authors:** Akash Nagaraj, Mukund Sood, Bhagya M Patil
        - **Summary:** This paper provides a survey of reinforcement learning in robotics, focusing on its potential to address complex behaviors and evaluating both successes and challenges. It serves as a reference guide for aspiring researchers.
-    
+
     2. **A Deep Reinforcement Learning Strategy for UAV Autonomous Landing on a Platform**
        - **Published:** 2022-09-07
        - **Authors:** Z. Jiang, G. Song
        - **Summary:** The study applies deep reinforcement learning to the autonomous landing of drones using a physical simulation platform, demonstrating the effectiveness of continuous action space reinforcement learning algorithms.
-    
+
     These papers highlight ongoing research and developments in applying reinforcement learning techniques to robotics.[0m
-    
+
     [1m> Finished chain.[0m
-    
+
     ✓ Run 2 completed. Run ID: e92abdf7-c2c0-4acf-b26f-f0cf18745595
     Question: Find papers about reinforcement learning in robotics from the last year
     Response: Here are some recent papers on reinforcement learning in robotics from the last year:
-    
+
     1. **A Concise Introduction to Reinforcement Learning in Robotics**
        - **Published:** 2022-10-13
        - **Authors...
-    
-    
+
+
     [1m> Entering new AgentExecutor chain...[0m
-    [32;1m[1;3mTo answer this question, I will search for recent papers on transformer architectures on arXiv to get the latest innovations and developments. 
+    [32;1m[1;3mTo answer this question, I will search for recent papers on transformer architectures on arXiv to get the latest innovations and developments.
     Action: arxiv
     Action Input: "latest innovations transformer architectures 2023"[0m[36;1m[1;3mPublished: 2023-06-02
     Title: Transforming ECG Diagnosis:An In-depth Review of Transformer-based DeepLearning Models in Cardiovascular Disease Detection
@@ -447,7 +447,7 @@ for i, question in enumerate(questions, 1):
     challenges in their application and suggest potential future improvements. This
     review serves as a valuable resource for researchers and practitioners and aims
     to shed light on this innovative application in ECG interpretation.
-    
+
     Published: 2023-09-13
     Title: Edge-MoE: Memory-Efficient Multi-Task Vision Transformer Architecture with Task-level Sparsity via Mixture-of-Experts
     Authors: Rishov Sarkar, Hanxue Liang, Zhiwen Fan, Zhangyang Wang, Cong Hao
@@ -472,7 +472,7 @@ for i, question in enumerate(questions, 1):
     efficiency comparing with GPU and CPU, respectively. A real-time video
     demonstration is available online, along with our open-source code written
     using High-Level Synthesis.
-    
+
     Published: 2025-08-04
     Title: YOLOv1 to YOLOv11: A Comprehensive Survey of Real-Time Object Detection Innovations and Challenges
     Authors: Manikanta Kotthapalli, Deepika Ravipati, Reshma Bhatia
@@ -488,19 +488,19 @@ for i, question in enumerate(questions, 1):
     industrial automation. This paper offers a comprehensive review of the YOLO
     family, highlighting architectural innovations, performance benchmarks,
     ext[0m[32;1m[1;3mWhile not directly applicable, the provided paper on YOLO highlights innovations in real-time object detection rather than transformers. It is clear I should focus on details specifically concerning transformers, especially in new roles or applications.
-    
+
     Here are some significant innovations from the retrieved papers on transformer architectures:
-    
+
     1. **Transformers in ECG Diagnosis**: Transformers, originally developed for natural language processing, have found new applications in ECG data analysis due to their ability to capture complex temporal relationships within biological signals. These models surpass traditional methods in real-time and accurate diagnostics, suggesting new potential for improving cardiovascular disease detection.
-    
+
     2. **Edge-MoE Vision Transformers**: Innovations like Edge-MoE reflect an effort to enhance the computational efficiency of Vision Transformers. This architecture combines multi-task learning with sparse activation of subnetworks, yielding performance gains while necessitating architectural innovations for hardware like FPGA. The methods utilized here, like reordering and approximations for softmax, illustrate ongoing efforts to balance performance with resource efficiency in transformers.
-    
-    These examples demonstrate transformers stretching beyond natural language to domains like medical data analysis, with adaptations in hardware for efficiency. This expansion into diverse tasks showcases their adaptability and the continuous evolution of their architectures. 
-    
+
+    These examples demonstrate transformers stretching beyond natural language to domains like medical data analysis, with adaptations in hardware for efficiency. This expansion into diverse tasks showcases their adaptability and the continuous evolution of their architectures.
+
     Final Answer: Recent innovations in transformer architectures include their application to ECG diagnostics for better capturing temporal relationships, and advancements like Edge-MoE, which enhance computational efficiency in Vision Transformers through novel FPGA architectural techniques.[0m
-    
+
     [1m> Finished chain.[0m
-    
+
     ✓ Run 3 completed. Run ID: ae390f69-6922-43f1-a98a-36c5da9f1af8
     Question: Explain the latest innovations in transformer architectures based on recent papers
     Response: Recent innovations in transformer architectures include their application to ECG diagnostics for better capturing temporal relationships, and advancements like Edge-MoE, which enhance computational ef...
@@ -1037,7 +1037,7 @@ with open('tasks.json', mode='w') as f:
 ```
 
     Using existing project: pr-another-pamphlet-4
-    
+
     ✓ Successfully imported 24 tasks to Label Studio
     Go to: https://app.humansignal.com/projects/193998/data
 
@@ -1086,19 +1086,19 @@ print("\n💡 Share this link with your Subject Matter Experts to begin evaluati
 print("\n" + "="*80)
 ```
 
-    
+
     ================================================================================
     🎉 SETUP COMPLETE!
     ================================================================================
-    
+
     📊 Project: pr-another-pamphlet-4
     📝 Tasks imported: None
-    
+
     🔗 Start annotating:
        https://app.humansignal.com/projects/193998/labeling
-    
+
     💡 Share this link with your Subject Matter Experts to begin evaluation
-    
+
     ================================================================================
 
 

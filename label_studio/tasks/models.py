@@ -3,6 +3,7 @@
 import base64
 import datetime
 import logging
+import math
 import numbers
 import os
 import random
@@ -192,6 +193,41 @@ class Task(TaskMixin, FsmHistoryStateModel):
     @property
     def file_upload_name(self):
         return os.path.basename(self.file_upload.file.name)
+
+    @classmethod
+    def task_random_sampling(cls, project, percentage):
+        task_ids = list(Task.objects.filter(project=project, status=Task.Status.UPLOADED).values_list('id', flat=True))
+        fetch_count = math.ceil(len(task_ids) * (percentage / 100))
+
+        random_ids = random.sample(task_ids, fetch_count)
+
+        return random_ids
+
+    def allocate_task_with_ratio(cls, ids, id__ratio):
+        total_tasks = len(ids)
+        if total_tasks == 0:
+            return []
+
+        random.shuffle(ids)
+        result = []
+        current_index = 0
+
+        for user_id, ratio in id__ratio.items():
+            if ratio <= 0:
+                continue
+
+            count = int(total_tasks * (ratio / 100))
+
+            if current_index + count > total_tasks:
+                count = total_tasks - current_index
+
+            assigned_ids = ids[current_index : current_index + count]
+            result.append(user_id, assigned_ids)
+            current_index += count
+
+            if current_index >= total_tasks:
+                break
+        return result
 
     @classmethod
     def get_random(cls, project):
@@ -566,8 +602,13 @@ class Task(TaskMixin, FsmHistoryStateModel):
         return result
 
 
-pre_bulk_create = Signal()   # providing args 'objs' and 'batch_size'
-post_bulk_create = Signal()   # providing args 'objs' and 'batch_size'
+pre_bulk_create = Signal()  # providing args 'objs' and 'batch_size'
+post_bulk_create = Signal()  # providing args 'objs' and 'batch_size'
+
+
+class TaskAssignment(models.Model):
+    processed_by = models.ForeignKey('projects.ProjectMember', on_delete=models.CASCADE, related_name='tasks')
+    task = models.ForeignKey('tasks.Task', on_delete=models.CASCADE, related_name='worker')
 
 
 class AnnotationQuerySet(models.QuerySet):

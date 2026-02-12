@@ -6,7 +6,7 @@ type: guide
 order: 50
 order_enterprise: 0
 meta_title: Quick start guide for Label Studio
-meta_description: Quick start guide for installing Label Studio and creating a new project. 
+meta_description: Quick start guide for installing Label Studio and creating a new project.
 section: "Install & Setup"
 date: 2023-11-27 13:34:32
 ---
@@ -32,6 +32,4 @@ label-studio start
 You're ready to start [labeling and annotating your data](labeling.html)!
 
 !!! info Tip
-    For a quickstart tutorial that includes demo data, see [Zero to One: Getting Started with Label Studio](https://labelstud.io/blog/zero-to-one-getting-started-with-label-studio/). 
-
-
+    For a quickstart tutorial that includes demo data, see [Zero to One: Getting Started with Label Studio](https://labelstud.io/blog/zero-to-one-getting-started-with-label-studio/).

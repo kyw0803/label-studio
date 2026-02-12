@@ -27,7 +27,7 @@ Basic labeling configuration to apply labels to a passage of text
   <Text name="txt-1" value="$text" />
 </View>
 ```
-**Example** *(This part of config with dynamic labels)*  
+**Example** *(This part of config with dynamic labels)*
 ```html
 <Labels name="product" toName="shelf" value="$brands" />
 <!-- {
@@ -41,7 +41,7 @@ Basic labeling configuration to apply labels to a passage of text
   }
 } -->
 ```
-**Example** *(is equivalent to this config)*  
+**Example** *(is equivalent to this config)*
 ```html
 <Labels name="product" toName="shelf">
   <Label value="Big brand" />

@@ -4,8 +4,6 @@ import { Draggable } from "react-beautiful-dnd";
 import { sanitizeHtml } from "../../utils/html";
 import type { InputItem } from "./createData";
 import { CollapsedContext } from "./Ranker";
-import { IconChevron, IconChevronDown } from "@humansignal/icons";
-import { Button, Typography } from "@humansignal/ui";
 
 import styles from "./Ranker.module.scss";
 
@@ -44,21 +42,9 @@ const Item = (props: ItemProps) => {
             data-ranker-id={item.id}
           >
             {item.title && (
-              <div className={styles.itemTitle} onClick={toggle}>
-                <Typography variant="title" size="small">
-                  {item.title}
-                </Typography>
-                {collapsible && (
-                  <Button
-                    type="button"
-                    variant="neutral"
-                    leading={collapsed ? <IconChevronDown /> : <IconChevron />}
-                    look="string"
-                    size="small"
-                    className="ml-auto"
-                  />
-                )}
-              </div>
+              <h3 className={styles.itemTitle} onClick={toggle}>
+                {item.title}
+              </h3>
             )}
             {item.body && <p className={styles.itemLine}>{item.body}</p>}
             {item.html && <p className={styles.itemLine} dangerouslySetInnerHTML={{ __html: html }} />}

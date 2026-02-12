@@ -1,5 +1,5 @@
 ---
-title: Interactive bounding boxes OCR with Tesseract 
+title: Interactive bounding boxes OCR with Tesseract
 type: guide
 tier: all
 order: 55
@@ -16,7 +16,7 @@ image: "/guide/ml_tutorials/tesseract.png"
 
 # Interactive bounding boxes OCR using Tesseract
 
-Use an OCR engine for interactive ML-assisted labeling, facilitating faster 
+Use an OCR engine for interactive ML-assisted labeling, facilitating faster
 annotation for layout detection, classification, and recognition
 models.
 
@@ -32,11 +32,11 @@ MinIO.
 Before you begin:
 * Ensure git is installed
 * Ensure Docker Compose is installed. For MacOS and Windows users,
-   we suggest using Docker Desktop. 
+   we suggest using Docker Desktop.
 
-You must also install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart). 
+You must also install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart).
 
-This tutorial uses the [`tesseract` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/tesseract). 
+This tutorial uses the [`tesseract` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/tesseract).
 
 ### 1. Install Label Studio
 
@@ -68,20 +68,20 @@ Create a new project for Tesseract OCR. In the project **Settings** set up the *
 
    Fill in the following template code. It's important to specify `smart="true"` in `RectangleLabels`.
    ```
-   <View>    
+   <View>
       <Image name="image" value="$ocr" zoom="true" zoomControl="false"
             rotateControl="true" width="100%" height="100%"
             maxHeight="auto" maxWidth="auto"/>
-      
+
       <RectangleLabels name="bbox" toName="image" strokeWidth="1" smart="true">
          <Label value="Label1" background="green"/>
          <Label value="Label2" background="blue"/>
          <Label value="Label3" background="red"/>
       </RectangleLabels>
 
-      <TextArea name="transcription" toName="image" 
-      editable="true" perRegion="true" required="false" 
-      maxSubmissions="1" rows="5" placeholder="Recognized Text" 
+      <TextArea name="transcription" toName="image"
+      editable="true" perRegion="true" required="false"
+      maxSubmissions="1" rows="5" placeholder="Recognized Text"
       displayMode="region-list"/>
    </View>
    ```
@@ -113,11 +113,11 @@ Depending on your data ingestion method, several configurations are possible:
 
 **Local File Storage**
 
-If you opted to use Label Studio Local File Storage, be sure to set the `LABEL_STUDIO_HOST` and `LABEL_STUDIO_ACCESS_TOKEN` variables. 
+If you opted to use Label Studio Local File Storage, be sure to set the `LABEL_STUDIO_HOST` and `LABEL_STUDIO_ACCESS_TOKEN` variables.
 
 **S3-Compatible Storage (MinIO or AWS S3)**
 
-Configure the backend and the MinIO server by editing the `MINIO_ROOT_USER` AND `MINIO_ROOT_PASSWORD` variables, and make the 
+Configure the backend and the MinIO server by editing the `MINIO_ROOT_USER` AND `MINIO_ROOT_PASSWORD` variables, and make the
    `AWS_ACCESS_KEY_ID` AND `AWS_SECRET_ACCESS_KEY` variables equal to those values. You may optionally connect to your
    own AWS cloud storage by setting those variables. Note that you may need to make additional software changes to the
    `tesseract.py` file to match your particular infrastructure configuration.
@@ -142,13 +142,13 @@ If you host your images on any other public storage with `http` or `https` acces
 
    If you're using MinIO for task storage, log into the MinIO control panel at
    `http://localhost:9001`. Create a new bucket, making a note of the name, and
-   upload your tasks to MinIO. 
-   
+   upload your tasks to MinIO.
+
    Set the visibility of the tasks to be public.
    Further configuration of your cloud storage is beyond the scope of this
    tutorial, and you will want to configure your storage according to your
-   particular needs. 
-   
+   particular needs.
+
 
 If using MinIO, go to the [**Cloud storage** page](https://labelstud.io/guide/project_settings#Cloud-storage) in the project settings.
 
@@ -172,6 +172,6 @@ Example below:
 
 ![ls_demo_ocr](https://user-images.githubusercontent.com/17755198/165186574-05f0236f-a5f2-4179-ac90-ef11123927bc.gif)
 
-Reference links: 
+Reference links:
 - https://labelstud.io/blog/improve-ocr-quality-for-receipt-processing-with-tesseract-and-label-studio
 - https://labelstud.io/blog/release-130.html

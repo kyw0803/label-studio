@@ -45,5 +45,3 @@ stages:
     json:
       task_count: 1
     status_code: 201
-
-

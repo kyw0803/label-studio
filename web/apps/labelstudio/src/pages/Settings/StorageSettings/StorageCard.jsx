@@ -5,7 +5,15 @@ import { ApiContext } from "../../../providers/ApiProvider";
 import { StorageSummary } from "./StorageSummary";
 import { IconEllipsisVertical } from "@humansignal/icons";
 
-export const StorageCard = ({ rootClass, target, storage, onEditStorage, onDeleteStorage, storageTypes }) => {
+export const StorageCard = ({
+  rootClass,
+  target,
+  storage,
+  onEditStorage,
+  onDeleteStorage,
+  storageTypes,
+  onManageStorage,
+}) => {
   const [syncing, setSyncing] = useState(false);
   const api = useContext(ApiContext);
   const [storageData, setStorageData] = useState({ ...storage });
@@ -64,15 +72,21 @@ export const StorageCard = ({ rootClass, target, storage, onEditStorage, onDelet
       />
       <div className={rootClass.elem("sync")}>
         <div className="mt-base">
-          <Button
-            look="outlined"
-            waiting={syncing}
-            onClick={startSync}
-            disabled={notSyncedYet}
-            aria-label="Sync Storage"
-          >
-            Sync Storage
-          </Button>
+          {target === "import" && !storageData.project ? (
+            <Button look="outlined" onClick={() => onManageStorage?.(storageData)} aria-label="Manage Storage">
+              Manage Storage
+            </Button>
+          ) : (
+            <Button
+              look="outlined"
+              waiting={syncing}
+              onClick={startSync}
+              disabled={notSyncedYet}
+              aria-label="Sync Storage"
+            >
+              Sync Storage
+            </Button>
+          )}
           {notSyncedYet && (
             <div className={rootClass.elem("sync-count")}>
               Syncing may take some time, please refresh the page to see the current status.

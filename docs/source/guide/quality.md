@@ -14,7 +14,7 @@ After multiple labelers have annotated tasks, review their output to validate th
 
 The annotation review workflow is only available in Label Studio Enterprise Edition. If you're using Label Studio Community Edition, see <a href="https://labelstud.io/guide/label_studio_compare.html">Label Studio Features</a> to learn more.
 
-See the following video for an overview of reviewer workflows: 
+See the following video for an overview of reviewer workflows:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dhBrphE7PHo?si=YMRI-omwxoQFuhma" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
@@ -28,13 +28,13 @@ Data labeling is a crucial step for training many machine learning models, and i
 After you [assign reviewers to tasks](#Assign-reviewers-to-tasks), they can review annotated tasks. Administrators and project managers can review tasks at any time, without being added to a project.
 
 1. Reviewers can click **Review Annotations** for a specific project, then click **Review All Tasks** on the Data Manager to start reviewing tasks. Administrators and project managers can click tasks from the Data Manager or **Explore Review**.
-2. Review the first task and annotation. 
+2. Review the first task and annotation.
 
-    By default, you view the tasks in the order in which they were presented to the annotator. If you want to change the order that you review tasks, see [Choose what to review](#Choose-what-to-review). 
-    
-    - If the annotation is correct, click **Accept**. 
-    
-    - If the annotation is mostly correct, you can correct it by selecting a different option, changing the selected region, moving the bounding box, or whichever makes sense for the type of label you're reviewing. After correcting the annotation, click **Fix & Accept**. 
+    By default, you view the tasks in the order in which they were presented to the annotator. If you want to change the order that you review tasks, see [Choose what to review](#Choose-what-to-review).
+
+    - If the annotation is correct, click **Accept**.
+
+    - If the annotation is mostly correct, you can correct it by selecting a different option, changing the selected region, moving the bounding box, or whichever makes sense for the type of label you're reviewing. After correcting the annotation, click **Fix & Accept**.
     - If the annotation is completely incorrect, or you don't want to attempt to correct it at all, click **Reject** to reject the annotation. To place a rejected task back in the Label Stream for annotation, you must delete the annotation. Rejecting an annotation does not return it to annotators to re-label.
 
 3. Continue reviewing annotated tasks until you've reviewed all annotated tasks. Click **Data Manager** to return to the list of tasks for the project.
@@ -127,7 +127,7 @@ For example, if you're developing a dataset of OCR images, and 90% of your tasks
 
 ## Pause an annotator
 
-For organizations with a large number of annotators, it might prove useful to pause an annotator's progress. This might be helpful for annotators that are performing poorly or exhibiting behavior that might indicate they have automated their work (bot behavior). 
+For organizations with a large number of annotators, it might prove useful to pause an annotator's progress. This might be helpful for annotators that are performing poorly or exhibiting behavior that might indicate they have automated their work (bot behavior).
 
 ### Manually pause an annotator
 
@@ -137,27 +137,27 @@ You can manually pause annotators from the Members dashboard in a project. This 
 
 When a user is paused, the following occurs:
 
-* They immediately see a message informing them that they have been paused. 
+* They immediately see a message informing them that they have been paused.
 
     ![Screenshot of message](/images/review/paused-message.png)
-* Their progress within their current task is saved as a draft, but they cannot make any further changes.   
-* When they click **Go Back**, they are returned to the Projects page. If they attempt to re-enter the project, they are shown the error message above. 
+* Their progress within their current task is saved as a draft, but they cannot make any further changes.
+* When they click **Go Back**, they are returned to the Projects page. If they attempt to re-enter the project, they are shown the error message above.
 
 !!! info Tip
 
-    If you hover over the **Paused** indicator, you can see the message that was shown to the user when they were paused. If a user was manually paused, it also shows who initiated the action.  
+    If you hover over the **Paused** indicator, you can see the message that was shown to the user when they were paused. If a user was manually paused, it also shows who initiated the action.
 
     ![Screenshot of hover](/images/review/paused-tooltip.png)
 
-### Automatically pause annotators 
+### Automatically pause annotators
 
 #### Annotation Limit settings
 
-You can use **Settings > Quality > Annotation Limit** to set limits on how many tasks an annotator is able to complete before they are paused. For more information, see [Annotation Limit](project_settings_lse#annotation-limit). 
+You can use **Settings > Quality > Annotation Limit** to set limits on how many tasks an annotator is able to complete before they are paused. For more information, see [Annotation Limit](project_settings_lse#annotation-limit).
 
 #### Behavior-based triggers
 
-If you have [plugins](plugins) enabled, you can automatically pause an annotator based on certain behaviors and then customize the message that appears on their screen. 
+If you have [plugins](plugins) enabled, you can automatically pause an annotator based on certain behaviors and then customize the message that appears on their screen.
 
 For more information, see [Plugins - Spam and Bot Detection](/plugins/pause_annotator).
 
@@ -183,7 +183,7 @@ Review a table to see the following for each annotator:
 - The agreement of their annotations with the ground truth annotations, if there are any.
 - The agreement of their annotations with predicted annotations, if there are any.
 
-See the following video for an overview of annotator agreement metrics: 
+See the following video for an overview of annotator agreement metrics:
 
 <iframe class="video-border" width="560" height="315" src="https://www.youtube.com/embed/Lo_PVE9Pyw4?si=z1vtyI_xIo8aR8fY" width="100%" height="400vh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

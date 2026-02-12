@@ -24,9 +24,9 @@ available on [GitHub](https://github.com/urchade/GLiNER).
 
 ## Before you begin
 
-Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart). 
+Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart).
 
-This tutorial uses the [`gliner` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/gliner). 
+This tutorial uses the [`gliner` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/gliner).
 
 
 ## Running with Docker (recommended)

@@ -6,18 +6,18 @@ jest.mock("../../../../utils/bem", () => ({
   cn: (block: string) => ({
     elem: (elem: string) => ({
       toClassName: () => `dm-${block}__${elem}`,
-      mod: (mods: any) => ({
+      mod: (_mods: any) => ({
         toClassName: () => `dm-${block}__${elem}`,
       }),
     }),
-    mod: (mods: any) => ({
+    mod: (_mods: any) => ({
       toClassName: () => `dm-${block}`,
-      mix: (...args: any[]) => ({
+      mix: (..._args: any[]) => ({
         toClassName: () => `dm-${block}`,
       }),
     }),
     toClassName: () => `dm-${block}`,
-    mix: (...args: any[]) => ({
+    mix: (..._args: any[]) => ({
       toClassName: () => `dm-${block}`,
     }),
   }),

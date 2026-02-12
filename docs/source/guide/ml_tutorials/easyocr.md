@@ -16,7 +16,7 @@ image: "/guide/ml_tutorials/easyocr.png"
 
 # EasyOCR model connection
 
-The [EasyOCR](https://github.com/JaidedAI/EasyOCR) model connection is a powerful tool that integrates the capabilities of EasyOCR with Label Studio. It is designed to assist in machine learning labeling tasks, specifically those involving Optical Character Recognition (OCR). 
+The [EasyOCR](https://github.com/JaidedAI/EasyOCR) model connection is a powerful tool that integrates the capabilities of EasyOCR with Label Studio. It is designed to assist in machine learning labeling tasks, specifically those involving Optical Character Recognition (OCR).
 
 The primary function of this connection is to recognize and extract text from images, which can be a crucial step in many machine learning workflows. By automating this process, the EasyOCR model connection can significantly increase efficiency, reducing the time and effort required for manual text extraction.
 
@@ -24,9 +24,9 @@ In the context of Label Studio, this connection enhances the platform's labeling
 
 ## Before you begin
 
-Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart). 
+Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart).
 
-This tutorial uses the [`easyocr` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/easyocr). 
+This tutorial uses the [`easyocr` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/easyocr).
 
 ## Labeling configuration
 
@@ -112,7 +112,7 @@ The EasyOCR model connection offers several configuration options that can be se
 - `WORKERS`: Specifies the number of workers for the model server.
 - `THREADS`: Specifies the number of threads for the model server.
 - `MODEL_DIR`: Specifies the model directory.
-- `LANG_LIST`: Specifies the list of languages to be used by the OCR model, separated by commas (default: `mn,en`). 
+- `LANG_LIST`: Specifies the list of languages to be used by the OCR model, separated by commas (default: `mn,en`).
 - `SCORE_THRESHOLD`: Sets the score threshold to filter out noisy results.
 - `LABEL_MAPPINGS_FILE`: Specifies the file with mappings from COCO labels to custom labels.
 - `DEVICE`: Specifies the device to be used (cpu, cuda:0, cuda:1, etc.).

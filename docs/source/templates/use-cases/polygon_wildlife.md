@@ -55,7 +55,7 @@ Use the <a href="https://labelstud.io/tags/image">Image</a> object tag to specif
 <Image name="image" value="$image" zoom="true"/>
 ```
 
-Use the <a href="https://labelstud.io/tags/polygonlabels">PolygonLabels</a> control tag to allow annotators to create polygons for specific labels. 
+Use the <a href="https://labelstud.io/tags/polygonlabels">PolygonLabels</a> control tag to allow annotators to create polygons for specific labels.
 
 ```xml
 <PolygonLabels name="label" toName="image"

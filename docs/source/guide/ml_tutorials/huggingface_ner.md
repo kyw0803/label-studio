@@ -6,7 +6,7 @@ order: 25
 hide_menu: true
 hide_frontmatter_title: true
 meta_title: Label Studio tutorial to run Hugging Face NER backend
-meta_description: This tutorial explains how to run a Hugging Face NER backend in Label Studio. 
+meta_description: This tutorial explains how to run a Hugging Face NER backend in Label Studio.
 categories:
     - Natural Language Processing
     - Named Entity Recognition
@@ -20,16 +20,16 @@ This project uses a custom machine learning backend model for Named Entity Recog
 
 The model instantiates `AutoModelForTokenClassification` from Hugging Face's transformers library and fine-tunes it on the NER task.
 
-- If you want to use this model only in inference mode, it serves predictions from the pre-trained model. 
+- If you want to use this model only in inference mode, it serves predictions from the pre-trained model.
 - If you want to fine-tune the model, you can use the Label Studio interface to provide training data and train the model.
 
-Read more about the compatible models from [Hugging Face's official documentation](https://huggingface.co/docs/transformers/en/tasks/token_classification). 
+Read more about the compatible models from [Hugging Face's official documentation](https://huggingface.co/docs/transformers/en/tasks/token_classification).
 
 ## Before you begin
 
-Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart). 
+Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart).
 
-This tutorial uses the [`huggingface_ner` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/huggingface_ner). 
+This tutorial uses the [`huggingface_ner` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/huggingface_ner).
 
 
 ## Labeling configuration
@@ -117,7 +117,7 @@ The following common parameters are available:
 - `MODEL_DIR`: The directory where the model is stored. Default is `'./results'`.
 
 > Note: The `LABEL_STUDIO_API_KEY` is required for training the model. This can be found by logging
-  into Label Studio and [going to the **Account & Settings** page](https://labelstud.io/guide/user_account#Access-token). 
+  into Label Studio and [going to the **Account & Settings** page](https://labelstud.io/guide/user_account#Access-token).
 
 # Customization
 

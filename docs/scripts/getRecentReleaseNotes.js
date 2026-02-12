@@ -23,7 +23,7 @@ hexo.extend.helper.register('getRecentReleaseNotes', function() {
 
     const fileName = note.source.split("/")[3];
     if(!fileName) return;
-  
+
     const template = HTMLParser.parse(note.content);
 
     const h2 = template.querySelector("h2")

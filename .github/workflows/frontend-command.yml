@@ -58,18 +58,18 @@ jobs:
           set -xeuo pipefail
           if [ "${REPO}" = "all" ]; then
             node label_studio/frontend/get-build.js lsf | tee -a /tmp/output
-            grep 'Build link:' /tmp/output | cut -d":" -f2- >> /tmp/info_commit_msg 
+            grep 'Build link:' /tmp/output | cut -d":" -f2- >> /tmp/info_commit_msg
             node label_studio/frontend/get-build.js dm | tee -a /tmp/output
-            grep 'Build link:' /tmp/output | cut -d":" -f2- >> /tmp/info_commit_msg 
+            grep 'Build link:' /tmp/output | cut -d":" -f2- >> /tmp/info_commit_msg
           else
             node label_studio/frontend/get-build.js "${REPO}" "${SHA}" | tee -a /tmp/output
-            grep 'Build link:' /tmp/output | cut -d":" -f2- >> /tmp/info_commit_msg 
+            grep 'Build link:' /tmp/output | cut -d":" -f2- >> /tmp/info_commit_msg
           fi
-          
+
           {
             echo "COMMIT_MSG_FILE<<EOF"
             cat /tmp/info_commit_msg
-            echo "EOF" 
+            echo "EOF"
           } >> "${GITHUB_ENV}"
 
       - name: Commit and push
@@ -79,16 +79,16 @@ jobs:
           REPO: ${{ github.event.client_payload.slash_command.args.unnamed.arg2 || 'all' }}
         run: |
           set -xeuo pipefail
-          
+
           git config --global user.name '${{ github.event.client_payload.github.actor }}'
           git config --global user.email '${{ github.event.client_payload.github.actor }}@users.noreply.github.com'
-          
+
           git add -A
           git status -s
           if git diff-index --quiet HEAD; then
             echo "changes=no" >> $GITHUB_OUTPUT
             exit 0
-          else 
+          else
             git commit -m "[frontend] Get build ${REPO}" -m 'Workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
           fi
           git push origin HEAD

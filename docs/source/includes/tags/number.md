@@ -14,4 +14,3 @@
 | [perRegion] | <code>boolean</code> |  | Use this tag to classify specific regions instead of the whole object |
 | [perItem] | <code>boolean</code> |  | Use this tag to classify specific items inside the object instead of the whole object |
 | [slider] | <code>boolean</code> | <code>false</code> | Use slider look instead of input; use min and max to add your constraints |
-

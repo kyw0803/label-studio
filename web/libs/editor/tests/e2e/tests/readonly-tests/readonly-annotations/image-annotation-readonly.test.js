@@ -50,7 +50,7 @@ Data(imageExamples).Scenario(
     await LabelStudio.resultsNotChanged(result, 1);
 
     I.say("Attempting to move a region");
-    AtImageView.dragRegion(regions, (r, i) => i === 0);
+    AtImageView.dragRegion(regions, (_r, i) => i === 0);
 
     I.say("Results are equal after modification attempt");
     AtOutliner.seeRegions(regions.length);

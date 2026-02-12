@@ -9,7 +9,7 @@ on:
 
 env:
   CACHE_NAME_PREFIX: v1
-  POETRY_VERSION: 2.3.2
+  POETRY_VERSION: 2.2.1
 
 jobs:
   conda:
@@ -33,6 +33,13 @@ jobs:
 
     steps:
       - uses: hmarr/debug-action@v3.0.0
+
+      - name: Enable long paths and symlinks on Windows
+        if: runner.os == 'Windows'
+        run: |
+          git config --system core.longpaths true
+          git config --system core.symlinks false
+        shell: bash
 
       - name: Checkout
         uses: actions/checkout@v6

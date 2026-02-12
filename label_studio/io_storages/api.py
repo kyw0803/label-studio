@@ -15,8 +15,9 @@ from rest_framework import generics, status
 from rest_framework.exceptions import NotFound, ValidationError
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 from rest_framework.response import Response
+from workspaces.models import WorkSpace
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('django')
 
 
 class ImportStorageListAPI(generics.ListCreateAPIView):
@@ -30,14 +31,23 @@ class ImportStorageListAPI(generics.ListCreateAPIView):
 
     def get_queryset(self):
         project_pk = self.request.query_params.get('project')
-        if not project_pk:
-            raise ValidationError('query parameter "project" is required')
+        workspace_pk = self.request.query_params.get('workspace')
 
-        project = generics.get_object_or_404(Project, pk=project_pk)
-        self.check_object_permissions(self.request, project)
-        StorageClass = self.serializer_class.Meta.model
-        storages = StorageClass.objects.filter(project_id=project.id)
+        logger.info(f'project query params: {project_pk}')
+        logger.info(f'workspace query params: {workspace_pk}')
 
+        if project_pk:
+            project = generics.get_object_or_404(Project, pk=project_pk)
+            self.check_object_permissions(self.request, project)
+            StorageClass = self.serializer_class.Meta.model
+            storages = StorageClass.objects.filter(project_id=project.id)
+        elif workspace_pk:
+            workspace = generics.get_object_or_404(WorkSpace, pk=workspace_pk)
+            self.check_object_permissions(self.request, workspace)
+            StorageClass = self.serializer_class.Meta.model
+            storages = StorageClass.objects.filter(workspace_id=workspace.id)
+        else:
+            raise ValidationError('query parameter "project" or "workspace" is required')
         # check failed jobs and sync their statuses
         StorageClass.ensure_storage_statuses(storages)
         return storages
@@ -61,7 +71,6 @@ class ImportStorageDetailAPI(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ExportStorageListAPI(generics.ListCreateAPIView):
-
     permission_required = ViewClassPermission(
         GET=all_permissions.storages_view,
         POST=all_permissions.storages_change,
@@ -115,7 +124,6 @@ class ExportStorageDetailAPI(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ImportStorageSyncAPI(generics.GenericAPIView):
-
     permission_required = ViewClassPermission(
         POST=all_permissions.storages_sync,
     )
@@ -139,7 +147,6 @@ class ImportStorageSyncAPI(generics.GenericAPIView):
 
 
 class ExportStorageSyncAPI(generics.GenericAPIView):
-
     permission_required = ViewClassPermission(
         POST=all_permissions.storages_sync,
     )
@@ -147,7 +154,7 @@ class ExportStorageSyncAPI(generics.GenericAPIView):
     serializer_class = ExportStorageSerializer
 
     def get_queryset(self):
-        ExportStorageClass = self.serializer_class.Meta.model
+        ExportStorageClass = self.get_serializer_class().Meta.model
         return ExportStorageClass.objects.all()
 
     def post(self, request, *args, **kwargs):
@@ -163,20 +170,19 @@ class ExportStorageSyncAPI(generics.GenericAPIView):
 
 
 class StorageValidateAPI(generics.CreateAPIView):
-
     permission_required = all_permissions.storages_change
     parser_classes = (JSONParser, FormParser, MultiPartParser)
 
     def create(self, request, *args, **kwargs):
         from .functions import validate_storage_instance
 
-        validate_storage_instance(request, self.serializer_class)
+        serializer_class = self.get_serializer_class()
+        validate_storage_instance(request, serializer_class)
         return Response()
 
 
 @extend_schema(exclude=True)
 class ImportStorageListFilesAPI(generics.CreateAPIView):
-
     permission_required = all_permissions.storages_change
     parser_classes = (JSONParser, FormParser, MultiPartParser)
     serializer_class = None  # Default serializer
@@ -218,7 +224,6 @@ class ImportStorageListFilesAPI(generics.CreateAPIView):
 
 @extend_schema(exclude=True)
 class StorageFormLayoutAPI(generics.RetrieveAPIView):
-
     permission_required = all_permissions.storages_change
     parser_classes = (JSONParser, FormParser, MultiPartParser)
     storage_type = None

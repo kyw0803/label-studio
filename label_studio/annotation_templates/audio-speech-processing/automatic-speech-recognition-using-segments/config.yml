@@ -25,5 +25,3 @@ config: |
               rows="2" editable="true"
               perRegion="true" required="true" />
   </View>
-
-

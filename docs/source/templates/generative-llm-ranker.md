@@ -52,43 +52,43 @@ The `LLM Ranker` template includes the following labeling interface in XML forma
   <Style>
     .htx-text { white-space: pre-wrap; }
     .search-query {
-    	font-size: 120%; 
+    	font-size: 120%;
     	width: 800px;
     	margin-bottom: 0.5em;
     	border: 1px solid #eee;
-    	padding: 0 1em 1em 1em; 
-    	background: #fefefe; 
+    	padding: 0 1em 1em 1em;
+    	background: #fefefe;
     }
     .question {
-    	font-size: 100%; 
+    	font-size: 100%;
     	width: 800px;
     	background: #fff !important;
-    	padding: 1em; 
+    	padding: 1em;
     }
     .answer {
-    	font-size: 100%; 
+    	font-size: 100%;
     	width: 800px;
     	background: #fff !important;
-    	padding: 1em; 
+    	padding: 1em;
     }
-    .doc-body { 
-    	white-space: pre-wrap;   
+    .doc-body {
+    	white-space: pre-wrap;
     	overflow-wrap: break-word;
-  		word-break: keep-all; 
+  		word-break: keep-all;
     }
-    .doc-footer { 
+    .doc-footer {
     	font-size: 85%;
     	overflow-wrap: break-word;
-  		word-break: keep-all; 
+  		word-break: keep-all;
     }
     h3 + p + p { font-size: 85%; } /* doc id */
   </Style>
-  
+
   <View className="search-query">
     <Header value="Search query"/>
     <Text name="query" value="$query" />
   </View>
-  
+
   <Collapse>
     <Panel value="Full question">
       <View className="question">
@@ -96,7 +96,7 @@ The `LLM Ranker` template includes the following labeling interface in XML forma
       </View>
     </Panel>
   </Collapse>
-  
+
   <Collapse>
     <Panel value="Answer">
       <View className="answer">
@@ -104,7 +104,7 @@ The `LLM Ranker` template includes the following labeling interface in XML forma
       </View>
     </Panel>
   </Collapse>
-  
+
   <View style="margin-top: 2em">
     <List name="results" value="$similar_docs" title="Search results" />
     <Ranker name="rank" toName="results">

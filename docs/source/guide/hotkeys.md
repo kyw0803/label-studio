@@ -12,11 +12,11 @@ parent_enterprise: "labeling"
 date: 2025-05-24 17:19:21
 ---
 
-Use keyboard shortcuts, or hotkeys, to improve your labeling performance. 
+Use keyboard shortcuts, or hotkeys, to improve your labeling performance.
 
 ## View out-of-the-box hotkeys
 
-From the labeling editor, click the settings icon to see more details about hotkeys or to enable or disable hotkeys. 
+From the labeling editor, click the settings icon to see more details about hotkeys or to enable or disable hotkeys.
 
 ![Screenshot of settings icon](/images/label/settings.png)
 
@@ -25,7 +25,7 @@ From the labeling editor, click the settings icon to see more details about hotk
 
 ## Customize global hotkeys from your account page
 
-You can easily customize global hotkeys on from the [**Account & Settings > Hotkeys** page](user_account#Hotkeys). 
+You can easily customize global hotkeys on from the [**Account & Settings > Hotkeys** page](user_account#Hotkeys).
 
 ![Screenshot of customized key](/images/admin/global-hotkeys.png)
 
@@ -35,17 +35,17 @@ If you want to change the hotkeys used for specific actions, set the `EDITOR_KEY
 ```
 EDITOR_KEYMAP='{"annotation:submit":{"key": "shift+s","description": "My Custom Submit Hotkey!"}}'
 ```
-This overwrites the existing hotkey mapping with your custom mapping. See [more about how to set environment variables](https://labelstud.io/guide/start#Set-environment-variables). 
+This overwrites the existing hotkey mapping with your custom mapping. See [more about how to set environment variables](https://labelstud.io/guide/start#Set-environment-variables).
 
-Refer to the full list of customizable hotkeys in the [`keymap.json` file](https://github.com/HumanSignal/label-studio/blob/develop/web/libs/editor/src/core/settings/keymap.json) to update a different hotkey combination. 
+Refer to the full list of customizable hotkeys in the [`keymap.json` file](https://github.com/HumanSignal/label-studio/blob/develop/web/libs/editor/src/core/settings/keymap.json) to update a different hotkey combination.
 
-You cannot use this environment variable to remove an existing or add a new keyboard shortcut. 
+You cannot use this environment variable to remove an existing or add a new keyboard shortcut.
 
 ## Use the `<Shortcut>` tag
 
-Use the [Shortcut tag](/tags/shortcut) to allow annotators to insert a predefined text snippet into their current annotation. 
+Use the [Shortcut tag](/tags/shortcut) to allow annotators to insert a predefined text snippet into their current annotation.
 
-They can do this by either clicking the shortcut button or by pressing its hotkey. 
+They can do this by either clicking the shortcut button or by pressing its hotkey.
 
 !!! info Tip
     Shortcuts work inside control tags (e.g., `<TextArea>`, `<Labels>`)

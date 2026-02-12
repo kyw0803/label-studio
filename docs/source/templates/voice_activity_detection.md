@@ -10,7 +10,7 @@ meta_description: Template for detecting voice activity in an audio clip with La
 
 <img src="/images/templates-misc/voice-activity-detection.png" alt="" class="gif-border" width="600px" height="498px" />
 
-If you want to train a voice activity detection (VAD) model for automating call center interactions, improving voice-activated assistant systems, or other speech detection use cases, you can use this template. Create segments of the audio clip that possibly include speech, then classify each segment as to whether it includes speech, a specific wake word for voice-activated assistant system use cases, or is simply noise.  
+If you want to train a voice activity detection (VAD) model for automating call center interactions, improving voice-activated assistant systems, or other speech detection use cases, you can use this template. Create segments of the audio clip that possibly include speech, then classify each segment as to whether it includes speech, a specific wake word for voice-activated assistant system use cases, or is simply noise.
 
 ## Interactive Template Preview
 
@@ -21,7 +21,7 @@ If you want to train a voice activity detection (VAD) model for automating call 
 ```html
 <View>
   <Header value="Listen to the audio:"></Header>
-  <Audio name="audio" value="$url" zoom="true"></Audio>    
+  <Audio name="audio" value="$url" zoom="true"></Audio>
   <Header value="Highlight segments with sound louder than baseline:"></Header>
   <Labels name="label" toName="audio" choice="multiple">
     <Label value="Above Baseline Sound" background="green" alias="possible-speech"></Label>
@@ -48,7 +48,7 @@ Use the [Audio](/tags/audio.html) object tag to specify the location of the audi
 <Audio name="audio" value="$url"></Audio>
 ```
 
-Use the [Labels](/tags/labels.html) control tag to allow annotators to segment the audio and identify possible spots where speech might be present. 
+Use the [Labels](/tags/labels.html) control tag to allow annotators to segment the audio and identify possible spots where speech might be present.
 ```xml
   <Labels name="label" toName="audio" choice="multiple">
     <Label value="Above Baseline Sound" background="green" alias="possible-speech"></Label>
@@ -64,7 +64,7 @@ Use the [Choices](/tags/choices.html) control tag to prompt annotators to classi
     <Choice value="Noise" alias="not-speech"></Choice>
   </Choices>
 ```
-The `choice="multiple"` parameter allows annotators to select both "Speech" and "Wake Word" as options for a specific segment. The `perRegion` parameter means that each classification applies to a specific audio segment. 
+The `choice="multiple"` parameter allows annotators to select both "Speech" and "Wake Word" as options for a specific segment. The `perRegion` parameter means that each classification applies to a specific audio segment.
 
 ## Related tags
 - [Header](/tags/header.html)

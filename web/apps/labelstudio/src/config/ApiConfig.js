@@ -16,6 +16,18 @@ export const API_CONFIG = {
     inviteLink: "/invite",
     resetInviteLink: "POST:/invite/reset-token",
 
+    // Workspaces
+    workspaces: "/workspaces",
+    workspace: "/workspaces/:pk",
+    updateWorkspace: "PATCH:/workspaces/:pk",
+    createWorkspace: "POST:/workspaces",
+    deleteWorkspace: "DELETE:/workspaces/:pk",
+    workspaceMembers: "GET:/workspaces/:pk/members",
+    addWorkspaceMembers: "POST:/workspaces/:pk/members",
+    updateWorkspaceMembers: "PATCH:/workspaces/:pk/members",
+    deleteWorkspaceMembers: "DELETE:/workspaces/:pk/members",
+    workspaceCandidates: "GET:/workspaces/:pk/candidates",
+
     // Project
     projects: "/projects",
     project: "/projects/:pk",
@@ -23,6 +35,10 @@ export const API_CONFIG = {
     createProject: "POST:/projects",
     deleteProject: "DELETE:/projects/:pk",
     projectResetCache: "POST:/projects/:pk/summary/reset",
+    projectMembers: "GET:/projects/:pk/members",
+    addProjectMembers: "POST:/projects/:pk/members",
+    deleteProjectMembers: "DELETE:/projects/:pk/members",
+    projectPotentialMembers: "GET:/projects/:pk/potential-members",
 
     // Presigning
     presignUrlForTask: "/../tasks/:taskID/presign",
@@ -43,6 +59,8 @@ export const API_CONFIG = {
 
     // Storages
     listStorages: "/storages/:target?",
+    workspaceSubStorages: "/storages/localfiles/workspace-sub-storages/",
+    allocateStorage: "POST:/storages/localfiles/allocate/",
     storageTypes: "/storages/:target?/types",
     storageForms: "/storages/:target?/:type/form",
     createStorage: "POST:/storages/:target?/:type",

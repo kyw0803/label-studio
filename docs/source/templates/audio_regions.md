@@ -12,11 +12,16 @@ meta_description: Template for classifying audio regions for segmentation tasks 
 
 If you want to perform audio classification tasks on specific segments of audio clips, you can use this template to listen to an audio file and classify the topic of the clip.
 
+!!! error Enterprise
+    If you're managing more complex or high-volume audio labeling projects, Label Studio Enterprise includes an advanced audio transcription interface built to support faster, more precise annotation at scale.
+
+    See our new [Multi-Channel Audio Transcription](react_audio) template and learn more in [A New Audio Transcription UI for Speed and Quality at Scale](https://humansignal.com/blog/building-a-better-ui-for-audio-transcription-at-scale/) (blog post).
+
 ## Interactive Template Preview
 
 <div id="main-preview"></div>
 
-## Labeling Configuration 
+## Labeling Configuration
 
 ```html
 <View>
@@ -41,7 +46,7 @@ You can add a [header](/tags/header.html) to provide instructions to the annotat
 <Header value="Select its topic:"></Header>
 ```
 
-Use the [Labels](/tags/labels.html) control tag to allow annotators to segment the audio and classify it at the same time. 
+Use the [Labels](/tags/labels.html) control tag to allow annotators to segment the audio and classify it at the same time.
 ```xml
 <Labels name="label" toName="audio" choice="multiple">
     <Label value="Politics" background="yellow"></Label>

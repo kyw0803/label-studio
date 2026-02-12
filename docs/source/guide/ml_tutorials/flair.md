@@ -1,12 +1,12 @@
 ---
-title: NER labeling with Flair 
+title: NER labeling with Flair
 type: guide
 tier: all
 order: 75
 hide_menu: true
 hide_frontmatter_title: true
 meta_title: Use Flair with Label Studio
-meta_description: Tutorial on how to use Label Studio and Flair for faster NER labeling 
+meta_description: Tutorial on how to use Label Studio and Flair for faster NER labeling
 categories:
     - Natural Language Processing
     - Named Entity Recognition
@@ -20,9 +20,9 @@ This example demonstrates how to use Flair NER model with Label Studio.
 
 ## Before you begin
 
-Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart). 
+Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart).
 
-This tutorial uses the [`flair` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/flair). 
+This tutorial uses the [`flair` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/flair).
 
 ## Quickstart
 

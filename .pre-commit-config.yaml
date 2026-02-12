@@ -1,15 +1,57 @@
 default_stages: [ pre-push ]
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-merge-conflict
+
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.1
+    hooks:
+      - id: actionlint
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.2
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.6
+    hooks:
+      - id: codespell
+        additional_dependencies:
+          - tomli
+        exclude: ^web/yarn\.lock$|^poetry\.lock$
+
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.8
+    hooks:
+      - id: bandit
+        args: ["-r", "label_studio"]
+        additional_dependencies: ["bandit[toml]"]
+
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.10.0
+    hooks:
+      - id: shellcheck
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.14.9
     hooks:
       - id: ruff-check
         args: [ --fix ]
+
   - repo: https://github.com/grantjenks/blue
     rev: v0.9.1
     hooks:
       - id: blue
-        args: [ --check, --diff, --color ]
+
   - repo: https://github.com/biomejs/pre-commit
     rev: "v0.1.0"
     hooks:
@@ -17,6 +59,7 @@ repos:
         args: [ --config-path, ./web ]
         additional_dependencies: [ "@biomejs/biome@1.9.4" ]
         files: ^web/.*
+
   - repo: local
     hooks:
       - id: stylelint

@@ -171,7 +171,7 @@ strict: false
 marks:
 - usefixtures:
   - django_live_url
-  
+
 stages:
 - # Signup to the system
   id: signup

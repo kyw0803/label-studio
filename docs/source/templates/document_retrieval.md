@@ -5,7 +5,7 @@ category: Ranking and Scoring
 cat: ranking-and-scoring
 order: 430
 meta_title: Document Retrieval Data Labeling Template
-meta_description: Template for annotating documents for document retrieval tasks with Label Studio for your machine learning and data science projects. 
+meta_description: Template for annotating documents for document retrieval tasks with Label Studio for your machine learning and data science projects.
 ---
 
 <img src="/images/templates/document-retrieval.png" alt="" class="gif-border" width="552px" height="408px" />
@@ -51,7 +51,7 @@ Use the [Text](/tags/text.html) object tag to specify the text data to be annota
 You can add a [header](/tags/header.html) to provide instructions to the annotator:
 ```xml
 <Header value="Select document related to the query:" />
-```  
+```
 
 Add styling to the [View](/tags/view.html) tag to control the appearance of the text samples and choices
 ```xml
@@ -66,7 +66,7 @@ Wrap the text snippets in a new [View](/tags/view.html) tag and use the [Text](/
     <Text name="text3" value="$text3" />
 </View>
 ```
-    
+
 Add styling to another [View](/tags/view.html) tag to place the choices next to the text samples, then use the [Choices](/tags/choices.html) control tag to require a selection from annotators and allow them to select multiple text snippets that apply:
 ```xml
 <View style="padding: 30px">

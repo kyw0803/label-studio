@@ -1626,7 +1626,7 @@ html {
 }
 .ant-select:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input::-webkit-search-cancel-button {
   display: none;
-  
+
   -webkit-appearance: none;
 }
 .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
@@ -2727,7 +2727,7 @@ html {
   display: inline-block;
   height: 20px;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  
+
   -webkit-transform-style: preserve-3d;
   -webkit-backface-visibility: hidden;
   /* stylelint-enable property-no-vendor-prefix */
@@ -2735,7 +2735,7 @@ html {
 .ant-scroll-number-only > p.ant-scroll-number-only-unit {
   height: 20px;
   margin: 0;
-  
+
   -webkit-transform-style: preserve-3d;
   -webkit-backface-visibility: hidden;
   /* stylelint-enable property-no-vendor-prefix */
@@ -8881,7 +8881,7 @@ span.ant-radio + * {
 .ant-skeleton-active .ant-skeleton-input,
 .ant-skeleton-active .ant-skeleton-image {
   position: relative;
-  
+
   z-index: 0;
   overflow: hidden;
   background: transparent;
@@ -18068,7 +18068,7 @@ textarea.ant-input-number {
 .ant-input-number-input[type='number']::-webkit-inner-spin-button,
 .ant-input-number-input[type='number']::-webkit-outer-spin-button {
   margin: 0;
-  
+
   -webkit-appearance: none;
   appearance: none;
 }
@@ -20503,7 +20503,7 @@ textarea.ant-mentions {
   overflow: inherit;
   overflow-x: hidden;
   overflow-y: auto;
-  
+
   font-weight: inherit;
   font-size: inherit;
   font-family: inherit;
@@ -25645,7 +25645,7 @@ div.ant-typography-edit-content {
 .ant-typography-edit-content textarea {
   height: 1em;
   margin: 0 !important;
-  
+
   -moz-transition: none;
 }
 .ant-typography ul,
@@ -25705,7 +25705,7 @@ span.ant-typography-ellipsis-single-line {
   vertical-align: bottom;
 }
 .ant-typography-ellipsis-multiple-line {
-  
+
   display: -webkit-box;
   overflow: hidden;
   -webkit-line-clamp: 3;

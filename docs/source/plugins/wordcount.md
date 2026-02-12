@@ -18,13 +18,13 @@ tier: enterprise
 
 ## About
 
-This plugin validates whether users have exceeded a word count restriction. 
+This plugin validates whether users have exceeded a word count restriction.
 
 ![Screenshot of warning](/images/plugins/wordcount.png)
 
 ## Plugin
 
-As scripted, this plugin sets a restriction of 10 words. You can modify the word count as necessary. 
+As scripted, this plugin sets a restriction of 10 words. You can modify the word count as necessary.
 
 ```javascript
 /**
@@ -58,7 +58,7 @@ LSI.on("beforeSaveAnnotation", (store, annotation) => {
 **Related LSI instance methods:**
 
 * [on(eventName, handler)](custom#LSI-on-eventName-handler)
-  
+
 **Related frontend events:**
 
 * [beforeSaveAnnotation](/guide/frontend_reference#beforeSaveAnnotation)

@@ -27,7 +27,7 @@ config: |
         <Header value="Relationships"/>
       <RectangleLabels name="relationships" toName="image" value="$relationships"/>
       </View>
-   
+
     </View>
     <Image name="image" value="$image"/>
     <Style>

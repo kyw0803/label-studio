@@ -13,11 +13,11 @@ date: 2024-02-06 22:28:27
 ---
 
 !!! error Enterprise
-    There are many more possible controls and configurations available for Label Studio Enterprise users. For more information on those options, see [Project settings in Label Studio Enterprise](https://docs.humansignal.com/guide/project_settings_lse). 
+    There are many more possible controls and configurations available for Label Studio Enterprise users. For more information on those options, see [Project settings in Label Studio Enterprise](https://docs.humansignal.com/guide/project_settings_lse).
 
 ## General
 
-Use these settings to specify some basic information about the project. 
+Use these settings to specify some basic information about the project.
 
 | Field          | Description    |
 | ------------- | ------------ |
@@ -29,9 +29,9 @@ Use these settings to specify some basic information about the project.
 
 ## Labeling interface
 
-The labeling interface is the central configuration point for projects. This determines how tasks are presented to annotators. 
+The labeling interface is the central configuration point for projects. This determines how tasks are presented to annotators.
 
-For information on setting up the labeling interface, see [Labeling configuration](setup). 
+For information on setting up the labeling interface, see [Labeling configuration](setup).
 
 ## Annotation
 
@@ -41,11 +41,11 @@ For information on setting up the labeling interface, see [Labeling configuratio
 
 <dd>
 
-Specify instructions to show the users as they annotate task. This field accepts HTML formatting. 
+Specify instructions to show the users as they annotate task. This field accepts HTML formatting.
 
-Enable **Show before labeling** to display a pop-up message to users when they enter the label stream. 
+Enable **Show before labeling** to display a pop-up message to users when they enter the label stream.
 
-If disabled, users will need to click the **Show instructions** action at the bottom of the labeling interface. 
+If disabled, users will need to click the **Show instructions** action at the bottom of the labeling interface.
 
 </dd>
 
@@ -53,9 +53,9 @@ If disabled, users will need to click the **Show instructions** action at the bo
 
 <dd>
 
-If you have an ML backend or model connected, you can use this setting to determine whether tasks should be pre-labeled using predictions from the model. For more information, see [Integrate Label Studio into your machine learning pipeline](ml). 
+If you have an ML backend or model connected, you can use this setting to determine whether tasks should be pre-labeled using predictions from the model. For more information, see [Integrate Label Studio into your machine learning pipeline](ml).
 
-Use the drop-down menu to select the predictions source. For example, you can select a [connected model](#Model) or a set of [predictions](#Predictions). 
+Use the drop-down menu to select the predictions source. For example, you can select a [connected model](#Model) or a set of [predictions](#Predictions).
 
 </dd>
 
@@ -84,16 +84,16 @@ And the following actions are available from the overflow menu next to a connect
 
 ## Predictions
 
-From here you can view predictions that have been imported or generated when executing the **Retrieve Predictions** action from the Data Manager. For more information, see [Import pre-annotated data into Label Studio](predictions). 
+From here you can view predictions that have been imported or generated when executing the **Retrieve Predictions** action from the Data Manager. For more information, see [Import pre-annotated data into Label Studio](predictions).
 
 ## Cloud storage
 
 This is where you connect Label Studio to a cloud storage provider:
 
-* **Source Cloud Storage**--This is where the source data for your project is saved. When you sync your source storage, Label Studio retrieves data to be annotated. 
-* **Target Cloud Storage**--This is where your annotations are saved. When you sync your target storage, annotations are sent from Label Studio to the target storage location. 
+* **Source Cloud Storage**--This is where the source data for your project is saved. When you sync your source storage, Label Studio retrieves data to be annotated.
+* **Target Cloud Storage**--This is where your annotations are saved. When you sync your target storage, annotations are sent from Label Studio to the target storage location.
 
-For more information, see [Sync data from external storage](storage). 
+For more information, see [Sync data from external storage](storage).
 
 ## Webhooks
 
@@ -101,7 +101,7 @@ You can use webhooks to integration third-party applications. For more informati
 
 ## Danger Zone
 
-From here, you can access actions that result in data loss, and should be used with caution. 
+From here, you can access actions that result in data loss, and should be used with caution.
 
 * **Drop All Tabs**
 

@@ -11,9 +11,9 @@ section: "Integrate & Extend"
 
 ---
 
-You can use the Label Studio API to import data for labeling, export annotations, set up machine learning with Label Studio, and sync tasks with cloud storage. 
+You can use the Label Studio API to import data for labeling, export annotations, set up machine learning with Label Studio, and sync tasks with cloud storage.
 
-See the [API reference documentation](https://api.labelstud.io/api-reference/introduction/getting-started) for further guidance and interactive examples. If you want to write Python scripts using the API, use the [Label Studio Python SDK](sdk.html). 
+See the [API reference documentation](https://api.labelstud.io/api-reference/introduction/getting-started) for further guidance and interactive examples. If you want to write Python scripts using the API, use the [Label Studio Python SDK](sdk.html).
 
 !!! info Tip
     For additional guidance on using our API, see [5 Tips and Tricks for Label Studio’s API and SDK](https://labelstud.io/blog/5-tips-and-tricks-for-label-studio-s-api-and-sdk/).
@@ -21,23 +21,23 @@ See the [API reference documentation](https://api.labelstud.io/api-reference/int
 
 ### Authenticate to the API
 
-You must retrieve your access token so that you can authenticate to the API. 
+You must retrieve your access token so that you can authenticate to the API.
 
 Whether you can create a token, and which types of tokens you can create, depends on your org settings.
 
 !!! note "API keys vs. Access tokens"
-    In Label Studio, **"access tokens"** and **"API keys"** mean the same thing and are used interchangeably.  
+    In Label Studio, **"access tokens"** and **"API keys"** mean the same thing and are used interchangeably.
 
-There are two types of access tokens/API keys: **Personal Access Tokens (PATs)** and **Legacy Tokens**. 
+There are two types of access tokens/API keys: **Personal Access Tokens (PATs)** and **Legacy Tokens**.
 
-You can read more about the differences between them here: [Access Tokens](access_tokens). 
+You can read more about the differences between them here: [Access Tokens](access_tokens).
 
 #### Find your access token
 
-1. Open Label Studio and click your user icon in the upper right. Select **Account & Settings**. 
-2. Select **Personal Access Token** or **Legacy Token** on the left. 
+1. Open Label Studio and click your user icon in the upper right. Select **Account & Settings**.
+2. Select **Personal Access Token** or **Legacy Token** on the left.
 
-Depending on which one you select, you will need to either generate a new token or copy the one that is displayed. 
+Depending on which one you select, you will need to either generate a new token or copy the one that is displayed.
 
 
 #### Authenticate HTTP API requests with a personal access token
@@ -58,7 +58,7 @@ curl -X <method> <Label Studio URL>/api/<endpoint> -H 'Authorization: Token <tok
 
 #### Authenticate Python SDK requests
 
-When used with the SDK, you do not need to distinguish between legacy tokens or personal access tokens. 
+When used with the SDK, you do not need to distinguish between legacy tokens or personal access tokens.
 
 ```python
 # Define the URL where Label Studio is accessible
@@ -93,6 +93,6 @@ Retrieve a paginated list of tasks for a specific project. If you want, you can 
 
 ### Export annotations
 
-To export annotations, first see [which formats are available to export for your project](https://api.labelstud.io/api-reference/api-reference/projects/exports/list-formats). 
+To export annotations, first see [which formats are available to export for your project](https://api.labelstud.io/api-reference/api-reference/projects/exports/list-formats).
 
 Choose your selected format from the response and then call the export endpoint. See the [export annotations](https://api.labelstud.io/api-reference/api-reference/projects/exports/download-sync) endpoint documentation for more details.

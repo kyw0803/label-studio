@@ -19,7 +19,7 @@ This template demonstrates the synchronization of media streams with the corresp
 
 ### Time units and syncing
 
-All sync messages use relative seconds from the start of each component. 
+All sync messages use relative seconds from the start of each component.
 
 There are two types of configurations, and configuration you use determines how the time series converts the relative seconds:
 
@@ -40,7 +40,7 @@ You may have mismatched lengths in your data. When this occurs:
 
 !!! attention
     It's extremely important to set `frameRate` for your video. Otherwise, you will get incorrect labeling synchronization between timeseries and video.
-  
+
 We recommend converting your video using these scripts: https://labelstud.io/tags/video#Video-format.
 
 Also, it is recommended to use integer multiples for sample rates and frame rates in your time series, audio, and videos. This approach simplifies aligning samples and frames and allows for smooth navigation across various media sources. For example, if the video frame rate is _30 frames per second_, having _60 (or 90, 120, ...) samples per second_ for the time series is beneficial.
@@ -51,13 +51,13 @@ Also, it is recommended to use integer multiples for sample rates and frame rate
 * Maintains precise temporal alignment with video, audio and other timeseries
 * Converts relative seconds to absolute timestamps.
 * **Offset behaviour:** The very first timestamp in the timeseries is treated as *t = 0* for every synced media. For example, if the earliest sample in the CSV is at absolute 5 s, then:
-    - `timeSeries[0]` = **5 s** (absolute) → considered **0 s** in sync space.  
+    - `timeSeries[0]` = **5 s** (absolute) → considered **0 s** in sync space.
     - When you click at 2 s on the timeseries, the video will seek to *5 s + 2 s = 7 s* of real video time.
     - Conversely, seeking to 0 s in the video will position the playhead at the first timeseries sample (5 s absolute).
     - This constant offset is applied in every direction (seek / play / pause) and guarantees perfect alignment regardless of how the raw clocks are shifted.
 
 To specify a time-based time series, use the following format:
-  
+
 ```xml
    <TimeSeries name="ts" timeColumn="timestamp" timeFormat="%Y-%m-%d %H:%M:%S">
 ```
@@ -78,13 +78,13 @@ To specify a time-based time series, use the following format:
 <View>
   <Video name="video" value="$video" frameRate="30" sync="group_a"/>
   <!-- <Audio name="audio" value="$video" sync="group_a"/> -->
-  
+
   <TimeSeriesLabels name="timelinelabels" toName="accel_timeseries">
     <Label value="A"/>
     <Label value="B"/>
-  </TimeSeriesLabels>  
+  </TimeSeriesLabels>
 
-  <TimeSeries 
+  <TimeSeries
               name="accel_timeseries"
               value="$accel_data"
               sync="group_a"
@@ -99,10 +99,10 @@ To specify a time-based time series, use the following format:
       <Channel column="accel_y" strokeColor="#00FF00" height="100"/>
     </MultiChannel>
   </TimeSeries>
-  
-  <TimeSeries 
-              name="gyro_timeseries" 
-              value="$gyro_data" 
+
+  <TimeSeries
+              name="gyro_timeseries"
+              value="$gyro_data"
               sync="group_a"
               timeColumn="time"
               timeFormat="%H:%M:%S.%f"
@@ -112,7 +112,7 @@ To specify a time-based time series, use the following format:
   >
     <Channel column="gyro_x" strokeColor="#0000FF" height="100"/>
     <Channel column="gyro_y" strokeColor="#FF00FF" height="100"/>
-  </TimeSeries> 
+  </TimeSeries>
 
 </View>
 
@@ -193,7 +193,7 @@ To specify an index-based time series, use the following format:
 ```html
 <View>
   <Video name="video" value="$video" frameRate="30" sync="group_a"/>
-  
+
   <TimeSeries name="timeseries"
               value="$ts" valueType="json"
               sync="group_a" sep=","
@@ -203,7 +203,7 @@ To specify an index-based time series, use the following format:
     <Channel column="value" strokeColor="#FF0000"/>
     <Channel column="value" strokeColor="#00FF00"/>
   </TimeSeries>
-  
+
   <TimeSeriesLabels name="labels" toName="timeseries">
     <Label value="action"/>
     <Label value="pause"/>

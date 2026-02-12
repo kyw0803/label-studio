@@ -18,9 +18,9 @@ tier: enterprise
 
 ## About
 
-This labeling configuration arranges three video players vertically, making it easier to view and annotate each video frame. 
+This labeling configuration arranges three video players vertically, making it easier to view and annotate each video frame.
 
-The plugin ensures the videos are synced, with one player showing one frame forward, and another player the previous frame. 
+The plugin ensures the videos are synced, with one player showing one frame forward, and another player the previous frame.
 
 ![Screenshot of video sync labeling config](/images/plugins/video_sync.png)
 
@@ -111,24 +111,24 @@ initMultiFrameVideoView();
 
 ## Labeling config
 
-Each video is wrapped in a `<View>` tag with a width of 100% to ensure they stack on top of each other. The `Header` tag provides a title for 
-each video, indicating which frame is being displayed. 
+Each video is wrapped in a `<View>` tag with a width of 100% to ensure they stack on top of each other. The `Header` tag provides a title for
+each video, indicating which frame is being displayed.
 
-The `Video` tags are used to load the video content, with the `name` attribute uniquely identifying each video player. 
+The `Video` tags are used to load the video content, with the `name` attribute uniquely identifying each video player.
 
-The `TimelineLabels` tag is connected to the second video (`video0`), allowing annotators to label specific segments of that video. The labels `class1` and `class2` can be used to categorize the content of the video, enhancing the  annotation process. 
+The `TimelineLabels` tag is connected to the second video (`video0`), allowing annotators to label specific segments of that video. The labels `class1` and `class2` can be used to categorize the content of the video, enhancing the  annotation process.
 
 ```xml
 <View>
   <View style="display: flex">
   <View style="width: 100%">
     <Header value="Video -1 Frame"/>
-    <Video name="videoMinus1" value="$video_url" 
+    <Video name="videoMinus1" value="$video_url"
            height="200" sync="lag" frameRate="29.97"/>
   </View>
   <View style="width: 100%">
     <Header value="Video +1 Frame"/>
-    <Video name="videoPlus1" value="$video_url" 
+    <Video name="videoPlus1" value="$video_url"
            height="200" sync="lag" frameRate="29.97"/>
   </View>
   </View>

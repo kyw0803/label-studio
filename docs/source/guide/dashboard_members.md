@@ -6,18 +6,18 @@ type: guide
 order: 0
 order_enterprise: 70
 meta_title: Members dashboard
-meta_description: Use the member dashboard to monitor project annotation quality. 
+meta_description: Use the member dashboard to monitor project annotation quality.
 section: "Project Management"
 parent: "dashboards"
 parent_enterprise: "dashboards"
 date: 2025-08-05 19:55:41
 ---
 
-> Get insight into the productivity, agreement, and performance of members annotating in a project. 
+> Get insight into the productivity, agreement, and performance of members annotating in a project.
 
 While the [Project Dashboard](dashboard_project) provides insight into project task progress and throughput, the Members Dashboard provides more information on annotation agreement and outcome.
 
-This can be useful in a number of ways: 
+This can be useful in a number of ways:
 
 - **Track annotator performance and agreement**: View key metrics like agreement rate, review score, and performance score to identify which annotators are aligned or need support.
 - **Monitor annotation progress**: See how many annotations are finished, skipped, or reviewed, along with annotation time and progress percentages to manage annotator backlogs.
@@ -60,7 +60,7 @@ You can use the **Export CSV** button to export the Annotation Summary table.
 The Annotator Agreement Matrix helps you see how consistently different members annotate the same tasks.
 
 - **Agreement scores** are shown as percentages between members who have both annotated the same task. Higher percentages reflect stronger alignment in their annotations. See more on how [agreement score is calculated](stats).
-- **Hover over any cell** to view more information including the number of tasks where both members made an annotation. If a member made more than one annotation in a task, the additional annotation(s) are also considered. 
+- **Hover over any cell** to view more information including the number of tasks where both members made an annotation. If a member made more than one annotation in a task, the additional annotation(s) are also considered.
 - **Use the label dropdown** to filter and explore agreement when at least one annotation contains the specified label.
 
 ## Agreement Distribution

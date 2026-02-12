@@ -189,7 +189,7 @@ Scenario("Check different cases ", async ({ I, LabelStudio, AtOutliner, AtParagr
     assert.strictEqual(result.length, 4);
 
     assert.deepStrictEqual(
-      omitBy(result[0].value, (v, key) => key === "paragraphlabels"),
+      omitBy(result[0].value, (_v, key) => key === "paragraphlabels"),
       {
         start: "0",
         end: "0",
@@ -200,7 +200,7 @@ Scenario("Check different cases ", async ({ I, LabelStudio, AtOutliner, AtParagr
     );
 
     assert.deepStrictEqual(
-      omitBy(result[1].value, (v, key) => key === "paragraphlabels"),
+      omitBy(result[1].value, (_v, key) => key === "paragraphlabels"),
       {
         start: "2",
         end: "3",
@@ -211,7 +211,7 @@ Scenario("Check different cases ", async ({ I, LabelStudio, AtOutliner, AtParagr
     );
 
     assert.deepStrictEqual(
-      omitBy(result[2].value, (v, key) => key === "paragraphlabels"),
+      omitBy(result[2].value, (_v, key) => key === "paragraphlabels"),
       {
         start: "5",
         end: "7",
@@ -222,7 +222,7 @@ Scenario("Check different cases ", async ({ I, LabelStudio, AtOutliner, AtParagr
     );
 
     assert.deepStrictEqual(
-      omitBy(result[3].value, (v, key) => key === "paragraphlabels"),
+      omitBy(result[3].value, (_v, key) => key === "paragraphlabels"),
       {
         start: "9",
         end: "9",
@@ -242,7 +242,7 @@ Scenario("Check different cases ", async ({ I, LabelStudio, AtOutliner, AtParagr
     const result = await LabelStudio.serialize();
 
     assert.deepStrictEqual(
-      omitBy(result[4].value, (v, key) => key === "paragraphlabels"),
+      omitBy(result[4].value, (_v, key) => key === "paragraphlabels"),
       {
         start: "2",
         end: "3",
@@ -253,7 +253,7 @@ Scenario("Check different cases ", async ({ I, LabelStudio, AtOutliner, AtParagr
     );
 
     assert.deepStrictEqual(
-      omitBy(result[5].value, (v, key) => key === "paragraphlabels"),
+      omitBy(result[5].value, (_v, key) => key === "paragraphlabels"),
       {
         start: "5",
         end: "7",
@@ -274,7 +274,7 @@ Scenario("Check different cases ", async ({ I, LabelStudio, AtOutliner, AtParagr
     const result = await LabelStudio.serialize();
 
     assert.deepStrictEqual(
-      omitBy(result[6].value, (v, key) => key === "paragraphlabels"),
+      omitBy(result[6].value, (_v, key) => key === "paragraphlabels"),
       {
         start: "2",
         end: "2",
@@ -285,7 +285,7 @@ Scenario("Check different cases ", async ({ I, LabelStudio, AtOutliner, AtParagr
     );
 
     assert.deepStrictEqual(
-      omitBy(result[7].value, (v, key) => key === "paragraphlabels"),
+      omitBy(result[7].value, (_v, key) => key === "paragraphlabels"),
       {
         start: "4",
         end: "5",
@@ -296,7 +296,7 @@ Scenario("Check different cases ", async ({ I, LabelStudio, AtOutliner, AtParagr
     );
 
     assert.deepStrictEqual(
-      omitBy(result[8].value, (v, key) => key === "paragraphlabels"),
+      omitBy(result[8].value, (_v, key) => key === "paragraphlabels"),
       {
         start: "7",
         end: "7",
@@ -385,7 +385,7 @@ Scenario(
       const result = await LabelStudio.serialize();
 
       assert.deepStrictEqual(
-        omitBy(result[0].value, (v, key) => key === "paragraphlabels"),
+        omitBy(result[0].value, (_v, key) => key === "paragraphlabels"),
         {
           start: "8",
           end: "8",
@@ -407,7 +407,7 @@ Scenario(
       const result = await LabelStudio.serialize();
 
       assert.deepStrictEqual(
-        omitBy(result[1].value, (v, key) => key === "paragraphlabels"),
+        omitBy(result[1].value, (_v, key) => key === "paragraphlabels"),
         {
           start: "8",
           end: "8",
@@ -438,7 +438,7 @@ Scenario(
       const result = await LabelStudio.serialize();
 
       assert.deepStrictEqual(
-        omitBy(result[2].value, (v, key) => key === "paragraphlabels"),
+        omitBy(result[2].value, (_v, key) => key === "paragraphlabels"),
         {
           start: "3",
           end: "4",
@@ -448,7 +448,7 @@ Scenario(
         },
       );
       assert.deepStrictEqual(
-        omitBy(result[3].value, (v, key) => key === "paragraphlabels"),
+        omitBy(result[3].value, (_v, key) => key === "paragraphlabels"),
         {
           start: "6",
           end: "6",
@@ -470,7 +470,7 @@ Scenario(
       const result = await LabelStudio.serialize();
 
       assert.deepStrictEqual(
-        omitBy(result[4].value, (v, key) => key === "paragraphlabels"),
+        omitBy(result[4].value, (_v, key) => key === "paragraphlabels"),
         {
           start: "3",
           end: "4",
@@ -480,7 +480,7 @@ Scenario(
         },
       );
       assert.deepStrictEqual(
-        omitBy(result[5].value, (v, key) => key === "paragraphlabels"),
+        omitBy(result[5].value, (_v, key) => key === "paragraphlabels"),
         {
           start: "6",
           end: "6",
@@ -502,7 +502,7 @@ Scenario(
       const result = await LabelStudio.serialize();
 
       assert.deepStrictEqual(
-        omitBy(result[6].value, (v, key) => key === "paragraphlabels"),
+        omitBy(result[6].value, (_v, key) => key === "paragraphlabels"),
         {
           start: "11",
           end: "12",
@@ -546,7 +546,7 @@ Scenario(
     const result = await LabelStudio.serialize();
 
     assert.deepStrictEqual(
-      omitBy(result[0].value, (v, key) => key === "paragraphlabels"),
+      omitBy(result[0].value, (_v, key) => key === "paragraphlabels"),
       {
         start: "0",
         end: "1",
@@ -590,7 +590,7 @@ Scenario(
     const result = await LabelStudio.serialize();
 
     assert.deepStrictEqual(
-      omitBy(result[0].value, (v, key) => key === "paragraphlabels"),
+      omitBy(result[0].value, (_v, key) => key === "paragraphlabels"),
       {
         start: "3",
         end: "3",
@@ -600,7 +600,7 @@ Scenario(
       },
     );
     assert.deepStrictEqual(
-      omitBy(result[1].value, (v, key) => key === "paragraphlabels"),
+      omitBy(result[1].value, (_v, key) => key === "paragraphlabels"),
       {
         start: "6",
         end: "6",
@@ -637,7 +637,7 @@ Scenario(
     const result = await LabelStudio.serialize();
 
     assert.deepStrictEqual(
-      omitBy(result[0].value, (v, key) => key === "paragraphlabels"),
+      omitBy(result[0].value, (_v, key) => key === "paragraphlabels"),
       value,
     );
   },

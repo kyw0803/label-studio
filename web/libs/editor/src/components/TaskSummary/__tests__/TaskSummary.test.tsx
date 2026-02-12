@@ -1,20 +1,6 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import type { ReactElement } from "react";
 import { render, screen } from "@testing-library/react";
 import type { MSTAnnotation, MSTStore } from "../../../stores/types";
 import TaskSummary from "../TaskSummary";
-
-const createTestQueryClient = () =>
-  new QueryClient({
-    defaultOptions: {
-      queries: { retry: false },
-    },
-  });
-
-const renderWithQueryClient = (ui: ReactElement) => {
-  const queryClient = createTestQueryClient();
-  return render(<QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>);
-};
 
 // Polyfill for Object.groupBy which may not be available in test environment
 if (!Object.groupBy) {
@@ -159,7 +145,7 @@ describe("TaskSummary", () => {
           },
           ...overrides.project,
         },
-        hasInterface: (interfaceName: string) => false,
+        hasInterface: (_interfaceName: string) => false,
         ...overrides.store,
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -179,7 +165,7 @@ describe("TaskSummary", () => {
     const annotations = [createMockAnnotation()];
     const store = createMockStore();
 
-    renderWithQueryClient(<TaskSummary annotations={annotations} store={store} />);
+    render(<TaskSummary annotations={annotations} store={store} />);
 
     expect(screen.getByText("Task Summary")).toBeInTheDocument();
     expect(screen.getByText("Task Data")).toBeInTheDocument();
@@ -195,7 +181,7 @@ describe("TaskSummary", () => {
       },
     });
 
-    renderWithQueryClient(<TaskSummary annotations={annotations} store={store} />);
+    render(<TaskSummary annotations={annotations} store={store} />);
 
     expect(screen.getByText("Agreement")).toBeInTheDocument();
     expect(screen.getByText("85.5%")).toBeInTheDocument();
@@ -211,7 +197,7 @@ describe("TaskSummary", () => {
       },
     });
 
-    renderWithQueryClient(<TaskSummary annotations={annotations} store={store} />);
+    render(<TaskSummary annotations={annotations} store={store} />);
 
     // Backend controls agreement visibility, so if we have a number, show it
     expect(screen.getByText("Agreement")).toBeInTheDocument();
@@ -224,7 +210,7 @@ describe("TaskSummary", () => {
       project: null,
     });
 
-    renderWithQueryClient(<TaskSummary annotations={annotations} store={store} />);
+    render(<TaskSummary annotations={annotations} store={store} />);
 
     // Backend controls agreement visibility, so if we have a number, show it
     expect(screen.getByText("Agreement")).toBeInTheDocument();
@@ -240,7 +226,7 @@ describe("TaskSummary", () => {
     ];
     const store = createMockStore();
 
-    renderWithQueryClient(<TaskSummary annotations={annotations} store={store} />);
+    render(<TaskSummary annotations={annotations} store={store} />);
 
     expect(screen.getByText("Annotations")).toBeInTheDocument();
     expect(screen.getByText("2")).toBeInTheDocument(); // Only submitted annotations
@@ -255,7 +241,7 @@ describe("TaskSummary", () => {
     ];
     const store = createMockStore();
 
-    renderWithQueryClient(<TaskSummary annotations={annotations} store={store} />);
+    render(<TaskSummary annotations={annotations} store={store} />);
 
     expect(screen.getByText("Predictions")).toBeInTheDocument();
     expect(screen.getByText("2")).toBeInTheDocument(); // Only submitted predictions
@@ -280,7 +266,7 @@ describe("TaskSummary", () => {
       ]),
     });
 
-    renderWithQueryClient(<TaskSummary annotations={annotations} store={store} />);
+    render(<TaskSummary annotations={annotations} store={store} />);
 
     expect(screen.getByText("Annotator")).toBeInTheDocument();
     expect(screen.getByText("sentiment")).toBeInTheDocument();
@@ -302,7 +288,7 @@ describe("TaskSummary", () => {
       ]),
     });
 
-    renderWithQueryClient(<TaskSummary annotations={annotations} store={store} />);
+    render(<TaskSummary annotations={annotations} store={store} />);
 
     // Object tags should appear in the data summary (as header and badge)
     expect(screen.getAllByText("text")).toHaveLength(2); // header + badge
@@ -313,7 +299,7 @@ describe("TaskSummary", () => {
     const annotations: MSTAnnotation[] = [];
     const store = createMockStore();
 
-    renderWithQueryClient(<TaskSummary annotations={annotations} store={store} />);
+    render(<TaskSummary annotations={annotations} store={store} />);
 
     // Should show 0 for both annotations and predictions
     expect(screen.getByText("Annotations")).toBeInTheDocument();
@@ -336,7 +322,7 @@ describe("TaskSummary", () => {
       },
     });
 
-    renderWithQueryClient(<TaskSummary annotations={annotations} store={store} />);
+    render(<TaskSummary annotations={annotations} store={store} />);
 
     // Should not display agreement when it's undefined
     expect(screen.queryByText("Agreement")).not.toBeInTheDocument();
@@ -365,7 +351,7 @@ describe("TaskSummary", () => {
       names: new Map([controlWithPerRegion]),
     });
 
-    renderWithQueryClient(<TaskSummary annotations={annotations} store={store} />);
+    render(<TaskSummary annotations={annotations} store={store} />);
 
     expect(screen.getByText("regionLabel")).toBeInTheDocument();
   });
@@ -381,7 +367,7 @@ describe("TaskSummary", () => {
       ]),
     });
 
-    renderWithQueryClient(<TaskSummary annotations={annotations} store={store} />);
+    render(<TaskSummary annotations={annotations} store={store} />);
 
     // Only valid object tags with $ prefix should appear (as header and badge)
     expect(screen.getAllByText("text")).toHaveLength(2); // header + badge

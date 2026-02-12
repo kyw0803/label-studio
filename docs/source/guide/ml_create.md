@@ -6,16 +6,16 @@ tier: all
 order: 254
 order_enterprise: 254
 meta_title: Write your own ML backend
-meta_description: Set up your machine learning model to output and consume predictions in your data science and data labeling projects. 
+meta_description: Set up your machine learning model to output and consume predictions in your data science and data labeling projects.
 section: "Machine Learning"
 
 ---
 
 Use the Label Studio ML backend to integrate Label Studio with machine learning models. The Label Studio ML backend is an SDK that you can use to wrap your machine learning model code and turn it into a web server. The machine learning server uses [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) and [supervisord](http://supervisord.org/), and handles background training jobs with [RQ](https://python-rq.org/).
 
-Follow the steps below to wrap custom machine learning model code with the Label Studio ML SDK, or see [our library of example ML backends](ml_tutorials.html) to integrate with popular machine learning frameworks and tools such as [Huggingface's Transformers](https://huggingface.co/docs/transformers/index), [OpenAI](https://openai.com/), [Langchain](https://www.langchain.com/) and others. 
+Follow the steps below to wrap custom machine learning model code with the Label Studio ML SDK, or see [our library of example ML backends](ml_tutorials.html) to integrate with popular machine learning frameworks and tools such as [Huggingface's Transformers](https://huggingface.co/docs/transformers/index), [OpenAI](https://openai.com/), [Langchain](https://www.langchain.com/) and others.
 
-For information on using one of Label Studio's example backends, see [Set up an example ML backend](ml#Set-up-an-example-ML-backend). 
+For information on using one of Label Studio's example backends, see [Set up an example ML backend](ml#Set-up-an-example-ML-backend).
 
 <div class="opensource-only">
 
@@ -52,7 +52,7 @@ pip install -e .
 label-studio-ml create my_ml_backend
 ```
 
-This creates the following directory structure, which you can modify to implement your own inference logic: 
+This creates the following directory structure, which you can modify to implement your own inference logic:
 
 ```
 my_ml_backend/
@@ -70,10 +70,10 @@ my_ml_backend/
 
 Where:
 
-* `Dockerfile`, `docker-compose.yml` and `.dockerignore` are used to run the ML backend with Docker. 
-* `model.py` is the main file where you can implement your own training and inference logic. 
-* `_wsgi.py` is a helper file that is used to run the ML backend with Docker (you don't need to modify this). 
-* `README.md` must contain instructions on how to run the ML backend. 
+* `Dockerfile`, `docker-compose.yml` and `.dockerignore` are used to run the ML backend with Docker.
+* `model.py` is the main file where you can implement your own training and inference logic.
+* `_wsgi.py` is a helper file that is used to run the ML backend with Docker (you don't need to modify this).
+* `README.md` must contain instructions on how to run the ML backend.
 * `requirements.txt` is where you put your Python dependencies.
 * `requirements_base.txt` and `requirements_test.txt` are basic dependencies (you don't need to modify this)
 * `test_api.py` is where you put your model tests
@@ -108,17 +108,17 @@ Complete the following steps:
 1. Define an inference call with the `predict()` method as outlined above. The `predict()` method takes task data and context data:
   - The `tasks` parameter contains details about the task being pre-annotated. See [Label Studio tasks in JSON format](task_format).
   - The `context` parameter contains details about annotation actions performed in Label Studio, such as a text string highlighted sent in [Label Studio annotation results format](export#Label-Studio-JSON-format-of-annotated-tasks).
-  
-    `context` has the following properties. 
+
+    `context` has the following properties.
     - `annotation_id`: The annotation ID.
     - `draft_id`: The draft annotation ID.
     - `user_id`: The user ID.
-    - `result`: This is the annotation result, but it includes an `is_positive: true` flag that can be changed by the user. For example, by pressing the **Alt** key and using keypoints to interact with the image in the UI. 
-  
-2. With the task and context data, construct a prediction using the data received from Label Studio. 
+    - `result`: This is the annotation result, but it includes an `is_positive: true` flag that can be changed by the user. For example, by pressing the **Alt** key and using keypoints to interact with the image in the UI.
+
+2. With the task and context data, construct a prediction using the data received from Label Studio.
 3. Return a result in the [Label Studio predictions format](predictions.html#Format-pre-annotations-for-Label-Studio), which varies depending on the type of labeling being performed.
 
-Refer to the code example linked above for more details about how this might be performed for a NER labeling project. 
+Refer to the code example linked above for more details about how this might be performed for a NER labeling project.
 
 For more information about enabling pre-annotations, see [Interactive pre-annotations](ml#Interactive-pre-annotations).
 
@@ -142,7 +142,7 @@ def fit(self, event, data, **kwargs):
 with:
 
 - `event`: The event type. This can be `'ANNOTATION_CREATED'`, `'ANNOTATION_UPDATED'`, etc.
-- `data`: The payload received from the event (see the [Webhook event reference](webhook_reference)). 
+- `data`: The payload received from the event (see the [Webhook event reference](webhook_reference)).
 
 Additionally, there are two helper methods that you can use to store and retrieve data from the ML backend:
 
@@ -169,13 +169,13 @@ Other methods and parameters are available within the `LabelStudioMLBase` class:
 
 ## 4. Ensure the ML backend can access Label Studio data
 
-If your data is stored in a cloud, local directory, or has been imported into Label Studio, you will need to set the `LABEL_STUDIO_URL` and `LABEL_STUDIO_API_KEY` environment variables. 
+If your data is stored in a cloud, local directory, or has been imported into Label Studio, you will need to set the `LABEL_STUDIO_URL` and `LABEL_STUDIO_API_KEY` environment variables.
 
-For more information, see [Allow the ML backend to access Label Studio data](ml#Allow-the-ML-backend-to-access-Label-Studio-data). 
+For more information, see [Allow the ML backend to access Label Studio data](ml#Allow-the-ML-backend-to-access-Label-Studio-data).
 
 ## 5. Run the ML backend server
 
-To run with Docker Compose: 
+To run with Docker Compose:
 
    ```bash
    docker-compose up
@@ -210,4 +210,4 @@ Modify the `my_ml_backend/test_api.py` to ensure that your ML backend works as e
 
 ## 6. Connect the ML backend to Label Studio
 
-You can use the API or **Settings > Model**. For more information, see [Connect the model to Label Studio](ml#Connect-the-model-to-Label-Studio). 
+You can use the API or **Settings > Model**. For more information, see [Connect the model to Label Studio](ml#Connect-the-model-to-Label-Studio).

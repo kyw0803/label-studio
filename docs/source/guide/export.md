@@ -11,7 +11,7 @@ section: "Import & Export"
 
 ---
 
-At any point in your labeling project, you can export the annotations from Label Studio. 
+At any point in your labeling project, you can export the annotations from Label Studio.
 
 Label Studio stores your annotations in a raw JSON format in the SQLite database backend, PostgreSQL database backend, or whichever cloud or database storage you specify as target storage. Cloud storage buckets contain one file per labeled task named `task_id.json`. For more information about syncing target storage, see [Cloud storage setup](storage.html).
 
@@ -26,14 +26,14 @@ Image annotations exported in JSON format use percentages of overall image size,
 
 ### Export using the UI in Community Edition of Label Studio
 
-Use the following steps to export data and annotations from the Label Studio UI. 
+Use the following steps to export data and annotations from the Label Studio UI.
 
 1. For a project, click **Export**.
 2. Select an available export format.
 3. Click **Export** to export your data.
 
 !!! note
-    1. The export will always include the annotated tasks, regardless of filters set on the tab. 
+    1. The export will always include the annotated tasks, regardless of filters set on the tab.
     2. Cancelled annotated tasks will be included in the exported result too.
     3. If you want to apply tab filters to the export, try creating [export snapshots using the SDK](https://api.labelstud.io/api-reference/api-reference/projects/exports/create).
 
@@ -55,7 +55,7 @@ Use the following command to export data and annotations.
 label-studio export <project-id> <export-format> --export-path=<output-path>
 ```
 
-To enable logs: 
+To enable logs:
 ```shell
 DEBUG=1 LOG_LEVEL=DEBUG label-studio export <project-id> <export-format> --export-path=<output-path>
 ```
@@ -69,20 +69,20 @@ DEBUG=1 LOG_LEVEL=DEBUG label-studio export <project-id> <export-format> --expor
 <img src="/images/lse-export-snapshots-ui.png" alt="" class="gif-border" />
 <br>
 
-In Label Studio Enterprise, create a snapshot of your data and annotations. Create a snapshot to export exactly what you want from your data labeling project. This delayed export method makes it easier to export large labeling projects from the Label Studio UI.  
+In Label Studio Enterprise, create a snapshot of your data and annotations. Create a snapshot to export exactly what you want from your data labeling project. This delayed export method makes it easier to export large labeling projects from the Label Studio UI.
 
 1. Within a project in the Label Studio UI, click **Export**.
 2. Click **Create New Snapshot**.
-3. **Apply filters from tab ...**: Select **Default** from the drop-down list. 
+3. **Apply filters from tab ...**: Select **Default** from the drop-down list.
 4. (Optional) **Snapshot Name**: Enter a snapshot name to make it easier to find in the future. By default, export snapshots are named `PROJECT-NAME-at-YEAR-MM-DD-HH-MM`, where the time is in UTC.
-5. **Include in the Snapshot…**: Choose which type of data you want to include in the snapshot. Select **All tasks**, **Only annotated** tasks, or **Only reviewed** tasks. 
-6. **Drafts**: Choose whether to export the complete draft annotations (**Complete drafts**) for tasks, or only the IDs (**Only IDs**) of draft annotations, to indicate that drafts exist. 
+5. **Include in the Snapshot…**: Choose which type of data you want to include in the snapshot. Select **All tasks**, **Only annotated** tasks, or **Only reviewed** tasks.
+6. **Drafts**: Choose whether to export the complete draft annotations (**Complete drafts**) for tasks, or only the IDs (**Only IDs**) of draft annotations, to indicate that drafts exist.
 7. **Predictions**: Choose whether to export the complete predictions (**Complete predictions**) for tasks, or only the IDs (**Only IDs**) of predictions to indicate that the tasks had predictions.
 8. **Annotations**: Enable the types of annotations that you want to export. You can specify **Annotations**, **Ground Truth** annotations, and **Skipped** annotations. By default, only annotations are exported.
-9. (Optional) Enable the **Remove user details** option to remove the user's details. 
+9. (Optional) Enable the **Remove user details** option to remove the user's details.
 10. Click **Create a Snapshot** to start the export process.
-11. You see the list of snapshots available to download, with details about what is included in the snapshot, when it was created, and who created it. 
-12. Click **Download** and select the export format that you want to use. Now, the snapshot file downloads to your computer. 
+11. You see the list of snapshots available to download, with details about what is included in the snapshot, when it was created, and who created it.
+12. Click **Download** and select the export format that you want to use. Now, the snapshot file downloads to your computer.
 
 </div>
 
@@ -96,16 +96,16 @@ You can call the Label Studio API to export annotations. For a small labeling pr
 Label Studio open source exports tasks with annotations only by default. If you want to easily export all tasks including tasks without annotations, you can call  the [Easy Export API](https://api.labelstud.io/api-reference/api-reference/projects/exports/download-sync) with query param `download_all_tasks=true`. For example:
 ```
 curl -X GET https://localhost:8080/api/projects/{id}/export?exportType=JSON&download_all_tasks=true
-``` 
+```
 
 If your project is large, you can use a [snapshot export](https://api.labelstud.io/api-reference/api-reference/projects/exports/create) to avoid timeouts in most cases. Snapshots include all tasks without annotations by default.
 
 
-### Export snapshots using the Snapshot API 
+### Export snapshots using the Snapshot API
 
 For a large labeling project with hundreds of thousands of tasks, do the following:
 1. Make a POST request to [create a new export file or snapshot](https://api.labelstud.io/api-reference/api-reference/projects/exports/create). The response includes an `id` for the created file.
-2. [Check the status of the export file created](https://api.labelstud.io/api-reference/api-reference/projects/exports/get) using the `id` as the `export_pk`. 
+2. [Check the status of the export file created](https://api.labelstud.io/api-reference/api-reference/projects/exports/get) using the `id` as the `export_pk`.
 3. Using the `id` from the created snapshot as the export primary key, or `export_pk`, make a GET request to [download the export file](https://api.labelstud.io/api-reference/api-reference/projects/exports/download).
 
 
@@ -134,8 +134,8 @@ A popular machine learning format used by the [COCO dataset](http://cocodataset.
 
 If using `KeyPointLabels`, you will need to add the following to your labeling config:
 
-* At least one `<RectangleLabels>` option. You will use this as a parent bounding box for the keypoints. 
-* Add a `model_index` to every `<Label>` inside your `<KeyPointLabels>` tag. The `model_index` value defines the order of the keypoint coordinates in the output array for YOLO. 
+* At least one `<RectangleLabels>` option. You will use this as a parent bounding box for the keypoints.
+* Add a `model_index` to every `<Label>` inside your `<KeyPointLabels>` tag. The `model_index` value defines the order of the keypoint coordinates in the output array for YOLO.
 
 For example:
 
@@ -156,9 +156,9 @@ For example:
 
 ```
 
-After annotating, you must drag-and-drop each keypoint region under its corresponding rectangle region in the **Regions** panel. 
+After annotating, you must drag-and-drop each keypoint region under its corresponding rectangle region in the **Regions** panel.
 
-This establishes a parent–child hierarchy (via parentID), which is necessary for export. See the export examples below. 
+This establishes a parent–child hierarchy (via parentID), which is necessary for export. See the export examples below.
 
 ![Screenshot of keypoints within a bounding box](/images/import-export/keypoints.png)
 
@@ -282,7 +282,7 @@ List of items in [raw JSON format](#Label-Studio-JSON-format-of-annotated-tasks)
 
 List of items where only `"from_name", "to_name"` values from the [raw JSON format](#Label-Studio-JSON-format-of-annotated-tasks) are exported. Use this format to export the annotations and the data for a dataset, and no Label-Studio-specific fields. Supports all project types.
 
-For example: 
+For example:
 ```json
 {
   "image": "https://htx-pub.s3.us-east-1.amazonaws.com/examples/images/nick-owuor-astro-nic-visuals-wDifg5xc9Z4-unsplash.jpg",
@@ -303,9 +303,9 @@ For example:
 
 A popular XML-formatted task data is used for object detection and image segmentation tasks. Supports bounding box image labeling projects that use the `RectangleLabels` tag.
 
-### spaCy 
+### spaCy
 
-Label Studio does not support exporting directly to spaCy binary format, but you can convert annotations exported from Label Studio to a format compatible with spaCy. You must have the spacy python package installed to perform this conversion. 
+Label Studio does not support exporting directly to spaCy binary format, but you can convert annotations exported from Label Studio to a format compatible with spaCy. You must have the spacy python package installed to perform this conversion.
 
 To transform Label Studio annotations into spaCy binary format, do the following:
 1. Export your annotations to CONLL2003 format.
@@ -321,7 +321,7 @@ To transform Label Studio annotations into spaCy binary format, do the following
     ```
     spacy version 3:
     ```shell
-    spacy convert /path/to/<filename>.conll -c conll . 
+    spacy convert /path/to/<filename>.conll -c conll .
     ```
 
     For more information, see the spaCy documentation on [Converting existing corpora and annotations](https://spacy.io/usage/training#data-convert) on running spacy convert.
@@ -332,7 +332,7 @@ Results are stored in a tab-separated tabular file with column names specified b
 
 ### YOLO
 
-Export object detection annotations in the YOLOv3 and YOLOv4 format. Supports object detection labeling projects that use the `RectangleLabels`  and `KeyPointLabels` tags. 
+Export object detection annotations in the YOLOv3 and YOLOv4 format. Supports object detection labeling projects that use the `RectangleLabels`  and `KeyPointLabels` tags.
 
 !!! note
     If using KeyPointLabels, see the note under [COCO](#COCO).
@@ -342,10 +342,10 @@ Export object detection annotations in the YOLOv3 and YOLOv4 format. Supports ob
 {% insertmd includes/image_units.md %}
 
 ## Manually convert JSON annotations to another format
-You can run the [Label Studio converter tool](https://github.com/HumanSignal/label-studio-sdk/tree/master/src/label_studio_sdk/converter) on a directory or file of completed JSON annotations using the command line or Python to convert the completed annotations from Label Studio JSON format into another format. 
+You can run the [Label Studio converter tool](https://github.com/HumanSignal/label-studio-sdk/tree/master/src/label_studio_sdk/converter) on a directory or file of completed JSON annotations using the command line or Python to convert the completed annotations from Label Studio JSON format into another format.
 
 !!! note
-    If you use versions of Label Studio earlier than 1.0.0, then this is the only way to convert your Label Studio JSON format annotations into another labeling format. 
+    If you use versions of Label Studio earlier than 1.0.0, then this is the only way to convert your Label Studio JSON format annotations into another labeling format.
 
 
 ## Access task data (images, audio, texts) outside of Label Studio for ML backends
@@ -355,8 +355,8 @@ Machine Learning backend uses data from tasks for predictions, and you need to d
 ### Accessing task data from Label Studio instance
 
 There are several ways of storing tasks resources (images, audio, texts, etc) in Label Studio:
-- Cloud storages 
-- External web links 
+- Cloud storages
+- External web links
 - Uploaded files
 - Local files directory
 
@@ -369,12 +369,12 @@ Provide `Hostname` and `access_token` for accessing external resource.
 
 ### Accessing task data outside of Label Studio instance
 
-You can use `label_studio_tools.core.utils.io.get_local_path` method to get data from outside machine for external links and cloud storages. 
+You can use `label_studio_tools.core.utils.io.get_local_path` method to get data from outside machine for external links and cloud storages.
 
 !!! attention "important"
     Don't forget to provide credentials.
 
-You can get data with `label_studio_tools.core.utils.io.get_local_path` in case if you mount same disk to your machine. If you mount same disk to external box 
+You can get data with `label_studio_tools.core.utils.io.get_local_path` in case if you mount same disk to your machine. If you mount same disk to external box
 
 Another way of accessing data is to use link from task and ACCESS_TOKEN ([see documentation for authentication](access_tokens)). Concatenate Label Studio hostname and link from task data. Then add access token to your request:
 
@@ -382,27 +382,27 @@ Another way of accessing data is to use link from task and ACCESS_TOKEN ([see do
 curl -X GET http://localhost:8080/api/projects/ -H 'Authorization: Token {YOUR_TOKEN}'
 ```
 
-### Frequently asked questions 
+### Frequently asked questions
 
-#### Question #1: I have made a request and received the following API responses: 
+#### Question #1: I have made a request and received the following API responses:
 - No data was provided.
-- 404 or 403 error code was returned. 
+- 404 or 403 error code was returned.
 
 **Answer:**
-First check the network access to your Label Studio instance when you send API requests. You can execute test curl request with sample data. 
+First check the network access to your Label Studio instance when you send API requests. You can execute test curl request with sample data.
 
 #### Question #2: I tried to access files and received a `FileNotFound` error.
 
 **Answer:**
-1. Check that you have mounted the same disk as your Label Studio instance. Then check your files' existence in Label Studio instance first. 
+1. Check that you have mounted the same disk as your Label Studio instance. Then check your files' existence in Label Studio instance first.
 
 2. Check `LOCAL_FILES_DOCUMENT_ROOT` environment variable in your Label Studio instance and add it to your accessing data script.
 
 
-#### Question #3: How to modify order of categories for COCO and YOLO exports? 
+#### Question #3: How to modify order of categories for COCO and YOLO exports?
 
-Labels are sorted in alphabetical order, that is default behavior. If you want to modify that, please add **category** attribute in `<Label>` to modify that behaviour. For example: 
-    
+Labels are sorted in alphabetical order, that is default behavior. If you want to modify that, please add **category** attribute in `<Label>` to modify that behaviour. For example:
+
 ```xml
 <Label value="abc" category="1" />
 <Label value="def" category="2" />

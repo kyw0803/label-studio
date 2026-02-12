@@ -18,7 +18,7 @@ export default async function handler(req: Request) {
   category = category === "guide" ? "docs" : category;
 
   const theme = themeParam || req.url.includes("humansignal.com") ? "enterprise" : "opensource";
-  
+
   const fontData = await font;
 
     return new ImageResponse(
@@ -51,7 +51,7 @@ export default async function handler(req: Request) {
           fontFamily: "Hellix",
           maxWidth: '700px',
           lineHeight: '80px',
-          color: theme === "enterprise" ? "#fff" : "#12110D" 
+          color: theme === "enterprise" ? "#fff" : "#12110D"
         }}>
           {title && decodeURI(title)}
         </h1>
@@ -65,7 +65,7 @@ export default async function handler(req: Request) {
           style: "normal",
           weight: 600
         },
-        
+
       ],
     }
   )

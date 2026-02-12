@@ -6,13 +6,13 @@ type: guide
 order: 0
 order_enterprise: 69
 meta_title: Deploy Label Studio Enterprise on Kubernetes
-meta_description: Deploy Label Studio Enterprise on Kubernetes, such as on Amazon Elastic Container Service for Kubernetes, to create machine learning and data science projects in a scalable containerized environment. 
+meta_description: Deploy Label Studio Enterprise on Kubernetes, such as on Amazon Elastic Container Service for Kubernetes, to create machine learning and data science projects in a scalable containerized environment.
 section: "Install & Setup"
 parent_enterprise: "install_enterprise"
 
 ---
 
-Deploy Label Studio Enterprise on a Kubernetes Cluster using Helm 3. You can use this Helm chart to set up Label Studio Enterprise for deployment onto a Kubernetes cluster and install, upgrade, and manage the application. 
+Deploy Label Studio Enterprise on a Kubernetes Cluster using Helm 3. You can use this Helm chart to set up Label Studio Enterprise for deployment onto a Kubernetes cluster and install, upgrade, and manage the application.
 
 Your Kubernetes cluster can be self-hosted or installed somewhere such as Amazon EKS. See the Amazon tutorial on how to [Deploy a Kubernetes Application with Amazon Elastic Container Service for Kubernetes](https://aws.amazon.com/getting-started/hands-on/deploy-kubernetes-app-amazon-eks/) for more about deploying an app on Amazon EKS.
 
@@ -24,7 +24,7 @@ Your Kubernetes cluster can be self-hosted or installed somewhere such as Amazon
 </div>
 
 !!! note
-    On-prem deployments of Label Studio Enterprise are not supported for Academic licenses. 
+    On-prem deployments of Label Studio Enterprise are not supported for Academic licenses.
 
 This high-level architecture diagram that outlines the main components of a Label Studio Enterprise deployment.
 
@@ -37,13 +37,13 @@ Label Studio Enterprise runs on Python and uses rqworkers to perform additional 
 
 ## Install Label Studio Enterprise on Kubernetes
 
-If you want to install Label Studio Enterprise on Kubernetes and you have unrestricted access to the internet from your K8s cluster, follow these steps. 
+If you want to install Label Studio Enterprise on Kubernetes and you have unrestricted access to the internet from your K8s cluster, follow these steps.
 
 1. Verify that you meet the [Required software prerequisites](#Required-software-prerequisites) and review the [capacity planning](#Capacity-planning) guidance.
 2. [Prepare the Kubernetes cluster](#Prepare-the-Kubernetes-cluster).
 3. [Add the Helm chart repository](#Add-the-Helm-chart-repository).
 4. [Configure Kubernetes secrets](#Configure-Kubernetes-secrets)
-5. (Optional) Set up [persistent storage](persistent_storage.html). 
+5. (Optional) Set up [persistent storage](persistent_storage.html).
 6. (Optional) Configure [ingress](ingress_config.html).
 7. [Configure a values.yaml file](#Configure-values-yaml).
 8. (Optional) [Set up TLS for PostgreSQL](#Optional-set-up-TLS-for-PostgreSQL)
@@ -59,13 +59,13 @@ If you use a proxy to access the internet from your Kubernetes cluster, or it is
 - Redis version 6.0.5 or higher
 - PostgreSQL version 13.0 or higher
 
-This chart has been tested and confirmed to work with the [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) and [cert-manager](https://cert-manager.io/docs/). See [Set up an ingress controller for Label Studio Kubernetes deployments](ingress_config.html) for more on ingress settings with Label Studio. 
+This chart has been tested and confirmed to work with the [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) and [cert-manager](https://cert-manager.io/docs/). See [Set up an ingress controller for Label Studio Kubernetes deployments](ingress_config.html) for more on ingress settings with Label Studio.
 
-Your Kubernetes cluster can be self-hosted or installed somewhere such as Amazon EKS. 
+Your Kubernetes cluster can be self-hosted or installed somewhere such as Amazon EKS.
 
 ### Capacity planning
 
-To plan the capacity of your Kubernetes cluster, refer to these guidelines. 
+To plan the capacity of your Kubernetes cluster, refer to these guidelines.
 
 Label Studio Enterprise has the following default configurations for resource requests, resource limits, and replica counts:
 
@@ -103,7 +103,7 @@ rqworker:
 
 </div>
 
-Before you make changes to these values, familiarize yourself with the [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) guidelines in the Kubernetes documentation. 
+Before you make changes to these values, familiarize yourself with the [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) guidelines in the Kubernetes documentation.
 
 If you choose to make changes to these default settings, consider the following:
 
@@ -111,15 +111,15 @@ If you choose to make changes to these default settings, consider the following:
 |---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
 | More than 10 concurrent annotators          | Adjust the requests and limits for `resources` in the `app` pod                                                                       |
 | Increase fault tolerance                    | Increase the number of replicas of `app` and/or `rqworker` services                                                                   |
-| Production deployment (replicas)            | Replicas equivalent or greater than the number of availability zones in your Kubernetes cluster                                       | 
+| Production deployment (replicas)            | Replicas equivalent or greater than the number of availability zones in your Kubernetes cluster                                       |
 
 #### RQ worker replicas
 
-The `default` queue is the most extensive queue. It is recommended to use 4 times more replicas for the `default` queue compared to the other queues. The other queues (`critical`, `high`, `low`) can have the same number of replicas. You can start with 1 replica for each of them. 
+The `default` queue is the most extensive queue. It is recommended to use 4 times more replicas for the `default` queue compared to the other queues. The other queues (`critical`, `high`, `low`) can have the same number of replicas. You can start with 1 replica for each of them.
 
 ### Prepare the Kubernetes cluster
 
-Before installing Label Studio, prepare the Kubernetes cluster with [kubectl](https://kubernetes.io/docs/reference/kubectl/). 
+Before installing Label Studio, prepare the Kubernetes cluster with [kubectl](https://kubernetes.io/docs/reference/kubectl/).
 
 Install Label Studio Enterprise and set up a PostgreSQL and Redis databases to store relevant Label Studio Enterprise configurations and annotations using the Helm chart. You must configure specific values for your deployment in a YAML file that you specify when installing using Helm.
 
@@ -157,12 +157,12 @@ Add the Helm chart repository to easily install and update Label Studio.
    ```shell
    kubectl create secret generic lse-license --from-literal=license=https://lic.heartex.ai/db/<CUSTOMER_LICENSE_ID>
    ```
-   
+
 </div>
 
 <div class="enterprise-only">
 
-### Configure values.yaml 
+### Configure values.yaml
 
 You must configure a `values.yaml` file for your Label Studio Enterprise deployment. The following file contains default values for a minimal installation of Label Studio. This chart has been tested and confirmed to work with the [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) and [cert-manager](https://cert-manager.io/docs/).
 
@@ -172,7 +172,7 @@ global:
   image:
     repository: heartexlabs/label-studio-enterprise
     tag: REPLACE_ME
-  
+
   imagePullSecrets:
     # Defined with earlier kubectl command
     - name: heartex-pull-key
@@ -184,7 +184,7 @@ global:
     dbName: "my-database"
     # PostgreSql username
     userName: "postgres"
-    # PostgreSql password secret coordinates within Kubernetes secrets 
+    # PostgreSql password secret coordinates within Kubernetes secrets
     password:
       secretName: "postgresql"
       secretKey: "postgresql-password"
@@ -200,7 +200,7 @@ global:
 
 enterprise:
    enabled: true
-   # This value refers to the Kubernetes secret that you 
+   # This value refers to the Kubernetes secret that you
    # created that contains your enterprise license.
    enterpriseLicense:
       secretName: "lse-license"
@@ -215,7 +215,7 @@ app:
     host: studio.yourdomain.com
     # You might need to set path to '/*' in order to use this with ALB ingress controllers.
     path: /
-    # Annotations required for your ingress controller, empty by default 
+    # Annotations required for your ingress controller, empty by default
     annotations: {}
 # if you have cert-manager, uncomment the next section
 #    tls:
@@ -254,7 +254,7 @@ redis:
 Adjust the included defaults to reflect your environment and copy these into a new file and save it as `ls-values.yaml`.
 
 
-!!! note 
+!!! note
     For more complex configurations, you can create your own file based on the [list of all available Helm values](helm_values.html).
 
 </div>
@@ -270,7 +270,7 @@ kubectl create secret generic <YOUR_SECRET_NAME> --from-file=ca.crt=<PATH_TO_CA>
 ```
 3. Update your `ls-values.yaml` file with your newly-created Kubernetes secret:
 
-!!! note 
+!!! note
     If `POSTGRE_SSL_MODE: verify-ca`, the server is verified by checking the certificate chain up to the root certificate stored on the client. If `POSTGRE_SSL_MODE: verify-full`, the server host name will be verified to make sure it matches the name stored in the server certificate. The SSL connection will fail if the server certificate cannot be verified. `verify-full` is recommended in most security-sensitive environments.
 
 ```yaml
@@ -297,7 +297,7 @@ kubectl create secret generic <YOUR_SECRET_NAME> --from-file=ca.crt=<PATH_TO_CA>
 ```
 3. Update your `ls-values.yaml` file with your newly-created Kubernetes secret:
 
-!!! note 
+!!! note
     In the case if you are using self-signed certificates that host cannot verify you have to set `redisSslCertReqs` to `None`
 
 ```yaml

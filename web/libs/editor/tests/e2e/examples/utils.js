@@ -11,7 +11,7 @@ function parseXml(doc) {
   let document;
   const parser = new xml2js.Parser(OPTIONS);
 
-  parser.parseString(doc, (err, result) => {
+  parser.parseString(doc, (_err, result) => {
     document = result;
   });
   return document;

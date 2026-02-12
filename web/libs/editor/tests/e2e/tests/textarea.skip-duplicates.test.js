@@ -28,7 +28,7 @@ const SCENARIO_PARAMS = {
   },
   [SK_PER_REGION]: {
     data: {
-      image: "/public/files/images/html_headers.png",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Html_headers.png/640px-Html_headers.png",
     },
     config: `<View>
   <Image name="image" value="$image"></Image>
@@ -64,7 +64,7 @@ const SCENARIO_PARAMS = {
   },
   [SK_OCR]: {
     data: {
-      image: "/public/files/images/html_headers.png",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Html_headers.png/640px-Html_headers.png",
     },
     config: `<View>
   <Image name="image" value="$image"></Image>

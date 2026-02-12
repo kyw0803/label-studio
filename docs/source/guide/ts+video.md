@@ -1,13 +1,13 @@
 ---
 title: Time series and Video or Audio
 short: Time series and Video or Audio
-meta_title: Time series video audio labeling 
+meta_title: Time series video audio labeling
 ---
 
 
 !!! note
     - This feature is not officially supported, experimental, and has a tricky setup way.
-    - To use audio instead of video you should replace `.mp4` file to mp3/wav/other browser supported audio format.      
+    - To use audio instead of video you should replace `.mp4` file to mp3/wav/other browser supported audio format.
     - This approach works with Label Studio **1.4.1 and lower**.
 
 ## This approach is deprecated
@@ -20,11 +20,11 @@ https://labelstud.io/templates/timeseries_audio_video
 
 ## Step 1: Media hosting
 
-You have to host your CSV and MP4 somewhere (or another video formats supporting by browsers). You can use S3 
-or another clouds. If you want to host data from your hard drive, please use 
+You have to host your CSV and MP4 somewhere (or another video formats supporting by browsers). You can use S3
+or another clouds. If you want to host data from your hard drive, please use
 [Label Studio Local Storage](http://localhost:4000/guide/storage.html#Local-storage).
 
-As the result of this step you will have two URLs: one for CSV and one for video. For example, 
+As the result of this step you will have two URLs: one for CSV and one for video. For example,
 ```
 http://localhost:8080/samples/time-series.csv?time=time_column&values=first_column
 http://localhost:8080/static/samples/opossum_snow.mp4
@@ -33,7 +33,7 @@ http://localhost:8080/static/samples/opossum_snow.mp4
 
 ## Step 2: Labeling config with example task data
 
-Copy this labeling config to your project. 
+Copy this labeling config to your project.
 
 ```
 <View>
@@ -57,10 +57,10 @@ ts.brushRange.map(n=>(+n).toFixed(2));_=r();setInterval($=>r().some((n,i)=>n!==_
 
 ## Step 3: Prepare and import tasks
 
-!!! note 
-    It is the most important step, because the main trick is in task data, it uses a JavaScript injection.        
+!!! note
+    It is the most important step, because the main trick is in task data, it uses a JavaScript injection.
 
-Save this code to `import.json` and then import this file to LS.   
+Save this code to `import.json` and then import this file to LS.
 ```
 {
     "csv": "/samples/time-series.csv?time=time_column&values=first_column",
@@ -78,7 +78,7 @@ ts.brushRange.map(n=>(+n).toFixed(2));_=r();setInterval($=>r().some((n,i)=>n!==_
 
 !!! note
     - This trick suggests that time series length is equal to the video length, so the scroll between time series and video works proportionally.
-    - The sync works only in one direction: from time series to video, you can control the time position only using the time series scroll. 
+    - The sync works only in one direction: from time series to video, you can control the time position only using the time series scroll.
 
 
 ## Video tutorial

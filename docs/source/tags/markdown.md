@@ -26,7 +26,7 @@ Display static markdown instructions on the labeling interface:
 Please **carefully** read the following text and mark all entities.
 
 - Look for **person names**
-- Look for **organization names**  
+- Look for **organization names**
 - Look for **locations**
 
 > Remember to be thorough in your analysis.
@@ -63,7 +63,7 @@ Display styled markdown content:
 
 ```html
 <View>
-  <Markdown 
+  <Markdown
     value="$content"
     style="background: #f5f5f5; padding: 15px; border-radius: 8px; border-left: 4px solid #007bff;" />
 </View>
@@ -77,6 +77,6 @@ The Markdown tag supports standard Markdown syntax including:
 - **Bold and italic** - `**bold**` and `*italic*`
 - **Lists** - Ordered (`1. item`) and unordered (`- item`)
 - **Links** - `[link text](URL)`
-- **Code** - Inline `` `code` `` and code blocks with ``` 
+- **Code** - Inline `` `code` `` and code blocks with ```
 - **Blockquotes** - `> quoted text`
 - **Line breaks** - Double line breaks create new paragraphs

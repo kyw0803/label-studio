@@ -10,7 +10,7 @@ meta_description: Template for video classification tasks with Label Studio for 
 
 <img src="/images/templates/video-classification.png" alt="" class="gif-border" width="552px" height="408px" />
 
-If you want to build a video classification machine learning model, for example for content moderation or training use cases, you want a relevant dataset of classified videos. Use this template to classify videos. 
+If you want to build a video classification machine learning model, for example for content moderation or training use cases, you want a relevant dataset of classified videos. Use this template to classify videos.
 
 You can build a video classifier using the HyperText tag or the Video tag.
 
@@ -22,7 +22,7 @@ You can build a video classifier using the HyperText tag or the Video tag.
 
 ## Labeling Configuration
 
-Use the Video tag: 
+Use the Video tag:
 
 ```html
 <View>
@@ -76,7 +76,7 @@ Use the [Choices](/tags/choices.html) control tag to provide a single choice for
     <Choice value="Stable"></Choice>
 </Choices>
 ```
-  
+
 Use the [HyperText](/tags/hypertext.html) tag to display video clips to annotators in Label Studio:
 ```xml
 <HyperText name="video" value="$html"></HyperText>
@@ -86,7 +86,7 @@ Use the [HyperText](/tags/hypertext.html) tag to display video clips to annotato
 
 To use the labeling configuration with HyperText tags, prepare input data like the following example using the HTML video tag:
 
-```json 
+```json
 [
  { "html": "<video src='examples.com/1.mp4'>" },
  { "html": "<video src='examples.com/2.mp4'>" }
@@ -94,14 +94,14 @@ To use the labeling configuration with HyperText tags, prepare input data like t
 ```
 
 You can also embed videos available on the web:
- 
-```json 
+
+```json
 [
   { "html": "<embed src='https://www.youtube.com/embed/mf9TKj0NuTQ'></embed>" }
 ]
 ```
 
-Read more about the HTML video tag 
+Read more about the HTML video tag
 <a href="https://www.w3schools.com/tags/att_video_src.asp">on the W3 Schools website</a>.
 
 ## Related tags

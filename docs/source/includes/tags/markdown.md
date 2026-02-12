@@ -10,4 +10,3 @@
 | [whenTagName] | <code>string</code> | Use with `visibleWhen`. Narrow down visibility by tag name |
 | [whenLabelValue] | <code>string</code> | Use with `visibleWhen="region-selected"`. Narrow down visibility by label value |
 | [whenChoiceValue] | <code>string</code> | Use with `visibleWhen` and `whenTagName`. Narrow down visibility by choice value |
-

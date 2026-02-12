@@ -13,43 +13,43 @@ The `Chat` tag displays a conversational transcript and lets annotators extend i
 Use with the following data types: JSON array of message objects
 
 !!! error Enterprise
-    This tag is only available for Label Studio Enterprise and Starter Cloud users. 
+    This tag is only available for Label Studio Enterprise and Starter Cloud users.
 
 
 ### Use with an LLM
 
-Optionally, the tag can send requests to an LLM and then post the replies. 
+Optionally, the tag can send requests to an LLM and then post the replies.
 
 To use an LLM, you need to do two things:
 
-1. Add a model provider API key to your organization. See [Model provider API keys for organizations](https://docs.humansignal.com/guide/model_providers). 
+1. Add a model provider API key to your organization. See [Model provider API keys for organizations](https://docs.humansignal.com/guide/model_providers).
 
-2.  Once you have added an API key for a model provider, set the `llm` attribute on the `<Chat>` tag to the model you want to use. 
+2.  Once you have added an API key for a model provider, set the `llm` attribute on the `<Chat>` tag to the model you want to use.
 
-    The `llm` attribute must use the format `<provider>/<model>`. For example, `llm="openai/gpt-5"`. 
+    The `llm` attribute must use the format `<provider>/<model>`. For example, `llm="openai/gpt-5"`.
 
 !!! note
-    Starter Cloud users have limited access to the LLM feature for chats. 
+    Starter Cloud users have limited access to the LLM feature for chats.
 
-    In Starter Cloud, you cannot add model providers. However, you will have access to out-of-the-box OpenAI models with $5.00 in credits for testing. If you want to add your own models and use interactive chats more extensively, you can [upgrade to Enterprise](https://humansignal.com/pricing/). 
+    In Starter Cloud, you cannot add model providers. However, you will have access to out-of-the-box OpenAI models with $5.00 in credits for testing. If you want to add your own models and use interactive chats more extensively, you can [upgrade to Enterprise](https://humansignal.com/pricing/).
 
 ### Editable messages
 
-You can allow annotators to edit chat messages, including responses from the LLM.  
+You can allow annotators to edit chat messages, including responses from the LLM.
 
-Set the `editable` parameter to `"true"` or to a list of roles that should be editable (for example, "`editable="user,system"`). 
+Set the `editable` parameter to `"true"` or to a list of roles that should be editable (for example, "`editable="user,system"`).
 
 To edit a message, hover over it to view the edit icon.
 
-Annotators cannot edit messages from the imported task data.  
+Annotators cannot edit messages from the imported task data.
 
 ![Screenshot](/images/tags/chat-edit.png)
 
 ### Role-based evaluation
 
-You can show options only when a message from a specific role is selected. 
+You can show options only when a message from a specific role is selected.
 
-To do this, wrap the controls in a `<View>` block and set the `visibleWhen` and `whenRole` parameters. This ensures the controls only appear  when the annotator selects a message from that role. 
+To do this, wrap the controls in a `<View>` block and set the `visibleWhen` and `whenRole` parameters. This ensures the controls only appear  when the annotator selects a message from that role.
 
 For example, the annotator will only see the following choices when they select a message from the user role:
 
@@ -71,9 +71,9 @@ For example, the annotator will only see the following choices when they select 
 
 ### Example `<Chat>` tag
 
-The following labeling configuration is the most basic implementation of the Chat tag. Adding a self-referencing `toName` parameter allows you to use it without any other control tags. 
+The following labeling configuration is the most basic implementation of the Chat tag. Adding a self-referencing `toName` parameter allows you to use it without any other control tags.
 
-This labeling configuration would allow an annotator to submit messages from different roles that they select in a drop down message. 
+This labeling configuration would allow an annotator to submit messages from different roles that they select in a drop down message.
 
 ```xml
 <View>
@@ -81,7 +81,7 @@ This labeling configuration would allow an annotator to submit messages from dif
 </View>
 ```
 
-You can extend this configuration by allowing auto-replies from an LLM and adding control tags to evaluate the messages, as seen in the example below. 
+You can extend this configuration by allowing auto-replies from an LLM and adding control tags to evaluate the messages, as seen in the example below.
 
 ### Example labeling config
 
@@ -121,7 +121,7 @@ Evaluate assistant responses:
 
 ### Import JSON data
 
-The example JSON input data below is called in the `value="$chat"` parameter. 
+The example JSON input data below is called in the `value="$chat"` parameter.
 
 - `role`    — speaker identifier; supported roles: `user`, `assistant`, `system`, `tool`, `developer`
 - `content` — message text
@@ -145,12 +145,12 @@ The example JSON input data below is called in the `value="$chat"` parameter.
 ```
 
 !!! note Privacy note
-    Messages that are part of imported data or predictions follow the same privacy rules as any other data you import, and are accessible via pre-signed URLs when using cloud storage. Messages added during the labeling process are treated as annotations. See our [security documentation](/guide/security#Secure-access-to-data-in-Label-Studio). 
+    Messages that are part of imported data or predictions follow the same privacy rules as any other data you import, and are accessible via pre-signed URLs when using cloud storage. Messages added during the labeling process are treated as annotations. See our [security documentation](/guide/security#Secure-access-to-data-in-Label-Studio).
 
 !!! attention
-    The chat messages that you import are not selectable. This means that you cannot edit them or apply annotations (ratings, choices, etc) to them. 
+    The chat messages that you import are not selectable. This means that you cannot edit them or apply annotations (ratings, choices, etc) to them.
 
-    You can only select and annotate messages that are added to the chat by an annotator or that are imported as predictions. 
+    You can only select and annotate messages that are added to the chat by an annotator or that are imported as predictions.
 
 To work with a blank chat and have your annotator add all messages, simply import:
 
@@ -164,7 +164,7 @@ To work with a blank chat and have your annotator add all messages, simply impor
 
 ### Prediction format
 
-Because users cannot select or evaluate chat messages that are imported as data, you can use predictions when you want to allow users to evaluate conversations that have been generated elsewhere. 
+Because users cannot select or evaluate chat messages that are imported as data, you can use predictions when you want to allow users to evaluate conversations that have been generated elsewhere.
 
 !!! note
     You should include a timestamp field (`createdAt`) in milliseconds. This ensures your messages maintain the correct order when you modify them (edit them, resend them, etc.)
@@ -176,7 +176,7 @@ See the following example:
   {
     "data": {
       "chat": [
-        { 
+        {
           "text": "Review the conversation in detail. As you read through it, click on individual messages to provide feedback about accuracy, clarity, and intent."
         }
       ]

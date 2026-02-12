@@ -125,4 +125,4 @@ globs: **/*.jsx,**/*.tsx
 - Keep components focused on a single responsibility
 - Document complex logic with clear comments
 - Follow the project's folder structure and naming conventions
-- Prefer controlled components over uncontrolled ones 
+- Prefer controlled components over uncontrolled ones

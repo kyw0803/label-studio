@@ -3,7 +3,8 @@ const { centerOfBbox } = require("./helpers");
 
 Feature("Outliner");
 
-const IMAGE = "/public/files/images/nick-owuor-unsplash.jpg";
+const IMAGE =
+  "https://htx-pub.s3.us-east-1.amazonaws.com/examples/images/nick-owuor-astro-nic-visuals-wDifg5xc9Z4-unsplash.jpg";
 
 Scenario("Basic details", async ({ I, LabelStudio, AtOutliner, AtDetails }) => {
   const RESULT_LABELS = ["a", "b", "c"];
@@ -219,7 +220,7 @@ Scenario("Basic details", async ({ I, LabelStudio, AtOutliner, AtDetails }) => {
 
   I.say("Check that meta is removed correctly");
   const resultWithoutMeta = await LabelStudio.serialize();
-  const regionWithoutMeta = getRectangleRegion(resultWithoutMeta);
+  const _regionWithoutMeta = getRectangleRegion(resultWithoutMeta);
 
   assert.deepStrictEqual(resultWithoutMeta[2].meta, undefined);
 }).retry(3);

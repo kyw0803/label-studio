@@ -1,11 +1,11 @@
 ---
-title: Multi-Channel Audio Transcription
+title: Multi-Channel Audio Transcription 🔒
 type: templates
 category: Programmable Interfaces
-order: 753
+order: 353
 is_new: t
 meta_title: Template for multi-channel audio transcription
-meta_description: Template that uses a custom UI to visualize and transcribe multiple audio channels 
+meta_description: Template that uses a custom UI to visualize and transcribe multiple audio channels
 ---
 
 This template creates an interface for transcribing and editing multi-speaker audio conversations. It combines synchronized audio playback, visual transcript display, and an advanced editing interface to streamline the transcription workflow.
@@ -22,7 +22,7 @@ The example labeling configuration creates a split-screen interface with:
 !!! error Enterprise
     This template and the `ReactCode` tag can only be used in Label Studio Enterprise.
 
-    For more information, including simplified code examples, see [ReactCode](/tags/reactcode).
+    For more information, see [Programmable & Embeddable Interfaces](https://humansignal.com/programmable-ui/).
 
 ## Labeling configuration
 
@@ -48,7 +48,7 @@ The transcript data is stored as an array of segment objects, each containing `s
 ```xml
 <View>
   <Header value="Audio Transcription with Paragraphs"/>
-  
+
   <View style="display: flex; flex-direction: row; gap: 20px; margin-bottom: 20px; position: sticky; top: 0; z-index: 100; background-color: white; padding: 10px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
     <View style="flex: 1;">
       <Header value="Speaker 1 Audio"/>
@@ -57,7 +57,7 @@ The transcript data is stored as an array of segment objects, each containing `s
         <Label value="Speaker 1" background="blue"/>
       </Labels>
     </View>
-    
+
     <View style="flex: 1;">
       <Header value="Speaker 2 Audio"/>
       <Audio name="audio_speaker_2" value="$audio_speaker_2" height="200" hotkey="space" sync="text" />
@@ -66,7 +66,7 @@ The transcript data is stored as an array of segment objects, each containing `s
       </Labels>
     </View>
   </View>
-  
+
   <View style="display: flex; flex-direction: row; gap: 20px; height: 700px;">
     <View style="flex: 1; min-width: 0; overflow: hidden; display: flex; flex-direction: column;">
       <Header value="Transcript"/>
@@ -81,7 +81,7 @@ The transcript data is stored as an array of segment objects, each containing `s
                     granularity="paragraph"/>
       </View>
     </View>
-    
+
     <View style="flex: 1; min-width: 0; overflow: hidden; display: flex; flex-direction: column;">
       <Header value="Edit Transcriptions"/>
       <ReactCode name="transcription_editor" toName="transcription_editor" data="$transcript" style="flex: 1; min-height: 0;">
@@ -106,7 +106,7 @@ The transcript data is stored as an array of segment objects, each containing `s
   React.useEffect(() => {
     try {
       const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
-      
+
       if (Array.isArray(parsedData)) {
         setSegments(parsedData);
         // Initialize edited segments with original text
@@ -153,22 +153,22 @@ The transcript data is stored as an array of segment objects, each containing `s
   const updateSegmentText = (segmentIndex, newText) => {
     setEditedSegments(prev => {
       const updated = { ...prev, [segmentIndex]: newText };
-      
+
       // Save to regions
       const updatedSegments = segments.map((seg, idx) => ({
         ...seg,
         text: updated[idx] !== undefined ? updated[idx] : seg.text
       }));
-      
+
       saveSegments(updatedSegments, updated);
-      
+
       return updated;
     });
   };
 
   // Update segment speaker
   const updateSegmentSpeaker = (segmentIndex, newSpeaker) => {
-    const updatedSegments = segments.map((seg, idx) => 
+    const updatedSegments = segments.map((seg, idx) =>
       idx === segmentIndex ? { ...seg, speaker: newSpeaker } : seg
     );
     setSegments(updatedSegments);
@@ -179,7 +179,7 @@ The transcript data is stored as an array of segment objects, each containing `s
   const updateSegmentTime = (segmentIndex, timeType, newTime) => {
     const parsedTime = parseTimeInput(newTime);
     const timeValue = parsedTime ? parseFloat(parsedTime) : 0;
-    const updatedSegments = segments.map((seg, idx) => 
+    const updatedSegments = segments.map((seg, idx) =>
       idx === segmentIndex ? { ...seg, [timeType]: timeValue } : seg
     );
     setSegments(updatedSegments);
@@ -197,7 +197,7 @@ The transcript data is stored as an array of segment objects, each containing `s
   const deleteSegment = (segmentIndex) => {
     // Save to history before deleting
     saveToHistory();
-    
+
     const updatedSegments = segments.filter((_, idx) => idx !== segmentIndex);
     const updatedEdited = {};
     // Reindex edited segments: indices before segmentIndex stay the same, indices after shift down by 1
@@ -217,7 +217,7 @@ The transcript data is stored as an array of segment objects, each containing `s
   // Undo function
   const undo = () => {
     if (undoHistory.length === 0) return;
-    
+
     const lastState = undoHistory[undoHistory.length - 1];
     setSegments(lastState.segments);
     setEditedSegments(lastState.editedSegments);
@@ -237,7 +237,7 @@ The transcript data is stored as an array of segment objects, each containing `s
   const splitSegment = (segmentIndex, splitPos) => {
     const segment = segments[segmentIndex];
     const editedText = editedSegments[segmentIndex] !== undefined ? editedSegments[segmentIndex] : segment.text || '';
-    
+
     if (!splitPos || splitPos <= 0 || splitPos >= editedText.length) {
       alert('Please enter a valid split position (between 0 and text length)');
       return;
@@ -312,13 +312,13 @@ The transcript data is stored as an array of segment objects, each containing `s
   const insertSegmentAfter = (afterIndex) => {
     const currentSegment = segments[afterIndex];
     const nextSegment = segments[afterIndex + 1];
-    
+
     // Calculate default times (midpoint between current end and next start, or current end + 1 second)
     const defaultStart = currentSegment.end;
-    const defaultEnd = nextSegment ? 
-      ((currentSegment.end + nextSegment.start) / 2) : 
+    const defaultEnd = nextSegment ?
+      ((currentSegment.end + nextSegment.start) / 2) :
       (currentSegment.end + 1);
-    
+
     setInsertAfterIndex(afterIndex);
     setNewSegment({
       speaker: currentSegment.speaker,
@@ -337,7 +337,7 @@ The transcript data is stored as an array of segment objects, each containing `s
 
     const startTimeStr = parseTimeInput(newSegment.start);
     const endTimeStr = parseTimeInput(newSegment.end);
-    
+
     if (!startTimeStr || !endTimeStr) {
       alert('Please enter valid time values (seconds or MM:SS format)');
       return;
@@ -375,7 +375,7 @@ The transcript data is stored as an array of segment objects, each containing `s
       newSeg,
       ...segments.slice(insertIndex)
     ];
-    
+
     // Reindex edited segments
     const reindexedEdited = {};
     updatedSegments.forEach((seg, idx) => {
@@ -394,7 +394,7 @@ The transcript data is stored as an array of segment objects, each containing `s
     setSegments(updatedSegments);
     setEditedSegments(reindexedEdited);
     saveSegments(updatedSegments, reindexedEdited);
-    
+
     // Reset form
     setNewSegment({ speaker: 'Speaker 1', start: '', end: '', text: '' });
     setInsertAfterIndex(null);
@@ -403,9 +403,9 @@ The transcript data is stored as an array of segment objects, each containing `s
   // Parse time input (supports MM:SS or seconds)
   const parseTimeInput = (input) => {
     if (!input || input.trim() === '') return '';
-    
+
     const trimmed = input.trim();
-    
+
     // Handle MM:SS format
     if (trimmed.includes(':')) {
       const parts = trimmed.split(':');
@@ -423,13 +423,13 @@ The transcript data is stored as an array of segment objects, each containing `s
       }
       return '';
     }
-    
+
     // Handle plain number (seconds)
     const numValue = parseFloat(trimmed);
     if (!isNaN(numValue)) {
       return numValue.toString();
     }
-    
+
     return '';
   };
 
@@ -486,25 +486,25 @@ The transcript data is stored as an array of segment objects, each containing `s
     // Find the actual scrollable transcript container
     const findScrollableElement = (element) => {
       if (!element) return null;
-      
+
       // Check if this element is scrollable
       const style = window.getComputedStyle(element);
       const isScrollable = (
-        (style.overflow === 'auto' || style.overflow === 'scroll' || 
+        (style.overflow === 'auto' || style.overflow === 'scroll' ||
          style.overflowY === 'auto' || style.overflowY === 'scroll') &&
         element.scrollHeight > element.clientHeight
       );
-      
+
       if (isScrollable) {
         return element;
       }
-      
+
       // Check children
       for (let child of element.children) {
         const scrollable = findScrollableElement(child);
         if (scrollable) return scrollable;
       }
-      
+
       return element; // Fallback to the element itself
     };
 
@@ -516,24 +516,24 @@ The transcript data is stored as an array of segment objects, each containing `s
 
     const syncScroll = (source, target, sourceScrollTop, sourceScrollHeight, sourceClientHeight) => {
       if (isScrollingRef.current) return;
-      
+
       isScrollingRef.current = true;
-      
+
       const sourceMaxScroll = sourceScrollHeight - sourceClientHeight;
       if (sourceMaxScroll <= 0) {
         isScrollingRef.current = false;
         return;
       }
-      
+
       const sourceScrollRatio = sourceScrollTop / sourceMaxScroll;
       const targetScrollHeight = target.scrollHeight;
       const targetClientHeight = target.clientHeight;
       const targetMaxScroll = targetScrollHeight - targetClientHeight;
-      
+
       if (targetMaxScroll > 0) {
         target.scrollTop = sourceScrollRatio * targetMaxScroll;
       }
-      
+
       setTimeout(() => {
         isScrollingRef.current = false;
       }, 10);
@@ -662,17 +662,17 @@ The transcript data is stored as an array of segment objects, each containing `s
       }, 'Undo')
     ),
 
-    React.createElement('div', { 
+    React.createElement('div', {
       ref: editorScrollRef,
-      style: contentStyle 
+      style: contentStyle
     },
-      segments.length === 0 ? 
+      segments.length === 0 ?
         React.createElement('div', { style: { color: '#666', padding: '20px', textAlign: 'center' } },
           'No transcription segments available. Please ensure transcript data is loaded.'
         ) :
         segments.map((segment, index) => {
         const editedText = editedSegments[index] !== undefined ? editedSegments[index] : segment.text || '';
-        
+
         return React.createElement('div', {
           key: index,
           style: segmentContainerStyle
@@ -694,8 +694,8 @@ The transcript data is stored as an array of segment objects, each containing `s
               React.createElement('div', { style: { display: 'flex', gap: '5px', alignItems: 'center' } },
                 React.createElement('input', {
                   type: 'text',
-                  value: timeInputs[`${index}-start`] !== undefined 
-                    ? timeInputs[`${index}-start`] 
+                  value: timeInputs[`${index}-start`] !== undefined
+                    ? timeInputs[`${index}-start`]
                     : formatTime(segment.start),
                   onChange: (e) => {
                     const inputKey = `${index}-start`;
@@ -715,8 +715,8 @@ The transcript data is stored as an array of segment objects, each containing `s
                 React.createElement('span', null, '-'),
                 React.createElement('input', {
                   type: 'text',
-                  value: timeInputs[`${index}-end`] !== undefined 
-                    ? timeInputs[`${index}-end`] 
+                  value: timeInputs[`${index}-end`] !== undefined
+                    ? timeInputs[`${index}-end`]
                     : formatTime(segment.end),
                   onChange: (e) => {
                     const inputKey = `${index}-end`;
@@ -943,7 +943,7 @@ The transcript data is stored as an array of segment objects, each containing `s
 
 ## Example input
 
-Copy this into a JSON file and then import it into a project with the example code above. 
+Copy this into a JSON file and then import it into a project with the example code above.
 
 {% details <b>Click to expand</b> %}
 
@@ -1022,7 +1022,7 @@ Copy this into a JSON file and then import it into a project with the example co
 
 ### Example output
 
-The output will include all segments, which can then be compared with the original data. 
+The output will include all segments, which can then be compared with the original data.
 
 For example (partial JSON):
 

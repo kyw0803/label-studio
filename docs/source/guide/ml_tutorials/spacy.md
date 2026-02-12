@@ -1,12 +1,12 @@
 ---
-title: spaCy models for NER 
+title: spaCy models for NER
 type: guide
 tier: all
 order: 70
 hide_menu: true
 hide_frontmatter_title: true
 meta_title: Use spaCy models with Label Studio
-meta_description: Tutorial on how to use Label Studio and spaCy for faster NER and POS labeling 
+meta_description: Tutorial on how to use Label Studio and spaCy for faster NER and POS labeling
 categories:
     - Natural Language Processing
     - Named Entity Recognition
@@ -22,9 +22,9 @@ Current implementation includes the following models:
 
 ## Before you begin
 
-Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart). 
+Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart).
 
-This tutorial uses the [`spacy` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/spacy). 
+This tutorial uses the [`spacy` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/spacy).
 
 ## Quickstart
 

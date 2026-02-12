@@ -16,7 +16,7 @@ interface BottomPanelProps {
 
 const HEADER_HEIGHT = 33;
 
-export const BottomPanel = forwardRef<BottomPanelRef, BottomPanelProps>(({ isCollapsed, setIsCollapsed }, ref) => {
+export const BottomPanel = forwardRef<BottomPanelRef, BottomPanelProps>(({ isCollapsed, setIsCollapsed }, _ref) => {
   const currentAnnotation = useAtomValue(annotationAtom);
   const sampleTask = useAtomValue(sampleTaskAtom);
 

@@ -10,7 +10,12 @@ meta_description: Template for segmenting an audio clip based on speaker with La
 
 <img src="/images/templates/speaker-segmentation.png" alt="" class="gif-border" width="552px" height="408px" />
 
-When preparing audio transcripts or training a machine learning model to differentiate between different speakers, use this template to perform speaker segmentation and label different regions of an audio clip with different speakers. 
+When preparing audio transcripts or training a machine learning model to differentiate between different speakers, use this template to perform speaker segmentation and label different regions of an audio clip with different speakers.
+
+!!! error Enterprise
+    If you're managing more complex or high-volume audio labeling projects, Label Studio Enterprise includes an advanced audio transcription interface built to support faster, more precise annotation at scale.
+
+    See our new [Multi-Channel Audio Transcription](react_audio) template and learn more in [A New Audio Transcription UI for Speed and Quality at Scale](https://humansignal.com/blog/building-a-better-ui-for-audio-transcription-at-scale/) (blog post).
 
 ## Interactive Template Preview
 
@@ -49,4 +54,3 @@ Use the [Audio](/tags/audio.html) object tag to display a waveform of audio and 
 
 - [Labels](/tags/labels.html)
 - [Audio](/tags/audio.html)
-

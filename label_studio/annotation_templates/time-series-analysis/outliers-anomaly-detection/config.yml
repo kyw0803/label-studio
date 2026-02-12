@@ -40,4 +40,3 @@ config: |
           <Choice value="Anomaly"/>
       </Choices>
   </View>
-

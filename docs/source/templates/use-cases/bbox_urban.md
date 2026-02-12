@@ -57,7 +57,7 @@ Use the `<RectangleLabels>` tag to add labeled rectangular bounding boxes releva
 ```html
 <View visibleWhen="region-selected">
   <Header value="Describe area"/>
-  <TextArea name="answer" toName="image" editable="true" 
+  <TextArea name="answer" toName="image" editable="true"
             perRegion="true" required="true" placeholder="Enter description here..."/>
   <Choices name="choices" toName="image" perRegion="true">
     <Choice value="Planned"/>

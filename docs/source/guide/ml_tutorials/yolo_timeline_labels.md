@@ -17,12 +17,12 @@ image: "/guide/ml_tutorials/yolo-video-classification.png"
 
 # TimelineLabels Model for Temporal Video Multi-Label Classification in Label Studio
 
-This documentation provides a clear and comprehensive guide on how to use the TimelineLabels model 
-for temporal multi-label classification of video data in Label Studio. 
+This documentation provides a clear and comprehensive guide on how to use the TimelineLabels model
+for temporal multi-label classification of video data in Label Studio.
 
-By integrating an LSTM neural network on top of YOLO's classification capabilities — 
-specifically utilizing features from YOLO's last layer — the model handles temporal labeling tasks. 
-Users can easily customize neural network parameters directly within the labeling configuration 
+By integrating an LSTM neural network on top of YOLO's classification capabilities —
+specifically utilizing features from YOLO's last layer — the model handles temporal labeling tasks.
+Users can easily customize neural network parameters directly within the labeling configuration
 to tailor the model to their specific use cases or use this model as a foundation for further development.
 
 In trainable mode, you'll begin by annotating a few samples by hand. Each time you click **Submit**, the model will retrain on the new annotation that you've provided. Once the model begins predicting your trained labels on new tasks, it will automatically populate the timeline with the labels that it has predicted. You can validate or change these labels, and updating them will again retrain the model, helping you to iteratively improve.
@@ -30,11 +30,11 @@ In trainable mode, you'll begin by annotating a few samples by hand. Each time y
 <iframe width="560" height="315" src="https://www.youtube.com/embed/UyaecID1iG8?si=RHPYDfYgIWea1Odq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 <br/>
 
-**Tip:** If you're looking for a more advanced approach to temporal classification, check out the [VideoMAE model](https://huggingface.co/docs/transformers/en/model_doc/videomae). While we don't provide an example backend for VideoMAE, you can [integrate it as your own ML backend](https://labelstud.io/guide/ml_create). 
+**Tip:** If you're looking for a more advanced approach to temporal classification, check out the [VideoMAE model](https://huggingface.co/docs/transformers/en/model_doc/videomae). While we don't provide an example backend for VideoMAE, you can [integrate it as your own ML backend](https://labelstud.io/guide/ml_create).
 
 ## Installation and quickstart
 
-Before you begin, you need to install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend/blob/master/README.md#quickstart). 
+Before you begin, you need to install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend/blob/master/README.md#quickstart).
 
 This tutorial uses the [YOLO example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/yolo). See the [main README](https://github.com/HumanSignal/label-studio-ml-backend/blob/master/label_studio_ml/examples/yolo/README.md#quick-start) for detailed instructions on setting up the YOLO-models family in Label Studio.
 
@@ -43,7 +43,7 @@ This tutorial uses the [YOLO example](https://github.com/HumanSignal/label-studi
 
 ```xml
 <View>
-    <TimelineLabels name="label" toName="video" 
+    <TimelineLabels name="label" toName="video"
         model_trainable="true"
         model_classifier_epochs="1000"
         model_classifier_sequence_size="16"
@@ -60,7 +60,7 @@ This tutorial uses the [YOLO example](https://github.com/HumanSignal/label-studi
 </View>
 ```
 
-<span style="color:red"><b>IMPORTANT:</b></span> You must set the **`frameRate`** attribute in the `Video` tag to the correct value. 
+<span style="color:red"><b>IMPORTANT:</b></span> You must set the **`frameRate`** attribute in the `Video` tag to the correct value.
 <span style="color:red">All your videos should have the same frame rate.</span> Otherwise, the submitted annotations will be **misaligned** with videos.
 
 ## Parameters
@@ -103,8 +103,8 @@ In the simple mode, the model uses pre-trained YOLO classes to generate predicti
 
 The trainable mode enables the model to learn from your annotations incrementally.
 
-It uses the pre-trained YOLO classification model and a custom LSTM neural network on the top 
-to capture temporal dependencies in video data. The LSTM model works from scratch, 
+It uses the pre-trained YOLO classification model and a custom LSTM neural network on the top
+to capture temporal dependencies in video data. The LSTM model works from scratch,
 so it requires about 10-20 well-annotated videos 500 frames each (~20 seconds) to start making meaningful predictions.
 
 - **When to Use**: When custom labels or improved accuracy are needed relative to simple mode.
@@ -122,7 +122,7 @@ so it requires about 10-20 well-annotated videos 500 frames each (~20 seconds) t
 ```xml
 <View>
     <Video name="video" value="$video" height="700" frameRate="25.0" timelineHeight="200" />
-    <TimelineLabels name="label" toName="video" 
+    <TimelineLabels name="label" toName="video"
                     model_trainable="true"
                     model_classifier_epochs="1000"
                     model_classifier_sequence_size="16"
@@ -139,8 +139,8 @@ so it requires about 10-20 well-annotated videos 500 frames each (~20 seconds) t
 
 ## How the trainable model works
 
-The trainable mode uses a custom implementation of the temporal LSTM classification model. 
-The model is trained incrementally with each new annotation submit or update, 
+The trainable mode uses a custom implementation of the temporal LSTM classification model.
+The model is trained incrementally with each new annotation submit or update,
 and it generates predictions for each frame in the video.
 
 ### 1. Feature extraction with YOLO
@@ -154,9 +154,9 @@ and it generates predictions for each frame in the video.
 You can load your own YOLO models using the steps described in the [main README](https://github.com/HumanSignal/label-studio-ml-backend/blob/master/label_studio_ml/examples/yolo/README.md#your-own-custom-yolo-models).
 However, it should have similar architecture as `yolov8-cls` models. See `utils/neural_nets.py::cached_feature_extraction()` for more details.
 
-#### Cache folder 
+#### Cache folder
 
-It's located in `/app/cache_dir` and stores the cached intermediate features from the last layer of the YOLO model. 
+It's located in `/app/cache_dir` and stores the cached intermediate features from the last layer of the YOLO model.
 The cache is used for incremental training on the fly and prediction speedup.
 
 ### 2. LSTM Neural Network
@@ -189,7 +189,7 @@ The cache is used for incremental training on the fly and prediction speedup.
 - **Early stop on training data**: The model uses early stopping based on the F1 score and accuracy on the training data. This may lead to overfitting on the training data. It was made because of the lack of validation data when updating on one annotation.
 - **YOLO model limitations**: The model uses a pre-trained YOLO model trained on object classification tasks for feature extraction, which may not be optimal for all use cases such as event detection. This approach doesn't tune the YOLO model, it trains only the LSTM piece upon the YOLO last layer.
 - **Label balance**: The model may struggle with imbalanced labels. Ensure that the labels are well-distributed in the training data. Consider modifying the loss function (`BCEWithLogitsLoss`) and using class pos weights to address this issue.
-- **Training on all daa**: Training on all data is not yet implemented, so the model trains only on the last annotation. See `timeline_labels.py::fit()` for more details. 
+- **Training on all daa**: Training on all data is not yet implemented, so the model trains only on the last annotation. See `timeline_labels.py::fit()` for more details.
 
 ## Example use case: detecting a ball in football videos
 
@@ -212,8 +212,8 @@ The cache is used for incremental training on the fly and prediction speedup.
     Create a new project, go to **Settings > Model** and add the YOLO backend.
      1. Navigate to the `yolo` folder in this repository in your terminal.
      2. Update your `docker-compose.yml` file.
-     3. Execute `docker compose up` to run the backend. 
-     4. Connect this backend to your Label Studio project in the project settings. Make sure that **Interactive Preannotations** is OFF (this is the default). 
+     3. Execute `docker compose up` to run the backend.
+     4. Connect this backend to your Label Studio project in the project settings. Make sure that **Interactive Preannotations** is OFF (this is the default).
 
 ### Annotation and training
 
@@ -247,13 +247,13 @@ So you may need to update (click **Update**) on annotations to see improvements.
 
 If you want to modify more parameters, you can do it directly in the code in `utils/neural_nets.py::MultiLabelLSTM`.
 
-If you need to reset the model completely, you can remove the model file from `/app/models`. 
-See `timeline_labels.py::get_classifier_path()` for the model path. Usually it starts with the `timelinelabels-` prefix.  
+If you need to reset the model completely, you can remove the model file from `/app/models`.
+See `timeline_labels.py::get_classifier_path()` for the model path. Usually it starts with the `timelinelabels-` prefix.
 
 ## Debug
 
 To debug the model, you should run it with the `LOG_LEVEL=DEBUG` environment variable (see `docker-compose.yml`),
-then check the logs in the (docker) console. 
+then check the logs in the (docker) console.
 
 ## Convert TimelineLabels regions to label arrays and back
 
@@ -261,15 +261,15 @@ There are two main functions to convert the TimelineLabels regions to label arra
 - `utils/converter.py::convert_timelinelabels_to_probs()` - Converts TimelineLabels regions to label arrays
 - `utils/converter.py::convert_probs_to_timelinelabels()` - Converts label arrays to TimelineLabels regions
 
-Each row in the label array corresponds to a frame in the video. 
-The label array is a binary matrix where each column corresponds to a label. 
+Each row in the label array corresponds to a frame in the video.
+The label array is a binary matrix where each column corresponds to a label.
 If the label is present in the frame, the corresponding cell is set to `1`, otherwise `0`.
 
-For example: 
+For example:
 ```
 [
-    [0, 0, 1], 
-    [0, 1, 0], 
+    [0, 0, 1],
+    [0, 1, 0],
     [1, 0, 0]
 ]
 ```
@@ -325,13 +325,13 @@ flowchart TD
     A --> B{Is self.trainable?}
     B -->|Yes| C[create_timelines_trainable]
     B -->|No| D[create_timelines_simple]
-    
+
     C --> E[cached_feature_extraction]
     C --> F[Load classifier using BaseNN.load_cached_model]
     C --> G[classifier.predict]
     C --> H[convert_probs_to_timelinelabels]
     C --> I[Return predicted regions]
-    
+
     D --> J[cached_yolo_predict]
     D --> K[Process frame results]
     D --> L[convert_probs_to_timelinelabels]

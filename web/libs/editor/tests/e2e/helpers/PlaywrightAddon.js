@@ -112,7 +112,7 @@ class PlaywrightAddon extends Helper {
     if (this._cdpClient) {
       try {
         await this._cdpClient.detach();
-      } catch (error) {
+      } catch (_error) {
         // Ignore cleanup errors
       } finally {
         this._cdpClient = null;
@@ -149,7 +149,7 @@ class PlaywrightAddon extends Helper {
   async resetCPU() {
     try {
       return await this.throttleCPU(1);
-    } catch (error) {
+    } catch (_error) {
       // Ignore errors when page is closed - CPU will be reset automatically
       return this;
     }
@@ -163,7 +163,7 @@ class PlaywrightAddon extends Helper {
     // Try to reset CPU before cleanup, but don't fail if page is closed
     try {
       await this.resetCPU();
-    } catch (error) {
+    } catch (_error) {
       // Ignore - page might be closed already
     }
     return this._cleanupCDPClient();

@@ -59,7 +59,7 @@ Use the Text object tag to specify the text data:
 
 ## Enhance this template
 
-You can enhance this template in many ways. 
+You can enhance this template in many ways.
 
 ### Display labels on the left
 
@@ -120,7 +120,7 @@ For example, prompt annotators to choose the relevance of every text span in the
     <Choice value="Non Relevant" />
 </Choices>
 ```
-The `perRegion` parameter means that these choice options apply for each text span region. 
+The `perRegion` parameter means that these choice options apply for each text span region.
 
 You can also combine the [View](/tags/view.html) tag and the `perRegion` parameter of the [Rating](/tags/rating.html) control tag to prompt annotators to rate their confidence in the accuracy of each individual text span region:
 ```xml
@@ -143,7 +143,7 @@ If you want to filter a long list of labels, add the [Filter](/tags/filter.html)
     <Label value="MISC" background="green"/>
 </Labels>
 ```
-The `toName` parameter on the Filter tag references the `name` parameter for the [Labels](/tags/labels.html) tag. You can also specify a `hotkey` to use for the filter text box, and set the `minlength` parameter to specify the minimum number of characters typed into the filter before the list of labels is filtered. 
+The `toName` parameter on the Filter tag references the `name` parameter for the [Labels](/tags/labels.html) tag. You can also specify a `hotkey` to use for the filter text box, and set the `minlength` parameter to specify the minimum number of characters typed into the filter before the list of labels is filtered.
 
 
 ## Related tags

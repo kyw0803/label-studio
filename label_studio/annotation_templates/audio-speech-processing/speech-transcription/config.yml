@@ -27,5 +27,5 @@ config: |
           <Choice value="Positive" html="&lt;span style='font-size: 45px; vertical-align: middle;'&gt; &#128512; &lt;/span&gt;"/>
           <Choice value="Neutral" html="&lt;span style='font-size: 45px; vertical-align: middle;'&gt; &#128528; &lt;/span&gt;"/>
           <Choice value="Negative" html="&lt;span style='font-size: 45px; vertical-align: middle;'&gt; &#128577; &lt;/span&gt;"/>
-      </Choices>                               
+      </Choices>
     </View>

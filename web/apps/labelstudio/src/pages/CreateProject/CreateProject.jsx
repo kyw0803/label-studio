@@ -139,11 +139,18 @@ export const CreateProject = ({ onClose }) => {
 
   const onCreate = React.useCallback(async () => {
     // First, persist project with label_config so import/reimport validates against it
+    const workspaceId = new URLSearchParams(location.search).get("workspace");
+    const projectBodyWithWorkspace = { ...projectBody, is_draft: false };
+
+    if (workspaceId) {
+      projectBodyWithWorkspace.workspace = Number.parseInt(workspaceId);
+    }
+
     const response = await api.callApi("updateProject", {
       params: {
         pk: project.id,
       },
-      body: { ...projectBody, is_draft: false },
+      body: projectBodyWithWorkspace,
     });
 
     if (response === null) return;

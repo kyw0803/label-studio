@@ -202,7 +202,7 @@ def model_a_answer(prompt: str) -> str:
       "Yes, the genetic screening and discrimination portrayed in Gattaca directly parallels ongoing ethical debates around genetic testing, workplace/insurance discrimination, genetic privacy, and the societal implications of genomic medicine.",
       "No, detonating a nuclear device at the last minute is unrealistic. The physics of asteroid breakup would likely create multiple threatening fragments. Early detection with gentle deflection (kinetic impactor or gravity tractor) over years is the viable approach.",
       "No, audible sound propagation in vacuum is not realistic. Sound requires a medium (air, water, etc.) to travel through; space is a near-perfect vacuum, so explosive sounds and engine roars in Star Wars are purely cinematic license.",
-      "Yes, Interstellar's gravitational lensing visualization is remarkably accurate. Kip Thorne provided the relativistic equations, and the rendering team produced scientifically valid images of light bending around the black hole Gargantua, even leading to academic papers.",
+      "Yes, Interstellar's gravitational lensing visualization is remarkably accurate. Kip Thorne provided the relativistic equations, and the rendering teams produced scientifically valid images of light bending around the black hole Gargantua, even leading to academic papers.",
       "Yes, Martian perchlorates (ClO₄⁻ salts) are toxic to humans and would inhibit plant growth; they must be washed out or chemically treated before regolith can support agriculture.",
       "No, using frog DNA to patch gaps is not scientifically plausible. The genetic distance between amphibians and dinosaurs is enormous, and arbitrarily filling sequence gaps would not yield functional genes for a viable organism.",
       "No, orbital plane matching is far from trivial—it requires enormous amounts of delta-v (velocity change). The film depicts transfers between different orbits as simple maneuvers, when they'd require fuel reserves the spacecraft wouldn't have.",
@@ -412,7 +412,7 @@ else:
     Model A wins: 10
     Model B wins: 6
     Ties: 4
-    
+
     Decisive votes: 16 | A: 10 B: 6
     p-value: 0.454498291015625
     A win-rate: 0.625 (95% CI: 0.354–0.848)
@@ -616,26 +616,26 @@ print(summary)
 print("\nSaved report.md at", datetime.now())
 ```
 
-    
+
     # A/B Human Evaluation — Summary
-    
+
     **Total labeled:** 20
     **Model A wins:** 10
     **Model B wins:** 6
     **Ties:** 4
-    
+
     **Decisive votes:** 16
     **A win-rate:** 0.625 (95% CI: 0.354–0.848)
     **p-value:** 0.4545
-    
+
     **Average quality:** 3.45
-    
+
     **Notes**
     - 20 prompts focused on science-in-movies; swap for your own domain easily.
     - Keep 20–50 items for a fast, meaningful live demo.
     - Consider adding rubric tags (e.g., hallucination, factual error, style) for deeper slices.
-    
-    
+
+
     Saved report.md at 2025-10-03 10:08:15.757664
 
 

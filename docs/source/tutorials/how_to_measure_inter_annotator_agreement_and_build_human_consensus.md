@@ -154,7 +154,7 @@ print(f"Using project ID {project.id}: {project.title}")
 ```python
 texts = [
     "I can't believe you think that's acceptable.",
-    "Great job on the release, really proud of the team!",
+    "Great job on the release, really proud of the teams!",
     "You're clueless."
     "",
     "This comment is borderline rude, but maybe not intended.",

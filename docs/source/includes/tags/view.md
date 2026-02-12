@@ -10,4 +10,3 @@
 | [whenTagName] | <code>string</code> | Use with `visibleWhen`. Narrow down visibility by tag name. For regions, use the name of the object tag, for choices, use the name of the `choices` tag |
 | [whenLabelValue] | <code>string</code> | Use with `visibleWhen="region-selected"`. Narrow down visibility by label value. Multiple values can be separated with commas |
 | [whenChoiceValue] | <code>string</code> | Use with `visibleWhen` (`"choice-selected"` or `"choice-unselected"`) and `whenTagName`, both are required. Narrow down visibility by choice value. Multiple values can be separated with commas |
-

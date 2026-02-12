@@ -134,7 +134,7 @@ const _Tool = types
     // Store the MultipleClicksDrawingTool's canStartDrawing before we override it
     const MultipleClicksCanStartDrawing = self.canStartDrawing;
 
-    const Super = {
+    const _Super = {
       startDrawing: self.startDrawing,
       _finishDrawing: self._finishDrawing,
       deleteRegion: self.deleteRegion,
@@ -295,7 +295,7 @@ const _Tool = types
         }
       },
 
-      mousedownEv(e, [x, y]) {
+      mousedownEv(_e, [x, y]) {
         if (self.mode === "drawing") {
           return;
         }
@@ -342,10 +342,7 @@ const _Tool = types
         self.mode = "viewing";
         self.currentArea = null;
         self.stopListening();
-        // For incomplete vector regions, don't trigger selectAfterCreate behavior
-        if (!currentArea.incomplete) {
-          self.annotation.afterCreateResult(currentArea, control);
-        }
+        self.annotation.afterCreateResult(currentArea, control);
       },
 
       setDrawing(drawing) {

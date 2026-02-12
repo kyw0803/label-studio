@@ -4,13 +4,18 @@ type: templates
 category: Audio/Speech Processing
 cat: audio-speech-processing
 order: 301
-meta_title: Contextual Scrolling 
+meta_title: Contextual Scrolling
 meta_description: Template annotating transcriptions in their audio context.
 ---
 
 <img src="/images/templates/thumbnail-conversation-sentiment.png" alt="" class="gif-border" width="482px" height="282px" />
 
 Playback synchronization between audio and corresponding paragraph segments provides you with enhanced context and control resulting in high-quality annotated datasets and increased productivity when performing conversational analysis.
+
+!!! error Enterprise
+    If you're managing more complex or high-volume audio labeling projects, Label Studio Enterprise includes an advanced audio transcription interface built to support faster, more precise annotation at scale.
+
+    See our new [Multi-Channel Audio Transcription](react_audio) template and learn more in [A New Audio Transcription UI for Speed and Quality at Scale](https://humansignal.com/blog/building-a-better-ui-for-audio-transcription-at-scale/) (blog post).
 
 ## Labeling Configuration
 
@@ -20,7 +25,7 @@ Playback synchronization between audio and corresponding paragraph segments prov
     <View>
     <Header value="Transcript"/>
     <Paragraphs audioUrl="$audio" contextScroll="true" sync="audio" name="text" value="$text" layout="dialogue" textKey="text" nameKey="author" granularity="paragraph"/>
-  </View>  
+  </View>
     <View>
       <Header value="Sentiment Labels"/>
       <ParagraphLabels  name="label" toName="text">
@@ -102,7 +107,7 @@ A number of tags can be added to this template to add more data points to the an
 </Choices>
 </View>
 <View>
-  <Header value="Provide your response:"/>  
+  <Header value="Provide your response:"/>
   <TextArea name="response" toName="text"/>
 </View>
 

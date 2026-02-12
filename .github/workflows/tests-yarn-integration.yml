@@ -45,11 +45,11 @@ jobs:
           NODE_ENV: development
         run: |
           set -xeuo pipefail
-          
+
           yarn lsf:serve &
           pid=$!
           echo "pid=${pid}" >> $GITHUB_OUTPUT
-          
+
           while ! curl -s -o /dev/null -L "http://localhost:3000"; do
             echo "=> Waiting for service to become available"
             sleep 2s

@@ -60,7 +60,7 @@ Use the [Labels](/tags/labels.html) control tag to specify which labels are avai
     <Label value="Handwriting" background="blue"/>
 </Labels>
 ```
-You can change the `value` of each `Label` to assign different labels to regions on the OCR task, such as "Letters" and "Numbers" or something else. 
+You can change the `value` of each `Label` to assign different labels to regions on the OCR task, such as "Letters" and "Numbers" or something else.
 
 Use the [Rectangle](/tags/rectangle.html) control tag to add unlabeled rectangles:
 ```xml
@@ -72,9 +72,9 @@ Use the [Polygon](/tags/polygon.html) control tag to add unlabeled polygons:
 ```xml
 <Polygon name="poly" toName="image" strokeWidth="3"/>
 ```
-The `strokeWidth` argument controls the width of the line outlining the polygon. 
+The `strokeWidth` argument controls the width of the line outlining the polygon.
 
-Use the [TextArea](/tags/textarea.html) control tag to add transcripts for each region drawn on the image, whether a rectangle or polygon. 
+Use the [TextArea](/tags/textarea.html) control tag to add transcripts for each region drawn on the image, whether a rectangle or polygon.
 ```xml
 <TextArea name="transcription" toName="image"
             editable="true"
@@ -90,9 +90,9 @@ The `editable="true"` argument allows annotators to edit the text after submitti
 
 ## About the labeling process
 
-1. Select a label (e.g. "Handwriting"), create a new bounding box and select it. 
+1. Select a label (e.g. "Handwriting"), create a new bounding box and select it.
 2. Open the Outliner panel if it's not yet opened. Usually it's located on the left side.
-3. Add text to each bounding box. Otherwise you will get a warning about missing text because the labeling configuration is using `required="true"`.  
+3. Add text to each bounding box. Otherwise you will get a warning about missing text because the labeling configuration is using `required="true"`.
 
 <img src="/images/ocr-template-left-panel.png" class="gif-border">
 

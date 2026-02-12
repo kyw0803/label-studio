@@ -71,19 +71,14 @@ const HtxTextAreaResultLine = forwardRef(
     };
 
     return (
-      <div className={cn("textarea-tag").elem("item").toClassName()} data-testid="textarea-region-item">
-        {isTextarea ? (
-          <TextArea {...inputProps} ref={ref} data-testid="textarea-region-textarea" />
-        ) : (
-          <Input {...inputProps} ref={ref} data-testid="textarea-region-input" />
-        )}
+      <div className={cn("textarea-tag").elem("item").toClassName()}>
+        {isTextarea ? <TextArea {...inputProps} ref={ref} /> : <Input {...inputProps} ref={ref} />}
         {canDelete && !collapsed && !readOnly && (
           <Button
             className={cn("textarea-tag").elem("action").toClassName()}
             size="small"
             look="string"
             aria-label="Delete Region"
-            data-testid="textarea-region-delete"
             leading={<IconTrash />}
             onClick={() => {
               onDelete(idx);
@@ -249,11 +244,7 @@ const HtxTextAreaRegionView = observer(({ item, area, collapsed, setCollapsed, o
 
   return (
     (result || showSubmit) && (
-      <div
-        className={cn("textarea-tag").mod({ mode: item.mode, outliner }).toClassName()}
-        style={styles}
-        data-testid="textarea-region-view"
-      >
+      <div className={cn("textarea-tag").mod({ mode: item.mode, outliner }).toClassName()} style={styles}>
         {result ? (
           <HtxTextAreaResult
             control={item}
@@ -268,7 +259,6 @@ const HtxTextAreaRegionView = observer(({ item, area, collapsed, setCollapsed, o
         {showSubmit && (
           <Form
             className={cn("textarea-tag").elem("form").toClassName()}
-            data-testid="textarea-region-form"
             onFinish={() => {
               if (item.allowsubmit && item._value && !item.annotation.isReadOnly()) {
                 submitValue();
@@ -282,7 +272,6 @@ const HtxTextAreaRegionView = observer(({ item, area, collapsed, setCollapsed, o
             {isTextArea ? (
               <TextArea
                 {...props}
-                data-testid="textarea-region-input"
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
@@ -290,7 +279,6 @@ const HtxTextAreaRegionView = observer(({ item, area, collapsed, setCollapsed, o
             ) : (
               <Input
                 {...props}
-                data-testid="textarea-region-input"
                 onClick={(e) => {
                   e.stopPropagation();
                 }}

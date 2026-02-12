@@ -59,7 +59,7 @@ It helps the development team and product team to use concrete examples of how t
 
 ### Feature Implementation
 
-A feature implementation is a much larger endeavor that will require coordination with the development team. A feature implementation requires two major parts: a Product Requirements Document (PRD) and the feature pull request. 
+A feature implementation is a much larger endeavor that will require coordination with the development team. A feature implementation requires two major parts: a Product Requirements Document (PRD) and the feature pull request.
 
 The PRD should be filed as an issue with the prefix `prd:`. It should contain the following sections:
 
@@ -89,10 +89,10 @@ We may also add references to JIRA tickets created on our side for the purpose o
 
 The primary repository for Label Studio, and contains the majority of the logic for how labels are managed. Three areas where you may want to contribute include:
 
-* `label_studio`--This is the main app, containing most of the backend code. 
-* `web/apps/labelstudio` -- This acts as the central integration point for all frontend elements. 
-* `web/libs/editor`--This is the frontend library. It uses React to build the UI and mobx-state-tree for state management. 
-* `web/libs/datamanager`--This is the frontend interface for the Label Studio Data Manager, our data exploration tool. 
+* `label_studio`--This is the main app, containing most of the backend code.
+* `web/apps/labelstudio` -- This acts as the central integration point for all frontend elements.
+* `web/libs/editor`--This is the frontend library. It uses React to build the UI and mobx-state-tree for state management.
+* `web/libs/datamanager`--This is the frontend interface for the Label Studio Data Manager, our data exploration tool.
 
 
 ### [Label Studio SDK](https://github.com/HumanSignal/label-studio-sdk)
@@ -132,4 +132,3 @@ When submitting pull requests for code changes, please use the following standar
 ### Additional questions
 
 If you have any questions that aren't answered in these guidelines, please find us in the #contributor channel of the [Label Studio Slack Community](https://slack.labelstud.io/?source=github-contrib).
-

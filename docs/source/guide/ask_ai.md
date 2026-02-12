@@ -5,7 +5,7 @@ tier: enterprise
 type: guide
 order: 0
 order_enterprise: 356
-meta_title: About AI Assistant 
+meta_title: About AI Assistant
 meta_description: Information about using the AI features in Label Studio
 section: "Manage Your Organization"
 date: 2025-01-28 16:40:16
@@ -13,43 +13,43 @@ date: 2025-01-28 16:40:16
 
 The Label Studio AI Assistant is an OpenAI LLM that has been trained on the Label Studio documentation, codebase, and several other Label Studio resources.
 
-## Use AI Assistant for project setup 
+## Use AI Assistant for project setup
 
-Instead of manually building labeling interfaces or project instructions from scratch, you can prompt the AI with a description of what your labeling project needs and what you want annotators to be able to select. 
+Instead of manually building labeling interfaces or project instructions from scratch, you can prompt the AI with a description of what your labeling project needs and what you want annotators to be able to select.
 
-You can interact with this as you would a chat, meaning that you can build off your previous instructions and request changes. 
+You can interact with this as you would a chat, meaning that you can build off your previous instructions and request changes.
 
 ![Screenshot of AI Assistant for labeling configs](/images/admin/ai-project.png)
 
 
 ## Use AI Assistant for general help
 
-You can also use AI Assistant to ask for troubleshooting and general help with Label Studio.  
+You can also use AI Assistant to ask for troubleshooting and general help with Label Studio.
 
-![Screenshot of AI Assistant for labeling configs](/images/admin/ai-ask.png)  
+![Screenshot of AI Assistant for labeling configs](/images/admin/ai-ask.png)
 
 
 ## AI Assistant FAQ
 
 ### How do I enable or disable AI Assistant?
 
-Your organization can enable AI Assistant from the **Organization > Usage & License** page. 
+Your organization can enable AI Assistant from the **Organization > Usage & License** page.
 
 !!! note
-    Only users in the Owner role can modify these settings. For Starter Cloud users, [open a support ticket](mailto:support@humansignal.com) to request disablement. 
+    Only users in the Owner role can modify these settings. For Starter Cloud users, [open a support ticket](mailto:support@humansignal.com) to request disablement.
 
-![Screenshot of settings](/images/admin/ai-settings.png) 
+![Screenshot of settings](/images/admin/ai-settings.png)
 
-* **Enable AI Features**--Enable AI Assistant for your labeling interface configuration. 
-* **Enable Ask AI**--Enable the AI Assistant for general Label Studio help. 
+* **Enable AI Features**--Enable AI Assistant for your labeling interface configuration.
+* **Enable Ask AI**--Enable the AI Assistant for general Label Studio help.
 
 ### What models do you use?
 
-We use OpenAI Tier 5 models, primarily gpt-4o and o3-mini. 
+We use OpenAI Tier 5 models, primarily gpt-4o and o3-mini.
 
 ### Do all your AI features use the same backend?
 
-Yes. 
+Yes.
 
 ### What data is used to generate answers?
 
@@ -61,7 +61,7 @@ Only the data you provide in the chat window is used to generate responses, this
 
 ### How is my data used to train models?
 
-The model is trained on public resources like our documentation, codebase, blog, and website. We also train it on additional examples we've written specifically for the model. 
+The model is trained on public resources like our documentation, codebase, blog, and website. We also train it on additional examples we've written specifically for the model.
 
 We are on a Tier 5 OpenAI account, and opt out of all requests for training data.
 

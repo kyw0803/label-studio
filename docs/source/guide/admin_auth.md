@@ -16,8 +16,8 @@ Label Studio Enterprise provides enterprise-grade identity and access management
 
 
 !!! info Tip
-    SSO handles authentication; SCIM handles automated user and group provisioning. 
-    
+    SSO handles authentication; SCIM handles automated user and group provisioning.
+
     Most enterprises enable SSO first, then SCIM for ongoing user/group sync. LDAP is typically used for on‑prem deployments.
 
 ## LDAP
@@ -48,6 +48,6 @@ Automate provisioning/deprovisioning and group-to-role mappings. Supports Create
 - Provision/deprovision users automatically
 - Sync user profile changes
 - Push Groups for workspace and project membership
-- Map groups to organization roles and project-level roles 
+- Map groups to organization roles and project-level roles
 
 See and [Set up SCIM2 for Label Studio](scim_setup) our [SCIM API docs](https://api.labelstud.io/api-reference/api-reference/sso/scim/get).

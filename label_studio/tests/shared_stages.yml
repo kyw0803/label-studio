@@ -182,4 +182,3 @@ stages:
 #       content-type: application/json
 #   response:
 #     status_code: 201
-

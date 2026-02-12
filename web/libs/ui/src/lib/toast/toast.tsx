@@ -1,9 +1,8 @@
-import { createContext, type FC, type ReactNode, useCallback, useContext, useState, useRef } from "react";
+import { createContext, type FC, type ReactNode, useCallback, useContext, useState } from "react";
 import * as ToastPrimitive from "@radix-ui/react-toast";
 import styles from "./toast.module.scss";
 import clsx from "clsx";
 import { IconCross } from "../../assets/icons";
-import { nanoid } from "nanoid";
 import { cn } from "@humansignal/shad/utils";
 
 export type ToastViewportProps = ToastPrimitive.ToastViewportProps & any;
@@ -93,14 +92,12 @@ export const ToastAction: FC<ToastActionProps> = ({ children, onClose, altText, 
   </ToastPrimitive.Action>
 );
 export type ToastShowArgs = {
-  id?: string;
   message: string | ReactNode | JSX.Element;
   type?: ToastType;
   duration?: number; // -1 for no auto close
 };
 type ToastContextType = {
-  show: ({ message, type, duration }: ToastShowArgs) => string;
-  dismiss: (id?: string) => void;
+  show: ({ message, type, duration }: ToastShowArgs) => void;
 };
 
 export const ToastContext = createContext<ToastContextType | undefined>(undefined);
@@ -119,7 +116,6 @@ export const useToast = () => {
 
 export const ToastProvider: FC<ToastProviderWithTypes> = ({ swipeDirection = "down", children, type, ...props }) => {
   const [toastMessage, setToastMessage] = useState<ToastShowArgs | null>();
-  const timerRef = useRef<NodeJS.Timeout>();
 
   const defaultDuration = 4000;
   const duration = toastMessage?.duration ?? defaultDuration;
@@ -130,23 +126,24 @@ export const ToastProvider: FC<ToastProviderWithTypes> = ({ swipeDirection = "do
       if (id && current.id !== id) return current;
       return null;
     });
-    if (timerRef.current) clearTimeout(timerRef.current);
   }, []);
 
-  const show = ({ message, type, duration = defaultDuration, id }: ToastShowArgs) => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-
+  const show = useCallback(({ message, type, duration = defaultDuration, id }: ToastShowArgs) => {
     const toastId = id ?? nanoid();
     setToastMessage({ message, type, duration, id: toastId });
-
-    if (duration >= 0) {
-      timerRef.current = setTimeout(() => dismiss(toastId), duration);
-    }
     return toastId;
-  };
+  }, []);
+
+  // Handle Radix UI's onOpenChange to sync when toast closes
+  const handleOpenChange = useCallback((open: boolean) => {
+    if (!open) {
+      setToastMessage(null);
+    }
+  }, []);
+
   const toastType = toastMessage?.type ?? type ?? ToastType.info;
   return (
-    <ToastContext.Provider value={{ show, dismiss }}>
+    <ToastContext.Provider value={{ show }}>
       <ToastPrimitive.Provider swipeDirection={swipeDirection} duration={duration} {...props}>
         <Toast
           className={clsx(styles.messageToast, {
@@ -155,6 +152,8 @@ export const ToastProvider: FC<ToastProviderWithTypes> = ({ swipeDirection = "do
             [styles.messageToast_alertError]: toastType === ToastType.alertError,
           })}
           open={!!toastMessage?.message}
+          onOpenChange={handleOpenChange}
+          duration={duration}
           action={
             <ToastAction onClose={() => setToastMessage(null)} altText="x">
               <IconCross />

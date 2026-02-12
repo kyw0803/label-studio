@@ -6,7 +6,7 @@ type: guide
 order: 71
 order_enterprise: 73
 meta_title: Install Label Studio without public internet access
-meta_description: Install Label Studio without public internet access to create machine learning and data science projects in an airgapped environment. 
+meta_description: Install Label Studio without public internet access to create machine learning and data science projects in an airgapped environment.
 section: "Install & Setup"
 parent: "install_k8s"
 parent_enterprise: "install_enterprise_k8s"
@@ -19,7 +19,7 @@ If you need to install Label Studio on a server that blocks access to the intern
 
 ### Install behind an HTTPS proxy
 
-!!! note 
+!!! note
     If you are using a SOCKS proxy, Helm 3 does not support SOCKS proxies. See [Install without internet access or HTTPS proxy](#Install-without-internet-access-or-HTTPS-proxy).
 
 If your organization uses an HTTPS proxy to manage access to the internet, do the following.
@@ -48,7 +48,7 @@ export HTTPS_PROXY=<your_proxy>
 
 ### Install without internet access or HTTPS proxy
 
-If you can't access the internet using a proxy supported by Helm or at all, follow these steps to download the Helm charts necessary to deploy Label Studio on an airgapped Kubernetes cluster. 
+If you can't access the internet using a proxy supported by Helm or at all, follow these steps to download the Helm charts necessary to deploy Label Studio on an airgapped Kubernetes cluster.
 
 !!! note
     You need the Label Studio credentials provided to you by your account manager to download the Helm charts.

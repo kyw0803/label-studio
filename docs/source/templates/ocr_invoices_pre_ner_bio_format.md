@@ -60,4 +60,3 @@ This configuration uses the following tags:
 ## Usage Instructions
 
 This configuration provides a streamlined interface for OCR text verification and correction:
-

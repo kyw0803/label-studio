@@ -29,14 +29,12 @@ export const FilterDropdown = observer(
             ? { label: <OptionVisuals item={item} />, value: item, original: item }
             : {
                 ...item,
-                label:
-                  (optionRender && item?.original) || item?.original?.field?.parent ? (
-                    <OptionVisuals item={item} />
-                  ) : (
-                    (item?.title ?? item?.label ?? item?.name)
-                  ),
+                label: item?.original?.field?.parent ? (
+                  <OptionVisuals item={item} />
+                ) : (
+                  (item?.title ?? item?.label ?? item?.name)
+                ),
                 value: item?.value ?? item,
-                disabled: item?.disabled ?? false,
                 children: item?.options?.map(parseItems),
               };
         return option;
@@ -59,7 +57,6 @@ export const FilterDropdown = observer(
         triggerClassName="whitespace-nowrap"
         searchFilter={searchFilter}
         isVirtualList={true}
-        contentClassName={`${dropdownClassName || ""} filter-dropdown-content`.trim()}
       />
     );
   },

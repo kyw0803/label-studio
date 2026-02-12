@@ -9,15 +9,15 @@ const edgeCaseConfig = `<View>
     <HyperText name="html" value="$html" />
 </View>`;
 const edgeCaseHtml = `<p>This
-is an <u><span>e</span><span>x</span><span>a</span><span>m</span><span>p</span><span>l</span><span>e</span></u><br/> of 
+is an <u><span>e</span><span>x</span><span>a</span><span>m</span><span>p</span><span>l</span><span>e</span></u><br/> of
 <abbr tytle="HyperText Markup Language"><b>HTML</b></abbr>
 </p>`;
 
 const edgeCaseResultValue1 = {
   start: "/p[1]/text()[2]",
-  end: "/p[1]/abbr[1]/b[1]/text()[1]",
+  end: "/p[1]/text()[3]",
   startOffset: 1,
-  endOffset: 4,
+  endOffset: 1,
   globalOffsets: { start: 20, end: 28 },
   text: "of HTML",
   labels: ["Highlight"],
@@ -33,9 +33,9 @@ const edgeCaseResultValue2 = {
 };
 const edgeCaseResultValue3 = {
   start: "/p[1]/text()[1]",
-  end: "/p[1]/abbr[1]/b[1]/text()[1]",
+  end: "/p[1]/text()[3]",
   startOffset: 0,
-  endOffset: 4,
+  endOffset: 1,
   globalOffsets: { start: 0, end: 28 },
   text: "This is an example\\nof HTML",
   labels: ["Highlight"],

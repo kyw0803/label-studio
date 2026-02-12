@@ -6,17 +6,17 @@ type: guide
 order: 0
 order_enterprise: 375
 meta_title: User roles and permissions
-meta_description: A description of the user roles and permissions available in Label Studio Enterprise. 
+meta_description: A description of the user roles and permissions available in Label Studio Enterprise.
 section: "Manage Your Organization"
 parent: "manage_users"
 parent_enterprise: "manage_users"
 date: 2024-02-05 17:19:21
 ---
 
-Your user role determines your level of access to actions and information in Label Studio. 
+Your user role determines your level of access to actions and information in Label Studio.
 
-* Access for Annotators, Reviewers, and Managers is restricted based on which projects and workspaces they have access to. For more information, see [Project setup](setup_project). 
-* Owners can further restrict permissions within their organization using the [Permissions page](admin_permissions). 
+* Access for Annotators, Reviewers, and Managers is restricted based on which projects and workspaces they have access to. For more information, see [Project setup](setup_project).
+* Owners can further restrict permissions within their organization using the [Permissions page](admin_permissions).
 
 ## Roles in Label Studio Enterprise
 

@@ -64,12 +64,12 @@ There are two ways to structure input data to use this template:
 - Use links to websites in JSON-formatted files
 
 ### Use HTML files
-**This method is recommended.** Save the website content that you want to rate as HTML files, and import the HTML files into Label Studio. 
+**This method is recommended.** Save the website content that you want to rate as HTML files, and import the HTML files into Label Studio.
 
-If you use this method, change the `inline` parameter for the HyperText tag to `false`. 
+If you use this method, change the `inline` parameter for the HyperText tag to `false`.
 
 ### Use links to websites
-This method seems simpler, but due to CORS (cross-origin resource sharing) restrictions on websites appearing in HTML iframes, it only works for websites hosted on the same domain as your Label Studio instance. For example, if you want to rate websites hosted on your organization's domain, and Label Studio is hosted on the same domain, you can probably use this option. In most cases, CORS restrictions prevent the website from being visible.  
+This method seems simpler, but due to CORS (cross-origin resource sharing) restrictions on websites appearing in HTML iframes, it only works for websites hosted on the same domain as your Label Studio instance. For example, if you want to rate websites hosted on your organization's domain, and Label Studio is hosted on the same domain, you can probably use this option. In most cases, CORS restrictions prevent the website from being visible.
 
 If this option will work for you, you can use the following example JSON:
 One task can be formatted like the following:

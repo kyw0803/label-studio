@@ -1,5 +1,5 @@
 ---
-title: Semantic Segmentation with Masks 
+title: Semantic Segmentation with Masks
 type: templates
 category: Computer Vision
 cat: computer-vision

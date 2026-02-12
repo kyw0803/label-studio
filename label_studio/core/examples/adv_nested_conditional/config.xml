@@ -17,9 +17,9 @@
   	   choice="single" showInLine="true"
            visibleWhen="choice-selected"
            whenTagName="sentiment"
-           whenChoiceValue="Positive"> 
+           whenChoiceValue="Positive">
     <Choice value="Positive" />
     <Choice value="Negative" />
     <Choice value="Neutral" />
-  </Choices>  
+  </Choices>
 </View>

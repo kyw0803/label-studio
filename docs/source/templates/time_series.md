@@ -1,5 +1,5 @@
 ---
-title: Time Series Labeling 
+title: Time Series Labeling
 type: templates
 category: Time Series Analysis
 cat: time-series-analysis
@@ -17,17 +17,17 @@ Label any type of time series data using this generic template.
 <div id="main-preview"></div>
 
 <!--Need to fix this preview because it previews all the configs on this page oh no-->
-  
+
 ## Labeling Configuration
-  
+
 Example project configuration for multivariate time series labeling:
-  
+
 ```html
 <View>
   <TimeSeriesLabels name="label" toName="ts">
     <Label value="Run"/>
     <Label value="Walk"/>
-  </TimeSeriesLabels> 
+  </TimeSeriesLabels>
   <TimeSeries name="ts" valueType="url" value="$csv_url" timeColumn="time">
     <Channel column="sensorone" />
     <Channel column="sensortwo" />
@@ -44,7 +44,7 @@ Use the [TimeSeriesLabels](/tags/timeserieslabels.html) control tag to highlight
 <TimeSeriesLabels name="label" toName="ts">
     <Label value="Run"/>
     <Label value="Walk"/>
-</TimeSeriesLabels> 
+</TimeSeriesLabels>
 ```
 The tag is linked to the [TimeSeries](/tags/timeseries.html) object tag with a `toName` parameter.
 
@@ -117,16 +117,16 @@ For example, set up the TimeSeries object tag like follows in your labeling conf
 
 ### Headless CSV & TSV
 
-The main difference for the headless CSV/TSV usage is another way to name `<Channel>` columns. Since the file has no header and nothing is known about the column names, use a column index instead. For example, to use the first column as a temporal column, specify `<TimeSeries timeColumn="0" ... >`. The same is true for the `column` attribute in `<Channel>` tag. 
+The main difference for the headless CSV/TSV usage is another way to name `<Channel>` columns. Since the file has no header and nothing is known about the column names, use a column index instead. For example, to use the first column as a temporal column, specify `<TimeSeries timeColumn="0" ... >`. The same is true for the `column` attribute in `<Channel>` tag.
 
 ### JSON
 
-All tasks in Label Studio are stored in JSON and this is the native format for Label Studio. 
+All tasks in Label Studio are stored in JSON and this is the native format for Label Studio.
 
 - `valueType="url"`
 
-  When you use `valueType="url"` for TimeSeries tag and import a CSV file, Label Studio automatically creates a JSON task with the body like this example: 
-  
+  When you use `valueType="url"` for TimeSeries tag and import a CSV file, Label Studio automatically creates a JSON task with the body like this example:
+
   ```json
   {
     "csv": "http://localhost:8080/data/upload/my-import-file.csv"
@@ -134,8 +134,8 @@ All tasks in Label Studio are stored in JSON and this is the native format for L
   ```
 
 - `valueType="json"`
-  
-  You can also use Label Studio JSON format directly by creating and import JSON structured like the following example, where each key specifies the time and channels: 
+
+  You can also use Label Studio JSON format directly by creating and import JSON structured like the following example, where each key specifies the time and channels:
 
   ```json
   {
@@ -159,7 +159,7 @@ Annotators add labels to time series tasks. Label Studio represents each complet
 
 ```json
 {
-  "annotations": [{  
+  "annotations": [{
     "result": [
       {
           "value": {
@@ -190,17 +190,17 @@ Annotators add labels to time series tasks. Label Studio represents each complet
           "type": "timeserieslabels"
       }
     ]
-  }] 
+  }]
 }
 ```
 
 ## Enhance this template
 
-If you want to enhance this template, you can make a number of changes to the tag configurations. 
+If you want to enhance this template, you can make a number of changes to the tag configurations.
 
 ### Multiple time series in one project
 
-If you want to use multiple time series datasets in one project, you must make your CSV files available as URLs and import a JSON-formatted file with tasks that reference those CSV files. 
+If you want to use multiple time series datasets in one project, you must make your CSV files available as URLs and import a JSON-formatted file with tasks that reference those CSV files.
 
 For example, for a task that can reference two sets of time series data:
 
@@ -218,7 +218,7 @@ You could then set up the following labeling configuration to reference each CSV
   <TimeSeries name="ts-1" timeColumn="0" value="$csv_file1">
     <Channel column="1" />
   </TimeSeries>
-	
+
   <Header value="Second time series" />
   <TimeSeriesLabels name="lbl-2" toName="ts-2">
     <Label value="Label 2" />
@@ -228,5 +228,4 @@ You could then set up the following labeling configuration to reference each CSV
   </TimeSeries>
 </View>
 ```
-The `value` parameter in the [TimeSeries](/tags/timeseries.html) tag is used to refer to the JSON key with the CSV file URL. 
-
+The `value` parameter in the [TimeSeries](/tags/timeseries.html) tag is used to refer to the JSON key with the CSV file URL.

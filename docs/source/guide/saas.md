@@ -79,4 +79,3 @@ Label Studio imposes rate limits on a per-Access Token basis. If a request excee
 |--------------------------|---------------|
 | Maximum import file size | 200 MB        |
 | Timeout for page load    | 90 seconds    |
-

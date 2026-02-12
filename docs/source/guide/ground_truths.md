@@ -6,7 +6,7 @@ type: guide
 order: 0
 order_enterprise: 305
 meta_title: Ground truth annotations
-meta_description: Set ground truth annotations in Label Studio Enterprise. 
+meta_description: Set ground truth annotations in Label Studio Enterprise.
 section: "Review & Measure Quality"
 date: 2024-09-30 13:57:28
 ---
@@ -29,9 +29,9 @@ Open the task to review its annotations. Click the star icon at the bottom to se
 
 ## Set ground truths by user
 
-To bulk update tasks to ensure that annotations from a specific annotator should be considered ground truth, first select the tasks you want to update. 
+To bulk update tasks to ensure that annotations from a specific annotator should be considered ground truth, first select the tasks you want to update.
 
-Then select **Actions >Set Ground Truths**. You can then select from a list of annotators. 
+Then select **Actions >Set Ground Truths**. You can then select from a list of annotators.
 
 ![screenshot of ground truth column](/images/review/ground-truth-set.png)
 
@@ -41,7 +41,7 @@ You can identify which tasks already have a ground truth using the **Ground Trut
 
 ![screenshot of ground truth column](/images/review/ground_truth_dm.png)
 
-You can also use a filter to include or exclude tasks that have ground truths set. 
+You can also use a filter to include or exclude tasks that have ground truths set.
 
 ## View ground truths in the inter-annotator agreement popover
 
@@ -52,7 +52,6 @@ Hover over the **Agreement** column to view a pop-over showing inter-annotator a
 
 ## Remove ground truth annotations
 
-To remove a single ground truth annotation, simply open the task and click the star icon again to unset it. 
+To remove a single ground truth annotation, simply open the task and click the star icon again to unset it.
 
-To remove multiple ground truth annotations, select the checkboxes next to the tasks in the Data Manager and then select **Actions > Delete Ground Truths**. 
-
+To remove multiple ground truth annotations, select the checkboxes next to the tasks in the Data Manager and then select **Actions > Delete Ground Truths**.

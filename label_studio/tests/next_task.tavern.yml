@@ -204,4 +204,3 @@ stages:
     status_code: 200
     json:
       id: !int "{task_id}"
-      

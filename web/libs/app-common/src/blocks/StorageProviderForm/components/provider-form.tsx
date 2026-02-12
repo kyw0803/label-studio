@@ -14,45 +14,6 @@ interface ProviderFormProps {
   target?: "import" | "export";
 }
 
-/**
- * Check if a field should be visible based on its visibleWhen condition.
- *
- * @param field - Field definition to check
- * @param formData - Current form data to evaluate conditions against
- * @returns true if field should be visible, false otherwise
- */
-const isFieldVisible = (field: FieldDefinition | MessageDefinition, formData: Record<string, any>): boolean => {
-  // Messages don't have visibleWhen, always visible
-  if (field.type === "message") {
-    return true;
-  }
-
-  const fieldDef = field as FieldDefinition;
-
-  // No visibleWhen condition means always visible
-  if (!fieldDef.visibleWhen) {
-    return true;
-  }
-
-  const { field: dependencyField, value: expectedValue } = fieldDef.visibleWhen;
-  const currentValue = formData[dependencyField];
-
-  let isVisible: boolean;
-
-  // If expected value is a function, call it with current value and form data
-  if (typeof expectedValue === "function") {
-    isVisible = expectedValue(currentValue, formData);
-  } else if (Array.isArray(expectedValue)) {
-    // If expected value is an array, check if current value is in the array
-    isVisible = expectedValue.includes(currentValue);
-  } else {
-    // Simple equality check
-    isVisible = currentValue === expectedValue;
-  }
-
-  return isVisible;
-};
-
 export const ProviderForm: React.FC<ProviderFormProps> = ({
   provider,
   formData,
@@ -84,20 +45,16 @@ export const ProviderForm: React.FC<ProviderFormProps> = ({
       {/* Render visible fields in layout */}
       {provider.layout.map((row, rowIndex) => {
         const fields = getFieldsForRow(provider.fields, row.fields, target);
-        // Filter fields based on visibility conditions
-        const visibleFields = fields.filter((field) => isFieldVisible(field, formData));
-
         return (
-          visibleFields.length > 0 && (
+          fields.length > 0 && (
             <div
               key={rowIndex}
               className="grid gap-6"
               style={{
-                // Use visible fields count for grid columns to avoid empty spaces
-                gridTemplateColumns: `repeat(${visibleFields.length}, 1fr)`,
+                gridTemplateColumns: `repeat(${row.fields.length}, 1fr)`,
               }}
             >
-              {visibleFields.map((field) => {
+              {fields.map((field) => {
                 // Skip hidden fields from layout - they'll be rendered separately
                 if (field.type === "hidden") {
                   return null;

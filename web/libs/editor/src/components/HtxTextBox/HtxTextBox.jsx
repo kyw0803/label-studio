@@ -1,8 +1,7 @@
 import React from "react";
-import { IconPencil, IconTrashAlt, IconCheck } from "@humansignal/icons";
+import { IconEdit, IconTrashAlt, IconCheck } from "@humansignal/icons";
 import { Button, Tooltip, Typography } from "@humansignal/ui";
 import throttle from "lodash/throttle";
-import { cn } from "../../utils/bem";
 
 // used for correct auto-height calculation
 const BORDER_WIDTH = 1;
@@ -15,7 +14,7 @@ export class HtxTextBox extends React.Component {
   };
 
   inputClassName =
-    "text-color-neutral-content bg-neutral-surface border border-neutral-border px-base py-tight rounded-md w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-focus-outline leading-body-small min-h-10 hover:border-neutral-border-bold transition-colors transition-background-color duration-150 ease-out";
+    "text-color-neutral-content bg-neutral-surface border border-neutral-border px-base py-tight rounded-md w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-focus-outline leading-body-small";
 
   textRef = React.createRef();
   inputRef = React.createRef();
@@ -119,7 +118,6 @@ export class HtxTextBox extends React.Component {
       autoFocus: true,
       ref: this.inputRef,
       value,
-      "data-testid": "htx-textbox-input",
       onBlur: () => {
         onChange(this.state.value);
       },
@@ -149,19 +147,19 @@ export class HtxTextBox extends React.Component {
     this.updateHeight();
 
     return (
-      <div className={cn("textarea").elem("region").toClassName()} data-testid="htx-textbox-edit">
+      <div className="grow p-0 relative">
         {rows > 1 ? <textarea {...inputProps} /> : <input {...inputProps} />}
         {!onlyEdit && (
           <Tooltip title="Save: [shift+enter]">
             <Button
               type="text"
-              variant="primary"
-              look="outlined"
+              variant="neutral"
+              look="string"
               size="small"
-              className="absolute right-tight top-tighter"
+              className="absolute right-0 mr-4"
+              style={{ bottom: "1px" }}
               icon={<IconCheck />}
               aria-label="Save"
-              data-testid="htx-textbox-save"
               onClick={this.save}
             />
           </Tooltip>
@@ -186,8 +184,8 @@ export class HtxTextBox extends React.Component {
     } = this.props;
 
     return (
-      <div className={cn("textarea").elem("region").toClassName()} data-testid="htx-textbox-view">
-        <div className={this.inputClassName} id={props.id} name={props.name} data-testid="htx-textbox-content">
+      <>
+        <div className={this.inputClassName} id={props.id} name={props.name}>
           <Typography ref={this.textRef} size="small">
             {text.split("\n").map((line, index, array) => {
               const isLastLine = index === array.length - 1;
@@ -200,17 +198,17 @@ export class HtxTextBox extends React.Component {
             })}
           </Typography>
         </div>
-        <div className={cn("textarea").elem("actions").toClassName()} data-testid="htx-textbox-actions">
+        <div className="flex gap-tight pr-tight">
           {isEditable && onChange && (
             <Button
+              type="text"
               variant="neutral"
               look="outlined"
               size="small"
               tooltip="Edit"
               tooltipTheme="Dark"
-              leading={<IconPencil />}
+              leading={<IconEdit />}
               aria-label="Edit Region"
-              data-testid="htx-textbox-edit-button"
               onClick={this.startEditing}
             />
           )}
@@ -224,12 +222,11 @@ export class HtxTextBox extends React.Component {
               tooltipTheme="Dark"
               leading={<IconTrashAlt />}
               aria-label="Delete Region"
-              data-testid="htx-textbox-delete-button"
               onClick={onDelete}
             />
           )}
         </div>
-      </div>
+      </>
     );
   }
 

@@ -15,4 +15,3 @@
 | [overviewChannels] | <code>string</code> |  | Comma-separated list of channel names or indexes displayed in overview. |
 | [overviewWidth] | <code>string</code> | <code>&quot;25%&quot;</code> | Default width of overview window in percents |
 | [fixedScale] | <code>boolean</code> | <code>false</code> | Whether to scale y-axis to the maximum to fit all the values. If false, current view scales to fit only the displayed values. |
-

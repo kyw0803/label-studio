@@ -5,7 +5,7 @@ Cloud storage is used for importing tasks and exporting annotations in Label Stu
 1. Import Storages (aka Source Cloud Storages)
 2. Export Storages (aka Target Cloud Storages)
 
-Also Label Studio has Persistent storages where LS storage export files, user avatars and UI uploads. Do not confuse `Cloud Storages` and `Persistent Storage`, they have completely different codebase and tasks. Cloud Storages are implemented in `io_storages`, Persistent Storage uses django-storages and it is installed in Django settings environment variables (see `base.py`). 
+Also Label Studio has Persistent storages where LS storage export files, user avatars and UI uploads. Do not confuse `Cloud Storages` and `Persistent Storage`, they have completely different codebase and tasks. Cloud Storages are implemented in `io_storages`, Persistent Storage uses django-storages and it is installed in Django settings environment variables (see `base.py`).
 
 Note: Dataset Storages were implemented in the enterprise codebase only. They are **deprecated and not used**.
 
@@ -14,18 +14,18 @@ Note: Dataset Storages were implemented in the enterprise codebase only. They ar
 This section uses GCS storage as an example, and the same logic can be applied to other storages.
 
 ### Import Storages
- 
+
 This storage type is designed for importing tasks FROM cloud storage to Label Studio. This diagram is based on Google Cloud Storage (GCS), and other storages are implemented in the same way:
-  
+
 ```mermaid
     graph TD;
-    
+
     Storage-->ImportStorage;
-    
+
     ProjectStorageMixin-->GCSImportStorage;
     ImportStorage-->GCSImportStorageBase;
 
-    GCSImportStorageBase-->GCSImportStorage; 
+    GCSImportStorageBase-->GCSImportStorage;
     GCSImportStorageBase-->GCSDatasetStorage;
 
     GCSImportStorageLink-->ImportStorageLink
@@ -59,7 +59,7 @@ This storage type is designed for importing tasks FROM cloud storage to Label St
 
 ### Export Storages
 
-This storage type is designed for exporting tasks or annotations FROM Label Studio to cloud storage. 
+This storage type is designed for exporting tasks or annotations FROM Label Studio to cloud storage.
 
 ```mermaid
     graph TD;
@@ -86,7 +86,7 @@ This storage type is designed for exporting tasks or annotations FROM Label Stud
 
 ## How validate_connection() works
 
-Run this command with try/except: 
+Run this command with try/except:
 1. Get client
 2. Get bucket
 3. For source storage only: get any file from specified prefix
@@ -112,7 +112,7 @@ Target storages use the same validate_connection() function, but without any pre
 ### 4. **Data Serialization**
 Export storages use `_get_serialized_data()` which returns different formats based on feature flags:
 - **Default**: Only annotation data (backward compatibility)
-- **With `fflag_feat_optic_650_target_storage_task_format_long` or `FUTURE_SAVE_TASK_TO_STORAGE`**: Full task + annotations data instead of annotation per file output. 
+- **With `fflag_feat_optic_650_target_storage_task_format_long` or `FUTURE_SAVE_TASK_TO_STORAGE`**: Full task + annotations data instead of annotation per file output.
 
 ### 5. **Built-in Threading**
 - Export storages inherit `save_annotations()` with built-in parallel processing
@@ -126,7 +126,7 @@ Export storages use `_get_serialized_data()` which returns different formats bas
   - With feature flag: `task.id` + optional `.json` extension
 
 ### 7. **Optional Deletion Support**
-- Export storages can implement `delete_annotation()` 
+- Export storages can implement `delete_annotation()`
 - Controlled by `can_delete_objects` field
 - Automatically called when annotations are deleted from Label Studio
 
@@ -147,7 +147,7 @@ Storage (Import and Export) have different statuses of synchronization (see `cla
     Initialized-->Queued;
     Queued-->InProgress;
     InProgress-->Failed;
-    InProgress-->Completed; 
+    InProgress-->Completed;
 ```
 
 Additionally, class **StorageInfo** contains counters and debug information that will be displayed in storages:
@@ -165,11 +165,11 @@ Additionally, class **StorageInfo** contains counters and debug information that
 
 All these states are present in both the open-source and enterprise editions for code compatibility. Status processing can be challenging, especially when the sync process is terminated unexpectedly. Typical situations when this happens include:
 
-1. An exception occurred, it's a soft termination and in this case the sync job has `Failed` status. 
+1. An exception occurred, it's a soft termination and in this case the sync job has `Failed` status.
 2. OOM error happened => RQ worker job was killed => `storage_background_failure` wasn't called.
 3. RQ workers were redeployed => `storage_background_failure` wasn't called.
 4. RQ workers were killed manually => `storage_background_failure` wasn't called.
-5. Job was removed from RQ Queue => it's not a failure, but we need to update storage status somehow. 
+5. Job was removed from RQ Queue => it's not a failure, but we need to update storage status somehow.
 
 To handle these cases correctly, all these conditions must be checked in ensure_storage_status when the Storage List API is retrieved.
 

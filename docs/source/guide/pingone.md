@@ -10,9 +10,9 @@ hide_sidebar: true
 
 ## PingOne Configuration
 
-### Add new application 
+### Add new application
 
-1. Click blue circle with the `+` sign.  
+1. Click blue circle with the `+` sign.
 <img src="/images/pingone/setup-1.png" class="gif-border">
 
 2. Select `Manual Enter`, enter URLs from the Label Studio Enterprise SAML SSO page.
@@ -58,17 +58,17 @@ Expression: ${user.memberOfGroupNames == null ? '': #string.join(user.memberOfGr
 
 !!! warning
     All users should have at least one group, otherwise it will lead to the login error.
-     
 
-## Label Studio Enterprise Settings 
 
-You can find LSE SAML SSO settings on the **Organization** page >> **SAML SSO**. You are able to map user roles and workspaces with `Groups` attribute.  
- 
+## Label Studio Enterprise Settings
+
+You can find LSE SAML SSO settings on the **Organization** page >> **SAML SSO**. You are able to map user roles and workspaces with `Groups` attribute.
+
 <br>
 <img src="/images/pingone/saml-settings.png" class="gif-border">
 
 
-## Login using SSO 
+## Login using SSO
 
 Now you are able to login using your SSO session, write your company domain on the SSO Login page:
 

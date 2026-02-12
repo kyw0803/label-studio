@@ -38,7 +38,7 @@ config: |
       .evaluation .ant-rate-star.ant-rate-star-full span {
         color: var(--color-accent-canteloupe-base);
        }
-     
+
       .overall-chat {
          border-bottom: 1px solid var(--color-neutral-border);
          margin-bottom: var(--spacing-base);
@@ -55,36 +55,36 @@ config: |
         font-size: 16px !important;
         line-height: 1.6;
       }
-      
+
       <!-- Remove excess height from the chat to allow space for instruction text -->
-      .htx-chat { 
+      .htx-chat {
         --excess-height: 275px;
         background-color: var(--color-neutral-background);
       }
     </Style>
     <View style="display: flex; gap: var(--spacing-wide);">
-      
+
       <!-- Left: conversation -->
       <View className="chat" style="flex: 2;">
         <View className="instructions">
-          <Text name="instructions" value="Review the conversation in detail. 
-                                           As you read through it, click on individual messages to 
+          <Text name="instructions" value="Review the conversation in detail.
+                                           As you read through it, click on individual messages to
                                            provide feedback about accuracy, clarity, and intent." />
         </View>
-        
-        <Chat name="chat" value="$chat" 
-              minMessages="2" 
+
+        <Chat name="chat" value="$chat"
+              minMessages="2"
               editable="false" />
       </View>
 
       <!-- Right: conversation and message evaluation -->
       <View style="flex: 1; display: flex; flex-direction: column;" className="evaluation">
-        
+
         <!-- Evaluate the whole conversation -->
         <View className="overall-chat">
           <Header size="4">Overall quality of this conversation</Header>
           <Rating name="rating" toName="chat" />
-          
+
           <View style="padding-top: var(--spacing-base);">
             <Text name="add_comment" value="Add a comment (optional)" />
             <TextArea name="conversation_comment" toName="chat" />
@@ -93,7 +93,7 @@ config: |
 
         <!-- Per-message evaluation -->
         <View style="flex: 1; overflow: auto;">
-        
+
           <!-- Only visible when no message is selected -->
           <View visibleWhen="no-region-selected">
             <Header value="Click on a message to evaluate" size="3"/>
@@ -103,28 +103,28 @@ config: |
           <View visibleWhen="region-selected" whenRole="assistant">
             <Header value="Response Accuracy"/>
             <Rating name="assistant_response_accuracy" toName="chat" perRegion="true" maxRating="5" icon="star"/>
-            
+
             <Header value="Relevance"/>
             <Choices name="relevance" toName="chat" perRegion="true" >
               <Choice value="Highly relevant" />
               <Choice value="Somewhat relevant" />
               <Choice value="Not relevant" />
             </Choices>
-            
+
             <Header value="Correctness"/>
             <Choices name="correctness" toName="chat" perRegion="true" >
               <Choice value="Accurate and factual" />
               <Choice value="Mostly accurate with minor issues" />
               <Choice value="Contains significant errors" />
             </Choices>
-            
+
             <Header value="Tone"/>
             <Choices name="tone" toName="chat" perRegion="true" choice="multiple" >
               <Choice value="Too formal" />
               <Choice value="Too casual" />
               <Choice value="Appropriate" />
             </Choices>
-            
+
             <Header value="Add a comment (optional)"/>
             <TextArea perRegion="true" name="message_comment" toName="chat" />
           </View>
@@ -148,6 +148,3 @@ config: |
       ]
     }
   } -->
-
-
-

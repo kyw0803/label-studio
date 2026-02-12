@@ -16,4 +16,3 @@
 | [granularity] | <code>symbol</code> \| <code>word</code> |  | Set control based on symbol or word selection (only for Text) |
 | [html] | <code>string</code> |  | HTML code is used to display label button instead of raw text provided by `value` (should be properly escaped) |
 | [category] | <code>int</code> |  | Category is used in the export (in label-studio-converter lib) to make an order of labels for YOLO and COCO |
-

@@ -17,7 +17,7 @@ image: "/guide/ml_tutorials/bert.png"
 
 # BERT-based text classification
 
-The NewModel is a BERT-based text classification model that is designed to work with Label Studio. This model uses the Hugging Face Transformers library to fine-tune a BERT model for text classification. The model is trained on the labeled data from Label Studio and then used to make predictions on new data.  With this model connected to Label Studio, you can: 
+The NewModel is a BERT-based text classification model that is designed to work with Label Studio. This model uses the Hugging Face Transformers library to fine-tune a BERT model for text classification. The model is trained on the labeled data from Label Studio and then used to make predictions on new data.  With this model connected to Label Studio, you can:
 
 - Train a BERT model on your labeled data directly from Label Studio.
 - Use any model for [AutoModelForSequenceClassification](https://huggingface.co/transformers/v3.0.2/model_doc/auto.html#automodelforsequenceclassification) from the Hugging Face model hub.
@@ -27,9 +27,9 @@ The NewModel is a BERT-based text classification model that is designed to work 
 
 ## Before you begin
 
-Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart). 
+Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart).
 
-This tutorial uses the [`bert_classifier` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/bert_classifier). 
+This tutorial uses the [`bert_classifier` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/bert_classifier).
 
 
 ## Running with Docker (recommended)
@@ -78,7 +78,7 @@ label-studio-ml start ./dir_with_your_model
 
 ## Labeling configuration
 
-In project `Settings > Labeling Interface > Browse Templates > Natural Language Processing > Text Classification`, you can find the default labeling configuration for text classification in Label Studio. This configuration includes a single `<Choices>` output and a single `<Text>` input. 
+In project `Settings > Labeling Interface > Browse Templates > Natural Language Processing > Text Classification`, you can find the default labeling configuration for text classification in Label Studio. This configuration includes a single `<Choices>` output and a single `<Text>` input.
 Feel free to modify the set of labels in the `<Choices>` tag to match your specific task, for example:
 
 ```xml

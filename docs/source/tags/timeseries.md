@@ -62,12 +62,12 @@ Labeling configuration for time series data with multiple channels grouped toget
 
 ```html
 <View>
-  <TimeSeries name="ts" value="$timeseries" 
+  <TimeSeries name="ts" value="$timeseries"
 			  valuetype="url"
               timeColumn="time"
               timeFormat="%Y-%m-%d %H:%M:%S.%f"
               >
-    
+
 	<MultiChannel>
       <Channel column="velocity" />
       <Channel column="acceleration" />

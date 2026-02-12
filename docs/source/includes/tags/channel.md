@@ -16,4 +16,3 @@
 | [dataRange] | <code>string</code> |  | data range of y-axis / data axis |
 | [showAxis] | <code>string</code> |  | show or bide both axis |
 | [fixedScale] | <code>boolean</code> |  | if false current view scales to fit only displayed values; if given overwrites TimeSeries' fixedScale |
-

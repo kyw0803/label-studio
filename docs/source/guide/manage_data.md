@@ -9,12 +9,12 @@ meta_title: Use the Data Manager in projects
 meta_description: Manage, filter, and sort project data for your labeling project.
 section: "Create & Manage Projects"
 parent: "manage_projects_lso"
-parent_enterprise: "manage_projects" 
+parent_enterprise: "manage_projects"
 ---
 
-The Data Manager page is where you can view all your labeling tasks, sort and filter your data, import and export data, and perform various actions related to tasks. 
+The Data Manager page is where you can view all your labeling tasks, sort and filter your data, import and export data, and perform various actions related to tasks.
 
-For information on setting up a project, see [Create and configure projects](setup_project). 
+For information on setting up a project, see [Create and configure projects](setup_project).
 
 <div class="opensource-only">
 
@@ -35,14 +35,14 @@ In Label Studio Community Edition, the data manager is the default view for your
 
 With filters and tabs, you can split data into different sections to be labeled by different annotators, or set up data in a particular order to perform labeling according to prediction score, or another value in your data.
 
-When you filter or sort the data before you label it, you modify which tasks and the order of the tasks you see when labeling. While [task sampling](https://labelstud.io/guide/start#Set-up-task-sampling-for-your-project) affects the task order for an entire project and can't be changed, filtering and sorting tasks can be changed at any time. 
+When you filter or sort the data before you label it, you modify which tasks and the order of the tasks you see when labeling. While [task sampling](https://labelstud.io/guide/start#Set-up-task-sampling-for-your-project) affects the task order for an entire project and can't be changed, filtering and sorting tasks can be changed at any time.
 
 <img src="/images/data-manager-filters.png" class="gif-border">
 
 <div class="opensource-only">
 
 !!! error Enterprise
-    In Label Studio Enterprise and Starter Cloud, you can use advanced filters against annotation results. For more information, see our [Enterprise documentation](https://docs.humansignal.com/guide/manage_data#Filter-annotation-results). 
+    In Label Studio Enterprise and Starter Cloud, you can use advanced filters against annotation results. For more information, see our [Enterprise documentation](https://docs.humansignal.com/guide/manage_data#Filter-annotation-results).
 
 </div>
 
@@ -73,19 +73,19 @@ The following tags are supported:
 Sort the data in your project by date to focus on labeling the newest data first.
 
 1. In a project, update the **Order** of the data from the default to **Created at**.
-2. Update the order of the items to be in ascending order, so the newest items appear first. 
-3. Select **Label Tasks As Displayed** to start labeling tasks from newest to oldest. 
+2. Update the order of the items to be in ascending order, so the newest items appear first.
+3. Select **Label Tasks As Displayed** to start labeling tasks from newest to oldest.
 
 ### Example: Sort by prediction score
-You can sort the data in your project by prediction score if you upload [pre-annotated data](predictions.html) with prediction scores, or if your [machine learning backend](ml.html) produces prediction scores as part of the model output. 
+You can sort the data in your project by prediction score if you upload [pre-annotated data](predictions.html) with prediction scores, or if your [machine learning backend](ml.html) produces prediction scores as part of the model output.
 
 1. In a project, update the **Order** of the data from the default to use the **Prediction score** field.
-2. Update the order of the items in either ascending or descending order to label based on higher confidence or lower confidence predictions. 
-3. Select **Label Tasks As Displayed** to start labeling tasks in prediction score order. 
+2. Update the order of the items in either ascending or descending order to label based on higher confidence or lower confidence predictions.
+3. Select **Label Tasks As Displayed** to start labeling tasks in prediction score order.
 You can also use [task sampling](https://labelstud.io/guide/start#Set-up-task-sampling-for-your-project) to use prediction score ordering.
 
 ### Example: Split a dataset using tabs and filters
-If you want to label a large dataset, you might want to use tabs and filters to split it up into smaller sections, and assign different annotators to different tabs. You can't assign annotators to specific tasks in Label Studio Community Edition, but you can rename the tabs after specific annotators as a way to basically assign tasks using tabs.  
+If you want to label a large dataset, you might want to use tabs and filters to split it up into smaller sections, and assign different annotators to different tabs. You can't assign annotators to specific tasks in Label Studio Community Edition, but you can rename the tabs after specific annotators as a way to basically assign tasks using tabs.
 
 For example, you might split a dataset with 300 images into 3 different tabs, and have different annotators focus on each tab:
 1. In a project, create a filter where the **ID** field **is between** the values "1" and "100". Click away from the filter to review filtered items the tab.
@@ -98,11 +98,11 @@ For example, you might split a dataset with 300 images into 3 different tabs, an
 
 ## Save filters as tabs
 
-You can create tabs on the data manager to [split your dataset](#Example-Split-a-dataset-using-tabs-and-filters) for labeling, to separate tasks by status (annotated, predicted, unlabeled), or other reasons. 
+You can create tabs on the data manager to [split your dataset](#Example-Split-a-dataset-using-tabs-and-filters) for labeling, to separate tasks by status (annotated, predicted, unlabeled), or other reasons.
 
-Tabs that you create depend on your [labeling configuration setup](setup.html), because the labeling configuration defines the data fields available for filtering and sorting. 
+Tabs that you create depend on your [labeling configuration setup](setup.html), because the labeling configuration defines the data fields available for filtering and sorting.
 
-!!! note 
+!!! note
     If you make changes to the labeling configuration, any tabs in your data manager are removed. Make sure to finish the project setup before setting up complex tabs in the Data Manager.
 
 <div class="enterprise-only">
@@ -114,7 +114,7 @@ In Label Studio Enterprise, if you're an administrator or project manager, you c
 1. For a specific project, select tasks on the Data Manager.
 2. Select the dropdown and choose **Assign Annotators**.
 3. Select names of annotators and click the `>` arrow to assign them to the selected tasks.
-4. Click **Assign**. 
+4. Click **Assign**.
 
 If you want to bulk assign tasks, you can use filters to identify exactly the tasks that you want to assign, then select the top checkbox on the data manager to select all tasks shown and assign them to an annotator.
 
@@ -125,9 +125,9 @@ If you want to bulk assign tasks, you can use filters to identify exactly the ta
 If you have duplicate tasks, or want to remove annotations, you can delete tasks and annotations from Label Studio.
 
 1. In Label Studio UI, open the project you want to update.
-2. Filter the Data Manager page to show only the data you want to delete. For example, specific annotations, or tasks annotated by a specific annotator. 
+2. Filter the Data Manager page to show only the data you want to delete. For example, specific annotations, or tasks annotated by a specific annotator.
 3. Select the checkboxes for the tasks or annotations that you want to delete.
-4. Select the dropdown with the number of tasks, and choose **Delete tasks** or **Delete annotations**. 
+4. Select the dropdown with the number of tasks, and choose **Delete tasks** or **Delete annotations**.
 5. Click **Ok** to confirm your action.
 
 If you want to make changes to the labeling interface or perform a different type of data labeling, first select all the annotations for your dataset and delete the annotations.
@@ -136,13 +136,13 @@ If you want to make changes to the labeling interface or perform a different typ
 
 ## Agreement and Agreement (Selected) columns
 
-These two columns allow you to see agreement scores at a task level. 
+These two columns allow you to see agreement scores at a task level.
 
 ### Agreement
 
-The **Agreement** column displays the average agreement score between all annotators for a particular task. 
+The **Agreement** column displays the average agreement score between all annotators for a particular task.
 
-Each annotation pair's agreement score will be calculated as new annotations are submitted. For example, if there are three annotations for a task, there will be three unique annotation pairs, and the agreement column will show the average agreement score of those three pairs. 
+Each annotation pair's agreement score will be calculated as new annotations are submitted. For example, if there are three annotations for a task, there will be three unique annotation pairs, and the agreement column will show the average agreement score of those three pairs.
 
 Here is an example with a simple label config. Let's assume we are using ["Exact matching choices" agreement calculation](stats#Exact-matching-choices-example)
 ```xml
@@ -154,9 +154,9 @@ Here is an example with a simple label config. Let's assume we are using ["Exact
   </Choices>
 </View>
 ```
-Annotation 1: `Cat`  
-Annotation 2: `Dog`  
-Annotation 3: `Cat`  
+Annotation 1: `Cat`
+Annotation 2: `Dog`
+Annotation 3: `Cat`
 
 The three unique pairs are
 1. Annotation 1 <> Annotation 2 - agreement score is `0`
@@ -168,20 +168,20 @@ The agreement column for this task would show the average of all annotation pair
 
 ### Agreement (Selected)
 
-The **Agreement (Selected)** column builds on top of the agreement column, allowing you to get agreement scores between annotators, ground truth, and model versions. 
+The **Agreement (Selected)** column builds on top of the agreement column, allowing you to get agreement scores between annotators, ground truth, and model versions.
 
 The column header is a dropdown where you can make your selection of which pairs you want to include in the calculation.
 
 <img src="/images/project/agreement-selected.png" class="gif-border" style="max-width:679px">
 
-Under **Choose What To Calculate** there are two options, which can be used for different use cases. 
+Under **Choose What To Calculate** there are two options, which can be used for different use cases.
 
 #### Agreement Pairs
 
-This allows you to select specific annotators and/or models to compare.  
+This allows you to select specific annotators and/or models to compare.
 
 
-You must select at least two items to compare. This can be used in a variety of ways. 
+You must select at least two items to compare. This can be used in a variety of ways.
 
 **Subset of annotators**
 
@@ -202,12 +202,12 @@ You can also select multiple models to see model consensus in your project. This
 Other combinations are also possible such as selecting one annotator and multiple models, multiple annotators and multiple models, etc.
 
 * If multiple annotators are selected, all annotator vs annotator scores will be included in the average.
-* If multiple models are selected, all model vs model scores will be included in the average. 
-* If one or more annotators are selected along with one or more models, all annotator vs model scores will be included in the average. 
+* If multiple models are selected, all model vs model scores will be included in the average.
+* If one or more annotators are selected along with one or more models, all annotator vs model scores will be included in the average.
 
 #### Ground Truth Match
 
-If your project contains ground truth annotations, this allows you to compare either a single annotator or a single model to ground truth annotations. 
+If your project contains ground truth annotations, this allows you to compare either a single annotator or a single model to ground truth annotations.
 
 <img src="/images/project/agreement-selected-gt.png" class="gif-border" style="max-width:679px">
 
@@ -221,7 +221,7 @@ We currently only support calculating the **Agreement (Selected)** columen for t
 
 #### Example Score Calculations
 
-Example using the same simple label config as above: 
+Example using the same simple label config as above:
 
 ```xml
 <View>
@@ -236,8 +236,8 @@ Example using the same simple label config as above:
 Lets say for one task we have the following:
 1. Annotation 1 from annotator 1 - `Cat` (marked as ground truth)
 2. Annotation 2 from annotator 2 - `Dog`
-3. Prediction 1 from model version 1 - `Dog` 
-4. Prediction 2 from model version 2 - `Cat` 
+3. Prediction 1 from model version 1 - `Dog`
+4. Prediction 2 from model version 2 - `Cat`
 
 Here is how the score would be calculated for various selections in the dropdown
 
@@ -256,7 +256,7 @@ This will average all annotation pair's scores, as well as all annotation <> mod
 6. Annotation 2 <> Prediction 1 - agreement score is `1`
 7. Annotation 2 <> Prediction 2 - agreement score is `0`
 
-Score displayed in column for this task: `40%` 
+Score displayed in column for this task: `40%`
 
 #### `Ground Truth Match` with `model version 2` selected
 This will compare all ground truth annotations with all predictions from `model version 2`.
@@ -265,5 +265,5 @@ In this example, Annotation 1 is marked as ground truth and Prediction 2 is from
 
 1. Annotation 1 <> Prediction 2 - agreement score is `1`
 
-Score displayed in column for this task: `100%` 
+Score displayed in column for this task: `100%`
 </div>

@@ -37,6 +37,7 @@ from io_storages.gcs.api import (
     GCSImportStorageValidateAPI,
 )
 from io_storages.localfiles.api import (
+    AllocateStorageAPI,
     LocalFilesExportStorageDetailAPI,
     LocalFilesExportStorageFormLayoutAPI,
     LocalFilesExportStorageListAPI,
@@ -48,6 +49,7 @@ from io_storages.localfiles.api import (
     LocalFilesImportStorageSerializer,
     LocalFilesImportStorageSyncAPI,
     LocalFilesImportStorageValidateAPI,
+    WorkspaceLocalStorageInSubStorageAPI,
 )
 from io_storages.localfiles.views import localfiles_data
 from io_storages.redis.api import (
@@ -153,6 +155,16 @@ _api_urlpatterns = [
 ]
 if settings.ENABLE_LOCAL_FILES_STORAGE:
     _api_urlpatterns += [
+        path(
+            'localfiles/workspace-sub-storages/',
+            WorkspaceLocalStorageInSubStorageAPI.as_view(),
+            name='storage-localfiles-workspace-sub-storages',
+        ),
+        path(
+            'localfiles/allocate/',
+            AllocateStorageAPI.as_view(),
+            name='storage-localfiles-allocate',
+        ),
         # Local files
         path('localfiles/', LocalFilesImportStorageListAPI.as_view(), name='storage-localfiles-list'),
         path('localfiles/<int:pk>', LocalFilesImportStorageDetailAPI.as_view(), name='storage-localfiles-detail'),
@@ -163,6 +175,15 @@ if settings.ENABLE_LOCAL_FILES_STORAGE:
             'localfiles/files',
             ImportStorageListFilesAPI().as_view(serializer_class=LocalFilesImportStorageSerializer),
             name='storage-localfiles-list-files',
+        ),
+        # Workspace-level local files import storage
+        path(
+            'workspace/localfiles/', LocalFilesImportStorageListAPI.as_view(), name='storage-workspace-localfiles-list'
+        ),
+        path(
+            'workspace/localfiles/<int:pk>',
+            LocalFilesImportStorageDetailAPI.as_view(),
+            name='storage-workspace-localfiles-detail',
         ),
         path('export/localfiles', LocalFilesExportStorageListAPI.as_view(), name='export-storage-localfiles-list'),
         path(

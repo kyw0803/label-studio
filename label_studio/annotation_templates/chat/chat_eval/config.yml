@@ -29,9 +29,9 @@ config: |
         border: 1px solid var(--color-accent-canteloupe-subtle);
     }
       <!-- Remove excess height from the chat to allow space for instruction text -->
-      .htx-chat { 
+      .htx-chat {
         --excess-height: 275px;
-      
+
         background-color: var(--color-neutral-background);
         border-radius: var(--corner-radius-medium);
         border: 1px solid var(--color-neutral-border);
@@ -39,11 +39,11 @@ config: |
       }
 
     </Style>
-    
+
     <Text name="instructions" value="$text" />
-    
+
     <Chat name="chat" value="$chat" toName="chat"
-          minMessages="4" 
+          minMessages="4"
           messageroles="user,assistant"
           editable="true" />
   </View>
@@ -54,6 +54,3 @@ config: |
       "chat": []
     }
   } -->
-
-
-

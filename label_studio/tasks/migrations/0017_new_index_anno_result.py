@@ -26,7 +26,7 @@ def backwards(apps, schema_editor):
         return
 
     schema_editor.execute('drop index tasks_annotations_result_idx2;')
-    
+
 
 class Migration(migrations.Migration):
     atomic = False

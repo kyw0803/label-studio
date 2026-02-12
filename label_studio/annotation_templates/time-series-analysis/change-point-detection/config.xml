@@ -16,7 +16,7 @@
                  units="miles/h"
                  displayFormat=",.1f"
                  strokeColor="#1f77b4"
-                 legend="Velocity"/>       
+                 legend="Velocity"/>
     </TimeSeries>
 </View>
 

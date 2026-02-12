@@ -47,7 +47,7 @@ Use the [Rating](/tags/rating.html) control tag to apply a star rating with a sc
 ```xml
 <Rating name="rating" toName="pdf" maxRating="10" icon="star" size="medium" />
 ```
-  
+
 Use the [Choices](/tags/choices.html) control tag to present classification options to the annotator:
 ```xml
 <Choices name="choices" choice="single-radio" toName="pdf" showInline="true">

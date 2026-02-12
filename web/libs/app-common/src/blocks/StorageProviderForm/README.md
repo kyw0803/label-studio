@@ -634,4 +634,4 @@ To migrate an existing provider:
 2. Create a new provider configuration file
 3. Define the layout and validation schemas with defaults
 4. Register the provider in the registry
-5. Remove the old component file 
+5. Remove the old component file

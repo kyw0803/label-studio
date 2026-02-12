@@ -82,11 +82,11 @@ def any_api_client(request, client_and_token, business_client):
                 'title': '111',
                 'label_config': """
                 <View>
-  
-  <Header value="Search request" size="5"/> 
+
+  <Header value="Search request" size="5"/>
   <Text name="text" value="$text"/>
- 
-  <Header value="Generated responses" size="5"/> 
+
+  <Header value="Generated responses" size="5"/>
   <View className="dynamic_choices">
     <Choices name="dynamic_choices" toName="text" selection="checkbox" value="$options" layout="vertical" choice="multiple" allownested="true"/>
   </View>
@@ -103,7 +103,7 @@ def any_api_client(request, client_and_token, business_client):
       </Choices>
     </View>
   </View>
-  
+
   <Style>
   .searchresultsarea {
     margin-left: 10px;

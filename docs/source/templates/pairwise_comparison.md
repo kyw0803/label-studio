@@ -51,4 +51,3 @@ Use the [Text](/tags/text.html) object tag to specify two samples of text with d
 - [Header](/tags/header.html)
 - [Pairwise](/tags/pairwise.html)
 - [Text](/tags/text.html)
-

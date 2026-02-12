@@ -16,7 +16,7 @@ Classify the sentiment of text using this template. For example, if you want to 
 
 <div id="main-preview"></div>
 
-## Labeling Configuration 
+## Labeling Configuration
 
 ```html
 <View>
@@ -93,7 +93,7 @@ Start by adding styling to the [View](/tags/view.html) tag for the labeling conf
 
 Then use styling with a new [View](/tags/view.html) tag to create a column for the named entity recognition labels:
 ```xml
-  <View style="width: 150px; padding: 0 1em; margin-right: 0.5em; background: #f1f1f1; border-radius: 3px">    
+  <View style="width: 150px; padding: 0 1em; margin-right: 0.5em; background: #f1f1f1; border-radius: 3px">
     <Labels name="label" toName="text">
       <Label value="Person" />
       <Label value="Organization" />
@@ -101,7 +101,7 @@ Then use styling with a new [View](/tags/view.html) tag to create a column for t
   </View>
 ```
 
-Specify the [Text](/tags/text.html) object tag in another set of [View](/tags/view.html) tags to place it in the center column. 
+Specify the [Text](/tags/text.html) object tag in another set of [View](/tags/view.html) tags to place it in the center column.
 ```xml
   <View>
     <Text name="text" value="$text" />

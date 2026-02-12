@@ -29,7 +29,7 @@ Basic text classification labeling configuration
   <Text name="txt-1" value="John went to see Mary" />
 </View>
 ```
-**Example** *(This config with dynamic labels)*  
+**Example** *(This config with dynamic labels)*
 
 `Choice`s can be loaded dynamically from task data. It should be an array of objects with attributes.
   `html` can be used to show enriched content, it has higher priority than `value`, however `value` will be used in the exported result.
@@ -50,7 +50,7 @@ Basic text classification labeling configuration
   }
 } -->
 ```
-**Example** *(is equivalent to this config)*  
+**Example** *(is equivalent to this config)*
 ```html
 <View>
   <Audio name="audio" value="$audio" />

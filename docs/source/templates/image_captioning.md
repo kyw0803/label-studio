@@ -10,7 +10,7 @@ meta_description: Template for adding captions to images with Label Studio for y
 
 <img src="/images/templates/image-captioning.png" alt="" class="gif-border" width="552px" height="408px" />
 
-If you want to train a machine learning model to caption or add alt text to images, use this template to collect captions about images. 
+If you want to train a machine learning model to caption or add alt text to images, use this template to collect captions about images.
 
 ## Interactive Template Preview
 
@@ -44,7 +44,7 @@ Use the [TextArea](/tags/textarea.html) control tag to provide a 5 row text box 
 ```xml
 <TextArea name="caption" toName="image" placeholder="Enter description here..." rows="5" maxSubmissions="1"/>
 ```
-Use the `placeholder` argument to provide placeholder text to the annotator, which can provide an example or further instructions. 
+Use the `placeholder` argument to provide placeholder text to the annotator, which can provide an example or further instructions.
 
 ## Enhance this template
 

@@ -35,7 +35,7 @@ const Model = types
 
     fixedscale: types.maybe(types.boolean),
   })
-  .volatile((self) => ({
+  .volatile((_self) => ({
     isChannelHiddenMap: {},
     highlightedChannelId: null,
   }))
@@ -45,9 +45,6 @@ const Model = types
     },
 
     get margin() {
-      // If Y axis is hidden, we don't need to consider it for margin calculation
-      if (!self.showyaxis) return self.parent?.margin;
-
       const channelsWithYAxis = self.channels.filter((channel) => channel.showaxis && channel.showyaxis);
       if (channelsWithYAxis.length > 1) {
         return {

@@ -197,7 +197,7 @@ The server started on `http://localhost:9090` and outputs logs in console.
 
 #### Production mode
 
-Production mode is powered by a Redis server and RQ jobs that take care of background training processes. This means that you can start training your model and continue making requests for predictions from the current model state. 
+Production mode is powered by a Redis server and RQ jobs that take care of background training processes. This means that you can start training your model and continue making requests for predictions from the current model state.
 After the model finishes the training process, the new model version updates automatically.
 
 For production mode, please make sure you have Docker and docker-compose installed on your system. Then run the following from the command line:

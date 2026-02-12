@@ -74,7 +74,7 @@ Within that first [View](/tags/view.html) tag, the [Image](/tags/image.html) obj
 ```xml
 <Image name="img-left" value="$image1"/>
 ```
-The `value` parameter specifies a JSON key of `"image1"` in the Label Studio JSON task that must be imported with URLs to both images. 
+The `value` parameter specifies a JSON key of `"image1"` in the Label Studio JSON task that must be imported with URLs to both images.
 
 The [Choices](/tags/choices.html) control tag displays classification options that apply to the image on the left, specified with the `toName` parameter. The `choice` parameter indicates that annotators can select multiple choices:
 ```xml
@@ -94,7 +94,7 @@ Within this [View](/tags/view.html) tag, the [Image](/tags/image.html) object ta
 ```xml
 <Image name="img-right" value="$image2"/>
 ```
-The `value` parameter specifies a JSON key of `"image2"` in the Label Studio JSON task that must be imported with URLs to both images. 
+The `value` parameter specifies a JSON key of `"image2"` in the Label Studio JSON task that must be imported with URLs to both images.
 
 The [Choices](/tags/choices.html) control tag displays classification options that apply to the image on the right, specified with the `toName` parameter:
 ```xml
@@ -105,7 +105,7 @@ The [Choices](/tags/choices.html) control tag displays classification options th
 </Choices>
 ```
 
-Close both [View](/tags/view.html) tags for the image and choice styling, and use a new View tag to separate the remaining overall classification options. You can add a [header](/tags/header.html) to provide instructions to the annotator, and use the Choices control tag to display choices about both images. 
+Close both [View](/tags/view.html) tags for the image and choice styling, and use a new View tag to separate the remaining overall classification options. You can add a [header](/tags/header.html) to provide instructions to the annotator, and use the Choices control tag to display choices about both images.
 ```xml
 <View>
     <Header value="Which one is clearer to you?" />
@@ -115,7 +115,7 @@ Close both [View](/tags/view.html) tags for the image and choice styling, and us
     </Choices>
 </View>
 ```
-The Choices tag `toName` value references `img-left` so that all annotations are tied together in the results. 
+The Choices tag `toName` value references `img-left` so that all annotations are tied together in the results.
 
 ## Related tags
 - [Header](/tags/header.html)

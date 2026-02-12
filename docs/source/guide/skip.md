@@ -18,14 +18,14 @@ The **Skip** action is available when viewing tasks through the labeling stream 
 
 <img src="/images/label/skip.png" class="gif-border" style="max-width: 413px">
 
-When you skip a task, the task is removed from your labeling queue. 
+When you skip a task, the task is removed from your labeling queue.
 
-If another annotator is also working through the labeling queue, they will see the skipped task instead. If all annotators skip a task, it remains incomplete. 
+If another annotator is also working through the labeling queue, they will see the skipped task instead. If all annotators skip a task, it remains incomplete.
 
-You can see which tasks have been skipped using the **Cancelled** column in the Data Manager. 
+You can see which tasks have been skipped using the **Cancelled** column in the Data Manager.
 
 !!! error Enterprise
-    Task skipping, and how tasks can be skipped, is highly configurable in Label Studio Enterprise and Starter Cloud. For more information, see [the Enterprise documentation](https://docs.humansignal.com/guide/skip). 
+    Task skipping, and how tasks can be skipped, is highly configurable in Label Studio Enterprise and Starter Cloud. For more information, see [the Enterprise documentation](https://docs.humansignal.com/guide/skip).
 
 </div>
 
@@ -68,13 +68,10 @@ For example, the following JSON snippet would result in one skippable task and o
 ```
 
 !!! note
-    Managers, Admins, and Owners can still skip these tasks. Only Annotators and Reviewers cannot skip tasks that have been marked unskippable using this method.  
+    Managers, Admins, and Owners can still skip these tasks. Only Annotators and Reviewers cannot skip tasks that have been marked unskippable using this method.
 
 
 !!! info Tip
-    Use the **Allow Skip** column to see which tasks have skipping disabled and filter for unskippable tasks. This column is hidden by default and is only visible to Managers, Admins, and Owners. 
+    Use the **Allow Skip** column to see which tasks have skipping disabled and filter for unskippable tasks. This column is hidden by default and is only visible to Managers, Admins, and Owners.
 
 </div>
-
-
-

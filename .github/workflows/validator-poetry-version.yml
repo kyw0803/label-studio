@@ -26,13 +26,13 @@ jobs:
       - name: Validate
         uses: actions/github-script@v8
         with:
-          github-token: ${{ secrets.GIT_PAT }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { repo, owner } = context.repo;
             const head_sha = '${{ github.event.merge_group.head_sha || github.event.pull_request.merge_commit_sha || github.event.pull_request.head.sha || github.event.after }}'
             const base_sha = '${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }}'
             const pyProjectPath = 'pyproject.toml';
-            
+
             async function getPoetryVersion(ref) {
               const {data: commit} = await github.rest.repos.getCommit({
                 owner,
@@ -49,7 +49,7 @@ jobs:
               const matchVersion = pyproject.match(/^version\s*=\s*"(?<version>.*)"/m);
               return matchVersion.groups.version;
             }
-            
+
             async function parseVersion(a) {
               const match = a.match(/(?<x>\d+)?\.(?<y>\d+)?\.(?<z>\d+)?(?<t>\.dev|\.post)?(?<n>\d+)?/);
               return [
@@ -60,7 +60,7 @@ jobs:
                 match.groups.n * 1 || 0,
               ];
             }
-            
+
             async function compareVersions(a, b) {
               const a_parsed = await parseVersion(a);
               const b_parsed = await parseVersion(b);
@@ -71,15 +71,15 @@ jobs:
               }
               return 0;
             }
-            
+
             const base_version = await getPoetryVersion(base_sha);
             console.log(`Base version: ${base_version}`);
-            
+
             const head_version = await getPoetryVersion(head_sha);
             console.log(`Head version: ${head_version}`);
-            
+
             const compare = await compareVersions(base_version, head_version);
-            
+
             if (compare < 0) {
               const error_msg = `It is prohibited to downgrade version`;
               core.error(error_msg, {file: pyProjectPath,});

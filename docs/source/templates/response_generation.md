@@ -19,7 +19,7 @@ If you want to train a machine learning model to generate a response for a chatb
 ## Labeling Configuration
 
 ```html
-<View>  
+<View>
   <Paragraphs name="chat" value="$dialogue" layout="dialogue" />
   <Header value="Provide response" />
   <TextArea name="response" toName="chat" rows="4" editable="true" maxSubmissions="1" />
@@ -40,7 +40,7 @@ You can add a [header](/tags/header.html) to provide instructions to the annotat
 <Header value="Provide response" />
 ```
 
-Use the [TextArea](/tags/textarea.html) control tag to provide a spot for annotators to provide a response to the sample of chat dialogue: 
+Use the [TextArea](/tags/textarea.html) control tag to provide a spot for annotators to provide a response to the sample of chat dialogue:
 ```xml
 <TextArea name="response" toName="chat" rows="4" editable="true" maxSubmissions="1" />
 ```

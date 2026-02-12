@@ -24,4 +24,3 @@ config: |
 
     <Text name="text" value="$text"/>
   </View>
-

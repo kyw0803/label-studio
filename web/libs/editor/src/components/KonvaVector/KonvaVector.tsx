@@ -1,7 +1,16 @@
 import type Konva from "konva";
 import { useState, useRef, forwardRef, useImperativeHandle, useEffect, useMemo, useCallback } from "react";
 import { Group, Shape } from "react-konva";
-import { ControlPoints, GhostLine, GhostPoint, type GhostPointRef, VectorPoints, VectorShape } from "./components";
+import {
+  ControlPoints,
+  GhostLine,
+  GhostPoint,
+  type GhostPointRef,
+  VectorPoints,
+  VectorShape,
+  VectorTransformer,
+  ProxyNodes,
+} from "./components";
 import { createEventHandlers } from "./eventHandlers";
 import { convertPoint } from "./pointManagement";
 import { normalizePoints, convertBezierToSimplePoints, isPointInPolygon } from "./utils";
@@ -35,6 +44,8 @@ import {
   DEFAULT_POINT_STROKE_SELECTED,
   DEFAULT_POINT_STROKE_WIDTH,
   HIT_RADIUS,
+  TRANSFORMER_SETUP_DELAY,
+  TRANSFORMER_CLEAR_DELAY,
   MIN_POINTS_FOR_CLOSING,
   MIN_POINTS_FOR_BEZIER_CLOSING,
   INVISIBLE_SHAPE_OPACITY,
@@ -196,35 +207,6 @@ import {
  * />
  * ```
  */
-/**
- * Find all endpoint indices based on path structure (prevPointId relationships)
- * In non-skeleton mode, endpoints are:
- * 1. Points with no prevPointId (starting points)
- * 2. Points that are not referenced by any other point's prevPointId (ending points)
- */
-function getEndpointIndices(points: BezierPoint[]): Set<number> {
-  const endpointIndices = new Set<number>();
-
-  // Create a set of all point IDs that are referenced as prevPointId
-  const referencedPointIds = new Set<string>();
-  points.forEach((point) => {
-    if (point.prevPointId) {
-      referencedPointIds.add(point.prevPointId);
-    }
-  });
-
-  // Find endpoints:
-  // 1. Points with no prevPointId (starting points)
-  // 2. Points that are not referenced by any other point (ending points)
-  points.forEach((point, index) => {
-    if (!point.prevPointId || !referencedPointIds.has(point.id)) {
-      endpointIndices.add(index);
-    }
-  });
-
-  return endpointIndices;
-}
-
 export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, ref) => {
   // Generate unique instance ID
   const instanceId = useMemo(
@@ -288,6 +270,7 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
     pointStroke = DEFAULT_POINT_STROKE,
     pointStrokeSelected = DEFAULT_POINT_STROKE_SELECTED,
     pointStrokeWidth = DEFAULT_POINT_STROKE_WIDTH,
+    pointStyle = "circle",
   } = props;
 
   // Normalize input points to BezierPoint format
@@ -379,11 +362,8 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
     if (initialPoints.length > 0) {
       const lastPoint = initialPoints[initialPoints.length - 1];
       setLastAddedPointId(lastPoint.id);
-      // Set activePointId to last point only if it's not already set to a valid point
-      // This prevents overriding activePointId when a new point is created (which sets it immediately)
-      // In skeleton mode: allows drawing from any point
-      // In non-skeleton mode: allows drawing from last point (can be changed by selecting first point)
-      if (!activePointId || !initialPoints.find((p) => p.id === activePointId)) {
+      // Only set activePointId if skeleton mode is enabled
+      if (skeletonEnabled) {
         setActivePointId(lastPoint.id);
       }
     }
@@ -752,8 +732,8 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
   // Debug logging for path closure state
   useEffect(() => {
     if (allowClose && initialPoints.length >= 2) {
-      const firstPoint = initialPoints[0];
-      const lastPoint = initialPoints[initialPoints.length - 1];
+      const _firstPoint = initialPoints[0];
+      const _lastPoint = initialPoints[initialPoints.length - 1];
     }
   }, [allowClose, initialPoints, isPathClosed, finalIsPathClosed]);
 
@@ -1171,7 +1151,48 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
     originalControlPoint2?: { x: number; y: number };
   } | null>(null);
 
-  // Transformer functionality disabled - multiple point selection no longer uses transformer
+  // Set up Transformer nodes once when selection changes
+  useEffect(() => {
+    if (transformerRef.current) {
+      if (effectiveSelectedPoints.size > SELECTION_SIZE.MULTI_SELECTION_MIN) {
+        // Use setTimeout to ensure proxy nodes are rendered first
+        setTimeout(() => {
+          if (transformerRef.current) {
+            // Set up proxy nodes once - transformer will manage them independently
+            // Use getAllPoints() to get the correct proxy nodes for all points
+            const allPoints = getAllPoints();
+            const nodes = Array.from(effectiveSelectedPoints)
+              .map((index) => {
+                // Ensure the index is within bounds of all points
+                if (index < allPoints.length) {
+                  return proxyRefs.current[index];
+                }
+                return null;
+              })
+              .filter((node) => node?.getAbsoluteTransform) as Konva.Node[];
+
+            if (nodes.length > 0) {
+              // Always set the complete set of nodes - transformer will handle positioning
+              transformerRef.current.nodes(nodes);
+              transformerRef.current.getLayer()?.batchDraw();
+            }
+          }
+        }, TRANSFORMER_SETUP_DELAY);
+      } else {
+        // Clear transformer when selection is less than minimum points for transformer
+        setTimeout(() => {
+          if (transformerRef.current) {
+            transformerRef.current.nodes([]);
+            transformerRef.current.getLayer()?.batchDraw();
+          }
+        }, TRANSFORMER_CLEAR_DELAY);
+      }
+    }
+  }, [effectiveSelectedPoints]); // Depend on effectiveSelectedPoints to include transform mode
+
+  // Note: We don't update proxy node positions during transformation
+  // The transformer handles positioning the proxy nodes itself
+  // This prevents conflicts and maintains the transformer's rotation state
 
   // Helper function to generate shape data and call transformation complete callback
   const notifyTransformationComplete = () => {
@@ -1512,12 +1533,9 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
       for (let i = 0; i < initialPoints.length; i++) {
         if (pointIds.includes(initialPoints[i].id)) {
           selectedIndices.add(i);
-          // Set the first found endpoint as the primary selected point (for activePointId)
-          // In non-skeleton mode, only endpoints can be active points for drawing
+          // Set the first found point as the primary selected point
           if (primarySelectedIndex === null) {
-            if (skeletonEnabled || getEndpointIndices(initialPoints).has(i)) {
-              primarySelectedIndex = i;
-            }
+            primarySelectedIndex = i;
           }
         }
       }
@@ -1525,18 +1543,6 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
       // Use tracker for global selection management
       isProgrammaticSelection.current = true;
       tracker.selectPoints(instanceId, selectedIndices);
-
-      // In non-skeleton mode, only set activePointId if the primary selected point is an endpoint
-      // This ensures drawing can only start from endpoints in non-skeleton mode
-      if (!skeletonEnabled && primarySelectedIndex !== null && initialPoints[primarySelectedIndex]) {
-        if (getEndpointIndices(initialPoints).has(primarySelectedIndex)) {
-          setActivePointId(initialPoints[primarySelectedIndex].id);
-        }
-      } else if (skeletonEnabled && primarySelectedIndex !== null && initialPoints[primarySelectedIndex]) {
-        // In skeleton mode, any point can be active
-        setActivePointId(initialPoints[primarySelectedIndex].id);
-      }
-
       setTimeout(() => {
         isProgrammaticSelection.current = false;
       }, 0);
@@ -1609,19 +1615,9 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
       };
     },
     // Programmatic point creation methods
-    // These check the disabled prop to prevent point creation when the region is locked
-    startPoint: (x: number, y: number) => {
-      if (disabled) return false;
-      return pointCreationManager.startPoint(x, y);
-    },
-    updatePoint: (x: number, y: number) => {
-      if (disabled) return;
-      pointCreationManager.updatePoint(x, y);
-    },
-    commitPoint: (x: number, y: number) => {
-      if (disabled) return;
-      pointCreationManager.commitPoint(x, y);
-    },
+    startPoint: (x: number, y: number) => pointCreationManager.startPoint(x, y),
+    updatePoint: (x: number, y: number) => pointCreationManager.updatePoint(x, y),
+    commitPoint: (x: number, y: number) => pointCreationManager.commitPoint(x, y),
     // Programmatic point transformation methods
     translatePoints: (dx: number, dy: number, pointIds?: string[]) => {
       const pointsToTransform = pointIds ? initialPoints.filter((p) => pointIds.includes(p.id)) : initialPoints;
@@ -1980,20 +1976,17 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
         return false;
       }
 
-      // For closed polygons, check if point is inside the polygon FIRST
-      // This ensures the fill area is detected even when far from path segments
-      if (finalIsPathClosed && initialPoints.length >= 3) {
-        if (isPointInPolygon(point, initialPoints)) {
-          return true;
-        }
-      }
-
       // For polylines and polygons, check if point is close to any segment
       const closestPathPoint = findClosestPointOnPath(point, initialPoints, allowClose, finalIsPathClosed);
 
       if (closestPathPoint) {
         const distance = getDistance(point, closestPathPoint.point);
         return distance <= hitRadius / (fitScale * transform.zoom);
+      }
+
+      // For closed polygons, also check if point is inside the polygon
+      if (finalIsPathClosed && initialPoints.length >= 3) {
+        return isPointInPolygon(point, initialPoints);
       }
 
       return false;
@@ -2328,35 +2321,10 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
           setIsShiftKeyHeld(e.evt.shiftKey);
         }
 
+        // Debug: Log coordinate conversion
         const imagePos = stageToImageCoordinates(pos, transform, fitScale, x, y);
 
-        // Check if event target belongs to this instance's group
-        const target = e.target;
-        const group = stageRef.current;
-        let targetGroup: Konva.Node | null = target;
-        while (targetGroup && targetGroup !== group && targetGroup.getParent()) {
-          targetGroup = targetGroup.getParent();
-        }
-        const isTargetInGroup = targetGroup === group;
-        // Also allow when hovering over empty space (stage or layer)
-        const isStageOrLayer = target === stage || target.getParent() === stage;
-
-        // When hovering over another region, clear cursor position to hide ghost line
-        if (!isTargetInGroup && !isStageOrLayer) {
-          // Clear cursor position when hovering over other regions to hide ghost line
-          cursorPositionRef.current = null;
-          setGhostPoint(null);
-          // Trigger redraw to hide ghost line
-          if (ghostLineRafRef.current) {
-            cancelAnimationFrame(ghostLineRafRef.current);
-          }
-          ghostLineRafRef.current = requestAnimationFrame(() => {
-            stage.batchDraw();
-          });
-          return;
-        }
-
-        // Update cursor position (only when not hovering over another region)
+        // Always update cursor position (even outside bounds) so ghost line can work
         cursorPositionRef.current = imagePos;
 
         // Use RAF to batch redraw calls for performance
@@ -2702,6 +2670,7 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
         return;
       }
 
+      // Always update cursor position first (for ghost line to work everywhere)
       const pos = e.target.getStage()?.getPointerPosition();
       if (!pos) return;
 
@@ -2712,19 +2681,22 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
 
       const imagePos = stageToImageCoordinates(pos, transform, fitScale, x, y);
 
-      // Check if event target belongs to this instance's group
-      const target = e.target;
-      let targetGroup: Konva.Node | null = target;
-      while (targetGroup && targetGroup !== group && targetGroup.getParent()) {
-        targetGroup = targetGroup.getParent();
-      }
-      const isTargetInGroup = targetGroup === group;
-      // Also allow when hovering over empty space (stage or layer)
-      const isStageOrLayer = target === stage || target.getParent() === stage;
+      // Always update cursor position (even outside bounds) so ghost line can work
+      cursorPositionRef.current = imagePos;
 
-      // If we're dragging a point from this instance, allow dragging to continue
-      // even if mouse moves outside our group (user might drag outside bounds)
-      const isDraggingFromThisInstance = draggedPointIndex !== null || draggedControlPoint !== null;
+      // Use RAF to batch redraw calls for performance
+      if (ghostLineRafRef.current) {
+        cancelAnimationFrame(ghostLineRafRef.current);
+      }
+      ghostLineRafRef.current = requestAnimationFrame(() => {
+        stage.batchDraw();
+      });
+
+      // Recalculate ghost point using the helper function
+      // Pass the event's shiftKey state and position for real-time updates
+      if (calculateGhostPointRef.current) {
+        calculateGhostPointRef.current(e.evt.shiftKey, pos);
+      }
 
       // Handle shape dragging first (if active, allow dragging to continue even outside bounds)
       // Skip individual shape dragging if disabled or in multi-region mode (ImageTransformer handles it)
@@ -2778,40 +2750,30 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
         return; // Don't process other logic when dragging shape
       }
 
-      // Only update cursor position and show ghost line if:
+      // If we're dragging a point from this instance, allow dragging to continue
+      // even if mouse moves outside our group (user might drag outside bounds)
+      const isDraggingFromThisInstance = draggedPointIndex !== null || draggedControlPoint !== null;
+
+      // Check if event target belongs to this instance's group
+      // This prevents ghost point snapping from working for other regions
+      // But we still update cursor position above so ghost line can work
+      const target = e.target;
+      let targetGroup: Konva.Node | null = target;
+      while (targetGroup && targetGroup !== group && targetGroup.getParent()) {
+        targetGroup = targetGroup.getParent();
+      }
+      const isTargetInGroup = targetGroup === group;
+      // Also allow when hovering over empty space (stage or layer)
+      const isStageOrLayer = target === stage || target.getParent() === stage;
+
+      // Only process ghost point snapping and dragging if:
       // - Target is in our group, OR
       // - We're hovering over empty space (stage/layer), OR
       // - We're dragging from this instance
-      // When hovering over another region, clear cursor position to hide ghost line
       if (!isDraggingFromThisInstance && !isTargetInGroup && !isStageOrLayer) {
-        // Clear cursor position when hovering over other regions to hide ghost line
-        cursorPositionRef.current = null;
+        // Clear ghost point when hovering over other regions, but keep cursor position for ghost line
         setGhostPoint(null);
-        // Trigger redraw to hide ghost line
-        if (ghostLineRafRef.current) {
-          cancelAnimationFrame(ghostLineRafRef.current);
-        }
-        ghostLineRafRef.current = requestAnimationFrame(() => {
-          stage.batchDraw();
-        });
         return;
-      }
-
-      // Update cursor position (only when not hovering over another region)
-      cursorPositionRef.current = imagePos;
-
-      // Use RAF to batch redraw calls for performance
-      if (ghostLineRafRef.current) {
-        cancelAnimationFrame(ghostLineRafRef.current);
-      }
-      ghostLineRafRef.current = requestAnimationFrame(() => {
-        stage.batchDraw();
-      });
-
-      // Recalculate ghost point using the helper function
-      // Pass the event's shiftKey state and position for real-time updates
-      if (calculateGhostPointRef.current) {
-        calculateGhostPointRef.current(e.evt.shiftKey, pos);
       }
 
       // Only process ghost point and other logic if within bounds
@@ -2887,6 +2849,10 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
 
         // Handle point dragging
         if (draggedPointIndex !== null && lastPos.current && !disabled) {
+          if (effectiveSelectedPoints.size > 1) {
+            return; // Don't drag when transformer is active
+          }
+
           // Check if we should start dragging
           const dragThreshold = 5;
           const mouseDeltaX = Math.abs(e.evt.clientX - lastPos.current.x);
@@ -3047,7 +3013,7 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
               let snappedPos = snapToPixel({ x: point.x, y: point.y }, pixelSnapping);
 
               // Check if this snapped position would collide with any previously snapped point
-              let wouldCollapse = false;
+              let _wouldCollapse = false;
               for (let j = 0; j < i; j++) {
                 const prevSnapped = snappedPositions.get(j);
                 if (prevSnapped) {
@@ -3061,7 +3027,7 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
                   // If snapped positions would be the same but original positions were different,
                   // preserve relative offset to prevent collapse
                   if (snappedDistance < 0.1 && originalDistance > 0.1) {
-                    wouldCollapse = true;
+                    _wouldCollapse = true;
                     // Preserve relative offset from first point
                     const relativeX = point.x - firstPoint.x;
                     const relativeY = point.y - firstPoint.y;
@@ -3692,6 +3658,11 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
                 return;
               }
 
+              // Don't start shape drag if transformer is active
+              if (effectiveSelectedPoints.size > 1) {
+                return;
+              }
+
               // Don't start shape drag if clicking on a point
               const pos = e.target.getStage()?.getPointerPosition();
               if (!pos) return;
@@ -3813,6 +3784,7 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
             pointStroke={pointStroke}
             pointStrokeSelected={pointStrokeSelected}
             pointStrokeWidth={pointStrokeWidth}
+            pointStyle={pointStyle}
             activePointId={activePointId}
             maxPoints={maxPoints}
             onPointClick={(e, pointIndex) => {
@@ -3838,20 +3810,8 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
                 !e.evt.metaKey &&
                 !transformMode
               ) {
-                // Select the point first (allow selecting any point)
+                // Select the point first
                 tracker.selectPoints(instanceId, new Set([pointIndex]));
-                // In non-skeleton mode, only set activePointId when selecting an endpoint
-                // This ensures drawing can only start from endpoints in non-skeleton mode
-                if (
-                  !skeletonEnabled &&
-                  getEndpointIndices(initialPoints).has(pointIndex) &&
-                  initialPoints[pointIndex]
-                ) {
-                  setActivePointId(initialPoints[pointIndex].id);
-                } else if (skeletonEnabled && initialPoints[pointIndex]) {
-                  // In skeleton mode, any point can be active
-                  setActivePointId(initialPoints[pointIndex].id);
-                }
                 // Directly call handleClickWithDebouncing to trigger region selection
                 // This works even when selected=false (Group onClick is undefined)
                 pointSelectionHandled.current = true;
@@ -3930,39 +3890,14 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
 
                 // Handle regular point selection (only when not in transform mode)
                 if (!transformMode) {
-                  // Allow selecting any point
                   if (e.evt.ctrlKey || e.evt.metaKey) {
                     // Add to multi-selection
                     const newSelection = new Set(selectedPoints);
                     newSelection.add(pointIndex);
                     tracker.selectPoints(instanceId, newSelection);
-                    // In non-skeleton mode, only update activePointId when selecting an endpoint
-                    // This ensures drawing can only start from endpoints in non-skeleton mode
-                    if (
-                      !skeletonEnabled &&
-                      getEndpointIndices(initialPoints).has(pointIndex) &&
-                      initialPoints[pointIndex]
-                    ) {
-                      setActivePointId(initialPoints[pointIndex].id);
-                    } else if (skeletonEnabled && initialPoints[pointIndex]) {
-                      // In skeleton mode, any point can be active
-                      setActivePointId(initialPoints[pointIndex].id);
-                    }
                   } else {
                     // Select only this point
                     tracker.selectPoints(instanceId, new Set([pointIndex]));
-                    // In non-skeleton mode, only set activePointId when selecting an endpoint
-                    // This ensures drawing can only start from endpoints in non-skeleton mode
-                    if (
-                      !skeletonEnabled &&
-                      getEndpointIndices(initialPoints).has(pointIndex) &&
-                      initialPoints[pointIndex]
-                    ) {
-                      setActivePointId(initialPoints[pointIndex].id);
-                    } else if (skeletonEnabled && initialPoints[pointIndex]) {
-                      // In skeleton mode, any point can be active
-                      setActivePointId(initialPoints[pointIndex].id);
-                    }
                   }
                 }
 
@@ -3986,7 +3921,48 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
             }}
           />
 
-          {/* Transformer functionality disabled - multiple point selection no longer uses transformer */}
+          {/* Proxy nodes for Transformer (positioned at exact point centers) - only show when not in drawing mode */}
+          {drawingDisabled && (
+            <ProxyNodes selectedPoints={effectiveSelectedPoints} initialPoints={getAllPoints()} proxyRefs={proxyRefs} />
+          )}
+
+          {/* Transformer for multiselection - only show when not in drawing mode and not multi-region selected */}
+          {drawingDisabled && !isMultiRegionSelected && (
+            <VectorTransformer
+              selectedPoints={selectedPoints}
+              initialPoints={getAllPoints()}
+              transformerRef={transformerRef}
+              proxyRefs={proxyRefs}
+              bounds={{
+                x: 0,
+                y: 0,
+                width: width,
+                height: height,
+              }}
+              scaleX={scaleX}
+              scaleY={scaleY}
+              transform={transform}
+              fitScale={fitScale}
+              getCurrentPointsRef={getCurrentPointsRef}
+              updateCurrentPointsRef={updateCurrentPointsRef}
+              pixelSnapping={pixelSnapping}
+              onPointsChange={(newPoints) => {
+                // Update main path points
+                onPointsChange?.(newPoints);
+              }}
+              onTransformStateChange={(state) => {
+                transformerStateRef.current = state;
+              }}
+              onTransformationStart={() => {
+                setIsTransforming(true);
+                handleTransformStart();
+              }}
+              onTransformationEnd={() => {
+                setIsTransforming(false);
+                handleTransformEnd();
+              }}
+            />
+          )}
         </Group>
       ) : (
         <>
@@ -4105,6 +4081,11 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
                 return;
               }
 
+              // Don't start shape drag if transformer is active
+              if (effectiveSelectedPoints.size > 1) {
+                return;
+              }
+
               // Don't start shape drag if clicking on a point
               const pos = e.target.getStage()?.getPointerPosition();
               if (!pos) return;
@@ -4226,6 +4207,7 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
             pointStroke={pointStroke}
             pointStrokeSelected={pointStrokeSelected}
             pointStrokeWidth={pointStrokeWidth}
+            pointStyle={pointStyle}
             activePointId={activePointId}
             maxPoints={maxPoints}
             onPointClick={(e, pointIndex) => {
@@ -4289,22 +4271,10 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
                   return;
                 }
 
-                // If not deselection, add to multi-selection (allow selecting any point)
+                // If not deselection, add to multi-selection
                 const newSelection = new Set(effectiveSelectedPoints);
                 newSelection.add(pointIndex);
                 tracker.selectPoints(instanceId, newSelection);
-                // In non-skeleton mode, only update activePointId when multi-selecting an endpoint
-                // This ensures drawing can only start from endpoints in non-skeleton mode
-                if (
-                  !skeletonEnabled &&
-                  getEndpointIndices(initialPoints).has(pointIndex) &&
-                  initialPoints[pointIndex]
-                ) {
-                  setActivePointId(initialPoints[pointIndex].id);
-                } else if (skeletonEnabled && initialPoints[pointIndex]) {
-                  // In skeleton mode, any point can be active
-                  setActivePointId(initialPoints[pointIndex].id);
-                }
                 pointSelectionHandled.current = true;
                 e.evt.stopImmediatePropagation();
                 return;
@@ -4322,9 +4292,6 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
                 }
 
                 // Check if we're about to close the path - prevent point selection in this case
-                // IMPORTANT: Also check isActivePointEligibleForClosing to ensure closing is actually possible
-                // When the region is unselected and no activePointId is set, clicking on first/last point
-                // should NOT be blocked - it should select the point so drawing can start from that endpoint
                 if (
                   shouldClosePathOnPointClick(
                     pointIndex,
@@ -4336,30 +4303,13 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
                       activePointId,
                     } as any,
                     e,
-                  ) &&
-                  isActivePointEligibleForClosing({
-                    initialPoints,
-                    skeletonEnabled,
-                    activePointId,
-                  } as any)
+                  )
                 ) {
                   return; // Block the selection
                 }
 
-                // For non-selected mode, allow selecting any point
+                // For non-selected mode, still allow point selection
                 tracker.selectPoints(instanceId, new Set([pointIndex]));
-                // In non-skeleton mode, only set activePointId when selecting an endpoint
-                // This ensures drawing can only start from endpoints in non-skeleton mode
-                if (
-                  !skeletonEnabled &&
-                  getEndpointIndices(initialPoints).has(pointIndex) &&
-                  initialPoints[pointIndex]
-                ) {
-                  setActivePointId(initialPoints[pointIndex].id);
-                } else if (skeletonEnabled && initialPoints[pointIndex]) {
-                  // In skeleton mode, any point can be active
-                  setActivePointId(initialPoints[pointIndex].id);
-                }
                 pointSelectionHandled.current = true;
 
                 // CRITICAL: For single-point regions, directly call onClick handler so the region can be selected
@@ -4385,21 +4335,8 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
                   return; // Block the selection
                 }
 
-                // Allow selecting any point
                 // Select only this point (single selection for regular click)
                 tracker.selectPoints(instanceId, new Set([pointIndex]));
-                // In non-skeleton mode, only set activePointId when selecting an endpoint
-                // This ensures drawing can only start from endpoints in non-skeleton mode
-                if (
-                  !skeletonEnabled &&
-                  getEndpointIndices(initialPoints).has(pointIndex) &&
-                  initialPoints[pointIndex]
-                ) {
-                  setActivePointId(initialPoints[pointIndex].id);
-                } else if (skeletonEnabled && initialPoints[pointIndex]) {
-                  // In skeleton mode, any point can be active
-                  setActivePointId(initialPoints[pointIndex].id);
-                }
                 pointSelectionHandled.current = true;
 
                 // CRITICAL: For single-point regions, directly call onClick handler so the region can be selected
@@ -4442,7 +4379,37 @@ export const KonvaVector = forwardRef<KonvaVectorRef, KonvaVectorProps>((props, 
             key={`vector-points-${initialPoints.length}-${initialPoints.map((p, i) => `${i}-${p.x.toFixed(1)}-${p.y.toFixed(1)}-${p.controlPoint1?.x?.toFixed(1) || "null"}-${p.controlPoint1?.y?.toFixed(1) || "null"}-${p.controlPoint2?.x?.toFixed(1) || "null"}-${p.controlPoint2?.y?.toFixed(1) || "null"}`).join("-")}`}
           />
 
-          {/* Transformer functionality disabled - multiple point selection no longer uses transformer */}
+          {/* Proxy nodes for Transformer (positioned at exact point centers) - only show when not in drawing mode and not multi-region selected */}
+          {drawingDisabled && !isMultiRegionSelected && (
+            <ProxyNodes selectedPoints={effectiveSelectedPoints} initialPoints={getAllPoints()} proxyRefs={proxyRefs} />
+          )}
+
+          {/* Transformer for multiselection - only show when not in drawing mode and not multi-region selected */}
+          {drawingDisabled && !isMultiRegionSelected && (
+            <VectorTransformer
+              selectedPoints={effectiveSelectedPoints}
+              initialPoints={getAllPoints()}
+              transformerRef={transformerRef}
+              proxyRefs={proxyRefs}
+              getCurrentPointsRef={getCurrentPointsRef}
+              updateCurrentPointsRef={updateCurrentPointsRef}
+              pixelSnapping={pixelSnapping}
+              onPointsChange={(newPoints) => {
+                // Update main path points
+                onPointsChange?.(newPoints);
+              }}
+              onTransformationComplete={notifyTransformationComplete}
+              onTransformationStart={() => {
+                handleTransformStart();
+              }}
+              onTransformationEnd={() => {
+                handleTransformEnd();
+              }}
+              bounds={{ x: 0, y: 0, width, height }}
+              transform={transform}
+              fitScale={fitScale}
+            />
+          )}
         </>
       )}
 

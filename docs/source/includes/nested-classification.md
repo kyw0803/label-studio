@@ -1,6 +1,6 @@
 ## Enhance classification templates with nested choices
 
-You can add conditional or nested choices to any classification template. If you want classification options to appear only if certain conditions are met, such as specific choices being selected by annotators, adapt one of these conditional and nested classification examples. 
+You can add conditional or nested choices to any classification template. If you want classification options to appear only if certain conditions are met, such as specific choices being selected by annotators, adapt one of these conditional and nested classification examples.
 
 ### Conditional classification
 
@@ -10,7 +10,7 @@ Start with an object tag for the type of data that you want to classify. This ex
 ```xml
 <Text name="text1" value="$text1" />
 ```
-Use the [Choices](/tags/choices.html) control tag to display classification options. The `name` parameter identifies the purpose of the choices, and the `toName` parameter references the text sample to which the choices apply. 
+Use the [Choices](/tags/choices.html) control tag to display classification options. The `name` parameter identifies the purpose of the choices, and the `toName` parameter references the text sample to which the choices apply.
 ```xml
 <Choices name="sentiment" toName="text1" showInline="true">
     <Choice value="Positive" />
@@ -18,7 +18,7 @@ Use the [Choices](/tags/choices.html) control tag to display classification opti
     <Choice value="Neutral" />
 </Choices>
 ```
-Create a conditional [View](/tags/view.html) tag that appears only when a choice is selected, `visibleWhen="choice-selected"`, and specifically when the choice is selected as part of the Choices tag with the `name` parameter set to `sentiment`, `whenTagName="sentiment"` and the selected choice is `Positive`, `whenChoiceValue="Positive"`. You must use `whenTagName` with `whenChoiceValue`.  
+Create a conditional [View](/tags/view.html) tag that appears only when a choice is selected, `visibleWhen="choice-selected"`, and specifically when the choice is selected as part of the Choices tag with the `name` parameter set to `sentiment`, `whenTagName="sentiment"` and the selected choice is `Positive`, `whenChoiceValue="Positive"`. You must use `whenTagName` with `whenChoiceValue`.
 ```xml
 <View visibleWhen="choice-selected"
       whenTagName="sentiment" whenChoiceValue="Positive">
@@ -28,7 +28,7 @@ Create a conditional [View](/tags/view.html) tag that appears only when a choice
 ```
 In this case, the view tags wrap a second text sample with a [header](/tags/header.html) that provides instructions to the annotator.
 
-A second [Choices](/tags/choices.html) control tag displays classification options that apply specifically to the second passage of text, specified with `toName="text2"`. These choices have the samea conditional setting as the header and text sample, specified with `visibleWhen="choice-selected"`, `whenTagName="sentiment"`, and `whenChoiceValue="Positive"`. 
+A second [Choices](/tags/choices.html) control tag displays classification options that apply specifically to the second passage of text, specified with `toName="text2"`. These choices have the samea conditional setting as the header and text sample, specified with `visibleWhen="choice-selected"`, `whenTagName="sentiment"`, and `whenChoiceValue="Positive"`.
 ```xml
 <Choices name="sentiment2" toName="text2"
          choice="single" showInline="true"
@@ -43,7 +43,7 @@ A second [Choices](/tags/choices.html) control tag displays classification optio
 
 ### Two level nested classification
 
-You can also perform conditional classification without a second set of data in the task. In this case, you create two sets of [Choices](/tags/choices.html) control tags, with the second set of choices dependent on the first. For example, a classification task where you want to collect additional details for a specific choice selected by the annotator. 
+You can also perform conditional classification without a second set of data in the task. In this case, you create two sets of [Choices](/tags/choices.html) control tags, with the second set of choices dependent on the first. For example, a classification task where you want to collect additional details for a specific choice selected by the annotator.
 
 Start with an object tag for the type of data that you want to classify. This example uses the [Image](/tags/image.html) object tag for an image classification example, but you can adapt it for text or audio classification tasks:
 ```xml
@@ -59,7 +59,7 @@ Use the [Choices](/tags/choices.html) control tag to display classification opti
 </Choices>
 ```
 
-Add a second [Choices](/tags/choices.html) control tag to the configuration to display other properties relevant to the classification task. In this case, the choice options appear when any choice is selected from the earlier classification options, specified by the `visibleWhen="choice-selected"` and `whenTagName="content"` parameter values. 
+Add a second [Choices](/tags/choices.html) control tag to the configuration to display other properties relevant to the classification task. In this case, the choice options appear when any choice is selected from the earlier classification options, specified by the `visibleWhen="choice-selected"` and `whenTagName="content"` parameter values.
 ```xml
 <Choices name="other-props" toName="image"
          choice="single" showInline="true"
@@ -90,7 +90,7 @@ Use the [Choices](/tags/choices.html) control tag to display classification opti
 </Choices>
 ```
 
-Add a second [Choices](/tags/choices.html) control tag to the configuration to display other properties relevant to the classification task. In this case, the choice options appear when any choice is selected from the earlier classification options, specified by the `visibleWhen="choice-selected"` and `whenTagName="intent"` parameter values. 
+Add a second [Choices](/tags/choices.html) control tag to the configuration to display other properties relevant to the classification task. In this case, the choice options appear when any choice is selected from the earlier classification options, specified by the `visibleWhen="choice-selected"` and `whenTagName="intent"` parameter values.
 ```xml
 <Choices name="other-props" toName="audio"
          choice="single" showInline="true"
@@ -102,7 +102,7 @@ Add a second [Choices](/tags/choices.html) control tag to the configuration to d
 </Choices>
 ```
 
-Add a third [Choices](/tags/choices.html) control tag to prompt the annotator to add extra detail about a specific choice. In this case, the choice options appear when the annotator selects **Noisy** from the previous set of choices, specified with the `whenChoiceValue="Noisy"` parameter. The `whenChoiceValue` parameter must be used with the `whenTagName` parameter, in this case referencing the `name` parameter of the `Choices` with the `Noisy` option, `whenTagName="other-props"`. The `visibleWhen="choice-selected"` parameter controls the visibility of these choices. 
+Add a third [Choices](/tags/choices.html) control tag to prompt the annotator to add extra detail about a specific choice. In this case, the choice options appear when the annotator selects **Noisy** from the previous set of choices, specified with the `whenChoiceValue="Noisy"` parameter. The `whenChoiceValue` parameter must be used with the `whenTagName` parameter, in this case referencing the `name` parameter of the `Choices` with the `Noisy` option, `whenTagName="other-props"`. The `visibleWhen="choice-selected"` parameter controls the visibility of these choices.
 ```xml
 <Choices name="emotion" toName="text"
          choice="single" showInline="true"

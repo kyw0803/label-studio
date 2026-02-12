@@ -44,7 +44,7 @@ Use the [KeyPointLabels](/tags/keypointlabels.html) control tag to add the optio
 ```xml
 <KeyPointLabels name="kp-1" toName="img-1">
 ```
-  
+
 Use the [Label](/tags/label.html) control tag with the KeyPointLabels to specify the value and color of the key points:
 ```xml
     <Label value="Face" background="red" />
@@ -52,7 +52,7 @@ Use the [Label](/tags/label.html) control tag with the KeyPointLabels to specify
 </KeyPointLabels>
 ```
 
-Use the [Image](/tags/image.html) object tag to specify the image key: 
+Use the [Image](/tags/image.html) object tag to specify the image key:
 ```xml
   <Image name="img-1" value="$img" />
 ```

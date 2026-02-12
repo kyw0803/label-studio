@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
 import CM from "codemirror";
 import { Button, cnm } from "@humansignal/ui";
-import { IconTrash, IconInfoOutline } from "@humansignal/icons";
+import { IconTrash } from "@humansignal/icons";
 import { ToggleItems } from "../../../components";
 import { Form, Input } from "../../../components/Form";
 import { useAPI } from "../../../providers/ApiProvider";
@@ -11,7 +11,6 @@ import { FF_UNSAVED_CHANGES, isFF } from "../../../utils/feature-flags";
 import { colorNames } from "./colors";
 import "./Config.scss";
 import { Preview } from "./Preview";
-import { ff, LARGE_CONFIG_MESSAGE, LARGE_CONFIG_TAG_THRESHOLD, countConfigTags } from "@humansignal/core";
 import { DEFAULT_COLUMN, EMPTY_CONFIG, isEmptyConfig, Template } from "./Template";
 import { TemplatesList } from "./TemplatesList";
 
@@ -24,45 +23,6 @@ import { EditorResizer } from "./EditorResizer";
 
 const wizardClass = cn("wizard");
 const configClass = cn("configure");
-
-/**
- * AdaptivePreview - Shows manual update banner for large configs,
- * normal auto-updating preview for smaller configs.
- *
- * When FF_PREVIEW_PERFORMANCE is enabled and config has >= 200 tags,
- * shows a banner with "Update Preview" button instead of auto-updating.
- *
- * Controlled by FF_PREVIEW_PERFORMANCE feature flag.
- *
- * Wrapped in React.memo to prevent unnecessary re-renders when parent re-renders.
- */
-const AdaptivePreview = React.memo(({ config, hasPendingUpdate, onUpdatePreview, isUpdating, ...previewProps }) => {
-  const isFeatureEnabled = ff.isActive(ff.FF_PREVIEW_PERFORMANCE);
-
-  // Memoize tag count calculation to avoid re-computing on every render
-  const tagCount = useMemo(() => countConfigTags(config || ""), [config]);
-  const isLargeConfig = tagCount >= LARGE_CONFIG_TAG_THRESHOLD;
-
-  // Only show manual update banner when FF is ON and config is large and there are pending updates
-  const showManualUpdateBanner = isFeatureEnabled && isLargeConfig && hasPendingUpdate;
-
-  if (showManualUpdateBanner) {
-    return (
-      <div className={configClass.elem("preview-container")}>
-        <div className={configClass.elem("preview-info-banner")}>
-          <IconInfoOutline width={16} height={16} />
-          <span>{LARGE_CONFIG_MESSAGE}</span>
-          <Button size="small" onClick={onUpdatePreview} waiting={isUpdating} disabled={isUpdating}>
-            {isUpdating ? "Updating..." : "Update Preview"}
-          </Button>
-        </div>
-        <Preview config={config} {...previewProps} />
-      </div>
-    );
-  }
-
-  return <Preview config={config} {...previewProps} />;
-});
 
 const EmptyConfigPlaceholder = () => (
   <div className={configClass.elem("empty-config")}>
@@ -435,69 +395,15 @@ const Configurator = ({
   const [loading, setLoading] = useState(false);
   // and only with them we'll update config in preview
   const [configToDisplay, setConfigToDisplay] = React.useState(config);
-  // Track if we're in manual update mode (for large configs)
-  // Once enabled, stays enabled until user clicks "Update Preview"
-  const [manualUpdateMode, setManualUpdateMode] = React.useState(false);
-  // Track if config has changed since last preview update
-  const [hasPendingChanges, setHasPendingChanges] = React.useState(false);
-  // Track the last config that was successfully validated and displayed
-  const lastValidatedConfig = React.useRef(null);
 
   const debounceTimer = React.useRef();
   const api = useAPI();
-  const isFeatureEnabled = ff.isActive(ff.FF_PREVIEW_PERFORMANCE);
 
   React.useEffect(() => {
-    const tagCount = countConfigTags(config);
-    const isLargeConfig = tagCount >= LARGE_CONFIG_TAG_THRESHOLD;
-    const hasCompletedFirstValidation = lastValidatedConfig.current !== null;
-
-    // Always validate if we haven't completed the first validation yet
-    // This ensures the preview shows something on first load
-    if (!hasCompletedFirstValidation) {
-      // Enter manual mode for large configs, but still do the initial validation
-      if (isLargeConfig && isFeatureEnabled) {
-        setManualUpdateMode(true);
-      }
-      debounceTimer.current = window.setTimeout(() => {
-        setConfigToCheck(config);
-      }, 300);
-      return () => window.clearTimeout(debounceTimer.current);
-    }
-
-    // After first validation: if we're in manual mode, just mark pending changes
-    if (manualUpdateMode) {
-      setHasPendingChanges(true);
-      return;
-    }
-
-    // Enter manual mode for large configs when feature flag is enabled
-    if (isLargeConfig && isFeatureEnabled) {
-      setManualUpdateMode(true);
-      setHasPendingChanges(true);
-      return;
-    }
-
-    // Normal debounced auto-update for small configs or when feature flag is off
-    debounceTimer.current = window.setTimeout(() => {
-      setConfigToCheck(config);
-    }, 300);
-
+    // config may change during init, so wait for that, but for a very short time only
+    debounceTimer.current = window.setTimeout(() => setConfigToCheck(config), configToCheck ? 500 : 30);
     return () => window.clearTimeout(debounceTimer.current);
-  }, [config, manualUpdateMode, isFeatureEnabled]);
-
-  // Handler for manual preview update (used for large configs)
-  const handleManualUpdate = React.useCallback(() => {
-    // Check if we should stay in manual mode after this update
-    const tagCount = countConfigTags(config);
-    const isLargeConfig = tagCount >= LARGE_CONFIG_TAG_THRESHOLD;
-
-    // If still large, stay in manual mode but clear pending changes
-    // If now small, exit manual mode
-    setManualUpdateMode(isLargeConfig && isFeatureEnabled);
-    setHasPendingChanges(false);
-    setConfigToCheck(config);
-  }, [config, isFeatureEnabled]);
+  }, [config]);
 
   React.useEffect(() => {
     const validate = async () => {
@@ -530,8 +436,6 @@ const Configurator = ({
       if (sample && !sample.error) {
         setData(sample.sample_task);
         setConfigToDisplay(configToCheck);
-        // Track that we've completed a successful validation
-        lastValidatedConfig.current = configToCheck;
       } else {
         // @todo validation can be done in this place,
         // @todo but for now it's extremely slow in /sample-task endpoint
@@ -600,12 +504,6 @@ const Configurator = ({
       return inner.tagName;
     });
   }
-
-  // Memoize error to prevent AdaptivePreview re-renders when error hasn't changed
-  const previewError = useMemo(
-    () => parserError || error || (configure === "code" && warning) || null,
-    [parserError, error, configure, warning],
-  );
 
   const extra = (
     <p className={configClass.elem("tags-link")}>
@@ -708,15 +606,12 @@ const Configurator = ({
             onResize={setEditorWidthPixels}
             constraints={constraints}
           />
-          <AdaptivePreview
+          <Preview
             config={configToDisplay}
             data={data}
             project={project}
             loading={loading}
-            error={previewError}
-            hasPendingUpdate={manualUpdateMode}
-            onUpdatePreview={handleManualUpdate}
-            isUpdating={loading}
+            error={parserError || error || (configure === "code" && warning)}
           />
         </div>
       </div>
@@ -751,24 +646,20 @@ export const ConfigPage = ({
   );
 
   const setConfig = React.useCallback(
-    (newConfig) => {
-      _setConfig(newConfig);
-      onUpdate(newConfig);
+    (config) => {
+      _setConfig(config);
+      onUpdate(config);
     },
     [_setConfig, onUpdate],
   );
 
-  // setTemplate - handles both config state and Template object creation
   const setTemplate = React.useCallback(
-    (newConfig) => {
-      setConfig(newConfig);
-      try {
-        const tpl = new Template({ config: newConfig });
-        tpl.onConfigUpdate = setConfig;
-        setCurrentTemplate(tpl);
-      } catch (e) {
-        console.error("Template parsing error:", e);
-      }
+    (config) => {
+      const tpl = new Template({ config });
+
+      tpl.onConfigUpdate = setConfig;
+      setConfig(config);
+      setCurrentTemplate(tpl);
     },
     [setConfig, setCurrentTemplate],
   );

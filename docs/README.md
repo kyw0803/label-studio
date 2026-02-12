@@ -23,11 +23,11 @@ npm run publish
 ```
 
 ## Deploy the docs locally using Hexo
-To deploy the docs locally on your machine using Hexo, use the following steps. 
+To deploy the docs locally on your machine using Hexo, use the following steps.
 
 ### Prerequisites
 - Install Hexo
-- Clone the Label Studio Github repository 
+- Clone the Label Studio Github repository
 
 ### Deploy the docs locally
 In the label-studio/docs directory of the cloned repo, do the following:
@@ -42,5 +42,5 @@ hexo serve
 ```
 
 
-## Hexo Official Documentation 
+## Hexo Official Documentation
 [https://hexo.io/docs/](https://hexo.io/docs/)

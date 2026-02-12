@@ -1,4 +1,5 @@
 const assert = require("assert");
+const { formatDateValue } = require("../helpers/DateTime");
 const { serialize, selectText } = require("./helpers");
 
 Feature("Date Time");
@@ -51,42 +52,19 @@ const regions = [
   },
 ];
 
-/**
- * Programmatically set a date input's value using ISO format (YYYY-MM-DD).
- * This bypasses locale-dependent keyboard behavior in browser date inputs,
- * ensuring the test works identically regardless of system locale or timezone.
- */
-const fillDateInput = async (I, selector, isoDate) => {
-  await I.executeScript(
-    ({ selector, value }) => {
-      const input = document.querySelector(selector);
-
-      // Use the native HTMLInputElement value setter to bypass
-      // React's controlled input value tracking
-      const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
-
-      nativeInputValueSetter.call(input, value);
-
-      // Reset React's internal value tracker so it detects the change
-      if (input._valueTracker) {
-        input._valueTracker.setValue("");
-      }
-
-      input.dispatchEvent(new Event("input", { bubbles: true }));
-      input.dispatchEvent(new Event("change", { bubbles: true }));
-    },
-    { selector, value: isoDate },
-  );
-};
-
 const params = { config, data };
 
 Scenario(
   "Check DateTime holds state between annotations and saves result",
-  async ({ I, AtLabels, AtOutliner, LabelStudio, Modals }) => {
+  async ({ I, AtDateTime, AtLabels, AtOutliner, LabelStudio, Modals }) => {
     I.amOnPage("/");
 
     LabelStudio.init(params);
+
+    // detect format used for html5 date inputs
+    const format = await AtDateTime.detectDateFormat();
+
+    I.say(`System format is ${format}`);
 
     ////// GLOBAL
     I.say("Check validation of required global date control");
@@ -104,7 +82,7 @@ Scenario(
     };
 
     for (const [incorrect, error] of checks.incorrect) {
-      await fillDateInput(I, "input[type=date]", incorrect);
+      I.fillField("input[type=date]", formatDateValue(incorrect, format));
       I.updateAnnotation();
       Modals.seeWarning("is not valid");
       Modals.seeWarning(error);
@@ -114,13 +92,13 @@ Scenario(
     }
 
     for (const [correct] of checks.correct) {
-      await fillDateInput(I, "input[type=date]", correct);
+      I.fillField("input[type=date]", formatDateValue(correct, format));
       I.updateAnnotation();
       Modals.dontSeeWarning("is not valid");
     }
 
     // this value will be asserted at the end
-    await fillDateInput(I, "input[type=date]", createdDate.correctMax);
+    I.fillField("input[type=date]", formatDateValue(createdDate.correctMax, format));
 
     ////// PER-REGION
     I.say("Create regions but leave dates empty");
@@ -145,7 +123,7 @@ Scenario(
 
     // invalid region is selected on validation to reveal per-region control with error
     AtOutliner.seeSelectedRegion(regions[0].label);
-    await fillDateInput(I, "input[name=date-date]", regions[0].dateValue);
+    I.fillField("input[name=date-date]", formatDateValue(regions[0].dateValue, format));
     I.updateAnnotation();
     // next region with empty required date is selected and error is shown
     Modals.seeWarning('DateTime "date" is required');
@@ -154,10 +132,10 @@ Scenario(
     AtOutliner.seeSelectedRegion(regions[1].label);
 
     I.say("Fill all per-region date fields and check it's all good");
-    for (const region of regions) {
+    regions.forEach((region) => {
       AtOutliner.clickRegion(region.text);
-      await fillDateInput(I, "input[name=date-date]", region.dateValue);
-    }
+      I.fillField("input[name=date-date]", formatDateValue(region.dateValue, format));
+    });
 
     AtOutliner.clickRegion(regions[0].text);
     // less than min

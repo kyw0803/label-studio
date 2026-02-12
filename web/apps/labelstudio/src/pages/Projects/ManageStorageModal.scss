@@ -1,0 +1,198 @@
+.manage-storage-modal {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  color: var(--sand-text-color);
+
+  &__loading,
+  &__empty {
+    padding: 20px;
+    text-align: center;
+    color: var(--sand-text-color-secondary);
+  }
+
+  // List View Styles
+  &__list-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__table-header {
+    display: flex;
+    padding: 12px;
+    background: var(--sand-table-header-bg);
+    border-bottom: 1px solid var(--sand-table-border);
+    font-weight: 600;
+    color: var(--sand-text-color);
+  }
+
+  &__table-body {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 500px;
+  }
+
+  &__row {
+    display: flex;
+    padding: 12px;
+    border-bottom: 1px solid var(--sand-table-border);
+    align-items: center;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__col-name {
+    flex: 1;
+    font-weight: 500;
+  }
+
+  &__col-path {
+    flex: 2;
+    color: var(--sand-text-color-secondary);
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 10px;
+  }
+
+  &__col-project {
+    flex: 1;
+    text-align: right;
+  }
+
+  &__assigned {
+    color: var(--sand-accent-color);
+    font-size: 13px;
+  }
+
+  &__unassigned {
+    color: var(--sand-text-color-secondary);
+    font-size: 13px;
+    font-style: italic;
+  }
+
+  // Allocate View Styles
+  &__allocate-view {
+    display: flex;
+    gap: 24px; // Increased gap for better separation
+    height: 450px;
+    background-color: var(--sand-base-bg); // Ensure contrast if modal bg differs
+    padding: 4px; // Add slight padding to prevent shadow clipping
+  }
+
+  &__column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(255 255 255 / 15%); // Explicit lighter border for dark mode
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: transparent;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 20%); // Stronger shadow
+  }
+
+  &__column-header {
+    padding: 16px 20px;
+    background-color: var(--sand-table-header-bg);
+    border-bottom: 1px solid rgb(0 0 0 / 15%); // Explicit separator line (works on light/dark if bg handles contrast)
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    color: var(--sand-text-color);
+  }
+
+  &__select-all {
+    color: var(--sand-accent-color);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: normal;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+    min-height: 200px; // Ensure visible area even if empty
+  }
+
+  &__item {
+    padding: 12px 16px; // Increased padding
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px; // Increased margin
+    border: 2px solid transparent; // Thicker border reservation
+    transition: all 0.2s ease-in-out;
+    color: var(--sand-text-color);
+    background-color: var(--sand-base-bg); // Default background
+
+    &:has(.manage-storage-modal__project-title):hover,
+    &--project-selected {
+      background-color: var(--sand-table-row-hover);
+      border-color: var(--sand-accent-color);
+    }
+
+    &--selected {
+      background-color: rgb(24 144 255 / 10%) !important;
+      border: 2px solid var(--sand-accent-color) !important; // Persistent border
+      box-shadow: none; // Remove glow to match clean look or user preference
+
+      .manage-storage-modal__project-title,
+      .manage-storage-modal__storage-title {
+        color: var(--sand-accent-color);
+        font-weight: 700;
+        font-size: 1.05em;
+      }
+
+      .manage-storage-modal__storage-path {
+         color: var(--sand-accent-color);
+         opacity: 0.8;
+      }
+    }
+  }
+
+  &__project-title {
+    font-weight: 500;
+  }
+
+  &__storage-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__storage-title {
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  &__storage-path {
+    font-size: 11px;
+    color: var(--sand-text-color-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__checkbox {
+    margin-right: 10px;
+    pointer-events: none;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 16px;
+  }
+}

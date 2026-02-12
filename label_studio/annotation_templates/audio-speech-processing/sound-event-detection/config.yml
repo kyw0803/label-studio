@@ -20,4 +20,3 @@ config: |
     </Labels>
     <Audio name="audio" value="$audio"/>
   </View>
-

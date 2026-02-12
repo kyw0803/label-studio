@@ -10,9 +10,9 @@ meta_description: Template for selecting relevant responses for conversational A
 
 <img src="/images/templates/response-selection.png" alt="" class="gif-border" width="552px" height="408px" />
 
-If you want to refine the best response for a conversational AI use case, you can provide already-generated responses to annotators and have them choose the best one. 
+If you want to refine the best response for a conversational AI use case, you can provide already-generated responses to annotators and have them choose the best one.
 
-Use this template to provide a section of dialogue and three text responses to the dialogue. Annotators then select the choice that corresponds with the best-fitting text response. 
+Use this template to provide a section of dialogue and three text responses to the dialogue. Annotators then select the choice that corresponds with the best-fitting text response.
 
 ## Interactive Template Preview
 
@@ -21,7 +21,7 @@ Use this template to provide a section of dialogue and three text responses to t
 ## Labeling Configuration
 
 ```html
-<View>  
+<View>
   <Paragraphs name="prg" value="$dialogue" layout="dialogue" />
   <Header value="Choose a response" />
   <View style="display: flex">

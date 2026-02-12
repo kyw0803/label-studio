@@ -191,11 +191,14 @@ class OrganizationMemberListAPI(generics.ListAPIView):
         }
 
     def get_queryset(self):
+        # self.lookup_field = DB에서 객체를 찾을때 사용할 필드
+        # kwargs: URL 패턴을 분석해서 찾아낸 경로변수를 담은 딕셔너리
         org = generics.get_object_or_404(self.request.user.organizations, pk=self.kwargs[self.lookup_field])
         if flag_set('fix_backend_dev_3134_exclude_deactivated_users', self.request.user):
+            # seializer에게 get으로 들어온 쿼리 파라미터
             serializer = OrganizationMemberListParamsSerializer(data=self.request.GET)
             serializer.is_valid(raise_exception=True)
-            active = serializer.validated_data.get('active')
+            active = serializer.validated_data.get('active')   # 유효성 검사를 통과한 데이터가 담겨있는 딕셔너리
 
             # return only active users (exclude DISABLED and NOT_ACTIVATED)
             if active:

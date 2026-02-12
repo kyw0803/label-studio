@@ -45,7 +45,7 @@ However, the data labeling process for OCR presents significant challenges: it i
             />
 </View>
 ```
-This labeling configuration lets you perform educational assessment annotation tasks by identifying regions on the image with shapes and transcribing the corresponding question or answer text. You can select the label type (e.g., "Multiple Choice") and then highlight relevant text regions to associate transcriptions with each region. 
+This labeling configuration lets you perform educational assessment annotation tasks by identifying regions on the image with shapes and transcribing the corresponding question or answer text. You can select the label type (e.g., "Multiple Choice") and then highlight relevant text regions to associate transcriptions with each region.
 
 All labeling configurations must be wrapped in <a href="https://labelstud.io/tags/view">View</a> tags.
 
@@ -103,8 +103,8 @@ The <code>editable="true"</code> setting allows annotators to revise transcripti
 
 Related tags:
 
-- <a href="https://labelstud.io/tags/image">Image</a>  
-- <a href="https://labelstud.io/tags/labels">Labels</a>  
-- <a href="https://labelstud.io/tags/rectangle">Rectangle</a>  
-- <a href="https://labelstud.io/tags/polygon">Polygon</a>  
-- <a href="https://labelstud.io/tags/textarea">TextArea</a>  
+- <a href="https://labelstud.io/tags/image">Image</a>
+- <a href="https://labelstud.io/tags/labels">Labels</a>
+- <a href="https://labelstud.io/tags/rectangle">Rectangle</a>
+- <a href="https://labelstud.io/tags/polygon">Polygon</a>
+- <a href="https://labelstud.io/tags/textarea">TextArea</a>

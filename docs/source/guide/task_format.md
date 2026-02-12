@@ -1,6 +1,6 @@
 ---
 title: Label Studio Task Format
-short: Format data for import 
+short: Format data for import
 type: guide
 tier: all
 order: 160
@@ -16,4 +16,3 @@ parent_enterprise: "tasks"
 {% insertmd includes/task_format.md %}
 
 {% insertmd includes/result_format.md %}
-

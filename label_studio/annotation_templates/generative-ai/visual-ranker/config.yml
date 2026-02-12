@@ -24,10 +24,10 @@ config: |
             border-radius: 10px;
             background-color: #f8f8f8;
             font-size: 1.3em;
-            transition: transform .2s; 
+            transition: transform .2s;
             color: #333;
           }
-        
+
           .product-panel:hover {
             transform: scale(1.01);
           }
@@ -35,17 +35,17 @@ config: |
           .htx-ranker-item img { width: 100%; }
           .htx-ranker-item [class^=itemLine]:last-child { display: none }
         </Style>
-  
+
      <View className="product-panel">
         <Text name="prompt" value="$prompt"/>
       </View>
       <View>
         <List name="generated_images" value="$images" title="Generated Images" />
         <Ranker name="rank" toName="generated_images">
-    </Ranker> 
+    </Ranker>
       </View>
     </View>
-    <!-- { 
+    <!-- {
         "data": {
             "prompt": "Generate a high-quality image of a stylish, ergonomic chair for a home office. The chair should have a modern design and be upholstered in forest green fabric. It should be set against a contrasting, simple, stark white background to make the product stand out. The lighting should be soft and evenly distributed, and the focus should be sharp to emphasize the details of the chair's design.",
             "images": [
@@ -68,4 +68,3 @@ config: |
             ]
         }
     } -->
-

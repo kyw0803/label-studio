@@ -73,7 +73,7 @@ def forward_migration():
 
     if updated:
         logger.info(f'{migration_name} Updated {updated} View rows')
-    
+
     migration.status = AsyncMigrationStatus.STATUS_FINISHED
     migration.save(update_fields=['status'])
 
@@ -96,5 +96,3 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(forwards, backwards),
     ]
-
-

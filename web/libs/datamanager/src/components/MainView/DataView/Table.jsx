@@ -1,5 +1,5 @@
 import { IconQuestionOutline } from "@humansignal/icons";
-import { Tooltip, EnterpriseBadge } from "@humansignal/ui";
+import { Tooltip } from "@humansignal/ui";
 import { inject } from "mobx-react";
 import { getRoot } from "mobx-state-tree";
 import { useCallback, useMemo } from "react";
@@ -147,11 +147,6 @@ export const DataView = injector(
             {original.readableType}
           </Tag>,
         );
-      }
-
-      // Add EnterpriseBadge when enterprise badge is set
-      if (original.enterprise_badge) {
-        children.push(<EnterpriseBadge key="enterprise-badge" className="ml-2" compact />);
       }
 
       if (help && decoration?.help !== false) {

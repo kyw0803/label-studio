@@ -12,4 +12,3 @@
   </ParagraphLabels>
   <Paragraphs audioUrl="$video" name="text" value="$dialogue" layout="dialogue" savetextresult="yes" sync="sync1" />
 </View>
-

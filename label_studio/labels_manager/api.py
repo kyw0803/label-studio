@@ -140,7 +140,7 @@ class LabelAPI(viewsets.ModelViewSet):
         summary='Remove label link',
         description="""
         Remove a label link that links custom labels to your project labeling configuration. If you remove a label link,
-        the label stops being available for the project it was linked to. You can add a new label link at any time. 
+        the label stops being available for the project it was linked to. You can add a new label link at any time.
         """,
         extensions={
             'x-fern-sdk-group-name': ['projects', 'labels'],
@@ -155,8 +155,8 @@ class LabelAPI(viewsets.ModelViewSet):
         tags=['Labels'],
         summary='Update label link',
         description="""
-        Update a label link that links custom labels to a project labeling configuration, for example if the fromName,  
-        toName, or name parameters for a tag in the labeling configuration change. 
+        Update a label link that links custom labels to a project labeling configuration, for example if the fromName,
+        toName, or name parameters for a tag in the labeling configuration change.
         """,
         extensions={
             'x-fern-sdk-group-name': ['projects', 'labels'],

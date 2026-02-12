@@ -1,15 +1,15 @@
 ---
-title: Agentic Tracing for Claims
+title: Agentic Tracing for Claims 🔒
 type: templates
 category: Programmable Interfaces
-order: 756
+order: 356
 is_new: t
 meta_title: Template for agentic tracing
-meta_description: Template that uses a custom UI to trace agentic responses to insurance claims  
+meta_description: Template that uses a custom UI to trace agentic responses to insurance claims
 ---
 
 
-The following template creates a comprehensive labeling interface for evaluating AI agent execution traces. 
+The following template creates a comprehensive labeling interface for evaluating AI agent execution traces.
 
 It transforms hierarchical trace data (from agent workflows, tool calls, and multi-step reasoning) into an interactive tree-based visualization that enables efficient annotation and quality assessment.
 
@@ -28,7 +28,7 @@ Users can then label each step using custom ontologies (single-select dropdowns 
 !!! error Enterprise
     This template and the `ReactCode` tag can only be used in Label Studio Enterprise.
 
-    For more information, including simplified code examples, see [ReactCode](/tags/reactcode).
+    For more information, see [Programmable & Embeddable Interfaces](https://humansignal.com/programmable-ui/).
 
 ## Labeling configuration
 
@@ -95,7 +95,7 @@ The example below does the following:
       // ============================================================================
       // TRACE FORMAT TRANSFORMATION
       // ============================================================================
-      
+
       /**
        * Transform trace format to interface step format
        * Handles the tree structure from trace JSON files
@@ -106,22 +106,22 @@ The example below does the following:
         if (!treeData || !treeData.children) {
           return null;
         }
-        
+
         const metadata = treeData.metadata || {};
-        
+
         // Extract query from metadata
         const query = metadata.claim_text || metadata.query || metadata.user_query || 'No query provided';
-        
+
         // Extract timestamp for steps
         const baseTimestamp = metadata.timestamp || new Date().toISOString();
         const baseDate = new Date(baseTimestamp);
-        
+
         /**
          * Map trace node type to interface step type
          */
         function mapNodeType(node) {
           const nodeType = (node.type || '').toLowerCase();
-          
+
           if (nodeType === 'agent' || nodeType === 'root') {
             return 'agent';
           } else if (nodeType === 'text_output' || nodeType === 'output') {
@@ -137,11 +137,11 @@ The example below does the following:
           } else if (nodeType === 'assistant_response') {
             return 'assistant_response';
           }
-          
+
           // Default based on content
           return 'output';
         }
-        
+
         /**
          * Generate timestamp string from index
          */
@@ -149,18 +149,18 @@ The example below does the following:
           const stepDate = new Date(baseDate.getTime() + (index * 1000));
           return stepDate.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
         }
-        
+
         /**
          * Recursively transform tree nodes to steps
          */
         let stepCounter = 0;
-        
+
         function transformNode(node, parentId) {
           const currentIndex = stepCounter++;
           const stepId = parentId ? parentId + '-' + currentIndex : 'step-' + currentIndex;
-          
+
           const stepType = mapNodeType(node);
-          
+
           // Build the step object
           const step = {
             id: stepId,
@@ -170,7 +170,7 @@ The example below does the following:
             timestamp: generateTimestamp(currentIndex),
             children: [],
           };
-          
+
           // Add tool-specific fields if applicable (handle trace format)
           if (stepType === 'tool_call') {
             // Trace format uses: name, args, response
@@ -181,30 +181,30 @@ The example below does the following:
             // Keep the original response structure for rich rendering
             step.response = node.response || null;
           }
-          
+
           // Add status if available
           if (node.status) {
             step.status = node.status;
           }
-          
+
           // Add author if available (useful for display)
           if (node.author) {
             step.author = node.author;
           }
-          
+
           // Recursively transform children
           if (node.children && Array.isArray(node.children) && node.children.length > 0) {
             step.children = node.children.map(function(childNode) {
               return transformNode(childNode, stepId);
             });
           }
-          
+
           return step;
         }
-        
+
         // Transform all root-level children (agents)
         const steps = [];
-        
+
         // Create a root wrapper step if the tree has a name
         if (treeData.name && treeData.type === 'root') {
           const rootStep = {
@@ -215,18 +215,18 @@ The example below does the following:
             timestamp: generateTimestamp(0),
             children: [],
           };
-          
+
           if (treeData.status) {
             rootStep.status = treeData.status;
           }
-          
+
           // Transform all children under the root
           if (treeData.children && Array.isArray(treeData.children)) {
             rootStep.children = treeData.children.map(function(childNode) {
               return transformNode(childNode, 'main');
             });
           }
-          
+
           steps.push(rootStep);
         } else {
           // No root wrapper, just add children directly
@@ -236,7 +236,7 @@ The example below does the following:
             });
           }
         }
-        
+
         return {
           id: metadata.trace_id || 'trace-' + Date.now(),
           query: query,
@@ -278,7 +278,7 @@ The example below does the following:
       // ============================================================================
       // TRACE SERIALIZATION FOR CLAUDE
       // ============================================================================
-      
+
       /**
        * Serialize a step to a readable format
        */
@@ -286,7 +286,7 @@ The example below does the following:
         indent = indent || 0;
         const prefix = '  '.repeat(indent);
         let result = '';
-        
+
         if (step.type === 'agent') {
           result += prefix + '[Agent: ' + (step.label || 'Agent') + ']: ' + (step.content || 'Processing...') + '\n\n';
         } else if (step.type === 'thought') {
@@ -309,40 +309,40 @@ The example below does the following:
         } else if (step.type === 'assistant_response') {
           result += prefix + '[Assistant]: ' + (step.content || '') + '\n\n';
         }
-        
+
         // Serialize children
         if (step.children && step.children.length > 0) {
           step.children.forEach(function(child) {
             result += serializeStep(child, indent + 1);
           });
         }
-        
+
         return result;
       }
-      
+
       /**
        * Serialize the entire trace to send to Claude
        */
       function serializeTrace(query, steps) {
         let trace = '[User Query]: ' + query + '\n\n';
-        
+
         steps.forEach(function(step) {
           trace += serializeStep(step, 0);
         });
-        
+
         return trace.trim();
       }
 
       // ============================================================================
       // CLAUDE API FUNCTIONS
       // ============================================================================
-      
+
       /**
        * Send the trace and user message to Claude
        */
       async function sendToClaude({ trace, userMessage, signal }) {
         const apiKey = CONFIG.claude.apiKey;
-        
+
         if (!apiKey || apiKey === 'YOUR_CLAUDE_API_KEY_HERE') {
           throw new Error('Claude API key not configured. Please set CONFIG.claude.apiKey');
         }
@@ -496,7 +496,7 @@ User: ${userMessage}`;
         const ont = getOntologyForStep(step);
         const firstDim = ont.dimensions.find(function(d) { return d.type === 'single-select'; });
         const statusVal = firstDim ? (labelsMap[step.id] && labelsMap[step.id][firstDim.key]) : null;
-        
+
         if (!statusVal) return 'unlabeled';
         if (statusVal.includes('Correct') && !statusVal.includes('Partially') && !statusVal.includes('Incorrect')) return 'correct';
         if (statusVal.includes('Incorrect')) return 'incorrect';
@@ -530,7 +530,7 @@ User: ${userMessage}`;
         const name = props.name;
         const size = props.size || 14;
         const color = props.color || 'currentColor';
-        
+
         const paths = {
           chevronDown: 'M6 9l6 6 6-6',
           chevronRight: 'M9 18l6-6-6-6',
@@ -560,7 +560,7 @@ User: ${userMessage}`;
           bot: 'M12 8V4H8M8 4H4v4M4 8v8a4 4 0 004 4h8a4 4 0 004-4V8M20 8V4h-4M9 12h.01M15 12h.01',
           edit: 'M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z',
         };
-        
+
         return React.createElement('svg', {
           width: size,
           height: size,
@@ -612,7 +612,7 @@ User: ${userMessage}`;
             borderRadius: '4px', border: '1px solid ' + c.border,
             whiteSpace: 'nowrap',
           }
-        }, 
+        },
           React.createElement(Icon, { name: c.icon, size: isSmall ? 10 : 12, color: c.color }),
           c.label
         );
@@ -646,24 +646,24 @@ User: ${userMessage}`;
       // ============================================================================
       // MARKDOWN DETECTION AND RENDERING
       // ============================================================================
-      
+
       /**
        * Detect if content appears to be markdown
        */
       function isMarkdown(text) {
         if (!text || typeof text !== 'string') return false;
-        
+
         // Strong patterns - just one of these means it's markdown
         const strongPatterns = [
           /^#{1,6}\s+/m,           // Headers: # ## ### etc
           /^```/m,                 // Code blocks: ```
           /^---+$/m,               // Horizontal rules
         ];
-        
+
         for (let i = 0; i < strongPatterns.length; i++) {
           if (strongPatterns[i].test(text)) return true;
         }
-        
+
         // Weaker patterns - need 2+ to confirm markdown
         const weakPatterns = [
           /\*\*[^*]+\*\*/,         // Bold: **text**
@@ -675,7 +675,7 @@ User: ${userMessage}`;
           /^\s*>/m,                // Blockquotes: > text
           /\|.+\|/,                // Tables: | col | col |
         ];
-        
+
         let matchCount = 0;
         for (let i = 0; i < weakPatterns.length; i++) {
           if (weakPatterns[i].test(text)) {
@@ -683,36 +683,36 @@ User: ${userMessage}`;
             if (matchCount >= 2) return true;
           }
         }
-        
+
         return false;
       }
-      
+
       /**
        * Simple markdown renderer - converts markdown to React elements
        */
       function renderMarkdown(text) {
         if (!text) return null;
-        
+
         const lines = text.split('\n');
         const elements = [];
         let currentListItems = [];
         let listType = null;
         let inCodeBlock = false;
         let codeBlockContent = [];
-        
+
         function flushList() {
           if (currentListItems.length > 0) {
             const ListTag = listType === 'ol' ? 'ol' : 'ul';
-            elements.push(React.createElement(ListTag, { 
+            elements.push(React.createElement(ListTag, {
               key: 'list-' + elements.length,
               style: { margin: '8px 0', paddingLeft: '24px', listStyleType: listType === 'ol' ? 'decimal' : 'disc' }
             }, currentListItems.map(function(item, i) {
-              return React.createElement('li', { 
-                key: i, 
-                style: { 
-                  marginBottom: '4px', 
-                  fontSize: '12px', 
-                  lineHeight: 1.6, 
+              return React.createElement('li', {
+                key: i,
+                style: {
+                  marginBottom: '4px',
+                  fontSize: '12px',
+                  lineHeight: 1.6,
                   color: colors.textSecondary,
                   marginLeft: (item.indent || 0) * 16 + 'px'
                 }
@@ -722,25 +722,25 @@ User: ${userMessage}`;
             listType = null;
           }
         }
-        
+
         function flushCodeBlock() {
           if (codeBlockContent.length > 0) {
             elements.push(React.createElement('pre', {
               key: 'code-' + elements.length,
-              style: { 
-                margin: '8px 0', padding: '12px', 
-                backgroundColor: '#1E293B', color: '#E2E8F0', 
-                borderRadius: '6px', fontSize: '11px', 
+              style: {
+                margin: '8px 0', padding: '12px',
+                backgroundColor: '#1E293B', color: '#E2E8F0',
+                borderRadius: '6px', fontSize: '11px',
                 overflow: 'auto', whiteSpace: 'pre-wrap'
               }
             }, codeBlockContent.join('\n')));
             codeBlockContent = [];
           }
         }
-        
+
         for (let i = 0; i < lines.length; i++) {
           const line = lines[i];
-          
+
           // Code block toggle
           if (line.trim().startsWith('```')) {
             if (inCodeBlock) {
@@ -752,12 +752,12 @@ User: ${userMessage}`;
             }
             continue;
           }
-          
+
           if (inCodeBlock) {
             codeBlockContent.push(line);
             continue;
           }
-          
+
           // Headers
           const headerMatch = line.match(/^(#{1,6})\s+(.+)$/);
           if (headerMatch) {
@@ -767,16 +767,16 @@ User: ${userMessage}`;
             const margins = { 1: '16px 0 8px', 2: '14px 0 6px', 3: '12px 0 4px', 4: '10px 0 4px', 5: '8px 0 2px', 6: '6px 0 2px' };
             elements.push(React.createElement('div', {
               key: 'h-' + elements.length,
-              style: { 
-                fontSize: sizes[level], 
-                fontWeight: 600, 
+              style: {
+                fontSize: sizes[level],
+                fontWeight: 600,
                 margin: margins[level],
                 color: colors.text
               }
             }, renderInlineMarkdown(headerMatch[2])));
             continue;
           }
-          
+
           // Horizontal rule
           if (/^---+$/.test(line.trim()) || /^\*\*\*+$/.test(line.trim())) {
             flushList();
@@ -786,7 +786,7 @@ User: ${userMessage}`;
             }));
             continue;
           }
-          
+
           // Unordered list (with indent detection)
           const ulMatch = line.match(/^(\s*)([-*+])\s+(.+)$/);
           if (ulMatch) {
@@ -796,7 +796,7 @@ User: ${userMessage}`;
             currentListItems.push({ text: ulMatch[3], indent: indentLevel });
             continue;
           }
-          
+
           // Ordered list (with indent detection)
           const olMatch = line.match(/^(\s*)(\d+)\.\s+(.+)$/);
           if (olMatch) {
@@ -806,16 +806,16 @@ User: ${userMessage}`;
             currentListItems.push({ text: olMatch[3], indent: indentLevel });
             continue;
           }
-          
+
           // Blockquote
           const bqMatch = line.match(/^\s*>\s*(.*)$/);
           if (bqMatch) {
             flushList();
             elements.push(React.createElement('div', {
               key: 'bq-' + elements.length,
-              style: { 
-                borderLeft: '3px solid ' + colors.tint, 
-                paddingLeft: '12px', 
+              style: {
+                borderLeft: '3px solid ' + colors.tint,
+                paddingLeft: '12px',
                 margin: '8px 0',
                 color: colors.textSecondary,
                 fontStyle: 'italic',
@@ -824,13 +824,13 @@ User: ${userMessage}`;
             }, renderInlineMarkdown(bqMatch[1])));
             continue;
           }
-          
+
           // Empty line
           if (line.trim() === '') {
             flushList();
             continue;
           }
-          
+
           // Regular paragraph
           flushList();
           elements.push(React.createElement('p', {
@@ -838,59 +838,59 @@ User: ${userMessage}`;
             style: { margin: '6px 0', fontSize: '12px', lineHeight: 1.7, color: colors.textSecondary }
           }, renderInlineMarkdown(line)));
         }
-        
+
         flushList();
         flushCodeBlock();
-        
+
         return React.createElement('div', { style: { } }, elements);
       }
-      
+
       /**
        * Render inline markdown (bold, italic, code, links)
        */
       function renderInlineMarkdown(text) {
         if (!text) return text;
-        
+
         const parts = [];
         let remaining = text;
         let partIndex = 0;
-        
+
         // Process inline patterns
         const patterns = [
           { regex: /\*\*([^*]+)\*\*/g, render: function(m) { return React.createElement('strong', { key: 'b-' + partIndex++, style: { fontWeight: 600, color: colors.text } }, m); } },
           { regex: /\*([^*]+)\*/g, render: function(m) { return React.createElement('em', { key: 'i-' + partIndex++, style: { fontStyle: 'italic' } }, m); } },
           { regex: /`([^`]+)`/g, render: function(m) { return React.createElement('code', { key: 'c-' + partIndex++, style: { backgroundColor: colors.bgLight, padding: '2px 5px', borderRadius: '3px', fontSize: '11px', fontFamily: 'monospace' } }, m); } },
         ];
-        
+
         // Simple approach: process bold first, then italic, then code
         let result = text;
-        
+
         // Bold
         result = result.replace(/\*\*([^*]+)\*\*/g, '{{BOLD:$1}}');
         // Italic (but not inside bold markers)
         result = result.replace(/(?<!\{)\*([^*]+)\*(?!\})/g, '{{ITALIC:$1}}');
         // Code
         result = result.replace(/`([^`]+)`/g, '{{CODE:$1}}');
-        
+
         // Split and render
         const tokens = result.split(/(\{\{(?:BOLD|ITALIC|CODE):[^}]+\}\})/g);
-        
+
         return tokens.map(function(token, idx) {
           const boldMatch = token.match(/\{\{BOLD:([^}]+)\}\}/);
           if (boldMatch) {
             return React.createElement('strong', { key: idx, style: { fontWeight: 600, color: colors.text } }, boldMatch[1]);
           }
-          
+
           const italicMatch = token.match(/\{\{ITALIC:([^}]+)\}\}/);
           if (italicMatch) {
             return React.createElement('em', { key: idx, style: { fontStyle: 'italic' } }, italicMatch[1]);
           }
-          
+
           const codeMatch = token.match(/\{\{CODE:([^}]+)\}\}/);
           if (codeMatch) {
             return React.createElement('code', { key: idx, style: { backgroundColor: colors.bgLight, padding: '2px 5px', borderRadius: '3px', fontSize: '11px', fontFamily: 'monospace' } }, codeMatch[1]);
           }
-          
+
           return token;
         });
       }
@@ -902,7 +902,7 @@ User: ${userMessage}`;
         const view = props.view;
         const onChange = props.onChange;
         const autoDetected = props.autoDetected;
-        
+
         return React.createElement('div', {
           style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }
         },
@@ -932,8 +932,8 @@ User: ${userMessage}`;
               }
             }, React.createElement(Icon, { name: 'code', size: 10 }), 'Raw')
           ),
-          autoDetected ? React.createElement('span', { 
-            style: { fontSize: '9px', color: colors.disabled, fontStyle: 'italic' } 
+          autoDetected ? React.createElement('span', {
+            style: { fontSize: '9px', color: colors.disabled, fontStyle: 'italic' }
           }, 'auto-detected markdown') : null
         );
       }
@@ -946,27 +946,27 @@ User: ${userMessage}`;
         const stepId = props.stepId;
         const contentViewModes = props.contentViewModes;
         const onContentViewChange = props.onContentViewChange;
-        
+
         const hasMarkdown = isMarkdown(content);
         const currentView = contentViewModes[stepId] || (hasMarkdown ? 'formatted' : 'raw');
-        
+
         // Show toggle if there's substantial content
         const showToggle = content && content.length > 50;
-        
+
         return React.createElement('div', null,
           showToggle ? React.createElement(ContentViewToggle, {
             view: currentView,
             onChange: function(v) { onContentViewChange(stepId, v); },
             autoDetected: hasMarkdown && !contentViewModes[stepId]
           }) : null,
-          currentView === 'formatted' ? 
+          currentView === 'formatted' ?
             renderMarkdown(content) :
-            React.createElement('pre', { 
-              style: { 
-                margin: 0, fontSize: '12px', lineHeight: 1.7, 
+            React.createElement('pre', {
+              style: {
+                margin: 0, fontSize: '12px', lineHeight: 1.7,
                 color: colors.textSecondary, whiteSpace: 'pre-wrap',
                 fontFamily: 'inherit', backgroundColor: 'transparent'
-              } 
+              }
             }, content)
         );
       }
@@ -983,7 +983,7 @@ User: ${userMessage}`;
           let bg = colors.bgLight;
           let borderColor = colors.border;
           let textColor = colors.textSecondary;
-          
+
           if (isSelected) {
             if (opt.includes('Correct') && !opt.includes('Partially') && !opt.includes('Incorrect')) {
               bg = colors.successBg; borderColor = colors.success; textColor = colors.success;
@@ -993,7 +993,7 @@ User: ${userMessage}`;
               bg = colors.warningBg; borderColor = colors.warning; textColor = colors.warning;
             }
           }
-          
+
           return React.createElement('button', {
             key: opt,
             onClick: function() { onChange(isSelected ? null : opt); },
@@ -1022,24 +1022,24 @@ User: ${userMessage}`;
       function ToolContent(props) {
         const step = props.step;
         const viewMode = props.viewMode;
-        
+
         // Get the response data (could be in step.response or step.output)
         const response = step.response || step.output;
-        
+
         if (viewMode === 'raw') {
           return React.createElement('pre', {
             style: { margin: 0, padding: '12px', backgroundColor: '#1E293B', color: '#E2E8F0', borderRadius: '6px', fontSize: '11px', overflow: 'auto', maxHeight: '400px' }
           }, JSON.stringify({ tool: step.tool, input: step.input, output: response }, null, 2));
         }
-        
+
         const children = [];
-        
+
         // Tool name
         children.push(React.createElement('div', { key: 'tool', style: { marginBottom: '12px' } },
           React.createElement('div', { style: { fontSize: '10px', fontWeight: 600, color: colors.subtext, textTransform: 'uppercase', marginBottom: '6px' } }, 'Tool'),
           React.createElement('code', { style: { padding: '6px 10px', backgroundColor: colors.tool.bg, borderRadius: '4px', fontSize: '12px', color: colors.tool.color, fontWeight: 500 } }, step.tool)
         ));
-        
+
         // Input arguments
         if (step.input) {
           children.push(React.createElement('div', { key: 'input', style: { marginBottom: '12px' } },
@@ -1048,13 +1048,13 @@ User: ${userMessage}`;
               Object.keys(step.input).map(function(key) {
                 const val = step.input[key];
                 const displayVal = Array.isArray(val) ? val.join(', ') : (typeof val === 'object' ? JSON.stringify(val) : String(val));
-                return React.createElement('span', { 
-                  key: key, 
-                  style: { 
+                return React.createElement('span', {
+                  key: key,
+                  style: {
                     display: 'inline-flex', alignItems: 'center', gap: '4px',
-                    padding: '4px 8px', backgroundColor: colors.bgLight, 
-                    borderRadius: '4px', fontSize: '11px' 
-                  } 
+                    padding: '4px 8px', backgroundColor: colors.bgLight,
+                    borderRadius: '4px', fontSize: '11px'
+                  }
                 },
                   React.createElement('span', { style: { color: colors.subtext, fontWeight: 500 } }, key + ':'),
                   React.createElement('span', { style: { color: colors.text } }, displayVal.length > 50 ? displayVal.substring(0, 50) + '...' : displayVal)
@@ -1063,11 +1063,11 @@ User: ${userMessage}`;
             )
           ));
         }
-        
+
         // Response section
         if (response) {
           const responseChildren = [];
-          
+
           // SQL Query (if present)
           if (response.sql || response.sql_query) {
             const sql = response.sql || response.sql_query;
@@ -1079,12 +1079,12 @@ User: ${userMessage}`;
               React.createElement('pre', { style: { margin: 0, padding: '10px', backgroundColor: '#1E293B', color: '#A5D6FF', borderRadius: '6px', fontSize: '11px', overflow: 'auto', whiteSpace: 'pre-wrap' } }, sql)
             ));
           }
-          
+
           // Direct table format (columns + rows at root level)
           if (response.columns && response.rows) {
             responseChildren.push(renderTable('Results', response.columns, response.rows, 'direct-table'));
           }
-          
+
           // Named tables (response.tables object)
           if (response.tables && typeof response.tables === 'object') {
             Object.keys(response.tables).forEach(function(tableName) {
@@ -1100,7 +1100,7 @@ User: ${userMessage}`;
               }
             });
           }
-          
+
           // Plot data (charts)
           if (response.plot_data && typeof response.plot_data === 'object') {
             Object.keys(response.plot_data).forEach(function(chartName) {
@@ -1108,7 +1108,7 @@ User: ${userMessage}`;
               responseChildren.push(renderChart(chartName, chart, 'chart-' + chartName));
             });
           }
-          
+
           // Charts in response (alternative location)
           if (response.charts && typeof response.charts === 'object') {
             Object.keys(response.charts).forEach(function(chartName) {
@@ -1116,7 +1116,7 @@ User: ${userMessage}`;
               responseChildren.push(renderChart(chartName, chart, 'chart-' + chartName));
             });
           }
-          
+
           // Summary section (if present)
           if (response.summary && typeof response.summary === 'object') {
             responseChildren.push(React.createElement('div', { key: 'summary', style: { marginBottom: '12px' } },
@@ -1125,15 +1125,15 @@ User: ${userMessage}`;
                 Object.keys(response.summary).map(function(key) {
                   const val = response.summary[key];
                   const formattedKey = key.replace(/_/g, ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); });
-                  return React.createElement('div', { 
-                    key: key, 
-                    style: { 
-                      padding: '8px 12px', backgroundColor: colors.bgLight, 
-                      borderRadius: '6px', border: '1px solid ' + colors.border 
-                    } 
+                  return React.createElement('div', {
+                    key: key,
+                    style: {
+                      padding: '8px 12px', backgroundColor: colors.bgLight,
+                      borderRadius: '6px', border: '1px solid ' + colors.border
+                    }
                   },
                     React.createElement('div', { style: { fontSize: '10px', color: colors.subtext, marginBottom: '2px' } }, formattedKey),
-                    React.createElement('div', { style: { fontSize: '14px', fontWeight: 600, color: colors.text } }, 
+                    React.createElement('div', { style: { fontSize: '14px', fontWeight: 600, color: colors.text } },
                       typeof val === 'number' ? (val < 1 ? (val * 100).toFixed(0) + '%' : val.toLocaleString()) : String(val)
                     )
                   );
@@ -1141,11 +1141,11 @@ User: ${userMessage}`;
               )
             ));
           }
-          
+
           // Other key-value pairs (excluding already rendered items)
           const excludeKeys = ['sql', 'sql_query', 'columns', 'rows', 'tables', 'plot_data', 'charts', 'summary', 'execution_time_ms', 'inference_time_ms', 'row_count', 'model_id'];
           const otherKeys = Object.keys(response).filter(function(k) { return excludeKeys.indexOf(k) === -1; });
-          
+
           if (otherKeys.length > 0) {
             const otherItems = [];
             otherKeys.forEach(function(key) {
@@ -1179,33 +1179,33 @@ User: ${userMessage}`;
                 }
               }
             });
-            
+
             if (otherItems.length > 0) {
               responseChildren.push(React.createElement('div', { key: 'other', style: { marginTop: '8px' } }, otherItems));
             }
           }
-          
+
           // Metadata footer
           const metaItems = [];
           if (response.execution_time_ms) metaItems.push('Execution: ' + response.execution_time_ms + 'ms');
           if (response.inference_time_ms) metaItems.push('Inference: ' + response.inference_time_ms + 'ms');
           if (response.model_id) metaItems.push('Model: ' + response.model_id);
           if (response.row_count) metaItems.push('Rows: ' + response.row_count);
-          
+
           if (metaItems.length > 0) {
-            responseChildren.push(React.createElement('div', { 
-              key: 'meta', 
-              style: { 
+            responseChildren.push(React.createElement('div', {
+              key: 'meta',
+              style: {
                 marginTop: '12px', paddingTop: '8px', borderTop: '1px solid ' + colors.borderLight,
                 display: 'flex', gap: '12px', flexWrap: 'wrap'
-              } 
+              }
             },
               metaItems.map(function(item, i) {
                 return React.createElement('span', { key: i, style: { fontSize: '10px', color: colors.disabled } }, item);
               })
             ));
           }
-          
+
           if (responseChildren.length > 0) {
             children.push(React.createElement('div', { key: 'response' },
               React.createElement('div', { style: { fontSize: '10px', fontWeight: 600, color: colors.subtext, textTransform: 'uppercase', marginBottom: '8px' } }, 'Response'),
@@ -1220,13 +1220,13 @@ User: ${userMessage}`;
             ));
           }
         }
-        
+
         return React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: '12px' } }, children);
-        
+
         // Helper function to render a table
         function renderTable(title, columns, rows, key) {
           const formattedTitle = title.replace(/_/g, ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); });
-          
+
           // Handle rows as array of objects or array of arrays
           const normalizedRows = rows.map(function(row) {
             if (Array.isArray(row)) {
@@ -1236,7 +1236,7 @@ User: ${userMessage}`;
             }
             return [row];
           });
-          
+
           return React.createElement('div', { key: key, style: { marginBottom: '12px' } },
             React.createElement('div', { style: { fontSize: '10px', fontWeight: 600, color: colors.subtext, textTransform: 'uppercase', marginBottom: '6px' } }, formattedTitle),
             React.createElement('div', { style: { overflow: 'auto', maxHeight: '250px', border: '1px solid ' + colors.border, borderRadius: '6px' } },
@@ -1245,28 +1245,28 @@ User: ${userMessage}`;
                   React.createElement('tr', { style: { backgroundColor: colors.bgLight, position: 'sticky', top: 0 } },
                     columns.map(function(col, i) {
                       const formattedCol = String(col).replace(/_/g, ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); });
-                      return React.createElement('th', { 
-                        key: i, 
-                        style: { 
-                          padding: '8px 10px', textAlign: 'left', 
-                          borderBottom: '2px solid ' + colors.border, 
+                      return React.createElement('th', {
+                        key: i,
+                        style: {
+                          padding: '8px 10px', textAlign: 'left',
+                          borderBottom: '2px solid ' + colors.border,
                           fontWeight: 600, color: colors.textSecondary,
                           whiteSpace: 'nowrap'
-                        } 
+                        }
                       }, formattedCol);
                     })
                   )
                 ),
                 React.createElement('tbody', null,
                   normalizedRows.map(function(row, i) {
-                    return React.createElement('tr', { 
-                      key: i, 
+                    return React.createElement('tr', {
+                      key: i,
                       style: { backgroundColor: i % 2 === 0 ? colors.bgWhite : colors.bgLight }
                     },
                       row.map(function(cell, j) {
                         let cellContent = cell;
                         let cellStyle = { padding: '8px 10px', borderBottom: '1px solid ' + colors.borderLight, color: colors.text };
-                        
+
                         // Format numbers and booleans nicely
                         if (typeof cell === 'number') {
                           if (cell < 1 && cell > 0) {
@@ -1285,7 +1285,7 @@ User: ${userMessage}`;
                           cellContent = '—';
                           cellStyle.color = colors.disabled;
                         }
-                        
+
                         return React.createElement('td', { key: j, style: cellStyle }, String(cellContent));
                       })
                     );
@@ -1295,12 +1295,12 @@ User: ${userMessage}`;
             )
           );
         }
-        
+
         // Helper function to render a chart
         function renderChart(title, chartData, key) {
           const formattedTitle = chartData.title || title.replace(/_/g, ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); });
           const chartType = chartData.chart_type || 'bar';
-          
+
           return React.createElement('div', { key: key, style: { marginBottom: '12px' } },
             React.createElement('div', { style: { fontSize: '10px', fontWeight: 600, color: colors.subtext, textTransform: 'uppercase', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' } },
               React.createElement(Icon, { name: 'eye', size: 12, color: colors.subtext }),
@@ -1312,34 +1312,34 @@ User: ${userMessage}`;
                 const value = item.percentage || item.count || item.value || 0;
                 const maxVal = Math.max.apply(null, chartData.data.map(function(d) { return d.percentage || d.count || d.value || 0; }));
                 const barWidth = maxVal > 0 ? (value / maxVal * 100) : 0;
-                
+
                 return React.createElement('div', { key: i, style: { display: 'flex', alignItems: 'center', gap: '8px' } },
                   React.createElement('span', { style: { fontSize: '10px', color: colors.textSecondary, width: '80px', flexShrink: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, label),
                   React.createElement('div', { style: { flex: 1, height: '16px', backgroundColor: colors.bgLight, borderRadius: '3px', overflow: 'hidden' } },
                     React.createElement('div', { style: { width: barWidth + '%', height: '100%', backgroundColor: colors.tint, borderRadius: '3px', transition: 'width 0.3s' } })
                   ),
-                  React.createElement('span', { style: { fontSize: '10px', color: colors.text, width: '50px', textAlign: 'right', fontFamily: 'monospace' } }, 
+                  React.createElement('span', { style: { fontSize: '10px', color: colors.text, width: '50px', textAlign: 'right', fontFamily: 'monospace' } },
                     typeof value === 'number' ? (value < 1 && value > 0 ? (value * 100).toFixed(1) + '%' : value.toLocaleString()) : value
                   )
                 );
               })
-            ) : React.createElement('div', { style: { padding: '16px', backgroundColor: colors.bgLight, borderRadius: '6px', textAlign: 'center', color: colors.subtext, fontSize: '11px' } }, 
+            ) : React.createElement('div', { style: { padding: '16px', backgroundColor: colors.bgLight, borderRadius: '6px', textAlign: 'center', color: colors.subtext, fontSize: '11px' } },
               'Chart data available in raw view'
             )
           );
         }
-        
+
         // Helper function to render nested objects
         function renderNestedObject(title, obj, key) {
           const formattedTitle = title.replace(/_/g, ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); });
-          
+
           return React.createElement('div', { key: key, style: { marginBottom: '12px' } },
             React.createElement('div', { style: { fontSize: '10px', fontWeight: 600, color: colors.subtext, textTransform: 'uppercase', marginBottom: '6px' } }, formattedTitle),
             React.createElement('div', { style: { padding: '10px', backgroundColor: colors.bgLight, borderRadius: '6px', border: '1px solid ' + colors.borderLight } },
               Object.keys(obj).map(function(k) {
                 const v = obj[k];
                 const formattedKey = k.replace(/_/g, ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); });
-                
+
                 if (typeof v === 'object' && v !== null && !Array.isArray(v)) {
                   // Sub-nested object
                   return React.createElement('div', { key: k, style: { marginBottom: '8px' } },
@@ -1361,7 +1361,7 @@ User: ${userMessage}`;
                 } else {
                   return React.createElement('div', { key: k, style: { marginBottom: '4px', fontSize: '11px' } },
                     React.createElement('span', { style: { color: colors.subtext } }, formattedKey + ': '),
-                    React.createElement('span', { style: { color: colors.text, fontWeight: typeof v === 'number' ? 600 : 400 } }, 
+                    React.createElement('span', { style: { color: colors.text, fontWeight: typeof v === 'number' ? 600 : 400 } },
                       typeof v === 'number' ? (v < 1 && v > 0 ? (v * 100).toFixed(0) + '%' : v.toLocaleString()) : String(v)
                     )
                   );
@@ -1377,7 +1377,7 @@ User: ${userMessage}`;
         const onFilterChange = props.onFilterChange;
         const counts = props.counts;
         const [isOpen, setIsOpen] = useState(false);
-        
+
         const options = [
           { key: 'all', label: 'All Steps', icon: null },
           { key: 'unlabeled', label: 'Unlabeled', icon: null, color: colors.subtext },
@@ -1386,7 +1386,7 @@ User: ${userMessage}`;
           { key: 'incorrect', label: 'Incorrect', icon: 'x', color: colors.error },
         ];
         const current = options.find(function(o) { return o.key === filter; }) || options[0];
-        
+
         const children = [
           React.createElement('button', {
             key: 'trigger',
@@ -1404,7 +1404,7 @@ User: ${userMessage}`;
             React.createElement(Icon, { name: 'chevronDown', size: 12 })
           )
         ];
-        
+
         if (isOpen) {
           children.push(
             React.createElement('div', {
@@ -1439,13 +1439,13 @@ User: ${userMessage}`;
             }))
           );
         }
-        
+
         return React.createElement('div', { style: { position: 'relative' } }, children);
       }
 
       function ShortcutsPanel(props) {
         if (!props.isOpen) return null;
-        
+
         const shortcuts = [
           { key: '↑/↓ or J/K', desc: 'Navigate steps' },
           { key: '←/→ or H/L', desc: 'Collapse/Expand step' },
@@ -1457,7 +1457,7 @@ User: ${userMessage}`;
           { key: 'C', desc: 'Collapse all' },
           { key: '?', desc: 'Toggle shortcuts' },
         ];
-        
+
         return React.createElement(React.Fragment, null,
           React.createElement('div', {
             style: { position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.4)', zIndex: 100 },
@@ -1513,9 +1513,9 @@ User: ${userMessage}`;
         const error = props.error;
         const onDismiss = props.onDismiss;
         const onRetry = props.onRetry;
-        
+
         if (!error) return null;
-        
+
         return React.createElement('div', {
           style: {
             display: 'flex', alignItems: 'flex-start', gap: '10px',
@@ -1582,7 +1582,7 @@ User: ${userMessage}`;
         const onEditSubmit = props.onEditSubmit;
         const onEditChange = props.onEditChange;
         const isProcessing = props.isProcessing;
-        
+
         const isSelected = selectedStep === step.id;
         const isExpanded = expandedSteps.has(step.id);
         const hasChildren = step.children && step.children.length > 0;
@@ -1591,7 +1591,7 @@ User: ${userMessage}`;
         const statusValue = firstDim ? (labelsMap[step.id] && labelsMap[step.id][firstDim.key]) : null;
         const isEditing = editingStepId === step.id;
         const canEdit = step.type === 'user_message' && !isProcessing;
-        
+
         function getStatusStyle(val) {
           if (!val) return null;
           if (val.includes('Correct') && !val.includes('Partially') && !val.includes('Incorrect')) {
@@ -1605,7 +1605,7 @@ User: ${userMessage}`;
 
         const statusStyle = getStatusStyle(statusValue);
         const indentPx = depth * 24;
-        
+
         const treeLines = [];
         if (depth > 0) {
           treeLines.push(React.createElement('div', {
@@ -1631,7 +1631,7 @@ User: ${userMessage}`;
             }
           }));
         }
-        
+
         const headerContent = [
           isExpanded ? React.createElement(Icon, { key: 'chevron', name: 'chevronDown', size: 14, color: colors.subtext }) : React.createElement(Icon, { key: 'chevron', name: 'chevronRight', size: 14, color: colors.subtext }),
           React.createElement(StepTypeBadge, { key: 'badge', type: step.type }),
@@ -1640,7 +1640,7 @@ User: ${userMessage}`;
           ),
           React.createElement('span', { key: 'time', style: { fontSize: '10px', color: colors.disabled } }, step.timestamp),
         ];
-        
+
         if (statusStyle) {
           headerContent.push(React.createElement('span', {
             key: 'status',
@@ -1654,7 +1654,7 @@ User: ${userMessage}`;
             statusValue
           ));
         }
-        
+
         let expandedContent = null;
         if (isExpanded) {
           const contentChildren = [];
@@ -1720,8 +1720,8 @@ User: ${userMessage}`;
               ) : null
             ));
           } else {
-            contentChildren.push(React.createElement(ContentRenderer, { 
-              key: 'content', 
+            contentChildren.push(React.createElement(ContentRenderer, {
+              key: 'content',
               content: step.content,
               stepId: step.id,
               contentViewModes: contentViewModes,
@@ -1730,7 +1730,7 @@ User: ${userMessage}`;
           }
           expandedContent = React.createElement('div', { style: { padding: '12px 14px' } }, contentChildren);
         }
-        
+
         let childNodes = null;
         if (hasChildren) {
           childNodes = React.createElement('div', { style: { position: 'relative' } },
@@ -1762,7 +1762,7 @@ User: ${userMessage}`;
             })
           );
         }
-        
+
         return React.createElement('div', { 'data-step-id': step.id, style: { position: 'relative', marginBottom: '4px' } },
           treeLines,
           React.createElement('div', { style: { marginLeft: indentPx + 'px' } },
@@ -1804,7 +1804,7 @@ User: ${userMessage}`;
         const onViewModeChange = props.onViewModeChange;
         const contentViewModes = props.contentViewModes;
         const onContentViewChange = props.onContentViewChange;
-        
+
         const isSelected = selectedStep === step.id;
         const isExpanded = expandedSteps.has(step.id);
         const ontology = getOntologyForStep(step);
@@ -1823,7 +1823,7 @@ User: ${userMessage}`;
         }
 
         const statusStyle = getStatusStyle(statusValue);
-        
+
         const headerContent = [
           isExpanded ? React.createElement(Icon, { key: 'chevron', name: 'chevronDown', size: 14, color: colors.subtext }) : React.createElement(Icon, { key: 'chevron', name: 'chevronRight', size: 14, color: colors.subtext }),
           React.createElement(StepTypeBadge, { key: 'badge', type: step.type }),
@@ -1832,7 +1832,7 @@ User: ${userMessage}`;
           ),
           React.createElement('span', { key: 'time', style: { fontSize: '10px', color: colors.disabled } }, step.timestamp),
         ];
-        
+
         if (statusStyle) {
           headerContent.push(React.createElement('span', {
             key: 'status',
@@ -1846,7 +1846,7 @@ User: ${userMessage}`;
             statusValue
           ));
         }
-        
+
         let expandedContent = null;
         if (isExpanded) {
           const contentChildren = [];
@@ -1856,8 +1856,8 @@ User: ${userMessage}`;
             ));
             contentChildren.push(React.createElement(ToolContent, { key: 'tool', step: step, viewMode: viewModes[step.id] || 'pretty' }));
           } else {
-            contentChildren.push(React.createElement(ContentRenderer, { 
-              key: 'content', 
+            contentChildren.push(React.createElement(ContentRenderer, {
+              key: 'content',
               content: step.content,
               stepId: step.id,
               contentViewModes: contentViewModes,
@@ -1898,14 +1898,14 @@ User: ${userMessage}`;
         const disabled = props.disabled;
         const isSending = props.isSending;
         const [value, setValue] = useState('');
-        
+
         function handleSend() {
           if (value.trim() && !disabled && !isSending) {
             onSend(value.trim());
             setValue('');
           }
         }
-        
+
         return React.createElement('div', { style: { display: 'flex', gap: '8px', padding: '12px', backgroundColor: colors.bgWhite } },
           React.createElement('textarea', {
             value: value,
@@ -1913,9 +1913,9 @@ User: ${userMessage}`;
             onKeyDown: function(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } },
             placeholder: 'Send a message to steer or correct the agent...',
             disabled: disabled || isSending,
-            style: { 
-              flex: 1, padding: '12px 14px', fontSize: '13px', 
-              border: '1px solid ' + colors.border, borderRadius: '8px', 
+            style: {
+              flex: 1, padding: '12px 14px', fontSize: '13px',
+              border: '1px solid ' + colors.border, borderRadius: '8px',
               resize: 'none', fontFamily: 'inherit', color: colors.text, minHeight: '80px',
               opacity: isSending ? 0.7 : 1,
             },
@@ -1981,55 +1981,55 @@ User: ${userMessage}`;
         const query = props.query;
         const isCollapsed = props.isCollapsed;
         const onToggle = props.onToggle;
-        
+
         return React.createElement('div', {
-          style: { 
-            backgroundColor: colors.bgWhite, 
-            border: '1px solid ' + colors.border, 
-            borderLeft: '4px solid ' + colors.tint, 
-            borderRadius: '8px', 
-            marginBottom: '12px', 
+          style: {
+            backgroundColor: colors.bgWhite,
+            border: '1px solid ' + colors.border,
+            borderLeft: '4px solid ' + colors.tint,
+            borderRadius: '8px',
+            marginBottom: '12px',
             flexShrink: 0,
             overflow: 'hidden',
           }
         },
           React.createElement('div', {
             onClick: onToggle,
-            style: { 
-              display: 'flex', 
-              alignItems: 'center', 
+            style: {
+              display: 'flex',
+              alignItems: 'center',
               justifyContent: 'space-between',
-              padding: '10px 16px', 
+              padding: '10px 16px',
               cursor: 'pointer',
               backgroundColor: isCollapsed ? 'transparent' : colors.bgLight,
               borderBottom: isCollapsed ? 'none' : '1px solid ' + colors.borderLight,
             }
           },
             React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: '10px' } },
-              React.createElement('div', { 
-                style: { 
-                  fontSize: '10px', 
-                  fontWeight: 600, 
-                  color: colors.subtext, 
-                  textTransform: 'uppercase', 
+              React.createElement('div', {
+                style: {
+                  fontSize: '10px',
+                  fontWeight: 600,
+                  color: colors.subtext,
+                  textTransform: 'uppercase',
                   letterSpacing: '0.5px',
                 }
               }, 'User Query'),
-              isCollapsed ? React.createElement('div', { 
-                style: { 
-                  fontSize: '12px', 
-                  color: colors.textSecondary, 
-                  overflow: 'hidden', 
-                  textOverflow: 'ellipsis', 
+              isCollapsed ? React.createElement('div', {
+                style: {
+                  fontSize: '12px',
+                  color: colors.textSecondary,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
                   maxWidth: '400px',
                 }
               }, query) : null
             ),
-            React.createElement('div', { 
-              style: { 
-                display: 'flex', 
-                alignItems: 'center', 
+            React.createElement('div', {
+              style: {
+                display: 'flex',
+                alignItems: 'center',
                 gap: '4px',
                 color: colors.subtext,
                 fontSize: '10px',
@@ -2039,11 +2039,11 @@ User: ${userMessage}`;
               React.createElement(Icon, { name: isCollapsed ? 'chevronDown' : 'chevronUp', size: 14, color: colors.subtext })
             )
           ),
-          !isCollapsed ? React.createElement('div', { 
-            style: { 
-              padding: '12px 16px', 
-              fontSize: '14px', 
-              color: colors.text, 
+          !isCollapsed ? React.createElement('div', {
+            style: {
+              padding: '12px 16px',
+              fontSize: '14px',
+              color: colors.text,
               lineHeight: 1.6,
               maxHeight: '120px',
               overflow: 'auto',
@@ -2067,16 +2067,16 @@ User: ${userMessage}`;
         const chatError = props.chatError;
         const onDismissError = props.onDismissError;
         const onRetry = props.onRetry;
-        
+
         if (!isChatActive) {
           return React.createElement('div', {
             onClick: onChatActivate,
-            style: { 
-              marginTop: '12px', 
-              padding: '10px 16px', 
-              backgroundColor: colors.bgWhite, 
-              border: '1px solid ' + colors.border, 
-              borderRadius: '8px', 
+            style: {
+              marginTop: '12px',
+              padding: '10px 16px',
+              backgroundColor: colors.bgWhite,
+              border: '1px solid ' + colors.border,
+              borderRadius: '8px',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -2091,10 +2091,10 @@ User: ${userMessage}`;
                 'Need to steer or correct the agent? Click to send a message'
               )
             ),
-            React.createElement('div', { 
-              style: { 
-                display: 'flex', 
-                alignItems: 'center', 
+            React.createElement('div', {
+              style: {
+                display: 'flex',
+                alignItems: 'center',
                 gap: '4px',
                 color: colors.tint,
                 fontSize: '11px',
@@ -2106,16 +2106,16 @@ User: ${userMessage}`;
             )
           );
         }
-        
+
         const children = [
           React.createElement('div', {
             key: 'header',
             onClick: onToggleChatExpand,
-            style: { 
-              display: 'flex', 
-              alignItems: 'center', 
+            style: {
+              display: 'flex',
+              alignItems: 'center',
               justifyContent: 'space-between',
-              padding: '10px 14px', 
+              padding: '10px 14px',
               backgroundColor: colors.tintLight,
               borderBottom: isChatExpanded ? '1px solid ' + colors.border : 'none',
               cursor: 'pointer',
@@ -2144,7 +2144,7 @@ User: ${userMessage}`;
             )
           )
         ];
-        
+
         if (isChatExpanded) {
           // Error alert
           if (chatError) {
@@ -2156,23 +2156,23 @@ User: ${userMessage}`;
               })
             ));
           }
-          
-          children.push(React.createElement(ChatInput, { 
-            key: 'input', 
-            onSend: onSendMessage, 
+
+          children.push(React.createElement(ChatInput, {
+            key: 'input',
+            onSend: onSendMessage,
             onCancel: onCancelSending,
-            disabled: false, 
+            disabled: false,
             isSending: isProcessing,
           }));
         }
-        
+
         return React.createElement('div', {
-          style: { 
-            marginTop: '12px', 
-            backgroundColor: colors.bgWhite, 
-            border: '1px solid ' + colors.tint, 
-            borderRadius: '8px', 
-            overflow: 'hidden', 
+          style: {
+            marginTop: '12px',
+            backgroundColor: colors.bgWhite,
+            border: '1px solid ' + colors.tint,
+            borderRadius: '8px',
+            overflow: 'hidden',
             flexShrink: 0,
             boxShadow: '0 0 0 2px ' + colors.tintMuted,
           }
@@ -2182,7 +2182,7 @@ User: ${userMessage}`;
       // ============================================================================
       // STATE MANAGEMENT
       // ============================================================================
-      
+
       // Debug: Log regions on init
       console.log('=== INIT: regions received ===', regions);
       console.log('=== INIT: regions length ===', regions.length);
@@ -2191,11 +2191,11 @@ User: ${userMessage}`;
         console.log('Region ' + i + ':', r);
         if (r.value) console.log('Region ' + i + ' value:', r.value);
       });
-      
+
       const [task, setTask] = useState(function() {
         // Transform tree data to steps format (data is the tree directly via data="$tree")
         const transformedData = transformTraceToSteps(data);
-        
+
         if (transformedData) {
           console.log('=== Transformed tree data ===', transformedData);
           // Load any saved steps from regions
@@ -2209,13 +2209,13 @@ User: ${userMessage}`;
             } else if (region.step) {
               step = region.step;
             }
-            
+
             if (step && (step.type === 'user_message' || step.type === 'assistant_response')) {
               console.log('Found saved step:', step);
               savedSteps.push(step);
             }
           });
-          
+
           // Sort saved steps by timestamp in ID
           savedSteps.sort(function(a, b) {
             const getTimestamp = function(id) {
@@ -2224,15 +2224,15 @@ User: ${userMessage}`;
             };
             return getTimestamp(a.id) - getTimestamp(b.id);
           });
-          
+
           // Merge saved steps with transformed data
           if (savedSteps.length > 0) {
             transformedData.steps = transformedData.steps.concat(savedSteps);
           }
-          
+
           return transformedData;
         }
-        
+
         // Fallback: Return empty structure if transformation fails
         console.warn('Failed to transform tree data, using fallback');
         return {
@@ -2242,13 +2242,13 @@ User: ${userMessage}`;
           conversation: [],
         };
       });
-      
+
       const [labels, setLabels] = useState(function() {
         const initialLabels = {};
         regions.forEach(function(region) {
           let stepId = null;
           let labelData = null;
-          
+
           if (region.value && region.value.custominterface) {
             stepId = region.value.custominterface.stepId;
             labelData = region.value.custominterface.labels;
@@ -2256,7 +2256,7 @@ User: ${userMessage}`;
             stepId = region.value.stepId;
             labelData = region.value.labels;
           }
-          
+
           if (stepId && labelData) {
             initialLabels[stepId] = labelData;
           }
@@ -2264,7 +2264,7 @@ User: ${userMessage}`;
         console.log('Loaded labels:', initialLabels);
         return initialLabels;
       });
-      
+
       const [expandedSteps, setExpandedSteps] = useState(function() { return new Set(['main']); });
       const [selectedStep, setSelectedStep] = useState('main');
       const [viewModes, setViewModes] = useState({});
@@ -2280,14 +2280,14 @@ User: ${userMessage}`;
       const [lastUserMessage, setLastUserMessage] = useState(null);
       const [editingStepId, setEditingStepId] = useState(null);
       const [editingContent, setEditingContent] = useState('');
-      
+
       const searchInputRef = useRef(null);
       const notesRef = useRef(null);
       const listContainerRef = useRef(null);
       const abortControllerRef = useRef(null);
 
       const allSteps = useMemo(function() { return flattenSteps(task.steps || []); }, [task.steps]);
-      
+
       const filterCounts = useMemo(function() {
         const counts = { all: allSteps.length, unlabeled: 0, correct: 0, partial: 0, incorrect: 0 };
         allSteps.forEach(function(step) {
@@ -2296,14 +2296,14 @@ User: ${userMessage}`;
         });
         return counts;
       }, [allSteps, labels]);
-      
+
       const filteredSteps = useMemo(function() {
         let result = allSteps;
-        
+
         if (filter !== 'all') {
           result = result.filter(function(step) { return getStepStatus(step, labels) === filter; });
         }
-        
+
         if (searchQuery.trim()) {
           const q = searchQuery.toLowerCase();
           result = result.filter(function(step) {
@@ -2313,7 +2313,7 @@ User: ${userMessage}`;
             return label.includes(q) || content.includes(q) || tool.includes(q);
           });
         }
-        
+
         return result;
       }, [allSteps, filter, labels, searchQuery]);
 
@@ -2331,13 +2331,13 @@ User: ${userMessage}`;
           const newLabels = Object.assign({}, prev);
           newLabels[stepId] = Object.assign({}, prev[stepId] || {});
           newLabels[stepId][key] = value;
-          
+
           const existingRegion = regions.find(function(r) {
             return r.value && r.value.custominterface && r.value.custominterface.stepId === stepId;
           });
-          
+
           console.log('Existing region found:', existingRegion);
-          
+
           if (existingRegion) {
             const existingStep = existingRegion.value.custominterface.step;
             console.log('Updating existing region with step:', existingStep);
@@ -2353,7 +2353,7 @@ User: ${userMessage}`;
               labels: newLabels[stepId]
             });
           }
-          
+
           return newLabels;
         });
       }, [regions, addRegion]);
@@ -2405,9 +2405,9 @@ User: ${userMessage}`;
       const handleSendMessage = useCallback(async function(message) {
         setLastUserMessage(message);
         setChatError(null);
-        
+
         const ts = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
-        
+
         const userStepId = 'user-msg-' + Date.now();
         const userStep = {
           id: userStepId,
@@ -2417,7 +2417,7 @@ User: ${userMessage}`;
           timestamp: ts,
           children: []
         };
-        
+
         console.log('=== SAVING USER STEP AS REGION ===', userStep);
         const userRegion = addRegion({
           stepId: userStepId,
@@ -2425,40 +2425,40 @@ User: ${userMessage}`;
           labels: {}
         });
         console.log('User region created:', userRegion);
-        
+
         setTask(function(prev) {
           return Object.assign({}, prev, {
             steps: prev.steps.concat([userStep])
           });
         });
-        
+
         setExpandedSteps(function(prev) {
           const next = new Set(prev);
           next.add(userStepId);
           return next;
         });
-        
+
         if (!CONFIG.claude.enabled) {
           return;
         }
-        
+
         setIsProcessing(true);
         abortControllerRef.current = new AbortController();
-        
+
         try {
           const traceWithUserMsg = task.steps.concat([userStep]);
           const serializedTrace = serializeTrace(task.query, traceWithUserMsg);
-          
+
           const responseContent = await sendToClaude({
             trace: serializedTrace,
             userMessage: message,
             signal: abortControllerRef.current.signal,
           });
-          
+
           if (!responseContent) {
             throw new Error('No response received');
           }
-          
+
           const assistantStepId = 'assistant-resp-' + Date.now();
           const assistantStep = {
             id: assistantStepId,
@@ -2468,7 +2468,7 @@ User: ${userMessage}`;
             timestamp: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
             children: []
           };
-          
+
           console.log('=== SAVING ASSISTANT STEP AS REGION ===', assistantStep);
           const assistantRegion = addRegion({
             stepId: assistantStepId,
@@ -2476,32 +2476,32 @@ User: ${userMessage}`;
             labels: {}
           });
           console.log('Assistant region created:', assistantRegion);
-          
+
           setTask(function(prev) {
             return Object.assign({}, prev, {
               steps: prev.steps.concat([assistantStep])
             });
           });
-          
+
           setExpandedSteps(function(prev) {
             const next = new Set(prev);
             next.add(assistantStepId);
             return next;
           });
-          
+
           setSelectedStep(assistantStepId);
-          
+
         } catch (error) {
           if (error.name === 'AbortError') {
             return;
           }
-          
+
           console.error('API Error:', error);
           setChatError({
             code: CHAT_ERROR.HTTP_ERROR,
             message: error.message || 'Failed to get response',
           });
-          
+
         } finally {
           setIsProcessing(false);
           abortControllerRef.current = null;
@@ -2523,15 +2523,15 @@ User: ${userMessage}`;
 
       const submitEditedMessage = useCallback(async function() {
         if (!editingStepId || !editingContent.trim()) return;
-        
+
         const stepIndex = task.steps.findIndex(function(s) { return s.id === editingStepId; });
         if (stepIndex === -1) return;
-        
+
         const stepsToRemove = task.steps.slice(stepIndex + 1);
         const idsToRemove = stepsToRemove.map(function(s) { return s.id; });
-        
+
         console.log('=== EDITING: Removing steps after index', stepIndex, ':', idsToRemove);
-        
+
         idsToRemove.forEach(function(idToRemove) {
           const regionToDelete = regions.find(function(r) {
             if (r.value && r.value.custominterface && r.value.custominterface.stepId === idToRemove) {
@@ -2549,14 +2549,14 @@ User: ${userMessage}`;
             return newLabels;
           });
         });
-        
+
         const updatedSteps = task.steps.slice(0, stepIndex + 1);
         const editedStep = Object.assign({}, updatedSteps[stepIndex], {
           content: editingContent.trim(),
           timestamp: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })
         });
         updatedSteps[stepIndex] = editedStep;
-        
+
         const editedRegion = regions.find(function(r) {
           return r.value && r.value.custominterface && r.value.custominterface.stepId === editingStepId;
         });
@@ -2567,38 +2567,38 @@ User: ${userMessage}`;
             labels: labels[editingStepId] || {}
           });
         }
-        
+
         setTask(function(prev) {
           return Object.assign({}, prev, {
             steps: updatedSteps
           });
         });
-        
+
         const editedMessage = editingContent.trim();
         setEditingStepId(null);
         setEditingContent('');
         setChatError(null);
-        
+
         if (!CONFIG.claude.enabled) {
           return;
         }
-        
+
         setIsProcessing(true);
         abortControllerRef.current = new AbortController();
-        
+
         try {
           const serializedTrace = serializeTrace(task.query, updatedSteps);
-          
+
           const responseContent = await sendToClaude({
             trace: serializedTrace,
             userMessage: editedMessage,
             signal: abortControllerRef.current.signal,
           });
-          
+
           if (!responseContent) {
             throw new Error('No response received');
           }
-          
+
           const assistantStepId = 'assistant-resp-' + Date.now();
           const assistantStep = {
             id: assistantStepId,
@@ -2608,39 +2608,39 @@ User: ${userMessage}`;
             timestamp: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
             children: []
           };
-          
+
           console.log('=== SAVING NEW ASSISTANT STEP AFTER EDIT ===', assistantStep);
           addRegion({
             stepId: assistantStepId,
             step: assistantStep,
             labels: {}
           });
-          
+
           setTask(function(prev) {
             return Object.assign({}, prev, {
               steps: prev.steps.concat([assistantStep])
             });
           });
-          
+
           setExpandedSteps(function(prev) {
             const next = new Set(prev);
             next.add(assistantStepId);
             return next;
           });
-          
+
           setSelectedStep(assistantStepId);
-          
+
         } catch (error) {
           if (error.name === 'AbortError') {
             return;
           }
-          
+
           console.error('API Error:', error);
           setChatError({
             code: CHAT_ERROR.HTTP_ERROR,
             message: error.message || 'Failed to get response',
           });
-          
+
         } finally {
           setIsProcessing(false);
           abortControllerRef.current = null;
@@ -2663,9 +2663,9 @@ User: ${userMessage}`;
             }
             return;
           }
-          
+
           const currentIndex = filteredSteps.findIndex(function(s) { return s.id === selectedStep; });
-          
+
           switch (e.key) {
             case 'ArrowDown':
             case 'j':
@@ -2737,7 +2737,7 @@ User: ${userMessage}`;
               }
           }
         }
-        
+
         window.addEventListener('keydown', handleKeyDown);
         return function() { window.removeEventListener('keydown', handleKeyDown); };
       }, [selectedStep, filteredSteps, currentOntology, handleLabelChange, expandAll, collapseAll]);
@@ -2753,7 +2753,7 @@ User: ${userMessage}`;
       // ============================================================================
       // UI RENDERING
       // ============================================================================
-      
+
       const stepListContent = [];
       if (filteredSteps.length === 0) {
         stepListContent.push(React.createElement('div', {
@@ -2815,7 +2815,7 @@ User: ${userMessage}`;
           }));
         });
       }
-      
+
       const sidebarContent = [];
       if (currentStep && currentOntology) {
         sidebarContent.push(React.createElement('div', {
@@ -2825,7 +2825,7 @@ User: ${userMessage}`;
           React.createElement(StepTypeBadge, { type: currentStep.type, size: 'md' }),
           React.createElement('span', { style: { fontSize: '13px', color: colors.text, fontWeight: 600, flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, currentStep.label || currentStep.id)
         ));
-        
+
         sidebarContent.push(React.createElement('div', {
           key: 'dimensions',
           style: { display: 'flex', flexDirection: 'column', gap: '16px', flex: 1 }
@@ -2835,7 +2835,7 @@ User: ${userMessage}`;
               dim.label,
               dim.type === 'textarea' ? React.createElement('span', { style: { fontWeight: 400, textTransform: 'none' } }, '(press N to focus)') : null
             ),
-            dim.type === 'textarea' ? 
+            dim.type === 'textarea' ?
               React.createElement('textarea', {
                 ref: dimIdx === currentOntology.dimensions.length - 1 ? notesRef : null,
                 placeholder: dim.placeholder || '',
@@ -2851,11 +2851,11 @@ User: ${userMessage}`;
           );
         })));
       }
-      
+
       if (CONFIG.enableProgressBar) {
         const progressStepList = allSteps.map(function(step) {
           const status = getStepStatus(step, labels);
-          
+
           let bgColor = 'transparent';
           if (selectedStep === step.id) {
             bgColor = colors.tintLight;
@@ -2866,7 +2866,7 @@ User: ${userMessage}`;
           } else if (status === 'partial') {
             bgColor = colors.warningBg;
           }
-          
+
           let statusIcon = null;
           if (status === 'correct') {
             statusIcon = React.createElement(Icon, { name: 'check', size: 12, color: colors.success });
@@ -2882,7 +2882,7 @@ User: ${userMessage}`;
               }
             });
           }
-          
+
           return React.createElement('div', {
             key: step.id,
             onClick: function() {
@@ -2906,7 +2906,7 @@ User: ${userMessage}`;
             statusIcon
           );
         });
-        
+
         sidebarContent.push(React.createElement('div', {
           key: 'progress',
           style: { marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid ' + colors.border }
@@ -2923,7 +2923,7 @@ User: ${userMessage}`;
         style: { fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: colors.bgLight, minHeight: '100vh', color: colors.text }
       },
         React.createElement(ShortcutsPanel, { isOpen: showShortcuts, onClose: function() { setShowShortcuts(false); } }),
-        
+
         React.createElement('div', {
           style: { display: 'flex', alignItems: 'center', padding: '8px 16px', backgroundColor: colors.bgWhite, borderBottom: '1px solid ' + colors.border, gap: '12px' }
         },
@@ -2944,11 +2944,11 @@ User: ${userMessage}`;
               style: { position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', padding: '2px', display: 'flex', alignItems: 'center' }
             }, React.createElement(Icon, { name: 'x', size: 12, color: colors.subtext })) : null
           ),
-          
+
           React.createElement(FilterDropdown, { filter: filter, onFilterChange: setFilter, counts: filterCounts }),
-          
+
           React.createElement('div', { style: { flex: 1 } }),
-          
+
           React.createElement('button', {
             onClick: function() { setShowShortcuts(true); },
             style: {
@@ -2962,7 +2962,7 @@ User: ${userMessage}`;
             'Shortcuts',
             React.createElement(Kbd, null, '?')
           ),
-          
+
           React.createElement('div', { style: { display: 'flex', gap: '4px' } },
             React.createElement('button', {
               onClick: expandAll,
@@ -2974,7 +2974,7 @@ User: ${userMessage}`;
             }, React.createElement(Icon, { name: 'minimize2', size: 11 }), ' Collapse')
           )
         ),
-        
+
         React.createElement('div', { style: { display: 'flex', height: 'calc(100vh - 49px)' } },
           React.createElement('div', { style: { flex: 1, overflow: 'hidden', padding: '12px', display: 'flex', flexDirection: 'column' } },
             React.createElement(CollapsibleUserQuery, {
@@ -2999,7 +2999,7 @@ User: ${userMessage}`;
               onRetry: retryLastMessage,
             }) : null
           ),
-          
+
           React.createElement('div', {
             style: { width: '320px', backgroundColor: colors.bgWhite, borderLeft: '1px solid ' + colors.border, padding: '16px', overflow: 'auto', display: 'flex', flexDirection: 'column' }
           }, sidebarContent)
@@ -3015,7 +3015,7 @@ User: ${userMessage}`;
 
 ## Example input
 
-Copy this into a JSON file and then import it into a project with the example code above. 
+Copy this into a JSON file and then import it into a project with the example code above.
 
 {% details <b>Click to expand</b> %}
 

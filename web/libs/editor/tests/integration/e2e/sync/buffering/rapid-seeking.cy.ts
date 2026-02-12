@@ -43,7 +43,7 @@ describe("Sync Buffering: Rapid Seeking Tests", suiteConfig, () => {
       AudioView.isReady();
 
       // Setup network delay
-      const delayedNetwork = Network.createControlledDelay("/public/files/opossum_intro.webm", "seekBuffering");
+      const _delayedNetwork = Network.createControlledDelay("/public/files/opossum_intro.webm", "seekBuffering");
 
       // Perform rapid seeks using MediaSynchronization helper
       const seekPositions = [0.1, 0.3, 0.6, 0.4, 0.8, 0.2, 0.7];
@@ -79,7 +79,7 @@ describe("Sync Buffering: Rapid Seeking Tests", suiteConfig, () => {
       AudioView.isReady();
 
       // Setup network delay
-      const delayedNetwork = Network.createControlledDelay("/public/files/opossum_intro.webm", "seekBuffering");
+      const _delayedNetwork = Network.createControlledDelay("/public/files/opossum_intro.webm", "seekBuffering");
 
       // Triggering bufferisatio
       VideoView.clickAtTimelineRelative(0.5);
@@ -92,7 +92,7 @@ describe("Sync Buffering: Rapid Seeking Tests", suiteConfig, () => {
         const startPoint = 0.1;
         const endPoint = 0.9;
         const startX = bbox.left + bbox.width * startPoint;
-        const endX = bbox.left + bbox.width * endPoint;
+        const _endX = bbox.left + bbox.width * endPoint;
         const centerY = bbox.top + bbox.height * 0.5;
 
         // Perform drag with multiple intermediate points
@@ -144,7 +144,7 @@ describe("Sync Buffering: Rapid Seeking Tests", suiteConfig, () => {
       const seekPositions = [0.2, 0.5, 0.3, 0.7, 0.4];
 
       cy.log("Performing rapid seeks during playback");
-      seekPositions.forEach((position, index) => {
+      seekPositions.forEach((position, _index) => {
         AudioView.clickAtRelative(position, 0.5);
         cy.waitForFrames(1);
       });

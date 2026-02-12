@@ -18,7 +18,7 @@ const assert = require("assert");
 
 function roundFloats(struct) {
   return JSON.parse(
-    JSON.stringify(struct, (key, value) => {
+    JSON.stringify(struct, (_key, value) => {
       if (typeof value === "number") {
         return value.toFixed(1);
       }

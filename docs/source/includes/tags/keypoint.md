@@ -11,4 +11,3 @@
 | [smart] | <code>boolean</code> |  | Show smart tool for interactive pre-annotations |
 | [smartOnly] | <code>boolean</code> |  | Only show smart tool for interactive pre-annotations |
 | [snap] | <code>pixel</code> \| <code>none</code> | <code>none</code> | Snap keypoint to image pixels |
-

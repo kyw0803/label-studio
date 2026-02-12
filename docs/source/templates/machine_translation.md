@@ -22,7 +22,7 @@ If you want to improve existing machine translation capabilities, you want to pr
     <Header value="Read the text in English" />
     <Header value="Provide translation in Spanish" />
   <Text name="english" value="$english" />
-  <TextArea name="spanish" toName="english" transcription="true" 
+  <TextArea name="spanish" toName="english" transcription="true"
             showSubmitButton="true" maxSubmissions="1" editable="true"
             required="true" rows="5"/>
   </View>
@@ -48,10 +48,10 @@ Use the Text object tag to specify the text to be translated:
 ```xml
 <Text name="english" value="$english" />
 ```
-  
+
 Use the TextArea control tag to provide an editable, required text box to provide a translation of the text, and include a Submit button for annotators:
 ```xml
-<TextArea name="spanish" toName="english" transcription="true" 
+<TextArea name="spanish" toName="english" transcription="true"
             showSubmitButton="true" maxSubmissions="1" editable="true"
             required="true" rows="5"/>
 ```

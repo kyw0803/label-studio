@@ -12,8 +12,10 @@
   position: sticky;
   top: 0;
 
-  &__button {
-    transform: translateX(var(--spacing-tighter));
+  &__button:not(.button_look_primary) {
+    &:hover {
+      background-color: var(--color-primary-emphasis-subtle);
+    }
   }
 
   &__group {
@@ -21,7 +23,6 @@
     align-items: stretch;
     gap: var(--spacing-tight);
     padding-left: var(--spacing-tight);
-    overflow: hidden;
   }
 
   &__section {

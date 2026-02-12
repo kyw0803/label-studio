@@ -16,9 +16,6 @@ Installing Prompts in an on-prem environment requires installing Adala, our data
 
 You only need to complete these steps if you want to use Prompts. For more information, see our [Prompts overview](prompts_overview).
 
-!!! note
-    Prompts are only supported for Kubernetes deployments. If you are using Docker, you will need to migrate to a Kubernetes deployment to use Prompts. See [Deploy Label Studio Enterprise on Kubernetes](install_enterprise_k8s.html) for more information.
-
 
 ## Prerequisites
 
@@ -149,8 +146,8 @@ kubectl logs <pod-name> -n prompt
 
 You will need to update the `global` section of your Label Studio Enterprise `values.yaml` file to include the following:
 
-* Add the Adala endpoint, which will allow Label Studio to connect to Adala. 
-* Add the Prompts feature flag, to enable Prompts visibility within Label Studio. 
+* Add the Adala endpoint, which will allow Label Studio to connect to Adala.
+* Add the Prompts feature flag, to enable Prompts visibility within Label Studio.
 
 
 ```yaml

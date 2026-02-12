@@ -18,7 +18,7 @@ tier: enterprise
 
 ## About
 
-This plugin renders basic markdown as HTML. 
+This plugin renders basic markdown as HTML.
 
 ![Screenshot of markdown formatting](/images/plugins/markdown.png)
 
@@ -49,7 +49,7 @@ if (sumBlock) {
 
 ## Labeling config
 
-This labeling config displays a chat transcript on the left and choices on the right. 
+This labeling config displays a chat transcript on the left and choices on the right.
 
 ```xml
 <View>

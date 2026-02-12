@@ -11,4 +11,3 @@
 | [canRotate] | <code>boolean</code> | <code>true</code> | Show or hide rotation control |
 | [smart] | <code>boolean</code> |  | Show smart tool for interactive pre-annotations |
 | [smartOnly] | <code>boolean</code> |  | Only show smart tool for interactive pre-annotations |
-

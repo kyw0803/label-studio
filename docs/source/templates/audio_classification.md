@@ -12,6 +12,11 @@ meta_description: Template for classifying audio and intent using Label Studio f
 
 If you want to perform audio classification tasks, such as intent or sentiment classification, you can use this template to listen to an audio file and classify the topic of the clip.
 
+!!! error Enterprise
+    If you're managing more complex or high-volume audio labeling projects, Label Studio Enterprise includes an advanced audio transcription interface built to support faster, more precise annotation at scale.
+
+    See our new [Multi-Channel Audio Transcription](react_audio) template and learn more in [A New Audio Transcription UI for Speed and Quality at Scale](https://humansignal.com/blog/building-a-better-ui-for-audio-transcription-at-scale/) (blog post).
+
 ## Interactive Template Preview
 
 <div id="main-preview"></div>
@@ -46,7 +51,7 @@ Use the [Audio](/tags/audio.html) object tag to specify the type and the locatio
 <Audio name="audio" value="$url"></Audio>
 ```
 
-Use the [Choices](/tags/choices.html) control tag to manage how the classification choices appear to annotators with `showInline="true"` and what selection option is used on the interface with `choice="single-radio"`. The `toName="audio"` option associates the choices with the audio clip. 
+Use the [Choices](/tags/choices.html) control tag to manage how the classification choices appear to annotators with `showInline="true"` and what selection option is used on the interface with `choice="single-radio"`. The `toName="audio"` option associates the choices with the audio clip.
 ```xml
 <Choices name="label" toName="audio" choice="single-radio" showInline="true">
 ```

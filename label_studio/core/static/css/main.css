@@ -19,7 +19,7 @@ html {
   --sand_0: #FDFDFC;
 
   --grape_0: #F0F3FE;
-  --grape_100: #D4DBFB; 
+  --grape_100: #D4DBFB;
   --grape_500: #566FCF;
   --grape_600: #576CC1;
   --grape_700: #4C5FA9;
@@ -168,7 +168,7 @@ html {
 
   /* Semantic Tokens */
   /* Semantic Tokens: Colors */
-  
+
   /* Light Color Scheme (Default) */
   --color-accent-blueberry-bold: var(--color-blueberry-600);
   --color-accent-blueberry-dark: var(--color-blueberry-900);

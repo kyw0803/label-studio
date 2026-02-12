@@ -21,23 +21,29 @@ jobs:
 
       - name: Set Label Studio status
         uses: actions/github-script@v8
+        continue-on-error: true
         env:
           SHA: "${{ github.event.pull_request.head.sha || github.event.after }}"
           WORKFLOW_RUN_LINK: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
         with:
-          github-token: ${{ secrets.GIT_PAT }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const {repo, owner} = context.repo;
             const sha = process.env.SHA;
             const workflow_run_link = process.env.WORKFLOW_RUN_LINK;
-            
-            const { data: commit_status} = await github.rest.repos.createCommitStatus({
-              owner,
-              repo,
-              sha: sha,
-              state: "success",
-              context: "External / LSE PyTest",
-              description: "",
-              target_url: workflow_run_link,
-            });
-            console.log(`Commit Status created: ${commit_status.url}`);
+
+            try {
+              const { data: commit_status} = await github.rest.repos.createCommitStatus({
+                owner,
+                repo,
+                sha: sha,
+                state: "success",
+                context: "External / LSE PyTest",
+                description: "",
+                target_url: workflow_run_link,
+              });
+              console.log(`Commit Status created: ${commit_status.url}`);
+            } catch (error) {
+              console.log(`Could not create commit status: ${error.message}`);
+              console.log('This is expected for fork PRs where GITHUB_TOKEN lacks statuses:write permission.');
+            }

@@ -5,7 +5,7 @@ category: LLM Evaluations
 cat: llm-evaluations
 order: 965
 is_new: t
-meta_description: Evaluate the contextual relevancy of retrieved documents and rate the LLM response. 
+meta_description: Evaluate the contextual relevancy of retrieved documents and rate the LLM response.
 date: 2024-07-26 14:49:29
 ---
 
@@ -19,7 +19,7 @@ In this example, you will create a labeling interface that aims to evaluate:
 - Answer relevancy
 - Answer faithfulness
 
-For a tutorial on how to use this template with the Label Studio SDK, see [Evaluate LLM Responses](https://api.labelstud.io/tutorials/tutorials/evaluate-llm-responses). 
+For a tutorial on how to use this template with the Label Studio SDK, see [Evaluate LLM Responses](https://api.labelstud.io/tutorials/tutorials/evaluate-llm-responses).
 
 ## Configure the labeling interface
 
@@ -115,21 +115,21 @@ For a tutorial on how to use this template with the Label Studio SDK, see [Evalu
 This configuration includes the following elements:
 
 * `<View>` - All labeling configurations must include a base `View` tag. In this configuration, the `View` tag is used to configure the display of blocks, similar to the div tag in HTML. It helps in organizing the layout of the labeling interface.
-* `<Style>` - The `Style` tag is used to define CSS styles that apply to the elements within the `View`. In this configuration, it sets styles for various classes various sections of the labeling interface layout. 
-* `<Header>` - The `Header` tag is used to display a header or title within the labeling interface. The text of the header is defined in the `value` parameter. 
-* `<Text>` -  The `Text` tag is used to display text provided by the input data. Given the example input data below, the text blocks are either displaying information from the `question` or `answer` keys in the source JSON. You will likely want to adjust these variables to match your own JSON data. 
-* `<List>` - List the retrieved documents. Given the example input data below, you are populating the list from the `similar_docs` field in the source JSON. 
+* `<Style>` - The `Style` tag is used to define CSS styles that apply to the elements within the `View`. In this configuration, it sets styles for various classes various sections of the labeling interface layout.
+* `<Header>` - The `Header` tag is used to display a header or title within the labeling interface. The text of the header is defined in the `value` parameter.
+* `<Text>` -  The `Text` tag is used to display text provided by the input data. Given the example input data below, the text blocks are either displaying information from the `question` or `answer` keys in the source JSON. You will likely want to adjust these variables to match your own JSON data.
+* `<List>` - List the retrieved documents. Given the example input data below, you are populating the list from the `similar_docs` field in the source JSON.
 * `<Ranker>` - The `Ranker` tag creates UI elements that allow you to rank the list items by dragging and dropping them into different buckets.
 * `<Bucket>` - The `Bucket` tag defines a category or container within the Ranker where items can be placed.
 - `<Collapse>` - The `Collapse` tag creates a collapsible section that can be expanded or collapsed by the user.
 - `<Panel>` - The `Panel` tag is used within a Collapse element to define the content that can be expanded or collapsed.
 - `<Choices>` - The `Choices` tag presents a set of options for the annotator to choose from, specified by the `name` and `toName` parameters.
-- `<Choice>` - The `Choice` tag defines an individual option within the Choices tag. In this example, choices are stylized to appear as clickable thumbs up and thumbs down icons. 
+- `<Choice>` - The `Choice` tag defines an individual option within the Choices tag. In this example, choices are stylized to appear as clickable thumbs up and thumbs down icons.
 
 
 ## Input data
 
-In this example, you are including the prompt, the response, and the documents used for context.  
+In this example, you are including the prompt, the response, and the documents used for context.
 
 ```json
 [

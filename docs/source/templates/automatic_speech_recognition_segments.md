@@ -12,6 +12,11 @@ meta_description: Template for audio transcription for automatic speech recognit
 
 Listen to an audio file and segment it, then transcribe the contents of each segment in natural language, performing speech recognition using segments.
 
+!!! error Enterprise
+    If you're managing more complex or high-volume audio labeling projects, Label Studio Enterprise includes an advanced audio transcription interface built to support faster, more precise annotation at scale.
+
+    See our new [Multi-Channel Audio Transcription](react_audio) template and learn more in [A New Audio Transcription UI for Speed and Quality at Scale](https://humansignal.com/blog/building-a-better-ui-for-audio-transcription-at-scale/) (blog post).
+
 ## Interactive Template Preview
 
 <div id="main-preview"></div>
@@ -71,7 +76,7 @@ If you want to prompt annotators to add context to specific audio segments, such
       </Choices>
     </View>
 ```
-The `visibleWhen` parameter for the [View](/tags/view.html) tag means that the choice is only visible when a specific audio segment is selected. The [Header](/tags/header.html) tag provides instructions to the annotator. The [Choices](/tags/choices.html) tag includes the `perRegion` parameter to apply the selected choice only to the selected audio segment. 
+The `visibleWhen` parameter for the [View](/tags/view.html) tag means that the choice is only visible when a specific audio segment is selected. The [Header](/tags/header.html) tag provides instructions to the annotator. The [Choices](/tags/choices.html) tag includes the `perRegion` parameter to apply the selected choice only to the selected audio segment.
 
 
 ## Related tags

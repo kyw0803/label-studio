@@ -25,17 +25,17 @@ This plugin dynamically adds an image element to the bottom of the annotation in
 It works as follows:
 
 1. The plugin script defines an object called `images` that maps label names (like "Addressee" or "Signature") to specific image file URLs based on a root path.
-2. It tries to get an existing image element from the global window using a unique ID (`img_uniq`). 
-   - If the image isn’t already present, it creates a new `<img>` element with that ID. 
+2. It tries to get an existing image element from the global window using a unique ID (`img_uniq`).
+   - If the image isn’t already present, it creates a new `<img>` element with that ID.
    - It then finds the main annotation container (using the selector `.lsf-main-view__annotation`) and appends the new image element to the end of it.
-3. The script retrieves the list of label objects currently configured using `LSI.annotation.names.get("label").children`. 
+3. The script retrieves the list of label objects currently configured using `LSI.annotation.names.get("label").children`.
    Then, it finds all clickable label elements (with the CSS class `.lsf-label_clickable`) and attaches a click event listener to each one.
 4. When any label is clicked, the corresponding event listener uses the label’s value (determined by its index in the labels array) to look up the appropriate image URL from the `images` mapping. It then sets the `src` attribute of the image element to that URL. If no matching image exists, the `src` might be empty.
 
 
 ## Plugin
 
-This plugin will work as-is with the demo check images. For your own purposes, you will want host images that Label Studio can access. 
+This plugin will work as-is with the demo check images. For your own purposes, you will want host images that Label Studio can access.
 
 ```javascript
 /**

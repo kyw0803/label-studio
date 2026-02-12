@@ -4,7 +4,7 @@ type: templates
 category: Computer Vision
 cat: computer-vision
 order: 128
-meta_title: Multi-page Document Annotation 
+meta_title: Multi-page Document Annotation
 meta_description: Template for labeling large, multi-page documents more easily and efficiently.
 ---
 
@@ -26,7 +26,7 @@ If you just need to classify a PDF document as a whole, you can also use the [PD
 
 ## Prerequisites
 
-Multi-page document annotation requires that you first pre-process your document by converting it into separate images. There are multiple tools to do this, including a built-in option in [Adobe Acrobat](https://helpx.adobe.com/acrobat/using/pdf-to-jpg.html). 
+Multi-page document annotation requires that you first pre-process your document by converting it into separate images. There are multiple tools to do this, including a built-in option in [Adobe Acrobat](https://helpx.adobe.com/acrobat/using/pdf-to-jpg.html).
 
 To improve performance, we preload images by downloading an image via XHR and storing it in the local browser’s storage. For this to function properly, you must set up a CORS policy on the CDN/storage where the images are located. Specifically, the following headers must be set:
 
@@ -36,9 +36,9 @@ Access-Control-Allow-Methods: GET, OPTIONS
 Access-Control-Allow-Headers: Content-Type
 ```
 
-## Limitations 
+## Limitations
 
-For performance reasons, we recommend that the maximum number of tasks per project be limited to around 100,000. 
+For performance reasons, we recommend that the maximum number of tasks per project be limited to around 100,000.
 
 If you are creating tasks with multiple images, you may need to plan for a smaller task limit within each project. For example, a task with 100 images would be roughly equivalent to 100 tasks (in terms of performance considerations).
 
@@ -49,13 +49,13 @@ When performing multi-page annotations, you'll see a new navigation menu:
 ![Multi-page navigation](../images/templates-misc/multipage_nav2.png)
 
 !!! info Tip
-    * To navigate to a specific page, click on the page numbers in the center and enter the desired page. 
+    * To navigate to a specific page, click on the page numbers in the center and enter the desired page.
     * You can also use the following hot keys to navigate: `command + left`/`command + right` or `ctrl + left`/`ctrl + right`.
 
 
 ## Labeling configuration
 
-Enable multi-page annotation by using the `<Image>` tag and setting the `valueList` parameter instead of the `value` parameter.  
+Enable multi-page annotation by using the `<Image>` tag and setting the `valueList` parameter instead of the `value` parameter.
 
 ```xml
 <View>
@@ -72,18 +72,18 @@ Enable multi-page annotation by using the `<Image>` tag and setting the `valueLi
 
 Similar to `value`, the `valueList` parameter accepts a variable. The difference in this case is that you are referencing an array in your JSON.
 
-For example, the following references `pages` in the [example input data](#Input-data-format) below. 
+For example, the following references `pages` in the [example input data](#Input-data-format) below.
 
 ```xml
 <Image valueList="$pages" name="pdf"/>
 ```
 
-!!! note Classification 
+!!! note Classification
     This example uses bounding box labeling. However, you can modify the template to perform classification tasks instead (using the [`Choices` tag](/tags/choices)). When using the `Choices` tag, note the following:
-    
-    * You can perform per-page classification using `perItem="true"`. 
+
+    * You can perform per-page classification using `perItem="true"`.
     * You can also leave `perItem="false"` (the default) to perform per-document classification.
-    * `perRegion="true"` is supported when drawing regions on pages. 
+    * `perRegion="true"` is supported when drawing regions on pages.
 
 ## Input data format
 

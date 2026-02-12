@@ -34,4 +34,3 @@ config: |
                    legend="Velocity"/>
       </TimeSeries>
   </View>
-

@@ -19,7 +19,7 @@ tier: enterprise
 
 ## About
 
-This plugin “binds” a `TextArea` to a `Text` field, keeping them in sync as you edit. You can then apply labels to the text in the `Text` field, allowing you annotate text that is unique from the text you imported. 
+This plugin “binds” a `TextArea` to a `Text` field, keeping them in sync as you edit. You can then apply labels to the text in the `Text` field, allowing you annotate text that is unique from the text you imported.
 
 <video style="max-width: 800px;" class="gif-border" autoplay loop muted>
   <source src="/images/plugins/dynamic-text-spans.mp4">
@@ -27,23 +27,23 @@ This plugin “binds” a `TextArea` to a `Text` field, keeping them in sync as 
 
 How this plugin works:
 
-1. It defines two tag names: 
+1. It defines two tag names:
 
-    - `TextArea` is `transcription` 
+    - `TextArea` is `transcription`
     - `Text` is `extraction_text`
-2. It captures the current annotation ID so that it can stop running when you switch regions. 
-3. In `init()`, it polls every 300 ms until it finds the <TextArea> whose name starts with "transcription" (Label Studio appends random suffixes). 
-4. Once found, it marks it `_already_loaded` and starts `tick()`, which runs every 300 ms: 
-   - If the DOM node got replaced (e.g. you re-loaded or changed annotation), it re-queries for it. 
-   - If you’ve moved to a different annotation ID, it stops. 
-   - It grabs the live DOM value (`$ta.value`) or falls back to the annotation’s last saved result. 
-   - It compares that string to the current `_value` of your `extraction_text` control. 
-   - If they differ, it calls `text.setRemoteValue(val)`. This uses the Label Studio frontend API to update the other field’s value. 
+2. It captures the current annotation ID so that it can stop running when you switch regions.
+3. In `init()`, it polls every 300 ms until it finds the <TextArea> whose name starts with "transcription" (Label Studio appends random suffixes).
+4. Once found, it marks it `_already_loaded` and starts `tick()`, which runs every 300 ms:
+   - If the DOM node got replaced (e.g. you re-loaded or changed annotation), it re-queries for it.
+   - If you’ve moved to a different annotation ID, it stops.
+   - It grabs the live DOM value (`$ta.value`) or falls back to the annotation’s last saved result.
+   - It compares that string to the current `_value` of your `extraction_text` control.
+   - If they differ, it calls `text.setRemoteValue(val)`. This uses the Label Studio frontend API to update the other field’s value.
 
 
-The net effect is a real-time mirror: whatever you type or paste into the "transcription" `TextArea` automatically appears in the "extraction_text" `Text` field. And, importantly, the text you annotate in the `Text` field can be exported with your results. 
+The net effect is a real-time mirror: whatever you type or paste into the "transcription" `TextArea` automatically appears in the "extraction_text" `Text` field. And, importantly, the text you annotate in the `Text` field can be exported with your results.
 
-## Plugin 
+## Plugin
 
 ```javascript
 const TEXTAREA_NAME = "transcription";

@@ -53,7 +53,7 @@ stages:
       url: "{django_live_url}/api/projects/{project_pk}/exports/"
       method: POST
       json:
-        task_filter_options: 
+        task_filter_options:
           only_with_annotations: true
     response:
       status_code: 201

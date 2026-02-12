@@ -136,7 +136,7 @@ When you get updated design tokens from Figma:
 
 1. Replace the `design-tokens.json` file in the workspace root
 2. Run the NX command again: `nx design-tokens ui`
-3. The CSS and JavaScript files will be regenerated with the updated tokens 
+3. The CSS and JavaScript files will be regenerated with the updated tokens
 
 ## Known Issues
 

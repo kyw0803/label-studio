@@ -47,7 +47,7 @@ class TestCleanupInconsistentFiltergroupMigration(TestCase):
         self.filter_unaffected = Filter.objects.create(index=0, column='id', type='number', operator='eq', value=1)
         self.filter_group_unaffected.filters.add(self.filter_unaffected)
         self.view_unaffected = View.objects.create(project=self.project_unaffected, filter_group=self.filter_group_unaffected)
-    
+
     def _assert_equivalent_filter_group(self, filter_group_1, filter_group_2):
         assert filter_group_1.conjunction == filter_group_2.conjunction
 
@@ -73,7 +73,7 @@ class TestCleanupInconsistentFiltergroupMigration(TestCase):
         # Assert initial state
         assert FilterGroup.objects.count() == 3
         assert Filter.objects.count() == 5
-        
+
         # Run migration
         module = import_module('data_manager.migrations.0013_cleanup_inconsistent_filtergroup_20250624_2119')
         reload(module)
@@ -110,8 +110,3 @@ class TestCleanupInconsistentFiltergroupMigration(TestCase):
         # Assert unaffected view/filter group remains unchanged
         self.view_unaffected.refresh_from_db()
         assert self.view_unaffected.filter_group == self.filter_group_unaffected
-
-
-        
-
-        

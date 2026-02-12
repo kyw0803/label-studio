@@ -150,7 +150,7 @@ config: |
       </View>
     </View>
   </View>
-  
+
   <!-- { "data" : {
     "messages": [
       {
@@ -187,6 +187,3 @@ config: |
       }
   ]}}
   -->
-
-
-

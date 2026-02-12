@@ -148,6 +148,7 @@ jobs:
         id: calculate-docker-tags
         uses: actions/github-script@v8
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             core.setOutput('docker-tags', `${{ inputs.tags }}`.split(",").join("\n"))
 

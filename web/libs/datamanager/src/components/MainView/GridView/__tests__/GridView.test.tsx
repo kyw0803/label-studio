@@ -24,7 +24,7 @@ interface MockDataItem {
 // Mock MST getRoot
 jest.mock("mobx-state-tree", () => ({
   ...jest.requireActual("mobx-state-tree"),
-  getRoot: jest.fn((node) => ({
+  getRoot: jest.fn((_node) => ({
     dataStore: {
       total: 100,
       hasNextPage: true,

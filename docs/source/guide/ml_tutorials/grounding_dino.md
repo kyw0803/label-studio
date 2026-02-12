@@ -25,22 +25,22 @@ This integration will allow you to:
 * Use text prompts for zero-shot detection of objects in images.
 * Specify the detection of any object and get state-of-the-art results without any model fine tuning.
 
-See [here](https://github.com/IDEA-Research/GroundingDINO) for more details about the pre-trained Grounding DINO model. 
+See [here](https://github.com/IDEA-Research/GroundingDINO) for more details about the pre-trained Grounding DINO model.
 
 ## Before you begin
 
-Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart). 
+Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart).
 
-This tutorial uses the [`grounding_dino` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/grounding_dino). 
+This tutorial uses the [`grounding_dino` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/grounding_dino).
 
 
 ## Quickstart
 
 1. Make sure Docker is installed.
 2. Edit `docker-compose.yml` to include the following:
-   * `LABEL_STUDIO_HOST` sets the endpoint of the Label Studio host. Must begin with `http://` 
+   * `LABEL_STUDIO_HOST` sets the endpoint of the Label Studio host. Must begin with `http://`
    * `LABEL_STUDIO_ACCESS_TOKEN` sets the API access token for the Label Studio host. This can be found by logging
-  into Label Studio and [going to the **Account & Settings** page](https://labelstud.io/guide/user_account#Access-token). 
+  into Label Studio and [going to the **Account & Settings** page](https://labelstud.io/guide/user_account#Access-token).
 
     Example:
    - `LABEL_STUDIO_HOST=http://123.456.7.8:8080`
@@ -69,8 +69,8 @@ This tutorial uses the [`grounding_dino` example](https://github.com/HumanSignal
 </View>
 ```
 
-6. From the **Model** page in the project settings, [connect the model](https://labelstud.io/guide/ml#Connect-the-model-to-Label-Studio). 
-7. Go to an image task in your project. Enable **Auto-annotation** (found at the bottom of the labeling interface). Then enter in the prompt box and press **Add**. After this, you should receive your predictions. See the video above for a demo. 
+6. From the **Model** page in the project settings, [connect the model](https://labelstud.io/guide/ml#Connect-the-model-to-Label-Studio).
+7. Go to an image task in your project. Enable **Auto-annotation** (found at the bottom of the labeling interface). Then enter in the prompt box and press **Add**. After this, you should receive your predictions. See the video above for a demo.
 
 
 ## Using GPU

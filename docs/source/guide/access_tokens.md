@@ -6,13 +6,13 @@ type: guide
 order: 381
 order_enterprise: 359
 meta_title: Access tokens
-meta_description: Access tokens to interact with the Label Studio API and SDK. 
+meta_description: Access tokens to interact with the Label Studio API and SDK.
 section: "Manage Your Organization"
 date: 2025-02-18 12:03:59
 parent_enterprise: "admin_settings"
 ---
 
-Label Studio has personal access tokens and legacy tokens. These tokens are also referred to as your "API keys." 
+Label Studio has personal access tokens and legacy tokens. These tokens are also referred to as your "API keys."
 
 <table>
 <thead>
@@ -48,15 +48,15 @@ Label Studio has personal access tokens and legacy tokens. These tokens are also
 
 ## Find your access tokens
 
-You can access your API keys/access tokens by clicking your user icon in the upper right and selecting **Account & Settings**. 
+You can access your API keys/access tokens by clicking your user icon in the upper right and selecting **Account & Settings**.
 
 If you do not see either the **Personal Access Tokens** or **Legacy Tokens** page, that means you first need to enable them for your organization.
 
 ## Enable access tokens for an organization
 
-The options that users see on their **Account & Settings** page depend on your settings at the organization level. 
+The options that users see on their **Account & Settings** page depend on your settings at the organization level.
 
-From the **Organization** page, select **Settings > Access Token Settings**. 
+From the **Organization** page, select **Settings > Access Token Settings**.
 
 <div class="enterprise-only">
 
@@ -65,9 +65,9 @@ From the **Organization** page, select **Settings > Access Token Settings**.
 
 </div>
 
-From here you can enable and disable token types. 
+From here you can enable and disable token types.
 
-* When a certain token type is disabled, existing tokens will not be able to authenticate to the Label Studio platform. 
+* When a certain token type is disabled, existing tokens will not be able to authenticate to the Label Studio platform.
 
 * Use the Personal Access Token Time-to-Live to set an expiration date for personal access tokens. (Enterprise only)
 
@@ -85,13 +85,13 @@ From here you can enable and disable token types.
 
 ## "API keys" vs. "Access tokens"
 
-In Label Studio, **"access tokens"** and **"API keys"** mean the same thing and are used interchangeably. 
+In Label Studio, **"access tokens"** and **"API keys"** mean the same thing and are used interchangeably.
 
 ## Personal access tokens
 
 ### SDK
 
-Personal access tokens can be set directly in the script or set as the `LABEL_STUDIO_API_KEY` environment variable. 
+Personal access tokens can be set directly in the script or set as the `LABEL_STUDIO_API_KEY` environment variable.
 
 ```python
 # Define the URL where Label Studio is accessible and the API key for your user account
@@ -103,7 +103,7 @@ LABEL_STUDIO_API_KEY = 'your-token'
 # Import the SDK and the client module
 from label_studio_sdk import LabelStudio
 
-# Connect to the Label Studio API 
+# Connect to the Label Studio API
 client = LabelStudio(base_url=LABEL_STUDIO_URL, api_key=LABEL_STUDIO_API_KEY)
 
 ```
@@ -113,7 +113,7 @@ client = LabelStudio(base_url=LABEL_STUDIO_URL, api_key=LABEL_STUDIO_API_KEY)
 Because this is a JWT refresh token, you must use your PAT to generate a short-lived access token. This access token is then used for API authentication.
 
 To generate this access token, make a POST request with your personal access token in the JSON body. For example:
-     
+
 ```bash
 curl -X POST <your-label-studio-url>/api/token/refresh \
 -H "Content-Type: application/json" \
@@ -121,7 +121,7 @@ curl -X POST <your-label-studio-url>/api/token/refresh \
 ```
 
 In response, you will receive a JSON payload similar to:
-     
+
 ```json
 {
     "access": "your-new-access-token"
@@ -129,7 +129,7 @@ In response, you will receive a JSON payload similar to:
 ```
 
 Use this access token by including it in your API requests via the `Authorization: Bearer` header. For example:
-     
+
 ```http
 curl -X <method> <Label Studio URL>/api/<endpoint> -H 'Authorization: Bearer your-new-access-token'
 ```
@@ -151,11 +151,11 @@ token_is_expired = (exp <= datetime.now(timezone.utc).timestamp())
 
 ## Legacy tokens
 
-Generally speaking, the legacy tokens are not as secure as personal access tokens because they must be manually revoked. 
+Generally speaking, the legacy tokens are not as secure as personal access tokens because they must be manually revoked.
 
 ### SDK
 
-There is no difference in how you use legacy tokens and personal access tokens with the Python SDK. See the example above. 
+There is no difference in how you use legacy tokens and personal access tokens with the Python SDK. See the example above.
 
 
 ### HTTP API
@@ -163,7 +163,7 @@ There is no difference in how you use legacy tokens and personal access tokens w
 Use this access token by including it in your API requests via the `Authorization: Token` header (this is different than the `Authorization: Bearer` header used with personal access tokens).
 
 For example:
-     
+
 ```bash
 curl -X <method> <Label Studio URL>/api/<endpoint> -H 'Authorization: Token <token>
 ```

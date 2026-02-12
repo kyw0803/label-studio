@@ -16,7 +16,7 @@ const shouldGenerateRawColorValue = (name) => {
   return RAW_COLOR_VALUE_TOKENS.some((token) => name.includes(token));
 };
 
-// Determine correct paths for the workspace
+// Determine correct paths for the workspaces
 const findWorkspaceRoot = () => {
   // We'll start with this file's directory and go up until we find the web directory
   let currentDir = __dirname;
@@ -25,7 +25,7 @@ const findWorkspaceRoot = () => {
   }
 
   if (!currentDir.endsWith("web")) {
-    throw new Error("Could not find workspace root directory");
+    throw new Error("Could not find workspaces root directory");
   }
 
   return currentDir;
@@ -572,7 +572,7 @@ function processColorTokens(colorObj, parentPath, result, variables) {
  * @param {Object} result - The result object to populate
  * @param {Object} variables - The variables object for reference resolution
  */
-function processPrimitiveColors(primitiveColors, result, variables) {
+function processPrimitiveColors(primitiveColors, result, _variables) {
   for (const colorFamily in primitiveColors) {
     const familyName = colorFamily.replace("$", "");
 
@@ -971,7 +971,7 @@ const designTokensConverter = async () => {
     // Check if file exists before trying to read it
     try {
       await fs.access(designVariablesPath);
-    } catch (error) {
+    } catch (_error) {
       console.error(`Error: The design-tokens.json file does not exist at ${designVariablesPath}`);
       console.log("Please create this file by exporting your design tokens from Figma");
       return { success: false, error: "Design tokens file not found" };

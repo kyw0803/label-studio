@@ -24,14 +24,14 @@ This plugin displays an error message if text spans overlap:
 
 It works by:
 
-1. Retrieving all currently created regions (annotations) from the annotation store. 
-2. Filtering these regions to only include those of type `richtextregion` with valid numeric start and end offsets. 
-3. Sorting the filtered text regions based on their start offsets (in ascending order). 
-4. Iterating over them pairwise and checking if any region’s end offset is greater than the next region’s start offset. If it does, this indicates an overlap. 
-5. If any overlapping pairs are found, the script constructs an error message listing the overlapping text pairs, displays this error using a modal, and prevents the annotation from being saved. 
+1. Retrieving all currently created regions (annotations) from the annotation store.
+2. Filtering these regions to only include those of type `richtextregion` with valid numeric start and end offsets.
+3. Sorting the filtered text regions based on their start offsets (in ascending order).
+4. Iterating over them pairwise and checking if any region’s end offset is greater than the next region’s start offset. If it does, this indicates an overlap.
+5. If any overlapping pairs are found, the script constructs an error message listing the overlapping text pairs, displays this error using a modal, and prevents the annotation from being saved.
 
-    This is an example of a "hard" block, meaning that the user must resolve the issue before they can proceed. 
-6. If no overlaps are detected, the annotation is submitted. 
+    This is an example of a "hard" block, meaning that the user must resolve the issue before they can proceed.
+6. If no overlaps are detected, the annotation is submitted.
 
 ## Plugin
 
@@ -84,7 +84,7 @@ LSI.on("beforeSaveAnnotation", (store, annotation) => {
 **Related LSI instance methods:**
 
 * [on(eventName, handler)](custom#LSI-on-eventName-handler)
-  
+
 **Related frontend events:**
 
 * [beforeSaveAnnotation](/guide/frontend_reference#beforeSaveAnnotation)

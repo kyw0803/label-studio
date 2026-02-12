@@ -28,7 +28,7 @@ This labeling config lets you assign a sentiment (Positive, Negative, or Neutral
   <Style>
     .htx-text{padding:0; background: transparent; border:none;}
   </Style>
-  <View 
+  <View
     style="
       border: 1px solid #e1e8ed;
       border-radius: 8px;
@@ -38,14 +38,14 @@ This labeling config lets you assign a sentiment (Positive, Negative, or Neutral
       font-family: Arial, sans-serif;
     "
   >
-    <View 
+    <View
       style="
         display: flex;
         align-items: center;
         gap: 10px;
       "
     >
-      <View 
+      <View
         style="
           width: 40px;
           height: 40px;
@@ -62,7 +62,7 @@ This labeling config lets you assign a sentiment (Positive, Negative, or Neutral
     <View style="margin-top: 8px;">
       <Text name="tweet" value="$tweet" />
     </View>
-    <View 
+    <View
       style="
         display: flex;
         justify-content: space-between;
@@ -84,7 +84,7 @@ This labeling config lets you assign a sentiment (Positive, Negative, or Neutral
     <Choice value="Neutral" hint="Click on it if overall it doesn't express any sentiment" />
     <Choice value="Negative" hint="Click on if it says something bad or unpleasant" />
   </Choices>
-  
+
   <Choices name="other-props" toName="tweet"
            choice="multiple" showInLine="true"
            visibleWhen="choice-selected"
@@ -125,4 +125,3 @@ whenTagName="sentiment"
 ```
 
 ---
-

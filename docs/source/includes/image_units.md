@@ -1,6 +1,6 @@
 ### Units of image annotations
 
-The units the x, y, width and height of image annotations are provided in percentages of overall image dimension. 
+The units the x, y, width and height of image annotations are provided in percentages of overall image dimension.
 
 Use the following conversion formulas for `x, y, width, height`:
 
@@ -11,7 +11,7 @@ pixel_width = width / 100.0 * original_width
 pixel_height = height / 100.0 * original_height
 {% endcodeblock %}
 
-For example: 
+For example:
 
 {% codeblock lang:python %}
 task = {
@@ -39,7 +39,7 @@ task = {
     }]
 }
 
-# convert from LS percent units to pixels 
+# convert from LS percent units to pixels
 def convert_from_ls(result):
     if 'original_width' not in result or 'original_height' not in result:
         return None
@@ -53,7 +53,7 @@ def convert_from_ls(result):
                w * value['width'] / 100.0, \
                h * value['height'] / 100.0
 
-# convert from pixels to LS percent units 
+# convert from pixels to LS percent units
 def convert_to_ls(x, y, width, height, original_width, original_height):
     return x / original_width * 100.0, y / original_height * 100.0, \
            width / original_width * 100.0, height / original_height * 100
@@ -62,11 +62,11 @@ def convert_to_ls(x, y, width, height, original_width, original_height):
 # convert from LS
 output = convert_from_ls(task['annotations'][0]['result'][0])
 if output is None:
-    raise Exception('Wrong convert') 
+    raise Exception('Wrong convert')
 pixel_x, pixel_y, pixel_width, pixel_height = output
 print(pixel_x, pixel_y, pixel_width, pixel_height)
 
-# convert back to LS 
+# convert back to LS
 x, y, width, height = convert_to_ls(pixel_x, pixel_y, pixel_width, pixel_height, 600, 403)
 print(x, y, width, height)
 {% endcodeblock %}

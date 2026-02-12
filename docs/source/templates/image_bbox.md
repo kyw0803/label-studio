@@ -35,10 +35,10 @@ If you rotate a bounding box using your mouse in the labeling interface, the rot
 
 ### Bounding box rotation in the Label Studio results
 
-If you rotate by directly editing the rotation angle under the **Info** panel of the labeling interface, the rotation anchor point is the **top left** of the rectangle. This is also how it is saved in the Label Studio `annotation.result[]['value']` (regardless of how you performed the rotation): 
+If you rotate by directly editing the rotation angle under the **Info** panel of the labeling interface, the rotation anchor point is the **top left** of the rectangle. This is also how it is saved in the Label Studio `annotation.result[]['value']` (regardless of how you performed the rotation):
 
 ```json
- { 
+ {
   "x": 50,  # top left corner of the bounding box from 0 to 100% of the image width
   "y": 60,  # top left corner of the bounding box from 0 to 100% of the image height
   "width": 10,  # width of the bounding box from 0 to 100% of the image width
@@ -51,34 +51,34 @@ If you rotate by directly editing the rotation angle under the **Info** panel of
 
 ## Create a rotated bounding box
 
-As an annotator, you can create a rotated bounding box with the "three point click" or "two point click" feature to annotate images.  
+As an annotator, you can create a rotated bounding box with the "three point click" or "two point click" feature to annotate images.
 
   - First point click - Starting point of the location to draw the bounding box.
   - Second point click - Define the rotation and width of the bounding box.
   - Third point click - Draw the height of the bounding box.
 
 !!! note
-    The three-point click action is only available when using the `<Rectangle>` tag. It is not available for `<RectangleLabels>`. 
+    The three-point click action is only available when using the `<Rectangle>` tag. It is not available for `<RectangleLabels>`.
 
 The origin anchor `0,0` is placed with the first click, similar to the basic bounding box. The second anchor will indicate the angle of the edge for `0,1` and the width of the bounding box. The third and final anchor `1,1` will determine the height or final dimension of the bounding box. Three clicks is required to create a rotated bounding box.
 
 1. **Starting point of the location to draw the bounding box**: With a tag selected and mouse on canvas, on-click to place first anchor `0,0` anywhere on the canvas.
 
 
-!!! note 
+!!! note
     - The Canvas guides will indicate the orientation and location for the x-axis and y-axis of the crosshair cursor.
     - Bounding box label indicates the top and center of the box being created within the canvas. It does not indicate the orientation.
 
 2. **Define the rotation and width of the bounding box**: Move the mouse to the location to place the second anchor.
 
-!!! note 
+!!! note
     The canvas guides will show you where the cursor is and also indicates the orientation.
 
 To complete the top edge of the box, `click` and `release` to place the second cursor.
 
 3. **Draw the height of the bounding box**: Again, move the cursor to place the final anchor of the bounding box and complete the creation flow. Now, the bottom edge of the bounding box will follow the cursor to illustrate the height.
 
-4. **Select and rotate the rectangle**: Now, you can select and rotate the rectangle without moving the cursor. 
+4. **Select and rotate the rectangle**: Now, you can select and rotate the rectangle without moving the cursor.
 
 After the box has been completed it will remain in selected state, unless determined otherwise.
 
@@ -87,12 +87,12 @@ After the box has been completed it will remain in selected state, unless determ
   <div style="margin:auto; text-align:center;"><img src="/images/two-point-click.png" style="opacity: 0.8"/></div>
   <i>Figure 2: Two point click rectangle.</i>
 
-    
+
   <br>
   <div style="margin:auto; text-align:center;"><img src="/images/three-point-click.png" style="opacity: 0.8"/></div>
   <i>Figure 3: Three point click rectangle.</i>
 
-  After you create the bounding box, you can do the following: 
+  After you create the bounding box, you can do the following:
     - Adjust it by moving the anchors or edges to the desired location on the canvas.
     - Determine that the orientation of the bounding box is effected.
     - See the orientation of the bounding box and determine the direction during the creation process.
@@ -121,7 +121,7 @@ Use the [Image](/tags/image.html) object tag to specify the image to label:
 ```xml
 <Image name="image" value="$image"/>
 ```
-  
+
 Use the [RectangleLabels](/tags/rectanglelabels.html) control tag to add labels and rectangular bounding boxes to your image at the same time. Use the [Label](/tags/label.html) tag to control the color of the boxes:
 ```xml
   <RectangleLabels name="label" toName="image">
@@ -134,7 +134,7 @@ Use the [RectangleLabels](/tags/rectanglelabels.html) control tag to add labels 
 
 ### Add descriptions to detected objects
 
-If you want to add further context to object detection tasks with bounding boxes, you can add some **per-region** conditional labeling parameters to your labeling configuration. 
+If you want to add further context to object detection tasks with bounding boxes, you can add some **per-region** conditional labeling parameters to your labeling configuration.
 
 For example, to prompt annotators to add descriptions to detected objects, you can add the following to your labeling configuration:
 ```xml
@@ -149,11 +149,11 @@ For example, to prompt annotators to add descriptions to detected objects, you c
     </Choices>
   </View>
 ```
-The `visibleWhen` parameter of the [View](/tags/view.html) tag hides the description prompt from annotators until a bounding box is selected. 
+The `visibleWhen` parameter of the [View](/tags/view.html) tag hides the description prompt from annotators until a bounding box is selected.
 
 After the annotator selects a bounding box, the [Header](/tags/header.html) appears and provides instructions to annotators.
 
-The [TextArea](/tags/textarea.html) control tag displays an editable text box that applies to the selected bounding box, specified with the `perRegion="true"` parameter. You can also add a `placeholder` parameter to provide suggested text to annotators. 
+The [TextArea](/tags/textarea.html) control tag displays an editable text box that applies to the selected bounding box, specified with the `perRegion="true"` parameter. You can also add a `placeholder` parameter to provide suggested text to annotators.
 
 In addition, you can prompt annotators to provide additional feedback about the content of the bounding box, such as the status of the item in the box, using the [Choices](/tags/choices.html) tag with the `perRegion` parameter.
 

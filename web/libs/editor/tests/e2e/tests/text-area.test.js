@@ -4,9 +4,9 @@ const { serialize } = require("./helpers");
 Feature("Text Area");
 
 const config = `
-<View> 
-  <Text name="text" size="10" value="$text"/> 
-  <TextArea name="ta" toName="text"></TextArea> 
+<View>
+  <Text name="text" size="10" value="$text"/>
+  <TextArea name="ta" toName="text"></TextArea>
 </View>
 `;
 

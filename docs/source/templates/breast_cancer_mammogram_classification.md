@@ -31,12 +31,12 @@ This labeling config provides a comprehensive interface for breast cancer mammog
       border-radius: var(--corner-radius-medium);
       margin-bottom: var(--spacing-800);
     }
-    
+
     .mammogram-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
-      grid-template-areas: 
+      grid-template-areas:
         'left-cc right-cc'
         'left-mlo right-mlo';
       gap: var(--spacing-600);
@@ -45,7 +45,7 @@ This labeling config provides a comprehensive interface for breast cancer mammog
       margin-left: auto;
       margin-right: auto;
     }
-    
+
     .mammogram-view {
       text-align: center;
       border: 2px solid var(--color-neutral-border);
@@ -57,16 +57,16 @@ This labeling config provides a comprehensive interface for breast cancer mammog
       display: flex;
       flex-direction: column;
     }
-    
+
     .mammogram-view:hover {
       border-color: var(--color-primary-border-subtle);
     }
-    
+
     .left-cc { grid-area: left-cc; }
     .right-cc { grid-area: right-cc; }
     .left-mlo { grid-area: left-mlo; }
     .right-mlo { grid-area: right-mlo; }
-    
+
     .mammogram-image {
       width: 100%;
       height: 400px;
@@ -74,7 +74,7 @@ This labeling config provides a comprehensive interface for breast cancer mammog
       border-radius: var(--corner-radius-small);
       background: var(--color-neutral-background);
     }
-    
+
     .view-header {
       font-size: var(--font-size-16);
       font-weight: var(--font-weight-semibold);
@@ -86,7 +86,7 @@ This labeling config provides a comprehensive interface for breast cancer mammog
       border-radius: var(--corner-radius-small);
       text-align: center;
     }
-    
+
     .instructions {
       background: var(--color-primary-background);
       padding: var(--spacing-500);
@@ -95,14 +95,14 @@ This labeling config provides a comprehensive interface for breast cancer mammog
       margin-bottom: var(--spacing-600);
       line-height: var(--line-height-body-medium);
     }
-    
+
     .instructions-header {
       font-size: var(--font-size-16);
       margin-bottom: var(--spacing-400);
       line-height: var(--line-height-body-medium);
       color: var(--color-neutral-content);
     }
-    
+
     .birads-legend {
       background: var(--color-warning-background);
       color: var(--color-warning-content);
@@ -113,7 +113,7 @@ This labeling config provides a comprehensive interface for breast cancer mammog
       font-size: var(--font-size-14);
       line-height: var(--line-height-body-small);
     }
-    
+
     .classification-section {
       background: var(--color-neutral-background);
       color: var(--color-neutral-content);
@@ -144,19 +144,19 @@ This labeling config provides a comprehensive interface for breast cancer mammog
         <Header value="Left CC" className="view-header" />
         <Image name="left_cc" value="$img1" className="mammogram-image" />
       </View>
-      
+
       <!-- Right CC -->
       <View className="mammogram-view right-cc">
         <Header value="Right CC" className="view-header" />
         <Image name="right_cc" value="$img3" className="mammogram-image" />
       </View>
-      
+
       <!-- Left MLO -->
       <View className="mammogram-view left-mlo">
         <Header value="Left MLO" className="view-header" />
         <Image name="left_mlo" value="$img2" className="mammogram-image" />
       </View>
-      
+
       <!-- Right MLO -->
       <View className="mammogram-view right-mlo">
         <Header value="Right MLO" className="view-header" />
@@ -260,4 +260,3 @@ This configuration uses the following tags:
 - **Density Assessment**: Breast density can be classified using the A-D scale.
 - **Findings Documentation**: Multiple choice options for common findings (Mass, Calcifications, etc.).
 - **Notes**: Free text area for additional observations and technical notes.
-

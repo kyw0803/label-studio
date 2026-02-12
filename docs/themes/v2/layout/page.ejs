@@ -41,18 +41,18 @@
                 <% } %>
                 <span class="person-name">@<%= page.community_author %></span>
               </a>
-              
+
               <% if (page.community_contributors && page.community_contributors.length > 0) { %>
-                <% 
+                <%
                   let contributors = page.community_contributors.split(', ');
                   // Display all contributors up to 3
                   let maxContributors = 3;
                   let displayContributors = contributors.slice(0, maxContributors);
                   let remainingCount = Math.max(0, contributors.length - maxContributors);
                 %>
-                
+
                 <span class="people-divider">with</span>
-                
+
                 <% displayContributors.forEach(function(contributor, index) { %>
                   <a href="https://github.com/<%= contributor %>" target="_blank" class="person">
                     <% if (file_exists(`../../../source/images/github/avatars/${contributor}.png`)) { %>
@@ -63,7 +63,7 @@
                     <span class="person-name">@<%= contributor %></span>
                   </a>
                 <% }); %>
-                
+
                 <% if (remainingCount > 0) { %>
                   <span class="person-more">+<%= remainingCount %></span>
                 <% } %>

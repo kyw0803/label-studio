@@ -11,16 +11,16 @@ section: Prompts
 date: 2024-05-15 14:30:14
 ---
 
-Use Prompts to evaluate and refine your LLM prompts and then generate predictions to automate your labeling process. 
+Use Prompts to evaluate and refine your LLM prompts and then generate predictions to automate your labeling process.
 
-All you need to get started is an LLM deployment API key and a project. 
+All you need to get started is an LLM deployment API key and a project.
 
 With Prompts, you can:
 
 * Drastically improve the speed and efficiency of annotations, transforming subject matter experts (SMEs) into highly productive data scientists while reducing the dependency on non-SME manual annotators.
-* Increase annotation throughput, accuracy, and consistency, making the process faster and more scalable. 
+* Increase annotation throughput, accuracy, and consistency, making the process faster and more scalable.
 * Empower users to harness the full potential of AI-driven text labeling, setting a new standard for efficiency and innovation in data labeling.
-* Leverage subject matter expertise to rapidly bootstrap projects with labels, allowing you to decrease time to ML development. 
+* Leverage subject matter expertise to rapidly bootstrap projects with labels, allowing you to decrease time to ML development.
 * Allow your subject matter experts time focus on higher-level tasks rather than being bogged down by repetitive manual work.
 
 ## Features, requirements, and constraints
@@ -49,20 +49,20 @@ With Prompts, you can:
 ## Use cases
 
 ### Auto-labeling with Prompts
- 
-Prompts allows you to leverage LLMs to swiftly generate accurate predictions, enabling instant labeling of thousands of tasks. 
+
+Prompts allows you to leverage LLMs to swiftly generate accurate predictions, enabling instant labeling of thousands of tasks.
 
 By utilizing AI to handle the bulk of the annotation work, you can significantly enhance the efficiency and speed of your data labeling workflows. This is particularly valuable when dealing with large datasets that require consistent and accurate labeling. Automating this process reduces the reliance on manual annotators, which not only cuts down on labor costs but also minimizes human errors and biases. With AI's ability to learn from the provided ground truth annotations, you can maintain a high level of accuracy and consistency across the dataset, ensuring high-quality labeled data for training machine learning models.
 
 #### Workflow
 
-1. If you don't already have one, create a project and import a text-based dataset. 
+1. If you don't already have one, create a project and import a text-based dataset.
 
     * [Create a project](setup_project)
     * [Sync data from external storage](storage)
 2. Annotate a subset of tasks, marking as many as possible as ground truth annotations. The more data you have for the prompt evaluation, the more confident you can be with the results.
 
-    If you want to skip this step, see the [bootstrapping use case](#Bootstrapping-projects-with-Prompts) outlined below. 
+    If you want to skip this step, see the [bootstrapping use case](#Bootstrapping-projects-with-Prompts) outlined below.
 
     * [Labeling guide](labeling)
     * [Define ground truth annotations for a project](quality#Define-ground-truth-annotations-for-a-project)
@@ -71,10 +71,10 @@ By utilizing AI to handle the bulk of the annotation work, you can significantly
 
     * [Create a Prompt](prompts_create)
     * [Model provider keys](prompts_keys)
-4. Write a prompt and evaluate it against your ground truth dataset. 
+4. Write a prompt and evaluate it against your ground truth dataset.
 
     * [Draft a prompt](prompts_draft)
-5. When your prompt is returning an overall accuracy that is acceptable, you can choose to apply it to the rest of the tasks in your project. 
+5. When your prompt is returning an overall accuracy that is acceptable, you can choose to apply it to the rest of the tasks in your project.
 
     * [Generate predictions from a prompt](prompts_predictions)
 
@@ -82,21 +82,21 @@ By utilizing AI to handle the bulk of the annotation work, you can significantly
 
 ### Bootstrapping projects with Prompts
 
-In this use case, you do not need a ground truth annotation set. You can use Prompts to generate predictions for tasks without returning accuracy scores for the predictions it generates. 
+In this use case, you do not need a ground truth annotation set. You can use Prompts to generate predictions for tasks without returning accuracy scores for the predictions it generates.
 
 This use case is ideal for organizations looking to kickstart new initiatives without the initial burden of creating extensive ground truth annotations, allowing you to start analyzing and utilizing your data immediately. This is particularly beneficial for projects with tight timelines or limited resources.
 
-By generating predictions and converting them into annotations, you can also quickly build a labeled dataset, which can then be refined and improved over time with the help of subject matter experts. This approach accelerates the project initiation phase, enabling faster experimentation and iteration. 
+By generating predictions and converting them into annotations, you can also quickly build a labeled dataset, which can then be refined and improved over time with the help of subject matter experts. This approach accelerates the project initiation phase, enabling faster experimentation and iteration.
 
 Additionally, this workflow provides a scalable solution for continuously expanding datasets, ensuring that new data can be integrated and labeled efficiently as the project evolves.
 
 !!! note
-    You can still follow this use case even if you already have ground truth annotations. You will have the option to select a task sample set without taking ground truth data into consideration. 
+    You can still follow this use case even if you already have ground truth annotations. You will have the option to select a task sample set without taking ground truth data into consideration.
 
 
 #### Workflow
 
-1. If you don't already have one, create a project and import a text-based dataset. 
+1. If you don't already have one, create a project and import a text-based dataset.
 
     * [Create a project](setup_project)
     * [Sync data from external storage](storage)
@@ -104,30 +104,30 @@ Additionally, this workflow provides a scalable solution for continuously expand
 
     * [Create a Prompt](prompts_create)
     * [Model provider keys](prompts_keys)
-3. Write a prompt and run it against your task samples. 
+3. Write a prompt and run it against your task samples.
     * [Draft a prompt](prompts_draft)
-  
+
 When you run your prompt, you create predictions for the selected sample (this can be a portion of the project tasks or all tasks). From here you have several options:
 
-* Continue to work on your prompt and generate new predictions each time you run it against your sample. 
-* Return to the project and begin reviewing your predictions. If you convert your predictions into annotations, you can use subject matter experts and annotators to begin interacting with those the annotations. 
-* As you review the annotations, you can identify ground truths. With a ground truth dataset, you can further refine your prompt using its accuracy score. 
+* Continue to work on your prompt and generate new predictions each time you run it against your sample.
+* Return to the project and begin reviewing your predictions. If you convert your predictions into annotations, you can use subject matter experts and annotators to begin interacting with those the annotations.
+* As you review the annotations, you can identify ground truths. With a ground truth dataset, you can further refine your prompt using its accuracy score.
 
 ![Diagram of bootstrap workflow](/images/prompts/boostrap-diagram.png)
 
 ### Prompt evaluation and fine-tuning
 
-As you evaluate your prompt against the ground truth annotations, you will be given an accuracy score for each version of your prompt. You can use this to iterate your prompt versions for [clarity, specificity, and context](prompts_draft#Drafting-effective-prompts). 
+As you evaluate your prompt against the ground truth annotations, you will be given an accuracy score for each version of your prompt. You can use this to iterate your prompt versions for [clarity, specificity, and context](prompts_draft#Drafting-effective-prompts).
 
 ![Screenshot of accuracy score](/images/prompts/accuracy_score.png)
 
-This accuracy score provides a measurable way to evaluate and refine the performance of your prompt. By tracking accuracy, you can ensure that the automated labels generated by the LLM are consistent with ground truth data. 
+This accuracy score provides a measurable way to evaluate and refine the performance of your prompt. By tracking accuracy, you can ensure that the automated labels generated by the LLM are consistent with ground truth data.
 
 This feedback loop allows you to iteratively fine-tune your prompts, optimizing the accuracy of predictions and enhancing the overall reliability of your data annotation processes. In industries where data accuracy directly impacts decision-making and operational efficiency, this capability is invaluable.
 
 #### Workflow
 
-1. If you don't already have one, create a project and import a text-based dataset. 
+1. If you don't already have one, create a project and import a text-based dataset.
 
     * [Create a project](setup_project)
     * [Sync data from external storage](storage)
@@ -140,10 +140,9 @@ This feedback loop allows you to iteratively fine-tune your prompts, optimizing 
 
     * [Create a Prompt](prompts_create)
     * [Model provider keys](prompts_keys)
-4. Write a prompt and evaluate it against your ground truth dataset. 
+4. Write a prompt and evaluate it against your ground truth dataset.
 
     * [Draft a prompt](prompts_draft)
-5. Continue iterating and refining your prompt until you reach an acceptable accuracy score. 
+5. Continue iterating and refining your prompt until you reach an acceptable accuracy score.
 
 ![Diagram of fine-tuning workflow](/images/prompts/tuning-diagram.png)
-

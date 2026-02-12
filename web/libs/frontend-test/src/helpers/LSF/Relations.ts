@@ -42,7 +42,7 @@ export const Relations = {
   },
   hasRelations(count: number) {
     cy.get(".lsf-details__section-head")
-      .filter((index, element) => Cypress.$(element).next(".lsf-relation-controls").length > 0)
+      .filter((_index, element) => Cypress.$(element).next(".lsf-relation-controls").length > 0)
       .should("have.text", `Relations (${count})`);
   },
   hasRelation(from: string, to: string) {

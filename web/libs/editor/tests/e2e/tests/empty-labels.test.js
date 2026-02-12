@@ -9,7 +9,7 @@ const { examples, Utils } = require("../examples/");
 function isLabelType(type) {
   return type.toLowerCase().endsWith("labels");
 }
-function isLabels(val, key) {
+function isLabels(_val, key) {
   return isLabelType(key);
 }
 
@@ -107,7 +107,7 @@ const MULTIPLE_TYPE = "multiple";
     const { annotations, config, data } = audioRegions;
     let { result = annotations[0].result } = require("../examples/audio-regions");
 
-    result = result.filter((r) => isLabelType(r.type)).filter((r, idx) => !idx);
+    result = result.filter((r) => isLabelType(r.type)).filter((_r, idx) => !idx);
     const params = { annotations: [{ id: "test", result }], data, config };
     const configTree = Utils.parseXml(config);
 

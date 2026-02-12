@@ -42,7 +42,7 @@ Key capabilities of workspaces:
 
 ## Multi-tenant SaaS architecture
 
-Organizations provide complete isolation between different Label Studio Enterprise SaaS customers, ensuring data segregation and independent user management. Workspaces within organizations group related projects by team, department, or product line. Label Studio Enterprise may also be deployed on-prem (see [Enterprise Deployment Options](#Enterprise-deployment-options)). 
+Organizations provide complete isolation between different Label Studio Enterprise SaaS customers, ensuring data segregation and independent user management. Workspaces within organizations group related projects by team, department, or product line. Label Studio Enterprise may also be deployed on-prem (see [Enterprise Deployment Options](#Enterprise-deployment-options)).
 
 ## User management and role-based access control
 
@@ -142,7 +142,7 @@ Enterprise customers can integrate with LDAP directories for user authentication
 Label Studio Enterprise includes comprehensive security features designed for enterprise compliance requirements. Enterprise security features include:
 
 - Redis over TLS with client certificate authentication
-- IP allowlisting and VPN access control for cloud storage  
+- IP allowlisting and VPN access control for cloud storage
  (OSS supports limited IP filtering only for GCP)
 - Advanced audit logging
 - SCIM 2.0 user provisioning and deprovisioning
@@ -158,7 +158,7 @@ Label Studio Enterprise includes comprehensive security features designed for en
   - **End-to-end TLS/SSL:** Secure communication between all components
   - **Audit Logging:** Comprehensive logging of all user activities
 
-### Advanced cloud storage options 
+### Advanced cloud storage options
 
 Label Studio Enterprise supports a wider range of persistent storage options for scalable, production-grade deployments. These include:
 
@@ -249,7 +249,7 @@ To learn how different team structures use agreement metrics to scale high-quali
 
   * **Annotator pausing:** Manual and automatic pausing based on performance criteria
   * **Annotation limits:** Configure maximum annotations per user to prevent spam
- 
+
 ### Project performance dashboards
 
 The [project dashboard](https://docs.humansignal.com/guide/dashboard_project) provides a high-level view of project status over time, including metrics like tasks completed, annotations submitted, reviews performed, label distribution, and lead times. Users can filter by date ranges and reorder visualizations to focus on key indicators.
@@ -402,4 +402,4 @@ Enterprise customers receive:
   * Labeling Services: On-demand expert labeling services augment core team, fully integrated into the platform with full visibility and governance
 
 
-See how Label Studio Enterprise can work at your organization and [contact sales](https://humansignal.com/contact-sales/). 
+See how Label Studio Enterprise can work at your organization and [contact sales](https://humansignal.com/contact-sales/).

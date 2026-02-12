@@ -3,9 +3,9 @@ title: Requirements to Install and upgrade Label Studio
 short: Requirements
 tier: opensource
 section: "Install & Setup"
-order: 61 
+order: 61
 meta_title: Requirements to Install and Upgrade
-meta_description: "Label Studio documentation: Requirements to install and upgrade Label Studio." 
+meta_description: "Label Studio documentation: Requirements to install and upgrade Label Studio."
 ---
 
 {% insertmd includes/deploy.md %}
@@ -29,7 +29,7 @@ To install Label Studio with pip, you need Python version 3.8 or later. Run the 
 pip install label-studio
 ```
 
-After you install Label Studio, start the server with the following command: 
+After you install Label Studio, start the server with the following command:
 ```bash
 label-studio
 ```
@@ -83,11 +83,11 @@ This starts Label Studio with a PostgreSQL database backend. You can also use a 
 
 ### Install Label Studio without internet access
 Download label-studio docker image (host with internet access and docker):
-```bash 
+```bash
 docker pull heartexlabs/label-studio:latest
 ```
 
-Export it as a tar archive: 
+Export it as a tar archive:
 ```bash
 docker save heartexlabs/label-studio:latest | gzip > label_studio_latest.tar.gz
 ```
@@ -142,21 +142,21 @@ pip install label-studio
 
 ## Upgrade Label Studio
 
-To upgrade to the latest version of Label Studio, reinstall or upgrade using pip. 
+To upgrade to the latest version of Label Studio, reinstall or upgrade using pip.
 
 
 ```bash
 pip install --upgrade label-studio
 ```
 
-Migration scripts run when you upgrade to version 1.0.0 from version 0.9.1 or earlier. 
+Migration scripts run when you upgrade to version 1.0.0 from version 0.9.1 or earlier.
 
 To make sure an existing project gets migrated, when you [start Label Studio](start.html), run the following command:
 
 ```bash
-label-studio start path/to/old/project 
+label-studio start path/to/old/project
 ```
 
-The most important change to be aware of is changes to rename "completions" to "annotations". See the [updated JSON format for completed tasks](export.html#Raw_JSON_format_of_completed_tasks). 
+The most important change to be aware of is changes to rename "completions" to "annotations". See the [updated JSON format for completed tasks](export.html#Raw_JSON_format_of_completed_tasks).
 
-If you customized the Label Studio Frontend, see the [Frontend reference guide](frontend_reference.html) for required updates to maintain compatibility with version 1.0.0.  
+If you customized the Label Studio Frontend, see the [Frontend reference guide](frontend_reference.html) for required updates to maintain compatibility with version 1.0.0.

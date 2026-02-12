@@ -1,11 +1,11 @@
 ---
-title: Label Studio Python SDK 
-short: Python SDK 
+title: Label Studio Python SDK
+short: Python SDK
 type: guide
 tier: all
 order: 404
 order_enterprise: 404
-meta_title: Label Studio Python SDK 
+meta_title: Label Studio Python SDK
 meta_description: Overview information for the Label Studio Python SDK.
 section: "Integrate & Extend"
 
@@ -13,7 +13,7 @@ section: "Integrate & Extend"
 
 The [**Label Studio Python SDK**](https://api.labelstud.io/api-reference/introduction/getting-started) allows you to seamlessly integrate Label Studio into your data science and machine learning pipelines.
 
-The SDK provides a set of predefined classes and methods to interact with the Label Studio API directly from your Python scripts, making it easier to manage projects, import tasks, and handle annotations. 
+The SDK provides a set of predefined classes and methods to interact with the Label Studio API directly from your Python scripts, making it easier to manage projects, import tasks, and handle annotations.
 
 
 ## Benefits to using the Python SDK
@@ -48,8 +48,7 @@ client = LabelStudio(base_url=LABEL_STUDIO_URL, api_key=LABEL_STUDIO_API_KEY)
 
 
 ## Resources and links
- 
-* [**API reference**](https://api.labelstud.io/api-reference/introduction/getting-started) - This is our reference for all available Label Studio API requests and parameters. 
-* [**Label Studio Python Library README**](https://github.com/HumanSignal/label-studio-sdk) - This includes getting started information and more code examples.  
-* [**5 Tips and Tricks for Label Studio’s API and SDK**](https://labelstud.io/blog/5-tips-and-tricks-for-label-studio-s-api-and-sdk/) - This provides additional user guidance and more examples.
 
+* [**API reference**](https://api.labelstud.io/api-reference/introduction/getting-started) - This is our reference for all available Label Studio API requests and parameters.
+* [**Label Studio Python Library README**](https://github.com/HumanSignal/label-studio-sdk) - This includes getting started information and more code examples.
+* [**5 Tips and Tricks for Label Studio’s API and SDK**](https://labelstud.io/blog/5-tips-and-tricks-for-label-studio-s-api-and-sdk/) - This provides additional user guidance and more examples.

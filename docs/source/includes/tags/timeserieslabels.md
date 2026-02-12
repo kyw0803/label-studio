@@ -11,4 +11,3 @@
 | [fillColor] | <code>string</code> | <code>&quot;transparent&quot;</code> | Range fill color in hexadecimal or HTML color name |
 | [strokeColor] | <code>string</code> | <code>&quot;#f48a42&quot;</code> | Stroke color in hexadecimal |
 | [strokeWidth] | <code>number</code> | <code>1</code> | Width of the stroke |
-

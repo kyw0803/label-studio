@@ -1,19 +1,19 @@
 ---
-title: Webhook event format reference 
+title: Webhook event format reference
 short: Webhook event reference
 type: guide
 tier: all
 order: 413
 order_enterprise: 413
-meta_title: Label Studio Webhook Event Reference 
-meta_description: Label Studio reference documentation for webhook event fields and payloads sent from Label Studio for integration with your machine learning pipeline. 
+meta_title: Label Studio Webhook Event Reference
+meta_description: Label Studio reference documentation for webhook event fields and payloads sent from Label Studio for integration with your machine learning pipeline.
 section: "Integrate & Extend"
 parent: "webhooks"
 parent_enterprise: "webhooks"
 
 ---
 
-Label Studio includes several types of webhook events that trigger when specific actions occur. Refer to the details on this page to determine what information is included in the payload of each webhook event. For details about how to use webhooks and to set up webhooks in Label Studio, see [Set up webhooks in Label Studio](webhooks.html). To create your own webhooks in Label Studio to trigger events when specific actions happen, see [Create custom events for webhooks in Label Studio](webhook_create.html). 
+Label Studio includes several types of webhook events that trigger when specific actions occur. Refer to the details on this page to determine what information is included in the payload of each webhook event. For details about how to use webhooks and to set up webhooks in Label Studio, see [Set up webhooks in Label Studio](webhooks.html). To create your own webhooks in Label Studio to trigger events when specific actions happen, see [Create custom events for webhooks in Label Studio](webhook_create.html).
 
 Webhooks sent from Label Studio include the following:
 
@@ -32,27 +32,27 @@ Webhooks sent from Label Studio include the following:
 
 The HTTP POST payloads that Label Studio sends to the configured webhook URLs include the headers that you set up when you [configure the webhook](webhooks.html).
 
-If the webhook event is in response to a creation or update event, the full details of the created entity are also sent in the payload. See the following event reference tables for additional details. 
+If the webhook event is in response to a creation or update event, the full details of the created entity are also sent in the payload. See the following event reference tables for additional details.
 
 ## Task Created
 
-Sent when a task is created in Label Studio. See how to [set up a webhook for this event](webhooks.html). 
+Sent when a task is created in Label Studio. See how to [set up a webhook for this event](webhooks.html).
 
 ### Webhook payload details
 
 The webhook payload includes the name of the action and some additional task data. The task-relevant data is the same as is included in the [response when you create a task using the API](/api#operation/api_tasks_create).
 
 | Key | Type | Description |
-| --- | --- | --- | 
-| action | string | Name of the action. In this case, `TASKS_CREATED`, or if just one task was imported, `TASK_CREATED`. | 
-| tasks.id | integer | ID of the created task. | 
+| --- | --- | --- |
+| action | string | Name of the action. In this case, `TASKS_CREATED`, or if just one task was imported, `TASK_CREATED`. |
+| tasks.id | integer | ID of the created task. |
 | tasks.data | string | Reference to the data associated with the task. Can be a URL such as `s3://path/to/bucket/image.png` |
 | tasks.meta | JSON dictionary | If it exists, metadata about the task. |
 | tasks.created_at | datetime | Date and time of task creation. |
 | tasks.updated_at | datetime | Date and time of last update to the task. |
 | tasks.is_labeled | boolean | Whether or not the task has been labeled. |
-| tasks.project | integer | Project ID for the task. | 
-| project | JSON dictionary | Details about the project that the task or tasks were added to. | 
+| tasks.project | integer | Project ID for the task. |
+| project | JSON dictionary | Details about the project that the task or tasks were added to. |
 
 ### Example payload
 
@@ -149,10 +149,10 @@ Sent when a task is deleted from Label Studio. See how to [set up a webhook for 
 ### Webhook payload details
 
 | Key | Type | Description |
-| --- | --- | --- | 
-| action | string | Name of the action. In this case, `TASK_DELETED` or `TASKS_DELETED` if multiple tasks were deleted at once. | 
-| id | integer | ID of the deleted task. | 
-| project | JSON dictionary | Details about the project that the task or tasks were deleted from. | 
+| --- | --- | --- |
+| action | string | Name of the action. In this case, `TASK_DELETED` or `TASKS_DELETED` if multiple tasks were deleted at once. |
+| id | integer | ID of the deleted task. |
+| project | JSON dictionary | Details about the project that the task or tasks were deleted from. |
 
 ### Example payload
 
@@ -240,14 +240,14 @@ Sent when an annotation is created for a task in Label Studio. See how to [set u
 The webhook payload includes the name of the action and some additional annotation data. The annotation-relevant data is the same as is included in the [response when you create an annotation using the API](/api#operation/api_tasks_annotations_create).
 
 | Key | Type | Description |
-| --- | --- | --- | 
-| action | string | Name of the action. In this case, `ANNOTATION_CREATED`. | 
-| annotation.id | integer | ID of the created annotation. | 
+| --- | --- | --- |
+| action | string | Name of the action. In this case, `ANNOTATION_CREATED`. |
+| annotation.id | integer | ID of the created annotation. |
 | annotation.result | JSON dictionary | JSON representation of the annotation created. |
 | annotation.task | integer | The task ID that the annotation was created for. |
 | annotation.completed_by | integer | ID of the user that created the annotation. |
 | annotation.was_cancelled | boolean | Whether or not the annotation is the result of a skipped task, and an empty annotation. |
-| annotation.ground_truth | boolean | Always false. Whether or not the annotation is a ground truth. 
+| annotation.ground_truth | boolean | Always false. Whether or not the annotation is a ground truth.
 | annotation.created_at | datetime | Date and time that the annotation was created. |
 | annotation.updated_at | datetime | Date and time that the annotation was last updated. |
 | annotation.lead_time | floating point number | Amount of time, in seconds, that it took to complete the annotation. |
@@ -348,14 +348,14 @@ Sent when an annotation is updated. See how to [set up a webhook for this event]
 The webhook payload includes the name of the action and some additional annotation data. The annotation-relevant data is the same as is included in the [response when you update an annotation using the API](/api#operation/api_annotations_partial_update).
 
 | Key | Type | Description |
-| --- | --- | --- | 
-| action | string | Name of the action. In this case, `ANNOTATION_UPDATED`. | 
-| annotation.id | integer | ID of the updated annotation. | 
+| --- | --- | --- |
+| action | string | Name of the action. In this case, `ANNOTATION_UPDATED`. |
+| annotation.id | integer | ID of the updated annotation. |
 | annotation.result | JSON dictionary | JSON representation of the annotation updated. |
 | annotation.task | integer | The task ID that the annotation was updated for. |
 | annotation.completed_by | integer | ID of the user that updated the annotation. |
 | annotation.was_cancelled | boolean | Whether or not the annotation is the result of a skipped task, and an empty annotation. |
-| annotation.ground_truth | boolean | Always false. Whether or not the annotation is a ground truth. 
+| annotation.ground_truth | boolean | Always false. Whether or not the annotation is a ground truth.
 | annotation.created_at | datetime | Date and time that the annotation was created. |
 | annotation.updated_at | datetime | Date and time that the annotation was last updated. |
 | annotation.lead_time | floating point number | Amount of time, in seconds, that it took to complete the annotation. |
@@ -479,10 +479,10 @@ Sent when an annotation is deleted. See how to [set up a webhook for this event]
 ### Webhook payload details
 
 | Key | Type | Description |
-| --- | --- | --- | 
-| action | string  | Name of the action. In this case, `ANNOTATION_DELETED`, or for bulk actions, `ANNOTATIONS_DELETED` | 
-| id | integer | ID of the deleted annotation. | 
-| project | JSON dictionary | Details about the project that the annotations were deleted from. | 
+| --- | --- | --- |
+| action | string  | Name of the action. In this case, `ANNOTATION_DELETED`, or for bulk actions, `ANNOTATIONS_DELETED` |
+| id | integer | ID of the deleted annotation. |
+| project | JSON dictionary | Details about the project that the annotations were deleted from. |
 
 ### Example payload
 
@@ -562,7 +562,7 @@ The webhook payload includes the name of the action and some additional project 
 | Key | Type | Description |
 | --- | ---  | --- |
 | action | string  | The action that triggered the event. In this case, `PROJECT_CREATED`. |
-| project | JSON dictionary | All fields related to the project that was created. See the [API documentation for creating a project](/api#operation/api_projects_create). | 
+| project | JSON dictionary | All fields related to the project that was created. See the [API documentation for creating a project](/api#operation/api_projects_create). |
 
 ### Example payload
 
@@ -621,7 +621,7 @@ The webhook payload includes the name of the action and some additional project 
 | Key | Type | Description |
 | --- | ---  | --- |
 | action | string  | The action that triggered the event. In this case, `PROJECT_UPDATED`. |
-| project | JSON dictionary | All fields related to the project that was updated. See the [API documentation for updating a project](/api#operation/api_projects_partial_update). | 
+| project | JSON dictionary | All fields related to the project that was updated. See the [API documentation for updating a project](/api#operation/api_projects_partial_update). |
 
 ### Example payload
 
@@ -689,9 +689,9 @@ You must [enable organization-level webhooks](webhooks.html#Enable-organization-
 ### Webhook payload details
 
 | Key | Type | Description |
-| --- | --- | --- | 
-| action | string | Name of the action. In this case, `PROJECT_DELETED`. | 
-| id | integer | ID of the deleted project. | 
+| --- | --- | --- |
+| action | string | Name of the action. In this case, `PROJECT_DELETED`. |
+| id | integer | ID of the deleted project. |
 
 ### Example payload
 
@@ -705,7 +705,7 @@ You must [enable organization-level webhooks](webhooks.html#Enable-organization-
 ```
 
 
-### Start Training 
+### Start Training
 
 This webhook is triggered when a user clicks `Start Training` button on the ML Model card in the Project Settings page.
 This event will be sent to the ML Backend and can be caught in the model.fit(event, ...) method:
@@ -713,16 +713,14 @@ This event will be sent to the ML Backend and can be caught in the model.fit(eve
 ```
 class MyModel(LabelStudioMLBase):
   def fit(self, event, *args, **kwargs):
-    if event == 'START_TRAINING': 
+    if event == 'START_TRAINING':
       ...
 ```
 
 ### Webhook payload details
 
 | Key | Type | Description                           |
-| --- | --- |---------------------------------------| 
-| action | string | Name of the action: `START_TRAINING`. | 
+| --- | --- |---------------------------------------|
+| action | string | Name of the action: `START_TRAINING`. |
 | id | integer | ID of the project where training is started. |
 | project | JSON dictionary | All fields related to the project that was updated. See the [API documentation for updating a project](/api#operation/api_projects_partial_update). |
-
-

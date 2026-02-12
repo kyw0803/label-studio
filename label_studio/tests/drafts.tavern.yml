@@ -62,7 +62,7 @@ stages:
     method: GET
     url: '{django_live_url}/api/tasks/{task_pk}/drafts'
   response:
-    status_code: 200  
+    status_code: 200
 
 - name: stage
   request:
@@ -598,7 +598,7 @@ stages:
     method: GET
     url: '{django_live_url}/api/tasks/{task2_pk}/drafts'
   response:
-    status_code: 200  
+    status_code: 200
 
 - name: stage
   request:

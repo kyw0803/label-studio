@@ -1,5 +1,5 @@
 
-# Image object detection 
+# Image object detection
 <!--Should be updated for example with ellipse-->
 <!--![Image object detection](https://user.fm/files/v2-04a15361580d038bd9392a225e2569e4/Screen%20Shot%202019-08-01%20at%2011.38.16%20PM.png "Image BBox")-->
 
@@ -7,18 +7,18 @@
 
 ## Linux & Ubuntu guide
 
-Install python and virtualenv 
+Install python and virtualenv
 
 ```bash
-# install python and virtualenv 
+# install python and virtualenv
 apt install python3.6
 pip3 install virtualenv
 
-# setup python virtual environment 
+# setup python virtual environment
 virtualenv -p python3 env3
 source env3/bin/activate
 
-# install requirements 
+# install requirements
 cd backend
 pip install -r requirements.txt
 ```

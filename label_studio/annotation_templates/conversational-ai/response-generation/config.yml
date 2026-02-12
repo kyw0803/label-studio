@@ -9,4 +9,3 @@ config: |
     <Header value="Provide response" />
     <TextArea name="response" toName="chat" rows="4" editable="true" maxSubmissions="1" />
   </View>
-

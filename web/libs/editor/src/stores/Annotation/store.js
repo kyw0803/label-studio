@@ -138,7 +138,7 @@ const AnnotationStoreModel = types
     }
 
     // Select annotation or prediction
-    function selectItem(id, list, resetHistory = true, options = {}) {
+    function selectItem(id, list, resetHistory = true) {
       // might be better to protect this change with FF_SIMPLE_INIT
       // unselectViewingAll();
 
@@ -148,14 +148,7 @@ const AnnotationStoreModel = types
       const c = list.find((c) => c.id === id || c.pk === String(id)) || list[0];
 
       if (!c) return null;
-
-      // Only set selected if not in view-all mode OR if explicitly exiting view-all
-      // Use self.viewingAll as the primary source of truth
-      const isInViewAllMode = self.viewingAll;
-
-      if (!isInViewAllMode || options.exitViewAll) {
-        c.selected = true;
-      }
+      c.selected = true;
 
       if (resetHistory) {
         self.selectedHistory = null;
@@ -185,21 +178,9 @@ const AnnotationStoreModel = types
       if (!self.annotations.length) return null;
 
       const { selected } = self;
-      const c = selectItem(id, self.annotations, !options.retainHistory, options);
+      const c = selectItem(id, self.annotations, !options.retainHistory);
 
-      // Set editable based on view-all mode
-      // Use self.viewingAll as the primary source of truth, which checks:
-      // 1. self.viewingAllAnnotations flag (set when ViewAll component is active)
-      // 2. Whether the interface is available
-      // 3. Whether the store is initialized
-      const isInViewAllMode = self.viewingAll;
-
-      if (!isInViewAllMode || options.exitViewAll) {
-        c.editable = true;
-      } else {
-        // Explicitly set to false when in view-all mode
-        c.editable = false;
-      }
+      c.editable = true;
       c.setupHotKeys();
 
       getEnv(self).events.invoke("selectAnnotation", c, selected, options ?? {});
@@ -213,7 +194,7 @@ const AnnotationStoreModel = types
         unselectViewingAll();
       }
 
-      return selectItem(id, self.predictions, true, options);
+      return selectItem(id, self.predictions);
     }
 
     function clearDeletedParents(annotation) {

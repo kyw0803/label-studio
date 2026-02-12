@@ -22,7 +22,7 @@ Navigate to your project’s Dashboard tab to discover the project’s progress 
 <img src="/images/FullDashboardPage.png" alt="" class="gif-border" />
 
 !!! info Tip
-    You can reorder charts using drag and drop. 
+    You can reorder charts using drag and drop.
 
 ## Review dataset progress
 
@@ -93,4 +93,4 @@ For example, if you’re developing a dataset of OCR images, and 90% of your tas
 If you have a labeling configuration that contains multiple label groups, you will see a separate chart for each group showing the label counts within that group.
 
 !!! info Tip
-    From the menu in the upper right of each chart, select **Summary** to view a donut chart showing label distribution. 
+    From the menu in the upper right of each chart, select **Summary** to view a donut chart showing label distribution.

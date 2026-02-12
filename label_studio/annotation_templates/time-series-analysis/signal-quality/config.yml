@@ -50,4 +50,3 @@ config: |
                    strokeColor="#f70" legend="Signal 2"/>
       </TimeSeries>
   </View>
-

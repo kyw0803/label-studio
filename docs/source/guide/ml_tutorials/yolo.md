@@ -17,11 +17,11 @@ image: "/guide/ml_tutorials/yolo.png"
 
 # YOLO ML backend for Label Studio
 
-The YOLO ML backend for Label Studio is designed to integrate advanced object detection, 
-segmentation, classification, and video object tracking capabilities directly into Label Studio. 
+The YOLO ML backend for Label Studio is designed to integrate advanced object detection,
+segmentation, classification, and video object tracking capabilities directly into Label Studio.
 
-This integration allows you to leverage powerful YOLOv8 models for various machine learning tasks, 
-making it easier to annotate large datasets and ensure high-quality predictions. 
+This integration allows you to leverage powerful YOLOv8 models for various machine learning tasks,
+making it easier to annotate large datasets and ensure high-quality predictions.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/UyaecID1iG8?si=UQQW3mpqu2uDtt7i" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
@@ -39,22 +39,22 @@ making it easier to annotate large datasets and ensure high-quality predictions.
 | [Video Temporal Classification](https://github.com/HumanSignal/label-studio-ml-backend/blob/master/label_studio_ml/examples/yolo/README_TIMELINE_LABELS.md) | `<TimelineLabels>`                   | ✅                    | Native              | Native              |
 
 
-* **LS Control Tag**: Label Studio [control tag](https://labelstud.io/tags/) from the labeling configuration. 
+* **LS Control Tag**: Label Studio [control tag](https://labelstud.io/tags/) from the labeling configuration.
 * **LS Import Supported**: Indicates whether Label Studio supports Import from YOLO format to Label Studio (using the LS converter).
 * **LS Export Supported**: Indicates whether Label Studio supports Export from Label Studio to YOLO format (the **Export** button on the Data Manager and using the LS converter).
 * **Native**: Native means that only native Label Studio JSON format is supported.
 
 
-## Before you begin 
+## Before you begin
 
-Before you begin, you need to install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart). 
+Before you begin, you need to install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart).
 
 This tutorial uses the [YOLO example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/yolo).
 
 ## Quick start
 
-1. Add `LABEL_STUDIO_URL` and `LABEL_STUDIO_API_KEY` to the `docker-compose.yml` file. 
-These variables should point to your Label Studio instance and its API key, respectively. 
+1. Add `LABEL_STUDIO_URL` and `LABEL_STUDIO_API_KEY` to the `docker-compose.yml` file.
+These variables should point to your Label Studio instance and its API key, respectively.
 For more information about finding your Label Studio API key, [see our documentation](https://labelstud.io/guide/user_account#Access-token).
 
 2. Run docker compose
@@ -74,7 +74,7 @@ For more information about finding your Label Studio API key, [see our documenta
     </View>
     ```
 
-4. Then from the **Model** page in the project settings, [connect the model](https://labelstud.io/guide/ml#Connect-the-model-to-Label-Studio). The default URL is `http://localhost:9090`. 
+4. Then from the **Model** page in the project settings, [connect the model](https://labelstud.io/guide/ml#Connect-the-model-to-Label-Studio). The default URL is `http://localhost:9090`.
 
 5. Add images or video (depending on tasks you are going to solve) to Label Studio.
 
@@ -101,18 +101,18 @@ For more information about finding your Label Studio API key, [see our documenta
 
 **How to skip the control tag?**
 
-If you don't want to use the ML backend for some control tags, 
+If you don't want to use the ML backend for some control tags,
 you can force skipping by adding the `model_skip="true"` attribute to the control tag:
-    
+
 ```xml
 <Choices name="choice" toName="image" model_skip="true">
 ```
 
 ### Mixed object and control tags
 
-You can mix different object and control tags in one project. 
+You can mix different object and control tags in one project.
 The YOLO model will detect all known control tags and make predictions for them.
-For example: 
+For example:
 
 ```xml
 <View>
@@ -121,7 +121,7 @@ For example:
     <Label value="person" background="red"/>
     <Label value="car" background="blue"/>
   </RectangleLabels>
-  
+
   <Image name="image2" value="$image"/>
   <Choices name="choice" toName="image2" model_score_threshold="0.1">
     <Choice value="airship"/>
@@ -154,16 +154,16 @@ graph TD
     A[Label Studio :: Labeling Config :: Labels or Choices] <--> B[ML Model :: Names]
 ```
 
-If you use a common YOLO model, you have to add mapping between your labels and the ML model labels. 
-By default, the YOLO ML backend will use the same (or lowercased) names as you specified in the `value` attribute. 
+If you use a common YOLO model, you have to add mapping between your labels and the ML model labels.
+By default, the YOLO ML backend will use the same (or lowercased) names as you specified in the `value` attribute.
 
 In this example the label "Jeep" will be mapped to "jeep" in the ML model:
 
 ```xml
-<Choice value="Jeep"/> 
+<Choice value="Jeep"/>
 ```
 
-For more precise control you can use the `predicted_values` attribute 
+For more precise control you can use the `predicted_values` attribute
 to specify multiple and different labels from the ML model:
 
 ```xml
@@ -173,7 +173,7 @@ to specify multiple and different labels from the ML model:
 <details>
 <summary>Tip: How to find all YOLO model names?</summary>
 <br/>
-Labels are printed in the ML model logs when you start using the ML backend with the INFO logging level. 
+Labels are printed in the ML model logs when you start using the ML backend with the INFO logging level.
 
 Or you can find some labels in [YOLO_CLASSES.md](https://github.com/HumanSignal/label-studio-ml-backend/blob/master/label_studio_ml/examples/yolo/YOLO_CLASSES.md)
 </details>
@@ -181,7 +181,7 @@ Or you can find some labels in [YOLO_CLASSES.md](https://github.com/HumanSignal/
 <details>
 <summary>Tip: How to map my labels to YOLO names using an LLM?</summary>
 <br/>
-You can use an LLM model (e.g. ChatGPT) to automatically build mapping between Label Studio labels and ML model labels. 
+You can use an LLM model (e.g. ChatGPT) to automatically build mapping between Label Studio labels and ML model labels.
 Here is an example of a prompt for this. It includes 1000 labels from YOLOv8 classification model (`yolov8n-cls`).
 
 ```
@@ -246,12 +246,12 @@ You can load your own YOLO labels using the following steps:
 <details>
 <summary><b>Step by step guide</b>: Using your own custom YOLOv8 model</summary>
 <br/>
-You can integrate your own custom-trained YOLOv8 models with the YOLO ML backend for Label Studio. 
+You can integrate your own custom-trained YOLOv8 models with the YOLO ML backend for Label Studio.
 Follow these detailed steps to set up your custom model in the ML backend Docker:
 
 ### Step 0: Install Label Studio and clone this Github repository
 
-1. Install and run Label Studio (or see [more ways here](https://labelstud.io/guide/install)). 
+1. Install and run Label Studio (or see [more ways here](https://labelstud.io/guide/install)).
 
 ```
 pip install label-studio
@@ -267,14 +267,14 @@ cd label-studio-ml-backend/examples/yolo
 
 ### Step 1: Prepare your custom YOLOv8 model
 
-Ensure that your custom YOLOv8 model is saved as a `.pt` file, which is the standard format for PyTorch models. 
+Ensure that your custom YOLOv8 model is saved as a `.pt` file, which is the standard format for PyTorch models.
 Let's assume your model file is named `my_custom_model.pt`.
 
 ### Step 2: Place your model
 
 1. **Create a 'models' directory:**
 
-   In your project root directory `yolo` (the same directory where your `docker-compose.yml` is located), 
+   In your project root directory `yolo` (the same directory where your `docker-compose.yml` is located),
    create a new folder named `models` and place your `my_custom_model.pt` file inside it.
 
    ```
@@ -286,7 +286,7 @@ Let's assume your model file is named `my_custom_model.pt`.
 
 2. **Modify `docker-compose.yml` to mount the 'models' directory:**
 
-   Update your `docker-compose.yml` file to include a volume that maps the local `models` directory 
+   Update your `docker-compose.yml` file to include a volume that maps the local `models` directory
    to the `/app/models` directory inside the Docker container.
 
    ```yaml
@@ -304,9 +304,9 @@ Let's assume your model file is named `my_custom_model.pt`.
 ### Step 3: Ensure environment variables are set correctly
 
 - **`ALLOW_CUSTOM_MODEL_PATH=true`**: Ensure this is set in your Docker environment variables to allow the ML backend to load custom model paths (it's `true` by default).
-- **`LABEL_STUDIO_URL`**: This is necessary to specify the external IP or domain of your Label Studio instance. 
+- **`LABEL_STUDIO_URL`**: This is necessary to specify the external IP or domain of your Label Studio instance.
   If you run Label Studio and ML backend locally, you can try setting it to `LABEL_STUDIO_URL=http://host.docker.internal:8080`.
-- **`LABEL_STUDIO_API_KEY`**: This is necessary to specify the API key of your Label Studio instance. 
+- **`LABEL_STUDIO_API_KEY`**: This is necessary to specify the API key of your Label Studio instance.
   You can find it in Label Studio on the [User Account page](https://labelstud.io/guide/user_account#Access-token).
 - **`LOG_LEVEL`**: (optional) Set the logging level for the ML backend. You can use `DEBUG`, `INFO`, `WARNING`, `ERROR`.
 
@@ -317,13 +317,13 @@ environment:
   - ALLOW_CUSTOM_MODEL_PATH=true
   - LABEL_STUDIO_URL=http://host.docker.internal:8080
   - LABEL_STUDIO_API_KEY=your_api_key
-  - LOG_LEVEL=DEBUG  # optional 
+  - LOG_LEVEL=DEBUG  # optional
 ```
 
 ### Step 4: Update your Labeling Configuration in Label Studio
 
-In your Label Studio project, specify the path to your custom model in the labeling configuration 
-by adding the `model_path` parameter to the control tag you're using 
+In your Label Studio project, specify the path to your custom model in the labeling configuration
+by adding the `model_path` parameter to the control tag you're using
 (e.g., `<RectangleLabels>`, `<PolygonLabels>`, `<Choices>`, etc.).
 
 **Example for Object Detection with `<RectangleLabels>`:**
@@ -331,9 +331,9 @@ by adding the `model_path` parameter to the control tag you're using
 ```xml
 <View>
   <Image name="image" value="$image"/>
-  <RectangleLabels 
-          name="label" toName="image" 
-          model_path="my_custom_model.pt" 
+  <RectangleLabels
+          name="label" toName="image"
+          model_path="my_custom_model.pt"
           model_score_threshold="0.25">
     <Label value="Cat"/>
     <Label value="Dog"/>
@@ -349,7 +349,7 @@ by adding the `model_path` parameter to the control tag you're using
   <Label value="Cat" predicted_values="feline"/>
   <Label value="Dog" predicted_values="canine"/>
   ```
-- **Where to find class names**: See ML backend logs **to know the exact class names** your model predicts, and then 
+- **Where to find class names**: See ML backend logs **to know the exact class names** your model predicts, and then
 you can use these names in the `predicted_values` attribute and in the `value` of Label tags directly.
 
 ### Step 5: Restart the ML Backend
@@ -366,19 +366,19 @@ docker-compose up --build
 1. Open your Label Studio instance.
 2. Go to the **Settings** of your project.
 3. Navigate to the **Model** tab.
-4. Connect to the ML backend by entering the ML backend URL 
+4. Connect to the ML backend by entering the ML backend URL
 (if you run it locally, it's most likely `http://localhost:9090`).
 
 ### Step 7: Test your setup
 
-Add some tasks (images or other data) to your Label Studio project and open a task in the labeling interface. 
+Add some tasks (images or other data) to your Label Studio project and open a task in the labeling interface.
 The ML backend should now use your custom model to generate predictions.
 
 ### Common pitfalls
 
 - **Incorrect model path:** Ensure that the `model_path` in your labeling configuration exactly matches the filename of your model inside `/app/models`.
 - **Label mismatch:** Double-check that your labels in Label Studio match the classes your model predicts, or use `predicted_values` to map them.
-- **Keypoints models and model_index:** If you use a keypoints model, you should specify the `model_index` parameter in each `Label` tag. 
+- **Keypoints models and model_index:** If you use a keypoints model, you should specify the `model_index` parameter in each `Label` tag.
 
 </details>
 
@@ -442,7 +442,7 @@ For example:
 
 ## Object detection using `RectangleLabels`
 
-YOLO models provide bounding box detection, also known as "object detection." 
+YOLO models provide bounding box detection, also known as "object detection."
 Label Studio supports this with the `RectangleLabels` control tag.
 
 YOLO OBB models are also supported.
@@ -484,7 +484,7 @@ For example:
 
 ### Oriented Bounding Boxes (YOLO OBB)
 
-Oriented (rotated) bounding boxes will be generated automatically if you use an OBB model. 
+Oriented (rotated) bounding boxes will be generated automatically if you use an OBB model.
 Specify `model_obb="true"` in the `RectangleLabels` tag to enable this mode:
 
 ```xml
@@ -501,7 +501,7 @@ More info: https://docs.ultralytics.com/tasks/obb/
 
 ## Segmentation using `PolygonLabels`
 
-YOLO models provide segmentation detection, also known as "instance segmentation." 
+YOLO models provide segmentation detection, also known as "instance segmentation."
 Label Studio supports this with the `PolygonLabels` control tag.
 
 More info: https://docs.ultralytics.com/tasks/segment/
@@ -545,7 +545,7 @@ For example:
 
 ## Keypoint detection using `KeyPointLabels`
 
-YOLO models provide keypoint detection, also known as "pose estimation." 
+YOLO models provide keypoint detection, also known as "pose estimation."
 Label Studio supports this with the `KeyPointLabels` control tag.
 
 More info: [Ultralytics YOLO Keypoint Documentation](https://docs.ultralytics.com/tasks/pose/)
@@ -560,9 +560,9 @@ More info: [Ultralytics YOLO Keypoint Documentation](https://docs.ultralytics.co
   <RectangleLabels name="keypoints_bbox" toName="image" model_skip="true">
     <Label value="person"/>
   </RectangleLabels>
-  
+
   <KeyPointLabels name="keypoints" toName="image"
-    model_score_threshold="0.75" model_point_threshold="0.5" 
+    model_score_threshold="0.75" model_point_threshold="0.5"
     model_add_bboxes="true" model_point_size="1"
     model_path="yolov8n-pose.pt"
   >
@@ -573,7 +573,7 @@ More info: [Ultralytics YOLO Keypoint Documentation](https://docs.ultralytics.co
 
     <Label value="left_ear" predicted_values="person" model_index="3" background="purple" />
     <Label value="right_ear" predicted_values="person" model_index="4" background="purple" />
-    
+
     <View>
       <Label value="left_shoulder" predicted_values="person" model_index="5" background="green" />
       <Label value="left_elbow" predicted_values="person" model_index="7" background="green" />
@@ -583,7 +583,7 @@ More info: [Ultralytics YOLO Keypoint Documentation](https://docs.ultralytics.co
       <Label value="right_elbow" predicted_values="person" model_index="8" background="blue" />
       <Label value="right_wrist" predicted_values="person" model_index="10" background="blue" />
     </View>
-    
+
     <View>
       <Label value="left_hip" predicted_values="person" model_index="11" background="brown" />
       <Label value="left_knee" predicted_values="person" model_index="13" background="brown" />
@@ -594,7 +594,7 @@ More info: [Ultralytics YOLO Keypoint Documentation](https://docs.ultralytics.co
       <Label value="right_ankle" predicted_values="person" model_index="16" background="orange" />
     </View>
   </KeyPointLabels>
-  
+
   <Image name="image" value="$image" />
 </View>
 ```
@@ -615,7 +615,7 @@ For example:
 ```xml
 <KeyPointLabels name="keypoints" toName="image"
                 model_path="yolov8n-pose.pt"
-                model_score_threshold="0.25" model_point_threshold="0.5" 
+                model_score_threshold="0.25" model_point_threshold="0.5"
                 model_add_bboxes="true" model_point_size="2">
 ```
 
@@ -625,7 +625,7 @@ For example:
 
 ### Grouping keypoints with bounding boxes
 
-When using keypoint detection, the ML backend groups keypoints by the bounding box (bbox) associated with each detected person or object. 
+When using keypoint detection, the ML backend groups keypoints by the bounding box (bbox) associated with each detected person or object.
 You will see the grouping under the **Regions** panel on the right side of Label Studio. Note that you can drag and drop region items as necessary.
 
 The bounding boxes are added to the prediction results by default. You can enable or disable this behavior by setting `model_add_bboxes`:
@@ -636,7 +636,7 @@ The bounding boxes are added to the prediction results by default. You can enabl
 
 <details><summary>Tip: How to only keep keypoints and discard bounding boxes?</summary>
 
-To enable both keypoint detection and bounding box detection in the same task, you have to 
+To enable both keypoint detection and bounding box detection in the same task, you have to
 1. set `model_add_bboxes="false"` in the `KeyPointLabels` tag,
 2. remove `RectangleLabels` tag.
 
@@ -645,9 +645,9 @@ You can use this labeling configuration to get rid of bounding boxes and keep on
 ```xml
 <View>
   <KeyPointLabels name="keypoints" toName="image"
-    model_score_threshold="0.75" model_point_threshold="0.5" 
+    model_score_threshold="0.75" model_point_threshold="0.5"
     model_path="yolov8n-pose.pt" model_point_size="1"
-    model_add_bboxes="false"              
+    model_add_bboxes="false"
   >
     <Label value="nose" predicted_values="person" model_index="0" background="red" />
 
@@ -656,7 +656,7 @@ You can use this labeling configuration to get rid of bounding boxes and keep on
 
     <Label value="left_ear" predicted_values="person" model_index="3" background="purple" />
     <Label value="right_ear" predicted_values="person" model_index="4" background="purple" />
-    
+
     <View>
       <Label value="left_shoulder" predicted_values="person" model_index="5" background="green" />
       <Label value="left_elbow" predicted_values="person" model_index="7" background="green" />
@@ -666,7 +666,7 @@ You can use this labeling configuration to get rid of bounding boxes and keep on
       <Label value="right_elbow" predicted_values="person" model_index="8" background="blue" />
       <Label value="right_wrist" predicted_values="person" model_index="10" background="blue" />
     </View>
-    
+
     <View>
       <Label value="left_hip" predicted_values="person" model_index="11" background="brown" />
       <Label value="left_knee" predicted_values="person" model_index="13" background="brown" />
@@ -685,8 +685,8 @@ You can use this labeling configuration to get rid of bounding boxes and keep on
 
 ### Point mapping
 
-For precise control, you can map keypoints to specific labels in your Label Studio configuration. 
-Each keypoint can be associated with a specific part of a person or object, 
+For precise control, you can map keypoints to specific labels in your Label Studio configuration.
+Each keypoint can be associated with a specific part of a person or object,
 and you can define this mapping using the `model_index` and `predicted_values` attributes.
 
 ```xml
@@ -698,8 +698,8 @@ This configuration ensures that the keypoints detected by the YOLO model are cor
 For pose detection models, the `model_index` attribute is used to map keypoints to specific parts of the body according to the YOLO model output:
 
 ```
-0: Nose 1: Left Eye 2: Right Eye 3: Left Ear 4: Right Ear 
-5: Left Shoulder 6: Right Shoulder 7: Left Elbow 8: Right Elbow 9: Left Wrist 10: Right Wrist 
+0: Nose 1: Left Eye 2: Right Eye 3: Left Ear 4: Right Ear
+5: Left Shoulder 6: Right Shoulder 7: Left Elbow 8: Right Elbow 9: Left Wrist 10: Right Wrist
 11: Left Hip 12: Right Hip 13: Left Knee 14: Right Knee 15: Left Ankle 16: Right Ankle
 ```
 
@@ -714,7 +714,7 @@ For pose detection models, the `model_index` attribute is used to map keypoints 
 
 <br>
 
-## Video object tracking using `VideoRectangle` 
+## Video object tracking using `VideoRectangle`
 
 YOLO models provide object tracking, also known as "multi-object tracking."
 Label Studio supports this with the `VideoRectangle` + `Labels` control tags.
@@ -745,27 +745,27 @@ https://docs.ultralytics.com/modes/track/?h=track#tracker-selection
 The best tracker to use with Ultralytics YOLO depends on your specific needs.
 
 
-The default tracker is [BoT-SORT](https://github.com/NirAharon/BoT-SORT), which is generally well-suited for most scenarios. 
+The default tracker is [BoT-SORT](https://github.com/NirAharon/BoT-SORT), which is generally well-suited for most scenarios.
 
-However, if you're looking for an alternative with different strengths, 
-[ByteTrack](https://github.com/ifzhang/ByteTrack) is another good choice that you can easily configure. 
-ByteTrack is known for its high performance in multi-object tracking, 
-especially in situations with varying object appearances and reappearances. 
+However, if you're looking for an alternative with different strengths,
+[ByteTrack](https://github.com/ifzhang/ByteTrack) is another good choice that you can easily configure.
+ByteTrack is known for its high performance in multi-object tracking,
+especially in situations with varying object appearances and reappearances.
 
 Both trackers can be customized using YAML configuration files to fit your specific use cases.
 
-You can specify the tracker in the control tag: 
+You can specify the tracker in the control tag:
 * `<VideoRectangle model_tracker="botsort">`
 * `<VideoRectangle model_tracker="bytetrack">`
 
 ### Parameters for bounding boxes
 
-The tracker works with the object detection model (bounding boxes). 
+The tracker works with the object detection model (bounding boxes).
 
-The first step is to detect bounding boxes, the second step is to track them (find the same boxes among frames). 
+The first step is to detect bounding boxes, the second step is to track them (find the same boxes among frames).
 These parameters are related to the first step - bounding box detection.
 
-Read more about these parameters: 
+Read more about these parameters:
 https://docs.ultralytics.com/modes/track/?h=track#tracking-arguments
 
 | Parameter       | Type   | Default   | Description                                                                                                                                                                            |
@@ -775,38 +775,38 @@ https://docs.ultralytics.com/modes/track/?h=track#tracking-arguments
 | `model_tracker` | string | `botsort` | Sets the tracker to use for multi-object tracking. Options include `botsort`, `bytetrack`, or a custom YAML file.                                                                      |
 | `model_path`    | string | None      | Path to the custom YOLO model. See more in the section [Your own custom YOLO models](#Your-own-custom-YOLO-models).                                                                    |
 
-For example: 
+For example:
 ```xml
-<VideoRectangle name="label" toName="video" model_tracker="botsort" model_conf="0.25" model_iou="0.7" />  
+<VideoRectangle name="label" toName="video" model_tracker="botsort" model_conf="0.25" model_iou="0.7" />
 ```
 
-### Parameters for trackers 
+### Parameters for trackers
 
-For an example of tracker parameters, see https://github.com/ultralytics/ultralytics/tree/main/ultralytics/cfg/trackers. 
+For an example of tracker parameters, see https://github.com/ultralytics/ultralytics/tree/main/ultralytics/cfg/trackers.
 
-The main parameter is `model_tracker` which can be set to 
-* `botsort` 
+The main parameter is `model_tracker` which can be set to
+* `botsort`
 * `bytetrack`
-* Or the name of any custom yaml file that you place into `models` directory (do not include the file extension `.yaml` when setting this parameter).  
+* Or the name of any custom yaml file that you place into `models` directory (do not include the file extension `.yaml` when setting this parameter).
 
 As long as they are available within the yaml file, you can specify tracker parameters directly from the labeling config. All parameters should be prefixed with `botsort_` or `bytetrack_`.
 
-For example: 
+For example:
 ```xml
-<VideoRectangle 
-    name="label" toName="video" 
-    model_tracker="botsort" 
-    botsort_track_low_thresh="0.1" botsort_track_high_thresh="0.2" 
-/>  
+<VideoRectangle
+    name="label" toName="video"
+    model_tracker="botsort"
+    botsort_track_low_thresh="0.1" botsort_track_high_thresh="0.2"
+/>
 ```
 
 ### Default model
 
-`yolov8n.pt` is the default object detection model. 
+`yolov8n.pt` is the default object detection model.
 
 ### Recommendations
 
-* Video object tracking is a computationally intensive task. 
+* Video object tracking is a computationally intensive task.
 Small models like `yolov8n.pt` are recommended for real-time tracking, however, they may not be as accurate as larger models.
 
 * Label Studio has timeout limits for ML backend requests. You can adjust the timeout in the Label Studio backend settings.
@@ -824,10 +824,10 @@ Small models like `yolov8n.pt` are recommended for real-time tracking, however, 
 
 ## Video temporal classification using `TimelineLabels`
 
-This ML backend supports temporal multi-label video classification for the [`<TimelineLabels>` control tag](https://labelstud.io/tags/timelinelabels) in Label Studio. 
+This ML backend supports temporal multi-label video classification for the [`<TimelineLabels>` control tag](https://labelstud.io/tags/timelinelabels) in Label Studio.
 There are two modes available:
-- **Simple:** In the simple mode, the model uses pre-trained YOLO classes to generate predictions without additional training.  
-- **Trainable:** In the [trainable mode](https://github.com/HumanSignal/label-studio-ml-backend/blob/master/label_studio_ml/examples/yolo/README_TIMELINE_LABELS.md), the model can be trained on custom labels and annotations submitted in Label Studio using few-shot learning as training is performed on a small number of annotations.  
+- **Simple:** In the simple mode, the model uses pre-trained YOLO classes to generate predictions without additional training.
+- **Trainable:** In the [trainable mode](https://github.com/HumanSignal/label-studio-ml-backend/blob/master/label_studio_ml/examples/yolo/README_TIMELINE_LABELS.md), the model can be trained on custom labels and annotations submitted in Label Studio using few-shot learning as training is performed on a small number of annotations.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/tfMn5q1tqKI?si=T5FhfImJEnWRSqpY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
@@ -836,8 +836,8 @@ There are two modes available:
 ```xml
 <View>
   <Video name="video" value="$video"/>
-  <TimelineLabels 
-          name="label" toName="video" 
+  <TimelineLabels
+          name="label" toName="video"
           model_trainable="false" model_score_threshold="0.25">
     <Label value="Ball" predicted_values="soccer_ball" />
     <Label value="hamster" />
@@ -847,8 +847,8 @@ There are two modes available:
 
 ### Model training
 
-For more details on using the `TimelineLabels` ML backend, including training the model 
-and adjusting neural network classifier parameters, please refer to 
+For more details on using the `TimelineLabels` ML backend, including training the model
+and adjusting neural network classifier parameters, please refer to
 **[README_TIMELINE_LABELS.md](https://github.com/HumanSignal/label-studio-ml-backend/blob/master/label_studio_ml/examples/yolo/README_TIMELINE_LABELS.md)**.
 
 ### Default model
@@ -908,11 +908,11 @@ Then you can start the ML backend:
 label-studio-ml start ./dir_with_your_model
 ```
 
-Also, you can check [Dockerfile](https://github.com/HumanSignal/label-studio-ml-backend/blob/master/label_studio_ml/examples/yolo/Dockerfile) for additional dependencies and install them manually. 
+Also, you can check [Dockerfile](https://github.com/HumanSignal/label-studio-ml-backend/blob/master/label_studio_ml/examples/yolo/Dockerfile) for additional dependencies and install them manually.
 
 ### Parameters
 
-Check the `environment` section in the [`docker-compose.yml`](https://github.com/HumanSignal/label-studio-ml-backend/blob/master/label_studio_ml/examples/yolo/docker-compose.yml) file before running the container. 
+Check the `environment` section in the [`docker-compose.yml`](https://github.com/HumanSignal/label-studio-ml-backend/blob/master/label_studio_ml/examples/yolo/docker-compose.yml) file before running the container.
 All available parameters are listed there.
 
 > Note: You can use lots of YOLO model parameters in labeling configurations directly, e.g. `model_path` or `model_score_threshold`.
@@ -921,22 +921,22 @@ All available parameters are listed there.
 
 ### Overview
 
-This Command Line Interface (CLI) tool facilitates the integration of YOLO models with Label Studio for machine learning predictions. 
-It provides an alternative method for running YOLO predictions on tasks managed by Label Studio, 
-particularly useful for processing long videos or large datasets. 
+This Command Line Interface (CLI) tool facilitates the integration of YOLO models with Label Studio for machine learning predictions.
+It provides an alternative method for running YOLO predictions on tasks managed by Label Studio,
+particularly useful for processing long videos or large datasets.
 
-Running the model predictions directly from the CLI helps to avoid issues 
-like connection timeouts between Label Studio and the ML backend, 
+Running the model predictions directly from the CLI helps to avoid issues
+like connection timeouts between Label Studio and the ML backend,
 which can occur during lengthy processing times.
 
 ### When to use the CLI
 
-When working with extensive media files such as long videos, processing times can be significant. 
-Label Studio may interrupt the connection with the ML backend if the request takes too long, resulting in incomplete predictions. 
+When working with extensive media files such as long videos, processing times can be significant.
+Label Studio may interrupt the connection with the ML backend if the request takes too long, resulting in incomplete predictions.
 
-By running this CLI tool, you can execute model predictions asynchronously 
-without the need for Label Studio to maintain a constant connection to the backend. 
-This ensures that even large or complex tasks are processed fully, 
+By running this CLI tool, you can execute model predictions asynchronously
+without the need for Label Studio to maintain a constant connection to the backend.
+This ensures that even large or complex tasks are processed fully,
 and predictions are saved to Label Studio using SDK once completed.
 
 ### How it works
@@ -953,7 +953,7 @@ and predictions are saved to Label Studio using SDK once completed.
 python cli.py --ls-url http://localhost:8080 --ls-api-key your_api_key --project 1 --tasks tasks.json
 ```
 
-or 
+or
 
 ```bash
 python cli.py --ls-url http://localhost:8080 --ls-api-key YOUR_API_KEY --project 1 --tasks 1,2,3
@@ -968,16 +968,16 @@ python cli.py --ls-url http://localhost:8080 --ls-api-key YOUR_API_KEY --project
 
   1. The path to a JSON file containing a list of tasks or task IDs, e.g.:
 
-    tasks_ids.json 
+    tasks_ids.json
     ```json
     [1,2,3]
     ```
-  
+
     tasks.json
     ```json
     [{"id": 1, "data": {"image": "https://example.com/1.jpg"}}, {"id": 2, "data": {"image": "https://example.com/2.jpg"}}]
     ```
-  
+
   2. If a file is not provided, you can pass a comma-separated list of task IDs directly, e.g.: `1,2,3`
 
 ### Logging

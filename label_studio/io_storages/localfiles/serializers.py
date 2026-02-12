@@ -1,12 +1,14 @@
 """This file and its contents are licensed under the Apache License 2.0. Please see the included NOTICE for copyright information and LICENSE for a copy of the license.
 """
 import os
+from pathlib import Path
 
 from core.utils.exceptions import extract_message
 from django.core.exceptions import ValidationError as DjangoValidationError  # type: ignore[import]
 from io_storages.localfiles.models import (
     LocalFilesExportStorage,
     LocalFilesImportStorage,
+    WorkspaceLocalFilesImportStorage,
     normalize_storage_path,
 )
 from io_storages.serializers import ExportStorageSerializer, ImportStorageSerializer
@@ -25,6 +27,7 @@ def _stringify_detail(detail):
 
 class LocalFilesImportStorageSerializer(ImportStorageSerializer):
     type = serializers.ReadOnlyField(default=os.path.basename(os.path.dirname(__file__)))
+    project_title = serializers.ReadOnlyField(source='project.title', allow_null=True)
 
     class Meta:
         model = LocalFilesImportStorage
@@ -44,6 +47,47 @@ class LocalFilesImportStorageSerializer(ImportStorageSerializer):
         except Exception as exc:
             raise DRFValidationError(extract_message(exc))
         return data
+
+
+class WorkspaceLocalFilesImportStorageSerializer(ImportStorageSerializer):
+    type = serializers.ReadOnlyField(default=os.path.basename(os.path.dirname(__file__)))
+    project = serializers.PrimaryKeyRelatedField(read_only=True, required=False)
+
+    class Meta:
+        model = WorkspaceLocalFilesImportStorage
+        fields = '__all__'
+
+    def validate(self, data):
+        # Validate local file path
+        data = super(WorkspaceLocalFilesImportStorageSerializer, self).validate(data)
+        if 'path' in data:
+            data['path'] = normalize_storage_path(data['path'])
+        storage = WorkspaceLocalFilesImportStorage(**data)
+        try:
+            storage.validate_connection()
+        except (DjangoValidationError, DRFValidationError) as exc:
+            detail = getattr(exc, 'detail', getattr(exc, 'messages', str(exc)))
+            raise DRFValidationError(_stringify_detail(detail))
+        except Exception as exc:
+            raise DRFValidationError(extract_message(exc))
+        return data
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+
+        base_path = Path(instance.path)
+
+        for item in base_path.iterdir():
+            if item.is_dir():
+                LocalFilesImportStorage.objects.create(
+                    project=None,
+                    title=item.name,
+                    path=str(item),
+                    recursive_scan=instance.recursive_scan,
+                    parent_storage=instance,
+                )
+
+        return instance
 
 
 class LocalFilesExportStorageSerializer(ExportStorageSerializer):

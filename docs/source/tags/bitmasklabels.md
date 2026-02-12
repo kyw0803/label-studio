@@ -19,9 +19,9 @@ Export data example: `data-url:image/png;[base64-encoded-string]`
 <br/>
 <br/>
 
-!!! note 
+!!! note
 
-    You need to set `smoothing="false"` on the `<Image>` tag to be able to work with individual pixels. 
+    You need to set `smoothing="false"` on the `<Image>` tag to be able to work with individual pixels.
 
 Use with the following data types: image.
 

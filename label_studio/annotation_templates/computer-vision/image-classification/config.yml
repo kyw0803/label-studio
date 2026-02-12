@@ -21,4 +21,3 @@ config: |
       <Choice value="Violence" />
     </Choices>
   </View>
-

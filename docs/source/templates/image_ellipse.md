@@ -16,7 +16,7 @@ If you want to perform object detection or semantic segmentation using ellipses,
 
 <div id="main-preview"></div>
 
-## Labeling Configuration 
+## Labeling Configuration
 
 ```html
 <View>

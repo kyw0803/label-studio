@@ -11,4 +11,3 @@
 | [timelineHeight] | <code>number</code> | <code>64</code> | height of the timeline with regions |
 | [defaultPlaybackSpeed] | <code>number</code> | <code>1</code> | default playback speed the player should start with when loaded |
 | [minPlaybackSpeed] | <code>number</code> | <code>1</code> | minimum allowed playback speed; defaultPlaybackSpeed cannot be set below this value |
-

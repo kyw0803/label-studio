@@ -131,7 +131,3 @@ The component parts of Label Studio are available as modular extensible packages
 
 <br>
 <div style="margin:auto; text-align:center;"><img src="/images/ls-modules-scheme.png"/></div>
-
-
-
-

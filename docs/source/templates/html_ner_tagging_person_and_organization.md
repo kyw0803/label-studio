@@ -32,7 +32,7 @@ This labeling config uses HyperText elements for named entity recognition on HTM
   <View style="border: 1px solid #CCC;
                border-radius: 10px;
                padding: 5px">
-    <HyperText name="text" value="$text"/> 
+    <HyperText name="text" value="$text"/>
               </View>
 </View>
 
@@ -53,4 +53,3 @@ This configuration uses the following tags:
 
 - **HyperText**: This config uses the HyperText tool to display and label HTML.
 - **Labels**: Currently includes "Person" (green) and "Organization" (blue).
-

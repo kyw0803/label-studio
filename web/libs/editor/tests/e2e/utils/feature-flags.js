@@ -21,7 +21,7 @@ module.exports.FFlagMatrix = function (flags, scenarios) {
   // update each flag combination with all possible states
   // e.g. [ { flag1: false, flag2: false }, { flag1: true, flag2: false }, ... ]
   flags.forEach((flag, index) => {
-    flagMatrix.forEach((currentFlags, flagIndex) => {
+    flagMatrix.forEach((_currentFlags, flagIndex) => {
       const state = Boolean((flagIndex >> index) & 1);
 
       flagMatrix[flagIndex][flag] = state;

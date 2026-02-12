@@ -17,8 +17,8 @@ jobs:
       CONFIG: >
         {
           "index_name": "labelstudiodocs",
-          "stop_urls": ["https://labelstud.io/guide/index.html", "https://labelstud.io/sdk/index.html"], 
-          "selectors_exclude": [".home-page-index"], 
+          "stop_urls": ["https://labelstud.io/guide/index.html", "https://labelstud.io/sdk/index.html"],
+          "selectors_exclude": [".home-page-index"],
           "sitemap_urls": ["https://labelstud.io/sitemap-blog.xml", "https://labelstud.io/guide/sitemap-docs.xml"],
           "selectors": {
             "default": {
@@ -27,7 +27,7 @@ jobs:
               "lvl2": ".content h3, .ResourcesContent h3",
               "lvl3": ".content h4, .ResourcesContent h4",
               "lvl4": ".content h5, .ResourcesContent h5",
-              "lvl5": ".content h6, .ResourcesContent h6", 
+              "lvl5": ".content h6, .ResourcesContent h6",
               "content": ".content-markdown > *, .ResourcesContent > .Text"
             }
           }

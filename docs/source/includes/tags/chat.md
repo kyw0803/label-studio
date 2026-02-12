@@ -9,4 +9,3 @@
 | [minmessages] | <code>string</code> \| <code>number</code> | Minimum total number of messages required to submit |
 | [maxmessages] | <code>string</code> \| <code>number</code> | Maximum total number of messages allowed |
 | [llm] | <code>string</code> | Model used to enable automatic assistant replies, format: `<provider>/<model>` |
-

@@ -77,7 +77,7 @@ jobs:
 
             ## Installation
 
-            You can install this nightly build by downloading the wheel package (the file ending in \`.whl\`) from the \`Assets\` section below this description. 
+            You can install this nightly build by downloading the wheel package (the file ending in \`.whl\`) from the \`Assets\` section below this description.
             After downloading, you can install it using the following commands from your terminal:
 
             For Windows:
@@ -106,7 +106,7 @@ jobs:
         uses: softprops/action-gh-release@v2.5.0
         with:
           token: ${{ secrets.GIT_PAT }}
-          body_path: ${{ github.workspace }}-CHANGELOG.txt
+          body_path: ${{ github.workspaces }}-CHANGELOG.txt
           tag_name: nightly
           name: ${{ needs.calculate-version.outputs.version }}
           generate_release_notes: false

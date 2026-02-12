@@ -94,7 +94,7 @@ The model follows these steps during training:
    - **Class-weighted loss function** to handle imbalanced data (important for instant labels)
    - **Balanced accuracy monitoring** instead of regular accuracy
    - **Per-class F1 score tracking** to ensure all classes learn properly
-   - Configurable sequence windows (default: 50 timesteps)  
+   - Configurable sequence windows (default: 50 timesteps)
    - Dropout regularization for better generalization
    - Background class support for realistic time series modeling
 4. **Model Persistence**: Saves trained model artifacts to `MODEL_DIR`
@@ -130,7 +130,7 @@ Time series data is often highly imbalanced, especially when using instant label
 ```
 Class Weights: Automatically calculated inverse frequency weights
 ├── Background (Class 0): Low weight (e.g., 0.1x)
-├── Run (Class 1): High weight (e.g., 5.0x) 
+├── Run (Class 1): High weight (e.g., 5.0x)
 └── Walk (Class 2): High weight (e.g., 4.0x)
 
 Early Stopping: Dual criteria prevent premature stopping
@@ -139,7 +139,7 @@ Early Stopping: Dual criteria prevent premature stopping
 
 Metrics: Focus on per-class performance
 ├── Balanced Accuracy: Equal weight to each class
-├── Macro F1: Average F1 across all classes  
+├── Macro F1: Average F1 across all classes
 └── Per-class F1: Individual class performance tracking
 ```
 
@@ -303,7 +303,7 @@ environment:
 environment:
   # ... basic config above ...
   - BALANCED_ACCURACY_THRESHOLD=0.85
-  - MIN_CLASS_F1_THRESHOLD=0.70  
+  - MIN_CLASS_F1_THRESHOLD=0.70
   - USE_CLASS_WEIGHTS=true
 ```
 

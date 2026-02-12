@@ -1,5 +1,5 @@
 ---
-title: OCR Labeling for PDFs
+title: OCR Labeling for PDFs 🔒
 type: templates
 category: Computer Vision
 cat: computer-vision
@@ -8,16 +8,16 @@ meta_title: PDF OCR Data Labeling Template
 meta_description: Template for correcting text in a PDF document.
 ---
 
-Use this template to perform region-level OCR directly on native PDFs. 
+Use this template to perform region-level OCR directly on native PDFs.
 
-The `Pdf` tag renders multi-page documents (up to 100 pages) with zoom and rotation, while OcrLabels lets you draw bounding boxes, assign labels, and capture editable OCR text per region. 
+The `Pdf` tag renders multi-page documents (up to 100 pages) with zoom and rotation, while OcrLabels lets you draw bounding boxes, assign labels, and capture editable OCR text per region.
 
-Each region stores normalized coordinates, rotation, and a page index, making outputs reliable for downstream extraction tasks. 
+Each region stores normalized coordinates, rotation, and a page index, making outputs reliable for downstream extraction tasks.
 
-Ideal for document intelligence, QA on OCR output, and structured data capture workflows. 
+Ideal for document intelligence, QA on OCR output, and structured data capture workflows.
 
 !!! error Enterprise
-    This template can only be used with in Label Studio Enterprise.
+    This template requires the `OcrLabels` tag, which can only be used in Label Studio Enterprise.
 
 ![Screenshot](/images/templates-misc/pdf-opossum.png)
 
@@ -48,21 +48,21 @@ Ideal for document intelligence, QA on OCR output, and structured data capture w
 
 * **`Pdf`**
 
-    This will display your PDF natively in Label Studio, allowing you to zoom in and rotate as needed. 
+    This will display your PDF natively in Label Studio, allowing you to zoom in and rotate as needed.
 
-    Support for PDFs up to 100 pages. 
+    Support for PDFs up to 100 pages.
 
 * **`OcrLabels`**
-  
+
   Used only with the `Pdf` tag, and allows you to draw bounding boxes around text. Note that the PDF must have a text overlay for this to work (for example, verify whether you can highlight text in the PDF using your cursor).
 
-  Select the text under the **Regions** panel to correct it. 
+  Select the text under the **Regions** panel to correct it.
 
   <img src="/images/templates-misc/ocrlabels.png" alt="" class="gif-border" style="max-width:400px" />
 
 * **`Style`**
 
-  Use `.htx-pdf` to apply styling to the PDF. For example, adding a border or changing the size. 
+  Use `.htx-pdf` to apply styling to the PDF. For example, adding a border or changing the size.
 
 
 

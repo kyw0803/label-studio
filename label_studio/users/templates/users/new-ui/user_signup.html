@@ -52,7 +52,7 @@
           {% endfor %}
         </select>
       </div>
-      <div class="input-wrapper" id="elaborateContainer" {% if user_form.data.how_find_us != elaborate %}style="display:none;"{% endif %}> 
+      <div class="input-wrapper" id="elaborateContainer" {% if user_form.data.how_find_us != elaborate %}style="display:none;"{% endif %}>
         <label>Please elaborate</label>
         <input class="lsf-input-ls" name="elaborate" id="elaborate" {% if user_form.data.how_find_us == elaborate %}value="{{ user_form.data.elaborate }}"{% endif %}>
         </select>

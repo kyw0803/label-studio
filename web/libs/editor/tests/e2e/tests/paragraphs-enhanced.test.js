@@ -34,7 +34,7 @@ const CONFIG = `
     <Label value="IVR: Positive" background="#19ff19"/>
     <Label value="IVR: Negative" background="#ff1919"/>
   </ParagraphLabels>
-  <Paragraphs 
+  <Paragraphs
     audioUrl="$audio"
     sync="audio"
     contextScroll="true"
@@ -410,7 +410,7 @@ const CONFIG_NO_AUDIO = `
     <Label value="General: Negative" background="#ff0000"/>
     <Label value="Representative: Positive" background="#4bff4b"/>
   </ParagraphLabels>
-  <Paragraphs 
+  <Paragraphs
     name="text"
     value="$dialogue"
     layout="dialogue"

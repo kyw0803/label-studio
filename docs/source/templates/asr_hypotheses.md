@@ -5,7 +5,7 @@ category: Ranking and Scoring
 cat: ranking-and-scoring
 order: 435
 meta_title: Choose the most accurate Automatic Speech Recognition (ASR) hypotheses
-meta_description: 
+meta_description:
 ---
 
 When you work with automatic speech transcribers, you are provided with several transcription hypotheses. Now, you can select one of the variations from the list of transcription hypotheses.
@@ -29,7 +29,7 @@ When you work with automatic speech transcribers, you are provided with several 
       line-height: 1.6rem;
       transition: all 150ms ease-out;
     }
-    
+
     .lsf-choice__item:hover {
       background-color: var(--color-primary-emphasis-subtle);
     }

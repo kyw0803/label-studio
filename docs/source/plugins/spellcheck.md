@@ -67,7 +67,7 @@ LSI.on('beforeSaveAnnotation', async (store, annotation) => {
 
 * [import(url, integrity)](custom#LSI-import-url-integrity)
 * [on(eventName, handler)](custom#LSI-on-eventName-handler)
-  
+
 **Related frontend events:**
 
 * [beforeSaveAnnotation](/guide/frontend_reference#beforeSaveAnnotation)
@@ -78,10 +78,10 @@ LSI.on('beforeSaveAnnotation', async (store, annotation) => {
 <View>
   <Image name="image" value="$image"/>
   <Header value="Describe the image:"/>
-  <TextArea name="caption" 
-            toName="image" 
+  <TextArea name="caption"
+            toName="image"
             placeholder="Enter description here..."
-            rows="5" 
+            rows="5"
             maxSubmissions="1"/>
 </View>
 ```

@@ -10,7 +10,6 @@ import {
 import { deletePoint } from "../pointManagement";
 import { handlePointSelection, shouldClosePathOnPointClick, isActivePointEligibleForClosing } from "./pointSelection";
 import type { EventHandlerProps } from "./types";
-import type { BezierPoint } from "../types";
 import { HIT_RADIUS } from "../constants";
 import {
   continueBezierDrag,
@@ -34,7 +33,7 @@ export function createMouseDownHandler(props: EventHandlerProps, handledSelectio
     // This ensures clean state for each interaction
     handledSelectionInMouseDown.current = false;
 
-    let shiftClickHandled = false;
+    let _shiftClickHandled = false;
 
     // Set up ghost point drag info when Shift is held (for UI feedback)
     // This works even when internal point addition is disabled
@@ -99,7 +98,7 @@ export function createMouseDownHandler(props: EventHandlerProps, handledSelectio
           // Only mark as handled if internal point addition is enabled
           // This prevents other handlers from interfering when we want to add points
           if (!props.disableInternalPointAddition) {
-            shiftClickHandled = true; // Mark that Shift+click was handled
+            _shiftClickHandled = true; // Mark that Shift+click was handled
           }
         }
       }
@@ -303,7 +302,7 @@ export function createMouseMoveHandler(props: EventHandlerProps, handledSelectio
 
     // Update cursor position
     // Note: cursor position is now handled by stage-level events when disableInternalPointAddition is true
-    const imagePos = stageToImageCoordinates(pos, props.transform, props.fitScale, props.x, props.y);
+    const _imagePos = stageToImageCoordinates(pos, props.transform, props.fitScale, props.x, props.y);
     // props.setCursorPosition(imagePos); // Removed - handled elsewhere
 
     // Set ghost point when Shift is held - snap to path (but not when dragging or creating bezier points)
@@ -727,7 +726,7 @@ export function createMouseMoveHandler(props: EventHandlerProps, handledSelectio
       // Continue shift-click-drag bezier point creation - update control points to follow cursor
       // Only update actual control points if internal point addition is enabled
       if (!props.disableInternalPointAddition) {
-        const imagePos = stageToImageCoordinates(pos, props.transform, props.fitScale, props.x, props.y);
+        const _imagePos = stageToImageCoordinates(pos, props.transform, props.fitScale, props.x, props.y);
         // Use the shared utility for continuing bezier drag
         continueBezierDrag(props);
       }
@@ -1058,35 +1057,6 @@ export function createClickHandler(props: EventHandlerProps, handledSelectionInM
   };
 }
 
-/**
- * Find all endpoint indices based on path structure (prevPointId relationships)
- * In non-skeleton mode, endpoints are:
- * 1. Points with no prevPointId (starting points)
- * 2. Points that are not referenced by any other point's prevPointId (ending points)
- */
-function getEndpointIndices(points: BezierPoint[]): Set<number> {
-  const endpointIndices = new Set<number>();
-
-  // Create a set of all point IDs that are referenced as prevPointId
-  const referencedPointIds = new Set<string>();
-  points.forEach((point) => {
-    if (point.prevPointId) {
-      referencedPointIds.add(point.prevPointId);
-    }
-  });
-
-  // Find endpoints:
-  // 1. Points with no prevPointId (starting points)
-  // 2. Points that are not referenced by any other point (ending points)
-  points.forEach((point, index) => {
-    if (!point.prevPointId || !referencedPointIds.has(point.id)) {
-      endpointIndices.add(index);
-    }
-  });
-
-  return endpointIndices;
-}
-
 // Helper function to select a point by index
 export function handlePointSelectionFromIndex(
   pointIndex: number,
@@ -1122,27 +1092,16 @@ export function handlePointSelectionFromIndex(
   // For now, just do single selection since we don't have access to modifier keys in mouse up
   // Multi-selection will be handled by the existing point selection logic in mouse down
 
-  // Non-skeleton mode: only allow selecting endpoints (based on path structure)
-  if (!props.skeletonEnabled) {
-    // Find all endpoint indices based on path structure
-    const endpointIndices = getEndpointIndices(props.initialPoints);
-    if (!endpointIndices.has(pointIndex)) {
-      // Don't allow selecting non-endpoint points in non-skeleton mode
-      return;
-    }
-  }
-
   // Use tracker for global selection management
   const tracker = VectorSelectionTracker.getInstance();
   tracker.selectPoints(props.instanceId || "unknown", new Set([pointIndex]));
 
-  // Update activePointId - set the selected point as the active point
+  // Update activePointId for skeleton mode - set the selected point as the active point
   if (pointIndex >= 0 && pointIndex < props.initialPoints.length) {
     const selectedPoint = props.initialPoints[pointIndex];
     // In skeleton mode, always update the active point when selecting a point
-    // In non-skeleton mode, update activePointId when selecting an endpoint
-    // This ensures onFinish only fires for the currently selected point and allows drawing continuation
-    if (props.skeletonEnabled || getEndpointIndices(props.initialPoints).has(pointIndex)) {
+    // This ensures onFinish only fires for the currently selected point
+    if (props.skeletonEnabled) {
       props.setActivePointId?.(selectedPoint.id);
     }
   }

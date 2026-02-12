@@ -9,7 +9,7 @@ meta_description: Template for adding freeform content metadata to tasks with La
 ---
 <img src="/images/templates/freeform-metadata.png" alt="" class="gif-border" width="552px" height="408px" />
 
-If you want to collect metadata for a text sample for tagging purposes, or another reason, use this template to provide a table for annotators to type in freeform metadata about a text passage. You can modify this template to show an image or another data type by using a different tag. 
+If you want to collect metadata for a text sample for tagging purposes, or another reason, use this template to provide a table for annotators to type in freeform metadata about a text passage. You can modify this template to show an image or another data type by using a different tag.
 
 ## Interactive Template Preview
 
@@ -55,7 +55,7 @@ Use the [Text](/tags/text.html) object tag to specify the text to label:
 ```xml
 <Text value="$text" name="text"/>
 ```
-  
+
 Add styling to the [View](/tags/view.html) tag to control how to display the TextArea tags in a grid form:
 ```xml
 <View style="display: grid;  grid-template-columns: 1fr 1fr; max-height: 300px; width: 400px">

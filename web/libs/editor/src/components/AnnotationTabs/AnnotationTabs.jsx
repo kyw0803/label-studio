@@ -21,7 +21,7 @@ export const EntityTab = observer(
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            if (onClick) onClick(entity, prediction);
+            onClick?.(entity, prediction);
           }}
         >
           <Space size="small">

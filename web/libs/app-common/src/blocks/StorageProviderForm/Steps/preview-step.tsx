@@ -12,7 +12,8 @@ interface PreviewStepProps {
   action: string;
   target: string;
   type: string;
-  project: string;
+  project?: string;
+  workspace?: string;
   storage?: any;
   onSubmit: () => void;
   formRef: ForwardedRef<unknown>;
@@ -73,6 +74,7 @@ export const PreviewStep = ({
   target,
   type,
   project,
+  workspace,
   storage,
   onSubmit,
   formRef,
@@ -101,7 +103,13 @@ export const PreviewStep = ({
           <Form
             ref={formRef}
             action={action}
-            params={{ target, type, project, pk: storage?.id }}
+            params={{
+              target,
+              type,
+              ...(project ? { project } : {}),
+              ...(workspace ? { workspace } : {}),
+              pk: storage?.id,
+            }}
             formData={formData}
             skipEmpty={false}
             onSubmit={onSubmit}

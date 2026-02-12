@@ -25,18 +25,18 @@ Comments are a Label Studio Enterprise feature that allows communication between
 <tr>
 <td>
 
-**Annotator to reviewer communication** 
+**Annotator to reviewer communication**
 
 - Ask for clarification on a task
 - Provide reasoning or context for their annotation
-  
+
 </td>
 <td>
 
-**Reviewer to annotator communication** 
+**Reviewer to annotator communication**
 
 - Answer questions
-- Give feedback to help the annotator improve 
+- Give feedback to help the annotator improve
 
 </td>
 </tr>
@@ -57,8 +57,8 @@ Comments are a Label Studio Enterprise feature that allows communication between
 
 All users have the following commenting permissions for any annotations that they would otherwise have access to view:
 
-- View the **Comments** panel and read previous comments. 
-- Add new comments. 
+- View the **Comments** panel and read previous comments.
+- Add new comments.
 
 Additional permissions are as follows:
 
@@ -77,13 +77,13 @@ Additional permissions are as follows:
 
 ## Add a comment
 
-You can add comments from the **Comments** panel when viewing an annotation. All users have access to the **Comments** panel. 
+You can add comments from the **Comments** panel when viewing an annotation. All users have access to the **Comments** panel.
 
 ![Screenshot of comments](/images/review/comment_panel.png)
 
 ### Link comments to regions and fields
 
-You can link your comment to a specific area within an annotation. 
+You can link your comment to a specific area within an annotation.
 
 This can be a region (for example, a bounding box or a span of text) or it can be a field (for example, a classification).
 
@@ -91,9 +91,9 @@ This can be a region (for example, a bounding box or a span of text) or it can b
 
 Note the following:
 
-* You can link comments to fields within the labeling configuration. However, if the field is a classification, choice, or taxonomy, you can only attach a comment if there is already a selection. 
-* You can only link comments to an entire text area. You cannot link comments to regions within text areas. 
-* Linking is not supported for [Ranker](/tags/ranker) or [Pairwise](/tags/pairwise) fields. 
+* You can link comments to fields within the labeling configuration. However, if the field is a classification, choice, or taxonomy, you can only attach a comment if there is already a selection.
+* You can only link comments to an entire text area. You cannot link comments to regions within text areas.
+* Linking is not supported for [Ranker](/tags/ranker) or [Pairwise](/tags/pairwise) fields.
 
 ## Comment actions
 
@@ -115,7 +115,7 @@ The Data Manager has several columns to display comment information:
 | **Commented authors** | User who wrote comments.     | All user roles except Annotator     |
 
 !!! note
-    Users in the Reviewer or Annotator role must be granted access to view the Data Manager. You can grant access in the [project settings](project_settings_lse). 
+    Users in the Reviewer or Annotator role must be granted access to view the Data Manager. You can grant access in the [project settings](project_settings_lse).
 
 
 ## Require comments
@@ -127,7 +127,7 @@ You can configure the project so that annotators and reviewers are required to l
 
 ## Comment notifications
 
-To see notifications, click your user profile icon in the upper right. 
+To see notifications, click your user profile icon in the upper right.
 
 Use the overflow menu to mark notifications as read or unread.
 
@@ -136,37 +136,37 @@ Use the overflow menu to mark notifications as read or unread.
 
 
 !!! note
-    Notifications that have already been read are denoted with a gray background. 
+    Notifications that have already been read are denoted with a gray background.
 
 ### Annotators
 
-Annotators can write comments on their own annotations. 
+Annotators can write comments on their own annotations.
 
 **Sent notifications**
 
 When an annotator writes a comment, the users who are notified depend on whether it is the first comment on the annotation:
 
-* If this is the first comment on an annotation, then all users within a project that have the role of Reviewer or higher see the comment in their [notification list](#Notifications). 
-* If this comment is in response to an ongoing discussion within the comments panel, then only users who are have added comments to the annotation will see a notification. 
+* If this is the first comment on an annotation, then all users within a project that have the role of Reviewer or higher see the comment in their [notification list](#Notifications).
+* If this comment is in response to an ongoing discussion within the comments panel, then only users who are have added comments to the annotation will see a notification.
 
-**Received notifications** 
+**Received notifications**
 
-An annotator receives a notification any time another user leaves a comment on one of their annotations. 
+An annotator receives a notification any time another user leaves a comment on one of their annotations.
 
 ### Reviewers and other users
 
-Reviewers can write comments on annotations that they are reviewing. This applies to users with the Reviewer, Manager, Admin, and Owner role. 
+Reviewers can write comments on annotations that they are reviewing. This applies to users with the Reviewer, Manager, Admin, and Owner role.
 
 **Sent notifications**
 
-When a reviewer writes a comment, then the users who are notified depend on their role and whether they have also left comments: 
+When a reviewer writes a comment, then the users who are notified depend on their role and whether they have also left comments:
 
-* Annotators get a notification for all comments on the annotations they created. 
-* If other users have also left comments on the annotation (for example, if multiple users are reviewing the annotation), then they will also be notified when a new comment appears. 
+* Annotators get a notification for all comments on the annotations they created.
+* If other users have also left comments on the annotation (for example, if multiple users are reviewing the annotation), then they will also be notified when a new comment appears.
 
-**Received notifications** 
+**Received notifications**
 
 A reviewer receives a notification when:
 
-* If the comment is the first comment on an annotation, then all users within a project that have the role of Reviewer or higher see the comment in their [notification list](#Comment-notifications). 
+* If the comment is the first comment on an annotation, then all users within a project that have the role of Reviewer or higher see the comment in their [notification list](#Comment-notifications).
 * If you have already left a comment on an annotation, you receive a notification when any user, regardless of role, adds a new comment.

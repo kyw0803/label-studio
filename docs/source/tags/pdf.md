@@ -8,7 +8,7 @@ meta_description: Label Studio PDF tag for loading PDF documents for machine lea
 
 The `Pdf` tag displays a PDF document in the labeling interface. You can use this tag to:
 
-- Perform document-level annotations such as classification, transcription, and summarization. 
+- Perform document-level annotations such as classification, transcription, and summarization.
 - Perform OCR validation on supported PDFs. <span class="badge"></span>
 
 Supports:
@@ -19,7 +19,7 @@ Supports:
 Use with the following data types: PDF.
 
 !!! error Enterprise
-    You can also use the PDF tag with [Prompts](https://docs.humansignal.com/guide/prompts_overview) to perform auto-labeling work such as PDF summarization, classification, information extraction, and document intelligence. 
+    You can also use the PDF tag with [Prompts](https://docs.humansignal.com/guide/prompts_overview) to perform auto-labeling work such as PDF summarization, classification, information extraction, and document intelligence.
 
 {% insertmd includes/tags/pdf.md %}
 
@@ -49,9 +49,9 @@ Labeling configuration apply document-level classification to PDF documents:
 ## Example: OCR <span class="badge"></span>
 
 !!! error Enterprise
-    Label Studio Enterprise only. 
+    Label Studio Enterprise only.
 
-    For Community and Starter Cloud users who want to apply labels for OCR tasks, you will need to convert the PDF into images first and then use a labeling configuration similar to the [Multi-Page Document Annotation](/templates/multi-page-document-annotation) template. 
+    For Community and Starter Cloud users who want to apply labels for OCR tasks, you will need to convert the PDF into images first and then use a labeling configuration similar to the [Multi-Page Document Annotation](/templates/multi-page-document-annotation) template.
 
 Labeling configuration for PDFs:
 
@@ -84,26 +84,26 @@ PDF renders the full height of the current page. If you want to limit it you can
 </Style>
 ```
 
-### OcrLabels 
+### OcrLabels
 
-This tag adds bounding boxes to the PDF and allows you to assign labels to them. 
+This tag adds bounding boxes to the PDF and allows you to assign labels to them.
 
 
 This tag must have one or more `Label` tag children, and supports standard parameters such as `maxUsages` (see [RectangleLabels](rectanglelabels) as an example).
 
 #### Supported PDFs
 
-PDFs that work best with the new OCR labeling are those that already contain a selectable text layer (text overlay). 
+PDFs that work best with the new OCR labeling are those that already contain a selectable text layer (text overlay).
 
-In these PDFs, when you draw a bounding box, the tool can read and highlight the underlying text from that layer (see the video below). 
+In these PDFs, when you draw a bounding box, the tool can read and highlight the underlying text from that layer (see the video below).
 
-Image-only PDFs such as scans or phone photos without a text layer won’t return text. For those, you may need to use an external OCR tool to add a text layer first. If a PDF’s text layer is misaligned or low quality, captured text may be incomplete or incorrect, and this feature can help you audit and improve those overlays. 
+Image-only PDFs such as scans or phone photos without a text layer won’t return text. For those, you may need to use an external OCR tool to add a text layer first. If a PDF’s text layer is misaligned or low quality, captured text may be incomplete or incorrect, and this feature can help you audit and improve those overlays.
 
 **Results:**
 
 | Result | Type | Description |
 | --- | --- | --- |
-| `x`, `y`, `width`, `height` | Number | Numbers from 0 to 1 that are relative to the page dimensions. | 
+| `x`, `y`, `width`, `height` | Number | Numbers from 0 to 1 that are relative to the page dimensions. |
 | `rotation`| Number | Number in degrees clockwise from 0–360. Rotation is calculated with the origin at `(x, y)` (the top-left corner of the region). |
 | `pageIndex` | Number | Page number, 1-based. |
 | `ocrtext` | String | Captured text.  This can be edited by selecting the region and then editing the text from the **Info** panel. |

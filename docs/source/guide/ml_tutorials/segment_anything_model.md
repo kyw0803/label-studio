@@ -6,7 +6,7 @@ order: 10
 hide_menu: true
 hide_frontmatter_title: true
 meta_title: Interactive annotation in Label Studio with Segment Anything Model (SAM)
-meta_description: Label Studio tutorial for labeling images with MobileSAM or ONNX SAM. 
+meta_description: Label Studio tutorial for labeling images with MobileSAM or ONNX SAM.
 categories:
     - Computer Vision
     - Object Detection
@@ -22,14 +22,14 @@ image: "/guide/ml_tutorials/segment-anything.png"
 https://github.com/shondle/label-studio-ml-backend/assets/106922533/42a8a535-167c-404a-96bd-c2e2382df99a
 
 Use Facebook's Segment Anything Model with Label Studio!
-In July 2024, Facebook released an update to the Segement Anything model, called SAM 2. To use this newer model for 
+In July 2024, Facebook released an update to the Segement Anything model, called SAM 2. To use this newer model for
 labeling, see [the segment_anything_2_image repo](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_2_image)
 
 ## Before you begin
 
-Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart). 
+Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart).
 
-This tutorial uses the [`segment_anything_model` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_model). 
+This tutorial uses the [`segment_anything_model` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_model).
 
 ## Quickstart
 
@@ -69,7 +69,7 @@ multitude of different prompts to achieve a prediction, and the ability to use
 MobileSAM.
 
 - Mix one rectangle label with multiple positive keypoints to refine your
-  predictions. 
+  predictions.
 - Use negative keypoints to remove areas from predictions for
   increased control.
 - Use MobileSAM, an extremely lightweight alternative to the heavy Segment
@@ -139,7 +139,7 @@ docker run -it -p 8080:8080 \
 
 Note the IP address that you are running your Label Studio instance as the
 `LABEL_STUDIO_HOST`. This will be necessary for setting up the connection to your
-SAM model. 
+SAM model.
 
 _Because you are hosting both Label Studio and the ML backend in
 Docker containers, the hostname `localhost` will not resolve to the correct
@@ -151,9 +151,9 @@ computer through the system network configuration settings.
 #### Obtain your API token
 
 Log into the Label Studio interface (in the example above, at
-`http://<LABEL_STUDIO_HOST>:8080`). 
+`http://<LABEL_STUDIO_HOST>:8080`).
 
-Go to the [**Account & Settings** 
+Go to the [**Account & Settings**
 page](https://labelstud.io/guide/user_account#Access-token), and make a note of the Access Token, which we will use later as
 the `LABEL_STUDIO_ACCESS_TOKEN`.
 
@@ -219,7 +219,7 @@ pip install -r requirements.txt
 
 You can set the following environment variables to change the behavior of the model.
 
-* `LABEL_STUDIO_HOST` sets the endpoint of the Label Studio host. Must begin with `http://` 
+* `LABEL_STUDIO_HOST` sets the endpoint of the Label Studio host. Must begin with `http://`
 * `LABEL_STUDIO_ACCESS_TOKEN` sets the API access token for the Label Studio host.
 * `SAM_CHOICE` selects which model to use.
     * `SAM_CHOICE=MobileSAM` to use MobileSAM (default)
@@ -254,13 +254,13 @@ MOBILESAM_CHECKPOINT=path/to/mobile_sam.pt label-studio-ml start segment_anythin
 Log into your Label Studio instance and perform the following steps.
 
 1. Create a new project.
-2. Under the **Labeling Setup** step when creating the project, or under 
+2. Under the **Labeling Setup** step when creating the project, or under
    **Labeling Interface** in the project settings, paste the [sample
    template](#labeling-configs) into the code dialog. Save the interface.
-3. Go to the **Model** page in the project settings and click **Connect Model**. 
+3. Go to the **Model** page in the project settings and click **Connect Model**.
 4. Enter a title for the model, and the URL for the instance of the model you
-   just created. 
-   
+   just created.
+
    If you're running Label Studio in Docker or on another host, you
    should use the direct IP address of where the model is hosted (`localhost`
    will not work). Be sure to include the port number that the model is hosted on
@@ -289,8 +289,8 @@ Use the `Alt` hotkey to alter keypoint positive and negative labels.
   checkmark that is outside of the image**_ to finalize the region (this should either
   be above or below the image. Watch the [video](#creating-annotations) for a visual guide).
 * There may be a checkmark inside the image next to a generated prediction,
-  but _do not use that one_. 
-  
+  but _do not use that one_.
+
     For some reason, the checkmark that is not on the
   image itself cleans the other input prompts used for generating
   the region, and only leaves the predicted region after being clicked (this is
@@ -304,14 +304,14 @@ Use the `Alt` hotkey to alter keypoint positive and negative labels.
   [video](#creating-annotations) for a better explanation.
 * _**Only the negative keypoints can be used for subtracting from prediction
   areas**_ for the model. Positive keypoints and rectangles tell the model
-  areas of interest to make positive predictions. 
+  areas of interest to make positive predictions.
 * Multiple keypoints may be used to provide areas for the model where predictions
   should be extended. _**Only one rectangle label may be used**_ when generating
   a prediction as an area where the model prediction should occur/be extended.
 
   If you place multiple rectangle labels, the model will use the newest
   rectangle label along with all other keypoints when aiding the model
-  prediction. 
+  prediction.
 
 ### Notes for ONNX
 
@@ -361,7 +361,7 @@ Base example:
   .column {
     flex: 1;
     padding: 10px;
-  	margin: 5px; 
+  	margin: 5px;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -374,12 +374,12 @@ Base example:
   .column .label {
     margin-top: 10px;
     padding: 10px;
-    padding-bottom: 7px; 
+    padding-bottom: 7px;
     background-color: #f9f9f9;
     border-radius: 3px;
   }
   .lsf-labels {
-    margin: 5px 0 0 0; 
+    margin: 5px 0 0 0;
   }
   .image-container {
     width: 100%;
@@ -388,21 +388,21 @@ Base example:
     border-radius: 5px;
   }
 </Style>
-  
+
 <View className="main">
   <View className="container">
     <View className="column">
       <HyperText value="" name="h1" className="help" inline="true">
         Brush for manual labeling
       </HyperText>
-      <View className="label">        
+      <View className="label">
         <BrushLabels name="tag" toName="image">
           <Label value="Foreground" background="#FF0000" />
           <Label value="Background" background="#0d14d3" />
         </BrushLabels>
       </View>
     </View>
-    
+
     <View className="column">
       <HyperText value="" name="h2" className="help" inline="true">
         <span title="1. Click purple auto Keypoints/Rectangle icon on toolbar. 2. Click Foreground/Background label here">
@@ -416,7 +416,7 @@ Base example:
         </KeyPointLabels>
       </View>
     </View>
-    
+
     <View className="column">
       <HyperText value="" name="h3" className="help" inline="true">
         <span title="1. Click purple auto Keypoints/Rectangle icon on toolbar. 2. Click Foreground/Background label here">
@@ -430,13 +430,13 @@ Base example:
         </RectangleLabels>
       </View>
     </View>
-    
+
   </View>
-  
+
   <View className="image-container">
     <Image name="image" value="$image" zoom="true" zoomControl="true" />
   </View>
-  
+
 </View>
 </View>
 ```
@@ -445,7 +445,7 @@ Base example:
 
 Label values for the keypoints, rectangle, and brush labels must correspond.
 Other than that, make sure that `smart="True"` for each keypoint label and
-rectangle label. 
+rectangle label.
 
 For the ONNX model:
 

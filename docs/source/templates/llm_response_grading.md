@@ -5,7 +5,7 @@ category: LLM Evaluations
 cat: llm-evaluations
 order: 955
 is_new: t
-meta_description:  Assigning a grade to LLM responses based on how well it meets your internal guidelines. 
+meta_description:  Assigning a grade to LLM responses based on how well it meets your internal guidelines.
 date: 2024-07-26 14:48:00
 ---
 
@@ -13,9 +13,9 @@ date: 2024-07-26 14:48:00
 
 Sometimes it is useful to assign a grade to the LLM response based on the quality of the generated text.
 
-In this example, you are grading an LLM's ability to summarize a document. The input data includes the document and the summary, and then you are rating the summary on a scale of 1 through 5. 
+In this example, you are grading an LLM's ability to summarize a document. The input data includes the document and the summary, and then you are rating the summary on a scale of 1 through 5.
 
-For a tutorial on how to use this template with the Label Studio SDK, see [Evaluate LLM Responses](https://api.labelstud.io/tutorials/tutorials/evaluate-llm-responses). 
+For a tutorial on how to use this template with the Label Studio SDK, see [Evaluate LLM Responses](https://api.labelstud.io/tutorials/tutorials/evaluate-llm-responses).
 
 ## Configure the labeling interface
 
@@ -84,10 +84,10 @@ For a tutorial on how to use this template with the Label Studio SDK, see [Evalu
 This configuration includes the following elements:
 
 * `<View>` - All labeling configurations must include a base `View` tag. In this configuration, the `View` tag is used to configure the display of blocks, similar to the div tag in HTML. It helps in organizing the layout of the labeling interface.
-* `<Style>` - The `Style` tag is used to define CSS styles that apply to the elements within the `View`. In this configuration, it sets styles for various classes various sections of the labeling interface layout. 
+* `<Style>` - The `Style` tag is used to define CSS styles that apply to the elements within the `View`. In this configuration, it sets styles for various classes various sections of the labeling interface layout.
 * `<Header>` - The `Header` tag is used to display a header or title within the labeling interface. It takes a value attribute to set the text of the header. For example, `<Header value="Long Document"/>` displays "Long Document" as a header.
 * `<Text>` -  The `Text` tag is used to display text provided by the input data. Given the example input data below, the text blocks are either displaying information from the `document` or `summary` keys in the JSON. You will likely want to adjust the value to match your own JSON structure.
-* `<Rating>` - This displays star icons that you can use to rate the summary. You can customize the attributes for this tag to change the max rating. 
+* `<Rating>` - This displays star icons that you can use to rate the summary. You can customize the attributes for this tag to change the max rating.
 
 
 ## Input data

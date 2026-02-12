@@ -16,8 +16,8 @@ is_starter_cloud: true
 badges: SDK, Benchmark, Eval, Prompt, Colab
 duration: 5-10 mins
 ---
-Evaluating models is only as good as the benchmark you test them against.  
-In this tutorial, you'll learn how to use **Label Studio** to create a high-quality benchmark dataset, label it with human expertise, and then evaluate multiple AI models against it — all using the **Label Studio SDK**.  
+Evaluating models is only as good as the benchmark you test them against.
+In this tutorial, you'll learn how to use **Label Studio** to create a high-quality benchmark dataset, label it with human expertise, and then evaluate multiple AI models against it — all using the **Label Studio SDK**.
 
 By the end, you'll have a reproducible workflow to **measure and compare model performance** on your own data — moving beyond intuition and into measurable, data-driven insights.
 
@@ -28,10 +28,10 @@ This tutorial showcases one or more features available only in Label Studio paid
 
 ## 🧠 What are benchmarks?
 
-A **benchmark** is a trusted, labeled dataset used as a ground truth reference to evaluate model performance.  
-Think of it as your *reality check* — it lets you see how well a model really understands your domain and tasks.  
+A **benchmark** is a trusted, labeled dataset used as a ground truth reference to evaluate model performance.
+Think of it as your *reality check* — it lets you see how well a model really understands your domain and tasks.
 
-Unlike public leaderboards or off-the-shelf test sets, a **custom benchmark** reflects *your data, your domain, and your definition of success*.  
+Unlike public leaderboards or off-the-shelf test sets, a **custom benchmark** reflects *your data, your domain, and your definition of success*.
 For example, if you're detecting phishing emails, your benchmark should include real examples of legitimate and malicious messages relevant to your context.
 
 👉 To learn more about the role of benchmarks in AI evaluation, see [**Why Benchmarks Matter for Evaluating LLMs**](https://labelstud.io/blog/why-benchmarks-matter-for-evaluating-llms/).
@@ -39,67 +39,67 @@ For example, if you're detecting phishing emails, your benchmark should include 
 
 ## ⚖️ Why are benchmarks important?
 
-Benchmarks are the backbone of **model evaluation and continuous improvement**. Without them, it’s hard to know if a new model or prompt version actually performs better — or just seems to.  
+Benchmarks are the backbone of **model evaluation and continuous improvement**. Without them, it’s hard to know if a new model or prompt version actually performs better — or just seems to.
 
 A good benchmark lets you:
-- 🔁 Compare models from different providers on the *same data*  
-- 🧩 Identify strengths and weaknesses across labels or categories  
-- 📈 Track progress over time as your models evolve  
-- ✅ Build trust in your model’s predictions through measurable accuracy  
+- 🔁 Compare models from different providers on the *same data*
+- 🧩 Identify strengths and weaknesses across labels or categories
+- 📈 Track progress over time as your models evolve
+- ✅ Build trust in your model’s predictions through measurable accuracy
 
-In other words, benchmarks turn subjective “it looks better” claims into **objective evidence**.  
+In other words, benchmarks turn subjective “it looks better” claims into **objective evidence**.
 For a deeper look at this idea, check out [**How to Build AI Benchmarks That Evolve with Your Models**](https://labelstud.io/blog/how-to-build-ai-benchmarks-that-evolve-with-your-models/).
 
 
 ## ⚙️ How can I use Label Studio to create my benchmark?
 
-Label Studio gives you everything you need to create, manage, and evolve your benchmark — all in one platform.  
+Label Studio gives you everything you need to create, manage, and evolve your benchmark — all in one platform.
 With it, you can:
-- 📥 **Import and label your data** collaboratively or programmatically  
-- 🧭 **Version and refine** your benchmark as your understanding improves  
-- 🤖 **Run model evaluations** directly using the SDK and built-in prompt management tools  
+- 📥 **Import and label your data** collaboratively or programmatically
+- 🧭 **Version and refine** your benchmark as your understanding improves
+- 🤖 **Run model evaluations** directly using the SDK and built-in prompt management tools
 
-This makes your benchmarks *living assets* that adapt as your data and models grow.  
+This makes your benchmarks *living assets* that adapt as your data and models grow.
 For inspiration, see how others are building domain-specific benchmarks in [**How LegalBenchmarks.AI Built a Domain-Specific AI Benchmark**](https://labelstud.io/blog/how-legalbenchmarks-ai-built-a-domain-specific-ai-benchmark/).
 
 
 ## 🎓 What is this tutorial going to teach me?
 
 In this tutorial, you’ll learn how to:
-1. 🏗️ Create a benchmark project in Label Studio using the SDK  
-2. 📊 Import and label your own dataset  
-3. 💬 Define prompts and model versions to evaluate  
-4. 📉 Run evaluations and visualize results  
+1. 🏗️ Create a benchmark project in Label Studio using the SDK
+2. 📊 Import and label your own dataset
+3. 💬 Define prompts and model versions to evaluate
+4. 📉 Run evaluations and visualize results
 
-We’ll also walk through an example comparing several models on a phishing email classification task — similar to how we evaluated models in [**Evaluating the GPT-5 Series on Custom Benchmarks**](https://labelstud.io/blog/evaluating-the-gpt-5-series-on-custom-benchmarks/).  
+We’ll also walk through an example comparing several models on a phishing email classification task — similar to how we evaluated models in [**Evaluating the GPT-5 Series on Custom Benchmarks**](https://labelstud.io/blog/evaluating-the-gpt-5-series-on-custom-benchmarks/).
 
 By the end, you’ll have a repeatable workflow to **evaluate any model** on **any dataset** — grounded in your own benchmark.
 
 ## 🚀 Before You Start
 
-Before diving into the code, let’s make sure you have everything set up to follow along.  
+Before diving into the code, let’s make sure you have everything set up to follow along.
 
 You’ll only need a few things to get started 👇
 
 ### 🧰 Prerequisites
 > **Note:** This tutorial is available for **Label Studio Enterprise** and **Starter Cloud** users, since it uses features like **Prompts** and **Agreement Metrics** that aren’t available in the open-source version.
 
-If you’re using the open-source version of Label Studio, you can still follow along conceptually.  
+If you’re using the open-source version of Label Studio, you can still follow along conceptually.
 👉 Learn more or request access at [**humansignal.com**](https://humansignal.com/).
 
 You’ll need:
-- A **Label Studio account** on [app.humansignal.com](https://app.humansignal.com/)  
-  _(Starter Cloud or Enterprise edition required)_  
-- An **API key** from your user settings (you’ll use it to connect via the SDK)  
+- A **Label Studio account** on [app.humansignal.com](https://app.humansignal.com/)
+  _(Starter Cloud or Enterprise edition required)_
+- An **API key** from your user settings (you’ll use it to connect via the SDK)
 - Access to a **workspace** where you can create projects
 
 
 ### 🧩 What you’ll be using
 We’ll use the **Label Studio SDK** to:
-- Connect to your Label Studio instance  
-- Create a project and import data  
-- Define prompts and model versions  
-- Run model evaluations and visualize the results  
+- Connect to your Label Studio instance
+- Create a project and import data
+- Define prompts and model versions
+- Run model evaluations and visualize the results
 
 Everything happens programmatically — no need to click around the UI (though you can open your Label Studio anytime to see what’s happening 👀).
 
@@ -128,7 +128,7 @@ LABEL_STUDIO_URL = 'https://app.humansignal.com/'
 # Your API key (find it in Account & Settings > Personal Access Token)
 API_KEY = '<Token>'
 
-# ID of the workspace to create the project (make sure it's not the Personal Sandbox)
+# ID of the workspaces to create the project (make sure it's not the Personal Sandbox)
 # Find the Workspace ID in the URL when you click on it in the sidebar
 WORKSPACE_ID = 0
 ```
@@ -145,7 +145,7 @@ print(f'Connected as {user.email}')
 
 ### Create a Project and Import the Email Dataset
 
-1. We'll start by creating a **Label Studio project** with a labeling configuration that lets us classify each email as either **Phishing** or **Legitimate**.  
+1. We'll start by creating a **Label Studio project** with a labeling configuration that lets us classify each email as either **Phishing** or **Legitimate**.
    - If **Phishing** is selected, annotators can also choose one or more **phishing types** and **indicators** to describe the attack.
 
 2. Next, we’ll **download a dataset of raw emails** that we’ll use as the benchmark data.
@@ -200,7 +200,7 @@ label_config = '''
   </View>
 </View>
 '''
-# Creating project in the configured workspace
+# Creating project in the configured workspaces
 project = ls.projects.create(
     title='Phishing Benchmark Tutorial',
     workspace=WORKSPACE_ID,
@@ -233,10 +233,10 @@ ls.projects.import_tasks(project.id, request=raw_emails.to_dict(orient='records'
 
 ### Label Your Benchmark
 
-Now, if you go to **Label Studio**, you should see your newly imported tasks in the **Data Manager**.  
+Now, if you go to **Label Studio**, you should see your newly imported tasks in the **Data Manager**.
 
-Click **Label All Tasks** to start labeling your benchmark.  
-These labeled tasks will serve as your **ground truth** — the foundation for evaluating how well different models perform.  
+Click **Label All Tasks** to start labeling your benchmark.
+These labeled tasks will serve as your **ground truth** — the foundation for evaluating how well different models perform.
 
 *(You can refer to the screenshots below to follow along.)*
 
@@ -244,7 +244,7 @@ These labeled tasks will serve as your **ground truth** — the foundation for e
 
 #### Set Annotations as Ground Truth
 
-Mark your completed annotations as **ground truth**.  
+Mark your completed annotations as **ground truth**.
 This tells Label Studio which annotations to treat as the **source of truth** — enabling more accurate and meaningful **agreement metrics** when comparing model predictions against human labels.
 
 
@@ -258,10 +258,10 @@ ls.actions.create(id='set_ground_truths', project=project.id, request_options={'
 
 ### Configure Prompts for Model Predictions
 
-**Prompts** let you connect and evaluate different AI models directly from Label Studio — using a shared prompt template to generate consistent predictions.  
+**Prompts** let you connect and evaluate different AI models directly from Label Studio — using a shared prompt template to generate consistent predictions.
 
-Before running evaluations, go to [app.humansignal.com/prompts](https://app.humansignal.com/prompts) and configure the **API keys** for the models you want to test.  
-You can also add **custom model connections** to evaluate your own or third-party models.  
+Before running evaluations, go to [app.humansignal.com/prompts](https://app.humansignal.com/prompts) and configure the **API keys** for the models you want to test.
+You can also add **custom model connections** to evaluate your own or third-party models.
 
 For more details, see the [Prompts configuration guide](https://docs.humansignal.com/guide/prompts_keys).
 
@@ -269,8 +269,8 @@ For more details, see the [Prompts configuration guide](https://docs.humansignal
 
 ### Create and Run Model Versions with the SDK
 
-Next, we’ll use the **Label Studio SDK** to automate the process of model evaluation.  
-We’ll create a **prompt** linked to our project, then generate a **model version** for each model we want to test.  
+Next, we’ll use the **Label Studio SDK** to automate the process of model evaluation.
+We’ll create a **prompt** linked to our project, then generate a **model version** for each model we want to test.
 
 Each model version will run inference on **all tasks in the project**, producing **one prediction per model per task** — ready for comparison against the ground truth.
 
@@ -379,7 +379,7 @@ wait_for_runs_to_complete(versions)
 
 ### Collect Run Costs
 
-Let’s retrieve the **costs for each model run** to include them as additional data points.  
+Let’s retrieve the **costs for each model run** to include them as additional data points.
 Tracking run costs alongside performance metrics helps you understand the **trade-off between accuracy and efficiency** for each model.
 
 
@@ -410,9 +410,9 @@ display(cost_df)
 
 # 📈 Analyze Results
 
-Now that all model predictions are complete, we can use the **agreement metrics** provided by Label Studio to measure performance.  
+Now that all model predictions are complete, we can use the **agreement metrics** provided by Label Studio to measure performance.
 
-Let’s start by looking at the **overall agreement** each model achieved against the ground truth annotations.  
+Let’s start by looking at the **overall agreement** each model achieved against the ground truth annotations.
 This metric shows the **percentage of agreement** between each model’s predictions and your benchmark labels — giving a quick snapshot of model accuracy.
 
 
@@ -459,9 +459,9 @@ plt.show()
 
 ## Agreement per Label
 
-Next, let’s explore the **agreement per label** to see how each model performed across different categories.  
+Next, let’s explore the **agreement per label** to see how each model performed across different categories.
 
-This view highlights where models **aligned with** or **deviated from** the benchmark — both in the main email classification and in the specific **phishing types** and **indicators**.  
+This view highlights where models **aligned with** or **deviated from** the benchmark — both in the main email classification and in the specific **phishing types** and **indicators**.
 
 These insights are extremely valuable for identifying **where models struggle** and **which areas to focus on** when fine-tuning to achieve better results.
 
@@ -498,47 +498,47 @@ per_label_df.style.background_gradient(cmap='Pastel1', subset=pd.IndexSlice[per_
 
 ## 🎯 Wrapping Up
 
-Congrats — you’ve just built your own **benchmark** for phishing email classification using **Label Studio**!  
+Congrats — you’ve just built your own **benchmark** for phishing email classification using **Label Studio**!
 
 With just a few steps, you created a setup that lets you:
-- 🧠 Evaluate how well an LLM classifies phishing vs. legitimate emails  
-- 📊 Visualize and compare model outputs in a structured, repeatable way  
-- 🔄 Build a foundation that can evolve as your models improve  
+- 🧠 Evaluate how well an LLM classifies phishing vs. legitimate emails
+- 📊 Visualize and compare model outputs in a structured, repeatable way
+- 🔄 Build a foundation that can evolve as your models improve
 
 ### 💡 Why Benchmarks Matter
 
-Benchmarks are essential for understanding how your models behave — not just whether they “work.”  
+Benchmarks are essential for understanding how your models behave — not just whether they “work.”
 They help you:
-- Identify **strengths and weaknesses** in model reasoning  
-- Track **progress over time** as your system improves  
-- Build **trust and transparency** around performance  
+- Identify **strengths and weaknesses** in model reasoning
+- Track **progress over time** as your system improves
+- Build **trust and transparency** around performance
 
-Benchmarks aren’t static — they evolve.  
+Benchmarks aren’t static — they evolve.
 You can continuously expand this benchmark with new examples or categories as your needs grow.
 
 ### 🧩 Why Label Studio
 
 Label Studio makes this process simple and collaborative:
-- Create, manage, and version **custom benchmarks**  
-- **Evaluate multiple models** on the same dataset  
-- **Visualize metrics and insights** directly from your labeled data  
-- Integrate results into your existing ML pipeline for continuous improvement  
+- Create, manage, and version **custom benchmarks**
+- **Evaluate multiple models** on the same dataset
+- **Visualize metrics and insights** directly from your labeled data
+- Integrate results into your existing ML pipeline for continuous improvement
 
-That’s exactly how teams like [*LegalBenchmarks.AI*](https://labelstud.io/blog/how-legalbenchmarks-ai-built-a-domain-specific-ai-benchmark/) build reliable, evolving benchmarks across domains.  
+That’s exactly how teams like [*LegalBenchmarks.AI*](https://labelstud.io/blog/how-legalbenchmarks-ai-built-a-domain-specific-ai-benchmark/) build reliable, evolving benchmarks across domains.
 
 ### 🚀 Next Steps
 
 Keep iterating on what you built today:
-- 🧪 Add more data or expand your label schema  
-- 🤖 Compare different LLMs or prompt variations  
-- 📈 Analyze where your model struggles — and why  
+- 🧪 Add more data or expand your label schema
+- 🤖 Compare different LLMs or prompt variations
+- 📈 Analyze where your model struggles — and why
 - 🔗 Share or automate your evaluation process with your team
 
 ### 📚 Learn More
 
-- [Label Studio Documentation](https://docs.humansignal.com/guide/)  
-- [Label Studio SDK](https://humansignal.github.io/label-studio-sdk/)  
-- [Blog: Why Benchmarks Matter for Evaluating LLMs](https://labelstud.io/blog/why-benchmarks-matter-for-evaluating-llms/)  
-- [Blog: How to Build AI Benchmarks That Evolve with Your Models](https://labelstud.io/blog/how-to-build-ai-benchmarks-that-evolve-with-your-models/)  
-- [Blog: Evaluating the GPT-5 Series on Custom Benchmarks](https://labelstud.io/blog/evaluating-the-gpt-5-series-on-custom-benchmarks/)  
+- [Label Studio Documentation](https://docs.humansignal.com/guide/)
+- [Label Studio SDK](https://humansignal.github.io/label-studio-sdk/)
+- [Blog: Why Benchmarks Matter for Evaluating LLMs](https://labelstud.io/blog/why-benchmarks-matter-for-evaluating-llms/)
+- [Blog: How to Build AI Benchmarks That Evolve with Your Models](https://labelstud.io/blog/how-to-build-ai-benchmarks-that-evolve-with-your-models/)
+- [Blog: Evaluating the GPT-5 Series on Custom Benchmarks](https://labelstud.io/blog/evaluating-the-gpt-5-series-on-custom-benchmarks/)
 - [Blog: How LegalBenchmarks.AI Built a Domain-Specific AI Benchmark](https://labelstud.io/blog/how-legalbenchmarks-ai-built-a-domain-specific-ai-benchmark/)

@@ -70,7 +70,7 @@ export const LabelButton = injector(({ store, canLabel, size, target, selectedCo
     borderBottomLeftRadius: isOpen ? 0 : undefined,
   };
 
-  const secondStyle = {
+  const _secondStyle = {
     width: triggerStyle.width + primaryStyle.width,
     padding: 0,
     display: isOpen ? "flex" : "none",
@@ -98,7 +98,7 @@ export const LabelButton = injector(({ store, canLabel, size, target, selectedCo
             {!selectedCount || selectedCount > 1 ? "s" : ""}
           </Button>
           <Dropdown.Trigger
-            alignment="bottom-right"
+            align="bottom-right"
             content={
               <Menu size="compact">
                 <Menu.Item onClick={onLabelVisible}>Label Tasks As Displayed</Menu.Item>

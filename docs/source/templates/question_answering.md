@@ -10,7 +10,7 @@ meta_description: Template for identifying answers to questions in tasks with La
 
 <img src="/images/templates/question-answering.png" alt="" class="gif-border" width="552px" height="408px" />
 
-If you want to train a question answering machine learning model, use this template to develop a dataset. This template prompts annotators to read a passage of text, then highlight the span of text that answers a specific question. 
+If you want to train a question answering machine learning model, use this template to develop a dataset. This template prompts annotators to read a passage of text, then highlight the span of text that answers a specific question.
 
 ## Interactive Template Preview
 

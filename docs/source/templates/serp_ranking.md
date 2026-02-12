@@ -5,7 +5,7 @@ category: Ranking and Scoring
 cat: ranking-and-scoring
 order: 405
 meta_title: Rank different kinds of results by given search query
-meta_description: 
+meta_description:
 ---
 
 Based on your search input query, you can select the most relevant search results provided by search engine.
@@ -26,11 +26,11 @@ Example data for this config you can see below.
 
 ```xml
 <View>
-  
-  <Header value="Search request" size="5"/> 
+
+  <Header value="Search request" size="5"/>
   <Text name="text" value="$text"/>
- 
-  <Header value="Generated responses" size="5"/> 
+
+  <Header value="Generated responses" size="5"/>
   <View className="dynamic_choices">
     <Choices name="dynamic_choices" toName="text" selection="checkbox" value="$options" layout="vertical" choice="multiple" allownested="true"/>
   </View>
@@ -47,7 +47,7 @@ Example data for this config you can see below.
       </Choices>
     </View>
   </View>
-  
+
   <Style>
   .searchresultsarea {
     margin-left: 10px;

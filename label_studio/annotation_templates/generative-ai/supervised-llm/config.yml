@@ -75,7 +75,7 @@ config: |
       </View>
     </View>
   </View>
-  
+
   <!-- {"data" : {
     "prompt": "Generate a Python function that takes a list of integers as input and returns the sum of all even numbers in the list."
   }}

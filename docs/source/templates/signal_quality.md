@@ -1,5 +1,5 @@
 ---
-title: Signal Quality 
+title: Signal Quality
 type: templates
 category: Time Series Analysis
 cat: time-series-analysis
@@ -10,7 +10,7 @@ meta_description: Template to classify signal quality in a time series with Labe
 
 <img src="/images/templates/signal-quality.png" alt="" class="gif-border" width="552px" height="408px" />
 
-Identify regions on a time series and rate and classify the quality of the signal. 
+Identify regions on a time series and rate and classify the quality of the signal.
 
 ## Interactive Template Preview
 
@@ -26,7 +26,7 @@ Identify regions on a time series and rate and classify the quality of the signa
             <Label value="Region" background="#5b5"/>
         </TimeSeriesLabels>
     </View>
-    
+
     <View visibleWhen="region-selected" style="height:120px">
         <Rating name="rating" toName="ts"
                 maxRating="10" icon="star"
@@ -57,7 +57,7 @@ Use the `visibleWhen` parameter with the [View](/tags/view.html) tag to create a
 ```xml
 <View visibleWhen="no-region-selected"
           style="height:120px">
-``` 
+```
 
 When that section of the labeling interface is visible, annotators can use the [TimeSeriesLabels](/tags/timeserieslabels.html) control tag to label specific regions on the time series data:
 ```xml

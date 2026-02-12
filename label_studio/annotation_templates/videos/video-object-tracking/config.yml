@@ -19,7 +19,7 @@ config: |
        <Label value="Woman" background="red"/>
        <Label value="Other" background="green"/>
      </Labels>
-     
+
      <!-- Please specify FPS carefully, it will be used for all project videos -->
      <Video name="video" value="$video" framerate="25.0"/>
      <VideoRectangle name="box" toName="video" />

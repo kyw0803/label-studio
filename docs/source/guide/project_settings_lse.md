@@ -18,13 +18,13 @@ date: 2024-02-06 22:28:14
 
 !!! error Starter Cloud
     If you see an Enterprise badge: <span class="badge"></span>
-    
-    This means the setting is not available in Label Studio Starter Cloud. 
+
+    This means the setting is not available in Label Studio Starter Cloud.
 
 
 ## General
 
-Use these settings to specify some basic information about the project. 
+Use these settings to specify some basic information about the project.
 
 | Field          | Description    |
 | ------------- | ------------ |
@@ -36,13 +36,13 @@ Use these settings to specify some basic information about the project.
 
 ## Labeling interface
 
-The labeling interface is the central configuration point for projects. This determines how tasks are presented to annotators. 
+The labeling interface is the central configuration point for projects. This determines how tasks are presented to annotators.
 
-For information on setting up the labeling interface, see [Labeling configuration](setup). 
+For information on setting up the labeling interface, see [Labeling configuration](setup).
 
 ## Annotation
 
-Use these settings to configure what options annotators will see and how their labeling tasks are assigned. 
+Use these settings to configure what options annotators will see and how their labeling tasks are assigned.
 
 <dl>
 
@@ -50,16 +50,16 @@ Use these settings to configure what options annotators will see and how their l
 
 <dd>
 
-Specify instructions to show the annotators. 
+Specify instructions to show the annotators.
 
 This field accepts HTML formatting, including iframes (click **Preview** to check your formatting).
 
 !!! note
-    If you are using HTML formatting and want to include CSS styles, use a `<Style>` block as inline styles will be removed when saving. 
+    If you are using HTML formatting and want to include CSS styles, use a `<Style>` block as inline styles will be removed when saving.
 
-Enable **Show before labeling** to display a pop-up message to annotators when they enter the label stream. If disabled, users will need to click the **Show instructions** action at the bottom of the labeling interface. 
+Enable **Show before labeling** to display a pop-up message to annotators when they enter the label stream. If disabled, users will need to click the **Show instructions** action at the bottom of the labeling interface.
 
-The instructions do not pop-up when opening tasks individually from the Data Manager (Quick View). 
+The instructions do not pop-up when opening tasks individually from the Data Manager (Quick View).
 
 </dd>
 
@@ -67,7 +67,7 @@ The instructions do not pop-up when opening tasks individually from the Data Man
 
 <dd>
 
-Select how you want to distribute tasks to annotators for labeling. 
+Select how you want to distribute tasks to annotators for labeling.
 
 | Field          | Description    |
 | ------------- | ------------ |
@@ -80,9 +80,9 @@ Select how you want to distribute tasks to annotators for labeling.
 
 <dd>
 
-*Only available when using Automatic task assignment.* 
+*Only available when using Automatic task assignment.*
 
-Select the order in which tasks are presented to annotators.  
+Select the order in which tasks are presented to annotators.
 
 | Field          | Description    |
 | ------------- | ------------ |
@@ -97,44 +97,44 @@ Select the order in which tasks are presented to annotators.
 
 <dd>
 
-*Only available when using Automatic task assignment.* 
+*Only available when using Automatic task assignment.*
 
-Control how long tasks are reserved for annotators. 
+Control how long tasks are reserved for annotators.
 
-Task reservation ensures that the tasks an annotator starts working on are temporarily reserved by them, preventing other annotators from accessing the same tasks until the reservation expires. This helps manage task allocation and keeps project progress efficient. 
+Task reservation ensures that the tasks an annotator starts working on are temporarily reserved by them, preventing other annotators from accessing the same tasks until the reservation expires. This helps manage task allocation and keeps project progress efficient.
 
 !!! note
 
-    Task reservation takes overlap ([**Quality > Annotations per task**](#overlap)) into consideration. For example, if your overlap is `2`, then two annotators can reserve a task simultaneously. 
+    Task reservation takes overlap ([**Quality > Annotations per task**](#overlap)) into consideration. For example, if your overlap is `2`, then two annotators can reserve a task simultaneously.
 
-    When [**Task Assignment**](#distribute-tasks) is set to **Manual**, the Task Reservation setting is hidden because it does not apply. 
+    When [**Task Assignment**](#distribute-tasks) is set to **Manual**, the Task Reservation setting is hidden because it does not apply.
 
 A task reservation is put in place as soon as an annotator opens the task. The reservation remains until one of the following happens (whichever happens first):
 
-* The task reservation time expires. 
-* The annotator submits the task. 
+* The task reservation time expires.
+* The annotator submits the task.
 * The annotator skips the task, and the project **Skip Queue** setting is either **Requeue skipped tasks to others** or **Ignore skipped**.
 
-**Recommended reservation time** 
+**Recommended reservation time**
 
 By default, the task reservation time is 1440 minutes (1 day). This is the maximum time allowed for task reservations.
 
-When setting a reservation time, you should aim to allow a little above the max amount of time it should take to complete a task. 
+When setting a reservation time, you should aim to allow a little above the max amount of time it should take to complete a task.
 
 * **Notes about allowing too much time**
 
-    If you allow too much time for task reservation, you could risk some users becoming blocked. 
+    If you allow too much time for task reservation, you could risk some users becoming blocked.
 
-    For example, say you have multiple annotators working on a project. Your minimum annotation overlap is set to `2`. 
+    For example, say you have multiple annotators working on a project. Your minimum annotation overlap is set to `2`.
 
-    If some of your annotators move through their labeling queue looking for the easiest tasks to complete, they could inadvertently leave a large number of tasks locked. Depending on the size of the project and how many annotators you have working, this could result in some annotators unable to continue their work until the task reservation time expires. 
+    If some of your annotators move through their labeling queue looking for the easiest tasks to complete, they could inadvertently leave a large number of tasks locked. Depending on the size of the project and how many annotators you have working, this could result in some annotators unable to continue their work until the task reservation time expires.
 
 * **Notes about allowing too little time**
 
-    If you set the reservation time too low, you may find that you have many tasks that exceed your minimum overlap setting. 
+    If you set the reservation time too low, you may find that you have many tasks that exceed your minimum overlap setting.
 
-    For example, say you have multiple annotators working on a project. Your minimum annotation overlap is set to `2`. 
-    
+    For example, say you have multiple annotators working on a project. Your minimum annotation overlap is set to `2`.
+
     Two annotators begin working on a task and it takes them both 15 minutes to complete, but your reservation time is 10 minutes. This means that after 10 minutes, another annotator can also begin working on that task - resulting in 3 annotations on the task rather than 2 (your minimum annotator overlap).
 
 </dd>
@@ -143,7 +143,7 @@ When setting a reservation time, you should aim to allow a little above the max 
 
 <dd>
 
-Configure additional settings for annotators. 
+Configure additional settings for annotators.
 
 | Field          | Description    |
 | ------------- | ------------ |
@@ -158,7 +158,7 @@ Configure additional settings for annotators.
 
 <dd>
 
-Configure settings related to the **Skip** action in the labeling stream. 
+Configure settings related to the **Skip** action in the labeling stream.
 
 | Field          | Description    |
 | ------------- | ------------ |
@@ -191,14 +191,14 @@ Select how you want to handle skipped tasks. To disallow skipping tasks, you can
 </td>
 <td>
 
-If an annotator skips a task, the task is moved to the bottom of their queue. They see the task again as they reach the end of their queue. 
+If an annotator skips a task, the task is moved to the bottom of their queue. They see the task again as they reach the end of their queue.
 
-If the annotator exits the label stream without labeling the skipped task, and then later re-enters the label stream, whether they see the task again depends on how task assignments are set up. 
+If the annotator exits the label stream without labeling the skipped task, and then later re-enters the label stream, whether they see the task again depends on how task assignments are set up.
 
-* Automatic task assignment: Whether they see the task again depends on if other annotators have since completed the task. If the task is still incomplete when the annotator re-enters the labeling stream, they can update label and re-submit the task. 
-* Manual task assignment: The annotator will continue to see the skipped task until it is completed.  
+* Automatic task assignment: Whether they see the task again depends on if other annotators have since completed the task. If the task is still incomplete when the annotator re-enters the labeling stream, they can update label and re-submit the task.
+* Manual task assignment: The annotator will continue to see the skipped task until it is completed.
 
-Skipped tasks are not marked as completed, and affect the Overall Project Progress calculation visible from the project Dashboard. (Meaning that the progress for a project that has skipped tasks will be less than 100%.)  
+Skipped tasks are not marked as completed, and affect the Overall Project Progress calculation visible from the project Dashboard. (Meaning that the progress for a project that has skipped tasks will be less than 100%.)
 
 </td>
 </tr>
@@ -213,11 +213,11 @@ Skipped tasks are not marked as completed, and affect the Overall Project Progre
 
 If an annotator skips a task, the task is removed from their queue and automatically assigned to a different annotator.
 
-After skipping the task and completing their labeling queue, the annotator cannot return to the skipped task.  
+After skipping the task and completing their labeling queue, the annotator cannot return to the skipped task.
 
-If there are no other annotators assigned to the task, or if all annotators skip the task, then the task remains unfinished. 
+If there are no other annotators assigned to the task, or if all annotators skip the task, then the task remains unfinished.
 
-Skipped tasks are not marked as completed, and affect the Overall Project Progress calculation visible from the project Dashboard. (Meaning that the progress for a project that has skipped tasks will be less than 100%.) 
+Skipped tasks are not marked as completed, and affect the Overall Project Progress calculation visible from the project Dashboard. (Meaning that the progress for a project that has skipped tasks will be less than 100%.)
 
 Note that if you select this option before switching to Manual mode, this option stays selected and behaves the same as **Ignore skipped**.
 
@@ -230,15 +230,15 @@ Note that if you select this option before switching to Manual mode, this option
 </td>
 <td>
 
-How this setting works depends on your task assignment method. 
+How this setting works depends on your task assignment method.
 
-* Automatic task assignment: If an annotator skips a task, the task is removed from the annotator's queue. 
+* Automatic task assignment: If an annotator skips a task, the task is removed from the annotator's queue.
 
-    If task overlap (as defined in [**Quality > Annotations per task**](#overlap)) is set to 1, then the skipped task is marked as Completed and is not seen again by an annotator. However, if the overlap is greater than 1, then the task is shown to other annotators until the minimum annotations are reached. 
+    If task overlap (as defined in [**Quality > Annotations per task**](#overlap)) is set to 1, then the skipped task is marked as Completed and is not seen again by an annotator. However, if the overlap is greater than 1, then the task is shown to other annotators until the minimum annotations are reached.
 
-* Manual task assignment: If the annotator skips a task, it is removed from their queue. But other annotators assigned to the task will still see it in their queue.  
+* Manual task assignment: If the annotator skips a task, it is removed from their queue. But other annotators assigned to the task will still see it in their queue.
 
-For both assignment methods, **Ignore skipped** treats skipped tasks differently when it comes to calculating progress. 
+For both assignment methods, **Ignore skipped** treats skipped tasks differently when it comes to calculating progress.
 
 Unlike the other skip queue options, in this case skipped tasks do not adversely affect the Overall Project Progress calculation visible from the project dashboard. (Meaning that the progress for a project that has skipped tasks can still be 100%, assuming all tasks are otherwise completed.)
 
@@ -264,7 +264,7 @@ Unlike the other skip queue options, in this case skipped tasks do not adversely
 
 ## Review
 
-Use these settings to configure what options reviewers will see. 
+Use these settings to configure what options reviewers will see.
 
 <dl>
 
@@ -272,9 +272,9 @@ Use these settings to configure what options reviewers will see.
 
 <dd>
 
-Specify instructions to show the reviewers. This field accepts HTML formatting. 
+Specify instructions to show the reviewers. This field accepts HTML formatting.
 
-Enable **Show before reviewing** to display a pop-up message to reviewers when they enter the label stream. If disabled, users will need to click the **Show instructions** action at the bottom of the labeling interface.  
+Enable **Show before reviewing** to display a pop-up message to reviewers when they enter the label stream. If disabled, users will need to click the **Show instructions** action at the bottom of the labeling interface.
 
 </dd>
 
@@ -288,9 +288,9 @@ Configure what is required for a task to be considered "reviewed."
     This metric determines:
 
     * **Review stream**: When a task is removed from the review queue.
-    * **Data Manager**: The value shown in the **Reviewed** column. 
+    * **Data Manager**: The value shown in the **Reviewed** column.
     * **Export**: Which tasks are included when you want to only include reviewed tasks in your export snapshot.
-    * **Dashboards**: Reviewed counts and related metrics. 
+    * **Dashboards**: Reviewed counts and related metrics.
 
 <table>
 <thead>
@@ -306,7 +306,7 @@ Configure what is required for a task to be considered "reviewed."
 </td>
 <td>
 
-In a task where multiple annotators submitted labels, the reviewer only needs to accept one to consider the task reviewed. 
+In a task where multiple annotators submitted labels, the reviewer only needs to accept one to consider the task reviewed.
 
 </td>
 </tr>
@@ -317,7 +317,7 @@ In a task where multiple annotators submitted labels, the reviewer only needs to
 </td>
 <td>
 
-In a task where multiple annotators submitted labels, the reviewer needs to accept or reject annotations submitted by all annotators. 
+In a task where multiple annotators submitted labels, the reviewer needs to accept or reject annotations submitted by all annotators.
 
 </td>
 </tr>
@@ -339,13 +339,13 @@ If enabled, a reviewer can only see tasks to which they've been assigned. Otherw
 </td>
 <td>
 
-When enabled, a reviewer only sees tasks that have been completed by all required annotators. 
+When enabled, a reviewer only sees tasks that have been completed by all required annotators.
 
-If your project is using auto distribution, then this means a reviewer only sees tasks that have met the **Annotations per task** threshold. 
+If your project is using auto distribution, then this means a reviewer only sees tasks that have met the **Annotations per task** threshold.
 
-If your project is using manual distribution, then this means a reviewer only sees tasks in which all assigned annotators have submitted an annotation. 
+If your project is using manual distribution, then this means a reviewer only sees tasks in which all assigned annotators have submitted an annotation.
 
-Note that in most cases, skipped tasks do not contribute towards meeting the minimum.  
+Note that in most cases, skipped tasks do not contribute towards meeting the minimum.
 
 </td>
 </tr>
@@ -385,7 +385,7 @@ Tasks are ordered by their numeric ID (ascending). Annotation order within a tas
 </td>
 <td>
 
-Tasks are shown in randomized task order while preserving the stable order of annotations within each task. This mode enables **Task limit (%)** (see below). 
+Tasks are shown in randomized task order while preserving the stable order of annotations within each task. This mode enables **Task limit (%)** (see below).
 
 !!! note
     If any tasks are selected in the Data Manager or reviewers use Quickview, this limit will not be applied. You can disable the Data Manager for reviewers in the project settings to avoid these situations.
@@ -402,15 +402,15 @@ Tasks are shown in randomized task order while preserving the stable order of an
 
 Limit the portion of project tasks that are available to reviewers when **Task Ordering** is set to **Random**.
 
-Set this to a percentage from `0` to `100`. 
+Set this to a percentage from `0` to `100`.
 
 !!! note
     Note the following:
 
-    * This only applies only when sampling is **Random**. 
-    * If you enter a percentage of `≤0` or `≥100`, you will effectively disable limiting. 
+    * This only applies only when sampling is **Random**.
+    * If you enter a percentage of `≤0` or `≥100`, you will effectively disable limiting.
     * This limit is applied over the eligible task set after filters (for example, **Show only finished tasks**) are applied.
-    * If reviewers open the review stream by selecting tasks and then clicking **Label *n* Tasks** from the Data Manager, they will bypass the limit. 
+    * If reviewers open the review stream by selecting tasks and then clicking **Label *n* Tasks** from the Data Manager, they will bypass the limit.
 
     For example, if a project has 1,000 tasks and the limit is set to 60%, at most ~600 tasks will be served for review under Random sampling. When the limit is reached, the API returns “no more annotations to review,” and the UI displays **Review finished**.
 
@@ -420,7 +420,7 @@ Set this to a percentage from `0` to `100`.
 
 <dd>
 
-Configure what rejection options are available to reviewers. 
+Configure what rejection options are available to reviewers.
 
 <table>
 <thead>
@@ -436,7 +436,7 @@ Configure what rejection options are available to reviewers.
 </td>
 <td>
 
-When a reviewer clicks **Reject**, the annotation is reassigned back to the annotator. 
+When a reviewer clicks **Reject**, the annotation is reassigned back to the annotator.
 
 </td>
 </tr>
@@ -446,7 +446,7 @@ When a reviewer clicks **Reject**, the annotation is reassigned back to the anno
 </td>
 <td>
 
-When a reviewer clicks **Reject**, the annotation is not reassigned back to the annotator. 
+When a reviewer clicks **Reject**, the annotation is not reassigned back to the annotator.
 
 </td>
 </tr>
@@ -460,12 +460,12 @@ When a reviewer clicks **Reject**, the annotation is not reassigned back to the 
 Reviewers see the following options:
 
 * **Accept**
-* **Remove** -- When selected, the annotation is rejected and removed from the labeling queue. 
-* **Requeue** -- When selected, the annotation is rejected and then reassigned back to the annotator.  
+* **Remove** -- When selected, the annotation is rejected and removed from the labeling queue.
+* **Requeue** -- When selected, the annotation is rejected and then reassigned back to the annotator.
 
-For example, a reviewer might decide to requeue an annotation that is nearly correct but just needs a slight change. However, an annotation with numerous errors may be easier to simply reject entirely and remove from the queue. 
+For example, a reviewer might decide to requeue an annotation that is nearly correct but just needs a slight change. However, an annotation with numerous errors may be easier to simply reject entirely and remove from the queue.
 
-Note that when you click **Remove**, the annotation is also marked as cancelled/skipped. This is reflected in various metrics (for example, Data Manager columns and dashboards), and differentiates between the two rejection actions in the API with `was_cancelled: true`. 
+Note that when you click **Remove**, the annotation is also marked as cancelled/skipped. This is reflected in various metrics (for example, Data Manager columns and dashboards), and differentiates between the two rejection actions in the API with `was_cancelled: true`.
 
 </td>
 </tr>
@@ -530,7 +530,7 @@ If reviewers can view the Data Manager, this setting controls whether they can a
 
 ## Quality
 
-Use these settings to determine task completeness and agreement metrics. 
+Use these settings to determine task completeness and agreement metrics.
 
 <dl>
 
@@ -539,7 +539,7 @@ Use these settings to determine task completeness and agreement metrics.
 <dd>
 
 !!! note
-    Overlap settings only apply when the project is using Automatic distribution mode. If you are using Manual distribution mode, all tasks must be manually assigned - meaning that you are also manually determining overlap.  
+    Overlap settings only apply when the project is using Automatic distribution mode. If you are using Manual distribution mode, all tasks must be manually assigned - meaning that you are also manually determining overlap.
 
 By default, each task only needs to be annotated by one annotator. If you want multiple annotators to annotate the same tasks, increase the **Annotations per task**.
 
@@ -557,14 +557,11 @@ By default, each task only needs to be annotated by one annotator. If you want m
 </td>
 <td>
 
-The number of distinct annotations you want to allow per task. 
+The number of distinct annotations you want to allow per task.
 
-Note that in certain situations, this may be exceeded. For example, if there are long-standing drafts within a project or you have a very low [task reservation](#lock-tasks) time. 
+Note that in certain situations, this may be exceeded. For example, if there are long-standing drafts within a project or you have a very low [task reservation](#lock-tasks) time.
 
-Also note that only annotations created by distinct users count towards the overlap. For example, if the overlap is `2` and a user creates and submits two annotations on a single task (which can be done in Quick View), the overlap threshold will not be reached until another user submits an annotation. 
-
-!!! note
-    Setting annotations per task above 20 may impact loading performance in the Data Manager.
+Also note that only annotations created by distinct users count towards the overlap. For example, if the overlap is `2` and a user creates and submits two annotations on a single task (which can be done in Quick View), the overlap threshold will not be reached until another user submits an annotation.
 
 </td>
 </tr>
@@ -575,9 +572,9 @@ Also note that only annotations created by distinct users count towards the over
 </td>
 <td>
 
-Only available if **Annotations per task** is ≥ 2. 
+Only available if **Annotations per task** is ≥ 2.
 
-This setting controls the percentage of the project tasks for which the overlap is enforced. 
+This setting controls the percentage of the project tasks for which the overlap is enforced.
 
 For example, if you want all tasks to be annotated by at least 2 annotators:
 
@@ -594,7 +591,7 @@ If you want half of the tasks to be annotated by at least 3 people:
 <tr>
 <td>
 
-**Show tasks with overlap first** 
+**Show tasks with overlap first**
 </td>
 <td>
 
@@ -604,7 +601,7 @@ Note that if enabled, this setting supersedes what you specified under [**Annota
 
 </td>
 </tr>
-</table> 
+</table>
 
 </dd>
 
@@ -612,9 +609,9 @@ Note that if enabled, this setting supersedes what you specified under [**Annota
 
 <dd>
 
-Set limits on how many tasks each individual user can annotate. This can be useful if you are concerned with preventing any potential bias that might arise from a small set of power users completing a majority of project tasks. 
+Set limits on how many tasks each individual user can annotate. This can be useful if you are concerned with preventing any potential bias that might arise from a small set of power users completing a majority of project tasks.
 
-When an annotator reaches their limit, they will see a notification telling them that they have been paused. When paused, an annotator can no longer access the project. 
+When an annotator reaches their limit, they will see a notification telling them that they have been paused. When paused, an annotator can no longer access the project.
 
 When **Limit tasks per annotator** is enabled, you will see the following options:
 
@@ -623,19 +620,19 @@ When **Limit tasks per annotator** is enabled, you will see the following option
 | **Limit by Number of Tasks**    | Set a specific number of tasks each annotator is able to complete before their progress is paused.   |
 | **Limit by Percentage of Tasks** | Calculate the number of tasks each annotator is able to complete as a percentage of tasks within the project.  |
 
-You can set one or both values. Annotators will be paused when they reach whichever limit is smaller.  
+You can set one or both values. Annotators will be paused when they reach whichever limit is smaller.
 
 To unpause annotators:
 
-* If you increase the limits, previously paused annotators will regain access. 
-* If you are using a percentage-based limit and you add more tasks to a project, previously paused annotators will regain access. 
+* If you increase the limits, previously paused annotators will regain access.
+* If you are using a percentage-based limit and you add more tasks to a project, previously paused annotators will regain access.
 
 For more information about pausing annotators, including how to manually pause specific annotators, see [Pause an annotator](quality#Pause-an-annotator).
 
 !!! note
-    Pauses are enforced for users in Annotator and Reviewer roles. 
-    
-    So, for example, if a Reviewer is also annotating tasks and they hit the annotation limit, they will be unable to regain access to the project to review annotations unless they are unpaused. 
+    Pauses are enforced for users in Annotator and Reviewer roles.
+
+    So, for example, if a Reviewer is also annotating tasks and they hit the annotation limit, they will be unable to regain access to the project to review annotations unless they are unpaused.
 
     Users in the Manager, Administrator, or Owner role are unaffected by the task limit.
 
@@ -647,15 +644,15 @@ For more information about pausing annotators, including how to manually pause s
 
 !!! note
     Annotator Evaluation settings are only available when the project is configured to [automatically assign tasks](#distribute-tasks). If you are using Manual distribution, this section will not appear in your project settings.
-    
+
     If you switch a project from Automatic to Manual distribution, annotator evaluation is automatically disabled.
 
 Evaluate annotators against [ground truths](ground_truths) within a project. A "ground truth" annotation is a verified, high-quality annotation that serves as the correct answer for a specific task.
 
-When enabled, this setting looks at the agreement score for the annotator when compared solely against ground truth annotations. You can decide to automatically pause an annotator within the project if their ground truth agreement score falls below a certain threshold. 
+When enabled, this setting looks at the agreement score for the annotator when compared solely against ground truth annotations. You can decide to automatically pause an annotator within the project if their ground truth agreement score falls below a certain threshold.
 
-!!! note 
-    Enabling annotator evaluation means that ground truth tasks are not constrained by the [annotator overlap](#overlap). For example, if you set overlap to `2`, but you have 10 annotators, all 10 will still be able to add annotations to ground truth tasks. 
+!!! note
+    Enabling annotator evaluation means that ground truth tasks are not constrained by the [annotator overlap](#overlap). For example, if you set overlap to `2`, but you have 10 annotators, all 10 will still be able to add annotations to ground truth tasks.
 
 !!! info Tip
     You can specify that ground truth tasks should be unskippable by adding `"allow_skip": false` as part of the JSON task definition that you import to your project. For more information, see [Individual unskippable tasks](skip#Individual-unskippable-tasks)
@@ -670,11 +667,11 @@ When enabled, this setting looks at the agreement score for the annotator when c
 <tr>
 <td>
 
-**Evaluate all annotators against ground truth** 
+**Evaluate all annotators against ground truth**
 </td>
 <td>
 
-Select this to enable annotator evaluation for the project. 
+Select this to enable annotator evaluation for the project.
 
 </td>
 </tr>
@@ -685,11 +682,11 @@ Select this to enable annotator evaluation for the project.
 </td>
 <td>
 
-When annotators enter the labeling stream, they are first presented with tasks that have a ground truth annotation. This ensures that annotators meet your evaluation standards before progressing through the remaining project tasks. 
+When annotators enter the labeling stream, they are first presented with tasks that have a ground truth annotation. This ensures that annotators meet your evaluation standards before progressing through the remaining project tasks.
 
-Use the counter to determine how many ground truth tasks should be presented first before the annotator progresses through the remaining project tasks. 
+Use the counter to determine how many ground truth tasks should be presented first before the annotator progresses through the remaining project tasks.
 
-Set this counter to zero if you want to skip onboarding and only use continuous evaluation. 
+Set this counter to zero if you want to skip onboarding and only use continuous evaluation.
 </td>
 </tr>
 <tr>
@@ -699,20 +696,20 @@ Set this counter to zero if you want to skip onboarding and only use continuous 
 </td>
 <td>
 
-Annotators are presented with tasks in the order that is configured under [**Task Ordering Method**](#task-ordering). 
+Annotators are presented with tasks in the order that is configured under [**Task Ordering Method**](#task-ordering).
 
-To have all ground truths presented as part of continuous evaluation, set the **Onboarding evaluation** counter to zero. You can also use a combination of both, so that annotators see a subset of ground truths immediately, and then are presented the remaining ground truths periodically as they progress through the project (depending on your task ordering method). 
+To have all ground truths presented as part of continuous evaluation, set the **Onboarding evaluation** counter to zero. You can also use a combination of both, so that annotators see a subset of ground truths immediately, and then are presented the remaining ground truths periodically as they progress through the project (depending on your task ordering method).
 
 </td>
 </tr>
 <tr>
 <td>
 
-**Pause annotator on failed evaluation** 
+**Pause annotator on failed evaluation**
 </td>
 <td>
 
-Determines whether annotators should be paused if they do not meet the required score set below. If they fail to meet the score, they are immediately paused and unable to access the project. 
+Determines whether annotators should be paused if they do not meet the required score set below. If they fail to meet the score, they are immediately paused and unable to access the project.
 
 If you do not enable pausing, the other **Annotator Evaluation** options are simply calculated in the background and can be reviewed in the [Members dashboard](dashboard_members).
 
@@ -721,45 +718,45 @@ If you do not enable pausing, the other **Annotator Evaluation** options are sim
 <tr>
 <td>
 
-**Score required to pass evaluation** 
+**Score required to pass evaluation**
 </td>
 <td>
 
-This is the agreement score threshold that an annotator must meet when evaluated against ground truth annotations. How agreement is calculated depends on what you select in the [**Agreement** section](#task-agreement). 
+This is the agreement score threshold that an annotator must meet when evaluated against ground truth annotations. How agreement is calculated depends on what you select in the [**Agreement** section](#task-agreement).
 
-If they do not meet this score, they are paused. 
+If they do not meet this score, they are paused.
 
 </td>
 </tr>
 <tr>
 <td>
 
-**Number of tasks for evaluation** 
+**Number of tasks for evaluation**
 </td>
 <td>
 
-This is the number of tasks a user has to complete before they can potentially be paused.  
+This is the number of tasks a user has to complete before they can potentially be paused.
 
-For example, if you set this to `10`, even if the annotator gets every single task wrong, they will not be paused until after they have completed 10 ground truth tasks. 
+For example, if you set this to `10`, even if the annotator gets every single task wrong, they will not be paused until after they have completed 10 ground truth tasks.
 
-If they reach 10 tasks and meet the required score, they will continue progressing through the remaining ground truth tasks until they either fall below the score (in which case they are paused), or they finish their evaluation and continue on to the rest of the project queue. 
+If they reach 10 tasks and meet the required score, they will continue progressing through the remaining ground truth tasks until they either fall below the score (in which case they are paused), or they finish their evaluation and continue on to the rest of the project queue.
 
 </td>
 </tr>
-</table> 
+</table>
 
-You can see which users are paused from the **Members** page. 
+You can see which users are paused from the **Members** page.
 
-When users are paused as part of the annotator evaluation workflow, you cannot manually unpause them. To unpause a user, you will need to relax the evaluation settings for the project by increasing the minimum number of tasks or the score threshold.  
+When users are paused as part of the annotator evaluation workflow, you cannot manually unpause them. To unpause a user, you will need to relax the evaluation settings for the project by increasing the minimum number of tasks or the score threshold.
 
 For more information about pausing annotators, including how to manually pause specific annotators, see [Pause an annotator](quality#Pause-an-annotator).
 
 !!! note
-    Pauses are enforced for users in Annotator and Reviewer roles.  
-    
-    So, for example, if a Reviewer is also annotating tasks and they fail to meet the required ground truth agreement score, they will be unable to regain access to the project to review annotations unless they are unpaused. 
+    Pauses are enforced for users in Annotator and Reviewer roles.
 
-    Users in the Manager, Administrator, or Owner role are unaffected by evaluation requirements. 
+    So, for example, if a Reviewer is also annotating tasks and they fail to meet the required ground truth agreement score, they will be unable to regain access to the project to review annotations unless they are unpaused.
+
+    Users in the Manager, Administrator, or Owner role are unaffected by evaluation requirements.
 
 </dd>
 
@@ -767,11 +764,11 @@ For more information about pausing annotators, including how to manually pause s
 
 <dd>
 
-When multiple annotators are labeling a task, the task agreement reflects how much agreement there is between annotators. 
+When multiple annotators are labeling a task, the task agreement reflects how much agreement there is between annotators.
 
-For example, if 10 annotators review a task and only 2 select the same choice, then that task would have a low agreement score.  
+For example, if 10 annotators review a task and only 2 select the same choice, then that task would have a low agreement score.
 
-You can customize how task agreement is calculated and how it should affect the project workflow. For more information, see [Task agreement and how it is calculated](stats). 
+You can customize how task agreement is calculated and how it should affect the project workflow. For more information, see [Task agreement and how it is calculated](stats).
 
 <table>
 <thead>
@@ -799,7 +796,7 @@ Select the [metric](stats#Available-agreement-metrics) that should determine tas
 <span class="badge"></span>
 </td>
 <td>
-Enable this option to automatically assign an additional annotator to any tasks that have a low agreement score. 
+Enable this option to automatically assign an additional annotator to any tasks that have a low agreement score.
 
 This will ensure that the task is not marked complete until 1) it meets the required [overlap](#overlap) and 2) a minimum agreement score is achieved (this is specified below).
 
@@ -829,9 +826,9 @@ Enter the agreement score that a task must meet before it can be considered comp
 </td>
 <td>
 
-Enter a maximum number of annotators that can be automatically assigned to the task. 
+Enter a maximum number of annotators that can be automatically assigned to the task.
 
-Annotators are assigned one at a time until the agreement threshold is achieved. 
+Annotators are assigned one at a time until the agreement threshold is achieved.
 
 </td>
 </tr>
@@ -846,7 +843,7 @@ Annotators are assigned one at a time until the agreement threshold is achieved.
 
 <dd>
 
-Set custom weights for tags and labels to change the agreement calculation. The options you are given are automatically generated from your labeling interface setup. 
+Set custom weights for tags and labels to change the agreement calculation. The options you are given are automatically generated from your labeling interface setup.
 
 Weights set to zero are ignored from calculation.
 
@@ -855,30 +852,30 @@ Weights set to zero are ignored from calculation.
 
 ## Members
 
-Use this page to control which users are project members. 
+Use this page to control which users are project members.
 
-Project members have access to published projects, depending on the permissions associated with their role. For more information, see [User roles and permissions](admin_roles). 
+Project members have access to published projects, depending on the permissions associated with their role. For more information, see [User roles and permissions](admin_roles).
 
-Some users cannot be added or removed from the Members page at the project level. These users include administrators, who already have access to every project (outside of the Sandbox). This also includes users who have been added as members to the Workspace. Workspace membership is inherited by the projects within the workspace.   
+Some users cannot be added or removed from the Members page at the project level. These users include administrators, who already have access to every project (outside of the Sandbox). This also includes users who have been added as members to the Workspace. Workspace membership is inherited by the projects within the workspace.
 
-* If you have [Automatic distribution](#distribute-tasks) enabled, users with the Annotator role are automatically assigned tasks when they are added as members. Similarly, by default, project members with the Reviewer role are able to begin reviewing annotations once the tasks are labeled. 
+* If you have [Automatic distribution](#distribute-tasks) enabled, users with the Annotator role are automatically assigned tasks when they are added as members. Similarly, by default, project members with the Reviewer role are able to begin reviewing annotations once the tasks are labeled.
 
-* If you have [Manual distribution](#distribute-tasks) enabled, you need to add users with the Annotator role as project members before you can assign them to tasks. And if you have [**Review only manually assigned tasks**](#reviewing-options) enabled, the users with the Reviewer role must also be project members before they can be assigned to tasks. 
+* If you have [Manual distribution](#distribute-tasks) enabled, you need to add users with the Annotator role as project members before you can assign them to tasks. And if you have [**Review only manually assigned tasks**](#reviewing-options) enabled, the users with the Reviewer role must also be project members before they can be assigned to tasks.
 
 #### Project-level roles
 
-Project-level roles are Annotator and Reviewer. 
+Project-level roles are Annotator and Reviewer.
 
 Users with these roles have their access constrained to the project level (meaning they cannot view organization-wide information and can only view project data when added to a project and assigned tasks). For more information, see [User roles and permissions](admin_roles).
 
-For Annotators and Reviewers, you can change their default role on a per-project basis to suit your needs. For example, a user can be assigned as an Annotator to "Project 1" and as a Reviewer to "Project 2." 
+For Annotators and Reviewers, you can change their default role on a per-project basis to suit your needs. For example, a user can be assigned as an Annotator to "Project 1" and as a Reviewer to "Project 2."
 
 To assign a project-level role, first add the person to your project. Once added, you can use the drop-down menu to change their role:
 
 ![Screenshot of project-level role action](/images/project/member_roles.png)
 
 !!! note
-    This is only available for users who have the Annotator or Reviewer role applied at the organization level. Users with Manager, Administrator, and Owner role cannot have their permissions downgraded to Annotator or Reviewer on a per-project basis. 
+    This is only available for users who have the Annotator or Reviewer role applied at the organization level. Users with Manager, Administrator, and Owner role cannot have their permissions downgraded to Annotator or Reviewer on a per-project basis.
 
 ## Model
 
@@ -903,20 +900,20 @@ And the following actions are available from the overflow menu next to a connect
 
 ## Predictions
 
-From here you can view predictions that have been imported, generated with [Prompts](prompts_predictions), or generated when executing the **Batch Predictions** action from the Data Manager. For more information on using predictions, see [Import pre-annotated data into Label Studio](predictions). 
+From here you can view predictions that have been imported, generated with [Prompts](prompts_predictions), or generated when executing the **Batch Predictions** action from the Data Manager. For more information on using predictions, see [Import pre-annotated data into Label Studio](predictions).
 
-To remove predictions from the project, click the overflow menu next to the predictions set and select **Delete**.  
+To remove predictions from the project, click the overflow menu next to the predictions set and select **Delete**.
 
-To determine which predictions are show to annotators, use the [**Annotation > Live Predictions** section](#Annotation). 
+To determine which predictions are show to annotators, use the [**Annotation > Live Predictions** section](#Annotation).
 
 ## Cloud storage
 
 This is where you connect Label Studio to a cloud storage provider:
 
-* **Source Cloud Storage**--This is where the source data for your project is saved. When you sync your source storage, Label Studio retrieves data to be annotated. 
-* **Target Cloud Storage**--This is where your annotations are saved. When you sync your target storage, annotations are sent from Label Studio to the target storage location. 
+* **Source Cloud Storage**--This is where the source data for your project is saved. When you sync your source storage, Label Studio retrieves data to be annotated.
+* **Target Cloud Storage**--This is where your annotations are saved. When you sync your target storage, annotations are sent from Label Studio to the target storage location.
 
-For more information, see [Sync data from external storage](storage). 
+For more information, see [Sync data from external storage](storage).
 
 
 ## Webhooks
@@ -925,15 +922,14 @@ You can use webhooks to integration third-party applications. For more informati
 
 ## Danger Zone
 
-From here, you can access actions that result in data loss, and should be used with caution. 
+From here, you can access actions that result in data loss, and should be used with caution.
 
-* **Reset Cache** 
+* **Reset Cache**
 
-    Reset the labeling cache. This can help in situations where you are seeing validation errors concerning certain labels -- but you know that those labels do not exist. 
+    Reset the labeling cache. This can help in situations where you are seeing validation errors concerning certain labels -- but you know that those labels do not exist.
 * **Drop All Tabs**
 
     If the Data Manager is not loading, dropping all Data Manager tabs can help.
 * **Delete Project**
 
     Deleting a project permanently removes all tasks, annotations, and project data from Label Studio.
-

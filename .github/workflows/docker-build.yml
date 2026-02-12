@@ -31,7 +31,7 @@ env:
   DOCKER_CLI_EXPERIMENTAL: enabled
   IMAGE_NAME: "${{ vars.DOCKERHUB_ORG }}/label-studio"
   DOCKER_IMAGE_TAG_CHECK_NAME: "Docker image tag"
-  POETRY_VERSION: 2.3.2
+  POETRY_VERSION: 2.2.1
 
 jobs:
   calculate_version:
@@ -58,7 +58,7 @@ jobs:
           set -x
           sha="$(git rev-parse HEAD)"
           echo "sha=$sha" >> $GITHUB_OUTPUT
-           
+
           pretty_branch_name="$(echo -n "${BRANCH_NAME#refs/heads/}" | sed -E 's#[/_\.-]+#-#g' | tr '[:upper:]' '[:lower:]' | cut -c1-25 | sed -E 's#-$##g')"
           echo "pretty_branch_name=${pretty_branch_name}" >> "${GITHUB_OUTPUT}"
 
@@ -69,7 +69,7 @@ jobs:
             image_version="${pretty_branch_name}"
           fi
           echo "image_version=${image_version}" >> $GITHUB_OUTPUT
-          
+
           current_time="$(date +'%Y%m%d.%H%M%S')"
           branch="-${pretty_branch_name}"
           short_sha="$(git rev-parse --short HEAD)"
@@ -129,7 +129,7 @@ jobs:
             --retry-delay 10 \
             -H "Authorization: $LAUNCHDARKLY_COMMUNITY_SDK_KEY" \
             "https://sdk.launchdarkly.com/sdk/latest-all" >"$LAUNCHDARKLY_DOWNLOAD_PATH"
-          if [ "$(jq 'has("flags")' <<< cat $LAUNCHDARKLY_DOWNLOAD_PATH)" = "true" ]; then 
+          if [ "$(jq 'has("flags")' <<< cat $LAUNCHDARKLY_DOWNLOAD_PATH)" = "true" ]; then
             echo "feature_flags.json is valid"
           else
             echo "feature_flags.json is invalid"
@@ -167,7 +167,7 @@ jobs:
           mkdir -p ${{ runner.temp }}/digests
           digest="${{ steps.docker_build_and_push.outputs.digest }}"
           touch "${{ runner.temp }}/digests/${digest#sha256:}"
-    
+
       - name: Upload digest
         uses: actions/upload-artifact@v6
         with:
@@ -216,7 +216,7 @@ jobs:
       - name: Inspect image
         run: |
           docker buildx imagetools inspect ${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }}
-          
+
   create_check:
     name: "Create Docker image tag Check"
     runs-on: ubuntu-latest
@@ -226,6 +226,7 @@ jobs:
       - name: Create Docker image tag Check
         uses: actions/github-script@v8
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { repo, owner } = context.repo;
             const details = {
@@ -257,9 +258,10 @@ jobs:
     name: "Notify Slack"
     runs-on: ubuntu-latest
     needs: [calculate_version, docker_build, create_check, merge_docker_manifest]
-    if: failure() && github.event_name == 'push' && inputs.branch_name == 'develop'
+    if: always() && github.event_name == 'push' && inputs.branch_name == 'develop'
     steps:
       - name: Notify to Slack on failure
+        if: failure()
         env:
           GITHUB_REPOSITORY: "${{ github.repository }}"
           GITHUB_RUN_ID: "${{ github.run_id }}"
@@ -269,6 +271,6 @@ jobs:
         with:
           channel-id: 'C01RJV08UJK'
           slack-message: |
-            ❌ Docker build failed for *develop* branch! <!subteam^${{ vars.SLACK_GR_DEVOPS }}> 
+            ❌ Docker build failed for *develop* branch! <!subteam^${{ vars.SLACK_GR_DEVOPS }}>
 
             ><https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|[Workflow run]>

@@ -12,7 +12,7 @@ section: "Create & Manage Projects"
 All labeling activities in Label Studio occur in the context of a project. After you [create a project](setup_project.html#Create-a-project) and [import data](tasks.html), set up the labeling interface and labeling configuration for your project. This setup process is essential to your labeling project.
 
 !!! error Enterprise
-    Does your project need a fully customized interface? 
+    Does your project need a fully customized interface?
     The UI engine on Label Studio Enterprise makes it possible to create programmable and embeddable interfaces for AI and agents. [Learn more](https://humansignal.com/programmable-ui/).
 
 ## Set up the labeling interface for your project
@@ -44,7 +44,7 @@ Configure the labels and task type for annotators using the templates included w
 
 You can make changes to the labeling interface and configuration in the project settings.
 
-!!! note 
+!!! note
     If you are modifying a project that has in-progress work, note the following:
 
     * You cannot remove labels or change the type of labeling being performed unless you delete any existing annotations that are using those labels.
@@ -58,15 +58,15 @@ You can make changes to the labeling interface and configuration in the project 
 
 #### Code view autocomplete
 
-The code view has an autocomplete helper that appears as you type. 
+The code view has an autocomplete helper that appears as you type.
 
 The autocomplete includes prompts for both tags and the parameters that are available for the selected tag:
 
 ![Animated gif of code autocomplete in action](/images/label/autocomplete.gif)
 
-Tag suggestions appear after you type the opening angle bracket `<`. Parameter suggestions appear after adding a blank space within the tag. 
+Tag suggestions appear after you type the opening angle bracket `<`. Parameter suggestions appear after adding a blank space within the tag.
 
-To accept a suggestion, you can click to select it, or press the Tab key while the suggestion is highlighted.  
+To accept a suggestion, you can click to select it, or press the Tab key while the suggestion is highlighted.
 
 ## Customize a template
 

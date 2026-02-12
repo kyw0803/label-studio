@@ -10,7 +10,7 @@ meta_description: Template for labeling change point detection in time series da
 
 <img src="/images/templates/change-point-detection.png" alt="" class="gif-border" width="552px" height="408px" />
 
-If you need to find sudden changes in time series data, use this template to perform change point detection. Label the change on relevant time series channels. 
+If you need to find sudden changes in time series data, use this template to perform change point detection. Label the change on relevant time series channels.
 
 ## Interactive Template Preview
 
@@ -23,7 +23,7 @@ If you need to find sudden changes in time series data, use this template to per
     <TimeSeriesLabels name="label" toName="ts">
         <Label value="Change" background="red" />
     </TimeSeriesLabels>
-    
+
     <TimeSeries name="ts" valueType="url" value="$csv"
                 sep=","
                 timeColumn="time"
@@ -35,7 +35,7 @@ If you need to find sudden changes in time series data, use this template to per
                  units="miles/h"
                  displayFormat=",.1f"
                  strokeColor="#1f77b4"
-                 legend="Velocity"/>       
+                 legend="Velocity"/>
     </TimeSeries>
 </View>
 ```
@@ -51,7 +51,7 @@ Use the [TimeSeriesLabels](/tags/timeserieslabels.html) control tag to allow ann
     </TimeSeriesLabels>
 ```
 
-Use the [TimeSeries](/tags/timeseries.html) object tag to specify the time series data source. The `valueType="url"` parameter specifies that the time series data is available as a URL, rather than a file, and the `value="$csv"` parameter specifies that the URL is stored in a data key called `csv`. The `sep=","` parameter specifies that a comma is the data separator, as is standard for a CSV-formatted file. The time parameters specify which column contains the time data, the format of the time data in the file, and how to display the time data on the labeling interface. 
+Use the [TimeSeries](/tags/timeseries.html) object tag to specify the time series data source. The `valueType="url"` parameter specifies that the time series data is available as a URL, rather than a file, and the `value="$csv"` parameter specifies that the URL is stored in a data key called `csv`. The `sep=","` parameter specifies that a comma is the data separator, as is standard for a CSV-formatted file. The time parameters specify which column contains the time data, the format of the time data in the file, and how to display the time data on the labeling interface.
 ```xml
  <TimeSeries name="ts" valueType="url" value="$csv"
                 sep=","
@@ -66,7 +66,7 @@ Use the [TimeSeries](/tags/timeseries.html) object tag to specify the time serie
                  legend="Velocity"/>
     </TimeSeries>
 ```
-The `overviewChannels` parameter in the [TimeSeries](/tags/timeseries.html) tag specifies the column in the time series data to display on the time series graph as a channel. You can then use the Channel tag and its parameters to provide details about the data, such as the units of the data, the `displayFormat` of the channel data using d3 format, the `strokeColor` to use when highlighting the channel, and the name of the channel as it should appear in the labeling interface legend. 
+The `overviewChannels` parameter in the [TimeSeries](/tags/timeseries.html) tag specifies the column in the time series data to display on the time series graph as a channel. You can then use the Channel tag and its parameters to provide details about the data, such as the units of the data, the `displayFormat` of the channel data using d3 format, the `strokeColor` to use when highlighting the channel, and the name of the channel as it should appear in the labeling interface legend.
 
 ## Related tags
 

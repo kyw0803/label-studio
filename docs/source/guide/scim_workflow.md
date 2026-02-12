@@ -26,24 +26,24 @@ You can use SCIM to do the following:
 * Assign users to groups
 * Unassign a user from a group
 * Map groups to user roles
-    
-    Note that groups are defined in the IdP, not Label Studio. However, the group to role mapping is defined in Label Studio. 
+
+    Note that groups are defined in the IdP, not Label Studio. However, the group to role mapping is defined in Label Studio.
 
 ## SCIM API endpoint
 
-You can use SCIM with Label Studio to control and interact with two entities: Users and Groups. 
+You can use SCIM with Label Studio to control and interact with two entities: Users and Groups.
 
 !!! note
-    Our API uses the [django-scim2 library](https://django-scim2.readthedocs.io/en/latest/). 
+    Our API uses the [django-scim2 library](https://django-scim2.readthedocs.io/en/latest/).
 
 #### Users
 * Search for users: `GET /scim/v2/Users?filter=userName =<user@email.com>&startIndex=1&count=100`
     * `200` response if user exists
-    * `404` if not 
+    * `404` if not
 * Get user: `GET /scim/v2/Users/user@email.com`
-* Create user: `POST /scim/v2/Users/` 
+* Create user: `POST /scim/v2/Users/`
 
-    This will also require a payload that includes user information such as email and password. 
+    This will also require a payload that includes user information such as email and password.
 
 #### Groups
 
@@ -63,7 +63,7 @@ You can use SCIM with Label Studio to control and interact with two entities: Us
       }
     ]
   }
-} 
+}
     ```
 
 * Create group: `POST /scim/v2/Groups/<group-name>`
@@ -81,30 +81,30 @@ These settings can also be configured in the Label Studio app from the **Organiz
 
 ### Roles
 
-You can assign roles to users through group mapping. Use the [Update SCIM settings API](https://api.labelstud.io/api-reference/api-reference/sso/scim/update) or log in to Label Studio and go to the **Organization** page. Click **SCIM** in the upper right. 
+You can assign roles to users through group mapping. Use the [Update SCIM settings API](https://api.labelstud.io/api-reference/api-reference/sso/scim/update) or log in to Label Studio and go to the **Organization** page. Click **SCIM** in the upper right.
 
 #### Organization-level roles
 
-These roles can be **Annotator**, **Reviewer**, **Manager**, or **Administrator**. 
+These roles can be **Annotator**, **Reviewer**, **Manager**, or **Administrator**.
 
-Each group can only be mapped to one role at the organization level. For more information about what permissions each role has, see [Roles in Label Studio Enterprise](manage_users#Roles-in-Label-Studio-Enterprise). 
+Each group can only be mapped to one role at the organization level. For more information about what permissions each role has, see [Roles in Label Studio Enterprise](manage_users#Roles-in-Label-Studio-Enterprise).
 
-You can also assign a group to the **Deactivated** role, which would revoke their Label Studio access. 
+You can also assign a group to the **Deactivated** role, which would revoke their Label Studio access.
 
 
 #### Project-level roles
 
-For more granular control, you can assign project-level roles to a group. 
+For more granular control, you can assign project-level roles to a group.
 
-These roles can be **Annotator**, **Reviewer**, or **Inherit** (meaning they inherit their organization-level role). 
+These roles can be **Annotator**, **Reviewer**, or **Inherit** (meaning they inherit their organization-level role).
 
-Unlike organization-level roles, a group can be assigned to multiple roles across multiple projects. For example, Group A can be Annotators in Project 1 and Reviewers in Project 2. 
+Unlike organization-level roles, a group can be assigned to multiple roles across multiple projects. For example, Group A can be Annotators in Project 1 and Reviewers in Project 2.
 
 
 ### Workspaces
 
-You can also use SCIM to assign user groups to a workspace, or create a new workspace if one does not already exist. 
+You can also use SCIM to assign user groups to a workspace, or create a new workspace if one does not already exist.
 
-When you assign a group to a workspace, they are added as workspace members. This means that by default, they will have access to any projects within that workspace. 
+When you assign a group to a workspace, they are added as workspace members. This means that by default, they will have access to any projects within that workspace.
 
-Their permissions for those projects will depend on their organization-level role. However, you can override this by using SCIM to assign a project-level role (see above). 
+Their permissions for those projects will depend on their organization-level role. However, you can override this by using SCIM to assign a project-level role (see above).

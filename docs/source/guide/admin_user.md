@@ -17,21 +17,21 @@ date: 2024-02-05 17:15:19
 
 Once the initial organization account is created, you can begin inviting users:
 
-1. Open Label Studio and click the menu in the upper left. 
-2. Select **Organization**. 
+1. Open Label Studio and click the menu in the upper left.
+2. Select **Organization**.
 
-    If you do not see the **Organization** option, you do not have access to the Organization page. Only users in the Owner or Administrator role can access this page. 
-3. From the Organization page, click **Invite Members**. 
+    If you do not see the **Organization** option, you do not have access to the Organization page. Only users in the Owner or Administrator role can access this page.
+3. From the Organization page, click **Invite Members**.
 
 From here you have two options:
 
-* **Invite link**  
-You can share this link with users, who can then complete the registration process. However, they will be unable to access Label Studio until an Owner or Administrator manually assigns them a role. See [User roles and permissions](admin_roles). 
+* **Invite link**
+You can share this link with users, who can then complete the registration process. However, they will be unable to access Label Studio until an Owner or Administrator manually assigns them a role. See [User roles and permissions](admin_roles).
 
-    Click **Reset Link** to reset the link. When reset, anyone who has the old link will be unable to register a new user account. 
+    Click **Reset Link** to reset the link. When reset, anyone who has the old link will be unable to register a new user account.
 
-* **Invite via email**  
-Enter a list of email addresses separated by commas and then select a user role for the new accounts. Users will receive an email with a link to create their Label Studio account, and will be able to access Label Studio as soon as their registration is complete. 
+* **Invite via email**
+Enter a list of email addresses separated by commas and then select a user role for the new accounts. Users will receive an email with a link to create their Label Studio account, and will be able to access Label Studio as soon as their registration is complete.
 
 ### Require invites for new users
 
@@ -43,11 +43,11 @@ You can remove the option to create accounts through the `/user/signup` page by 
 LABEL_STUDIO_DISABLE_SIGNUP_WITHOUT_LINK=true
 ```
 
-Users will only be able to sign up through an invitation link or email. 
+Users will only be able to sign up through an invitation link or email.
 
 ## Activate new users
 
-Users who sign up through the link will not be able to access Label Studio until they are assigned a user role. 
+Users who sign up through the link will not be able to access Label Studio until they are assigned a user role.
 
 To filter for users who are pending, select **Not Activated** from the roles filter at the top of the **Organization > Members** page:
 
@@ -59,4 +59,3 @@ To filter for users who are pending, select **Not Activated** from the roles fil
 Then use the drop-down menu to assign a role:
 
 ![Screenshot of the role drop-down menu](/images/admin/user-pending.png)
-

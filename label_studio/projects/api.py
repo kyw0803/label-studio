@@ -21,28 +21,38 @@ from django.db import IntegrityError
 from django.db.models import F
 from django.http import Http404
 from django.utils.decorators import method_decorator
-from django_filters import CharFilter, FilterSet
+from django_filters import CharFilter, FilterSet, NumberFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import OpenApiExample, OpenApiParameter, OpenApiResponse, extend_schema
+from drf_spectacular.utils import OpenApiExample, OpenApiParameter, OpenApiResponse, extend_schema, inline_serializer
 from label_studio_sdk.label_interface.interface import LabelInterface
 from ml.serializers import MLBackendSerializer
 from projects.functions.next_task import get_next_task
 from projects.functions.stream_history import get_label_stream_history
 from projects.functions.utils import recalculate_created_annotations_and_labels_from_scratch
-from projects.models import Project, ProjectImport, ProjectManager, ProjectReimport, ProjectSummary
+from projects.models import (
+    Project,
+    ProjectImport,
+    ProjectManager,
+    ProjectMember,
+    ProjectMemberRole,
+    ProjectReimport,
+    ProjectSummary,
+    Role,
+)
 from projects.serializers import (
     GetFieldsSerializer,
     ProjectCountsSerializer,
     ProjectImportSerializer,
     ProjectLabelConfigSerializer,
+    ProjectMemberSerializer,
     ProjectModelVersionExtendedSerializer,
     ProjectModelVersionParamsSerializer,
     ProjectReimportSerializer,
     ProjectSerializer,
     ProjectSummarySerializer,
 )
-from rest_framework import filters, generics, status
+from rest_framework import filters, generics, serializers, status
 from rest_framework.exceptions import NotFound
 from rest_framework.exceptions import ValidationError as RestValidationError
 from rest_framework.pagination import PageNumberPagination
@@ -104,9 +114,11 @@ class ProjectListPagination(PageNumberPagination):
     max_page_size = 100
 
 
+# ProjectFilterSet 클래스에 workspace 필터 추가 필요 가능성 있음
 class ProjectFilterSet(FilterSet):
     ids = ListFilter(field_name='id', lookup_expr='in')
     title = CharFilter(field_name='title', lookup_expr='icontains')
+    workspace = NumberFilter(field_name='workspace', lookup_expr='exact')
 
 
 @method_decorator(
@@ -180,7 +192,8 @@ class ProjectListAPI(generics.ListCreateAPIView):
         serializer.is_valid(raise_exception=True)
         fields = serializer.validated_data.get('include')
         filter = serializer.validated_data.get('filter')
-        projects = Project.objects.filter(organization=self.request.user.active_organization).order_by(
+
+        projects = Project.objects.filter(contributor=self.request.user.id).order_by(
             F('pinned_at').desc(nulls_last=True), '-created_at'
         )
         if filter in ['pinned_only', 'exclude_pinned']:
@@ -202,7 +215,11 @@ class ProjectListAPI(generics.ListCreateAPIView):
 
     def perform_create(self, ser):
         try:
-            ser.save(organization=self.request.user.active_organization)
+            project_instance = ser.save(organization=self.request.user.active_organization)
+            project_instance.add_collaborator(
+                self.request.user, role=Role.objects.get(role_name=Role.RoleChoices.PROJECT_MANAGER)
+            )
+
         except IntegrityError as e:
             if str(e) == 'UNIQUE constraint failed: project.title, project.created_by_id':
                 raise ProjectExistException(
@@ -381,9 +398,7 @@ class ProjectAPI(generics.RetrieveUpdateDestroyAPIView):
         serializer = GetFieldsSerializer(data=self.request.query_params)
         serializer.is_valid(raise_exception=True)
         fields = serializer.validated_data.get('include')
-        projects = Project.objects.with_counts(fields=fields).filter(
-            organization=self.request.user.active_organization
-        )
+        projects = Project.objects.with_counts(fields=fields).filter(contributor=self.request.user)
 
         # Only annotate FSM state for UI/API consumption when both feature flags are enabled
         if flag_set('fflag_feat_fit_568_finite_state_management', user=self.request.user) and flag_set(
@@ -606,13 +621,13 @@ class ProjectSummaryResetAPI(GetParentObjectMixin, generics.CreateAPIView):
         summary='Get project import status ',
         description="""
             Poll the status of an asynchronous project import operation.
-            
+
             **Usage:**
             1. When you POST to `/api/projects/{project_id}/import`, you'll receive a response like `{"import": <import_id>}`
             2. Use that `import_id` with this GET endpoint to check the import status
             3. Poll this endpoint to see if the import has completed, is still processing, or has failed
             4. **Import errors and failures will only be visible in this GET response**, not in the original POST request
-            
+
             This endpoint returns detailed information about the import including task counts, status, and any error messages.
         """,
         parameters=[
@@ -646,13 +661,13 @@ class ProjectImportAPI(generics.RetrieveAPIView):
         summary='Get project reimport status',
         description="""
             Poll the status of an asynchronous project reimport operation.
-            
+
             **Usage:**
             1. When you POST to reimport tasks, you'll receive a response with a reimport ID
             2. Use that `reimport_id` with this GET endpoint to check the reimport status
             3. Poll this endpoint to see if the reimport has completed, is still processing, or has failed
             4. **Reimport errors and failures will only be visible in this GET response**, not in the original POST request
-            
+
             This endpoint returns detailed information about the reimport including task counts, status, and any error messages.
         """,
         parameters=[
@@ -782,6 +797,112 @@ class ProjectTaskListAPI(GetParentObjectMixin, generics.ListCreateAPIView, gener
             self.request.user.active_organization, project, WebhookAction.TASKS_CREATED, [instance]
         )
         return instance
+
+
+@method_decorator(
+    name='get',
+    decorator=extend_schema(
+        tags=['Projects'],
+        summary='List project members',
+        description='Retrieve a list of members for the specified project.',
+        responses={200: ProjectMemberSerializer(many=True)},
+    ),
+)
+@method_decorator(
+    name='post',
+    decorator=extend_schema(
+        tags=['Projects'],
+        summary='Add project members',
+        description='Add new members to the project by their user IDs.',
+        request=inline_serializer(
+            name='AddProjectMembers', fields={'ids': serializers.ListField(child=serializers.IntegerField())}
+        ),
+        responses={201: ProjectMemberSerializer(many=True)},
+    ),
+)
+class ProjectMemberListAPI(generics.ListCreateAPIView, generics.DestroyAPIView):
+    parser_classes = (JSONParser, FormParser)
+    permission_required = ViewClassPermission(
+        GET=all_permissions.projects_view, POST=all_permissions.projects_change, DELETE=all_permissions.projects_delete
+    )
+
+    serializer_class = ProjectMemberSerializer
+
+    def get_queryset(self):
+        project = generics.get_object_or_404(Project, pk=self.kwargs['pk'])
+        return ProjectMember.objects.filter(project=project).select_related('user')
+
+    def post(self, request, *args, **kwargs):
+        project = generics.get_object_or_404(Project, pk=self.kwargs['pk'])
+
+        members_data = request.data.get('members')
+        if not members_data:
+            return Response({'detail': 'No members found in request.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user_ids = [m.get('user_id') for m in members_data]
+        if not user_ids:
+            raise RestValidationError('No user IDs provided in members list')
+
+        users = User.objects.filter(id__in=user_ids, organizations=project.organization)
+        if not users.exists():
+            raise RestValidationError('No valid users found')
+
+        user_map = {u.id: u for u in users}
+
+        for member_info in members_data:
+            user_id = member_info.get('user_id')
+            user = user_map.get(user_id)
+            if user:
+                role = member_info.get('role')
+
+                if role:
+                    role_obj = Role.objects.get(role_name=role)
+                project.add_collaborator(user, role=role_obj)
+
+        members = ProjectMember.objects.filter(project=project, user__in=users).select_related('user')
+        serializer = self.get_serializer(members, many=True)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def delete(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        project_member_ids = request.data.get('project_member_ids')
+
+        if queryset.filter(user=self.request.user).exists():
+            return Response({'error': 'You cannot delete yourself'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not queryset or not project_member_ids:
+            return Response({'error': '삭제할 멤버 ID가 필요합니다.'}, status=status.HTTP_400_BAD_REQUEST)
+        del_member = queryset.filter(id__in=project_member_ids)
+        del_member_role = ProjectMemberRole.objects.filter(project_member__in=project_member_ids)
+        del_member_role.delete()
+        del_member.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@method_decorator(
+    name='get',
+    decorator=extend_schema(
+        tags=['Projects'],
+        summary='List potential project members',
+        description='Retrieve a list of users from the organization who are not yet members of the project.',
+        responses={200: UserSimpleSerializer(many=True)},
+    ),
+)
+class ProjectCandidateAPI(generics.ListAPIView):
+    permission_required = ViewClassPermission(
+        GET=all_permissions.projects_view,
+    )
+    serializer_class = UserSimpleSerializer
+
+    def get_queryset(self):
+        project = generics.get_object_or_404(Project, pk=self.kwargs['pk'])
+        return (
+            User.objects.filter(workspaces=project.workspace)
+            .exclude(project_memberships__project=project)
+            .distinct()
+            .order_by('email')
+        )
 
 
 def read_templates_and_groups():

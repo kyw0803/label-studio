@@ -5,7 +5,7 @@ import { useAtomValue } from "jotai";
 import clsx from "clsx";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { format } from "date-fns";
-import { getApiInstance, useCopyText } from "@humansignal/core";
+import { useCopyText } from "@humansignal/core";
 import styles from "./PersonalJWTToken.module.scss";
 import { Button } from "@humansignal/ui";
 
@@ -13,6 +13,7 @@ import { Button } from "@humansignal/ui";
  * FIXME: This is legacy imports. We're not supposed to use such statements
  * each one of these eventually has to be migrated to core/ui
  */
+import { getApiInstance } from "@humansignal/core";
 import { modal, confirm } from "@humansignal/ui/lib/modal";
 import { Input, Label } from "apps/labelstudio/src/components/Form/Elements";
 import { Tooltip } from "@humansignal/ui";
@@ -81,10 +82,10 @@ const revokeTokenAtom = atomWithMutation((get) => {
       // We need to keep everything but one token that we just deleted
       const filtered = previousTokens.filter((t) => t.token !== token);
       // We now optimistically override data inside the query
-      queryClient.setQueryData(ACCESS_TOKENS_QUERY_KEY, (old: Token[]) => filtered as Token[]);
+      queryClient.setQueryData(ACCESS_TOKENS_QUERY_KEY, (_old: Token[]) => filtered as Token[]);
       return { previousTokens };
     },
-    onError: (err, newTodo, context) => {
+    onError: (_err, _newTodo, context) => {
       // If error, reset query to its previous state (without changes from `onMutate`)
       queryClient.setQueryData(ACCESS_TOKENS_QUERY_KEY, context?.previousTokens);
     },

@@ -7,7 +7,7 @@ meta_title: Vector Tag for Adding Vectors to Images
 meta_description: Use the Vector tag by adding vectors to images for segmentation machine learning and data science projects.
 ---
 
-The `Vector` tag is used to add vectors to an image without selecting a label. This can be useful when you have only one label to assign to the vector. 
+The `Vector` tag is used to add vectors to an image without selecting a label. This can be useful when you have only one label to assign to the vector.
 
 Use with the following data types: image.
 
@@ -24,9 +24,9 @@ Use with the following data types: image.
 | **Delete points**            | Press <code>Alt</code> or <code>Option</code> and click on an existing point. |
 
 !!! note
-    <span id="region-note">Several options require you to complete the path and then re-select it as a region.</span> 
-    
-    To do this, you must first exit the path and then reselect it by clicking on a segment within the path or by clicking it under the **Regions** panel. 
+    <span id="region-note">Several options require you to complete the path and then re-select it as a region.</span>
+
+    To do this, you must first exit the path and then reselect it by clicking on a segment within the path or by clicking it under the **Regions** panel.
 
     Selected paths are highlighted red. For this reason, you should avoid red when choosing label colors for your vector paths.
 
@@ -35,7 +35,7 @@ Use with the following data types: image.
 
 ### Multi-select
 
-With multi-select, you can drag multiple points to reposition or rotate them. 
+With multi-select, you can drag multiple points to reposition or rotate them.
 
 ![Screenshot](/images/tags/vector-multi.png)
 
@@ -43,7 +43,7 @@ With multi-select, you can drag multiple points to reposition or rotate them.
 |---------------------------|-------------|
 | **Select multiple points** | <ul><li>To select all points in the path, press <code>Cmd</code> or <code>Ctrl</code> and then click any point in the path.</li><li>To select individual points in a path, first select the path as a region (<a href="#region-note">see the note above</a>). Then press <code>Cmd</code> or <code>Ctrl</code> as you click points.</li></ul> |
 | **Transform selection**   | Use transformer handles for rotation, scaling, and translation |
-| **Clear selection**       | Click on any point or press <code>Esc</code>. | 
+| **Clear selection**       | Click on any point or press <code>Esc</code>. |
 
 
 ### Bézier curves
@@ -62,7 +62,7 @@ To use Bezier curves, you must enable them using the `curves="true"` parameter i
 
 ### Closed paths
 
-You can create closed paths to create polygon shapes. To create closed paths, use the `closable="true"` parameter in your labeling configuration. 
+You can create closed paths to create polygon shapes. To create closed paths, use the `closable="true"` parameter in your labeling configuration.
 
 ![Screenshot](/images/tags/vector-closed.png)
 
@@ -73,9 +73,9 @@ You can create closed paths to create polygon shapes. To create closed paths, us
 
 ### Skeleton
 
-You can create skeleton vectors using the `skeleton="true"` parameter in your labeling configuration. 
+You can create skeleton vectors using the `skeleton="true"` parameter in your labeling configuration.
 
-When enabled, new points connect to the active point and not the last added point. 
+When enabled, new points connect to the active point and not the last added point.
 
 ![Screenshot](/images/tags/vector-skeleton.png)
 
@@ -96,8 +96,8 @@ Basic labeling configuration for vector image segmentation
 
 ### Result parameters
 
-**Kind**: global typedef  
-**Returns**: <code>VectorRegionResult</code> - The serialized vector region data in Label Studio format  
+**Kind**: global typedef
+**Returns**: <code>VectorRegionResult</code> - The serialized vector region data in Label Studio format
 **Properties**
 
 | Name | Type | Description |

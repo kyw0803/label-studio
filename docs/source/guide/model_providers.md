@@ -7,7 +7,7 @@ hide_menu: false
 order: 0
 order_enterprise: 361
 meta_title: Model providers
-meta_description: How to set up model providers for AI features in Label Studio. 
+meta_description: How to set up model providers for AI features in Label Studio.
 section: "Manage Your Organization"
 parent_enterprise: "admin_settings"
 date: 2025-02-18 12:03:59
@@ -19,15 +19,15 @@ For example, if you want to interact with an LLM when using the [`<Chat>` tag](/
 
 
 !!! note
-    These models are not used with the Label Studio [AI Assistant](ask_ai). 
+    These models are not used with the Label Studio [AI Assistant](ask_ai).
 
 ## About adding model providers
 
-### User access 
+### User access
 
-Once added, these model providers can be used by anyone in your organization who is also using an AI-powered workflow. 
-    
-However, only users with access to the organization settings (Owner and Admins) can add and configure models. 
+Once added, these model providers can be used by anyone in your organization who is also using an AI-powered workflow.
+
+However, only users with access to the organization settings (Owner and Admins) can add and configure models.
 
 ### Whitelisting network access
 
@@ -35,7 +35,7 @@ If you are restricting network access to your resource, you may need to whitelis
 
 ### Approaches
 
-There are two approaches to adding a model provider API key. 
+There are two approaches to adding a model provider API key.
 
 * In one scenario, you get one provider connection per organization, and this provides access to a set of whitelisted models. Examples include:
 
@@ -55,6 +55,6 @@ There are two approaches to adding a model provider API key.
 ## Add a model provider
 
 !!! note
-    If you have already configured model providers to use with [Prompts](prompts_overview), those will automatically be added to your organization-level providers. 
+    If you have already configured model providers to use with [Prompts](prompts_overview), those will automatically be added to your organization-level providers.
 
 {% insertmd includes/model_keys.md %}

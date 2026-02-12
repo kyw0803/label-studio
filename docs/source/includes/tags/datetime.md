@@ -12,4 +12,3 @@
 | [requiredMessage] | <code>string</code> |  | Message to show if validation fails |
 | [perRegion] | <code>boolean</code> |  | Use this option to label regions instead of the whole object |
 | [perItem] | <code>boolean</code> |  | Use this option to label items inside the object instead of the whole object |
-

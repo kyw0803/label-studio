@@ -21,7 +21,7 @@ which handles secure file downloads from persistent storage (S3, GCS, Azure, etc
 
 ### Authentication & Authorization Tests:
 - Missing filepath parameter validation
-- Invalid filepath security checks  
+- Invalid filepath security checks
 - FileUpload permission validation
 - Organization-based avatar access control
 - Cross-organization access prevention

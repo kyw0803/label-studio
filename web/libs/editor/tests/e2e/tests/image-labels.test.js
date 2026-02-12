@@ -3,7 +3,8 @@ const { kebabCase } = require("lodash");
 
 Feature("Images' labels type matching");
 
-const IMAGE = "/public/files/images/nick-owuor-unsplash.jpg";
+const IMAGE =
+  "https://htx-pub.s3.us-east-1.amazonaws.com/examples/images/nick-owuor-astro-nic-visuals-wDifg5xc9Z4-unsplash.jpg";
 
 const createConfig = ({ shapes = ["Rectangle"], props } = {}) => {
   return `<View>
@@ -134,7 +135,7 @@ DataStore.Scenario(
     const size = Math.min(canvasSize.width, canvasSize.height);
     const offset = size * 0.05;
     const toolSelectors = [
-      (shapeName, shapeIdx) => {
+      (_shapeName, shapeIdx) => {
         I.click(
           locate(".lsf-toolbar")
             .find(".lsf-tool")
@@ -150,7 +151,7 @@ DataStore.Scenario(
     ];
 
     for (const creator of Object.values(createShape[shape])) {
-      const regions = toolSelectors.map((selector, idx) => {
+      const regions = toolSelectors.map((_selector, idx) => {
         const x1 = (size / 3) * idx + offset;
         const x2 = (size / 3) * (idx + 1) - offset;
         const y1 = size / 3;
@@ -188,7 +189,7 @@ DataStore.Scenario(
 
       const currentLabelName = `${shape}Append`;
 
-      regions.forEach((region, idx) => {
+      regions.forEach((_region, idx) => {
         AtOutliner.clickRegion(+idx + 1);
         AtLabels.clickLabel(currentLabelName);
         I.pressKey(["u"]);
@@ -198,7 +199,7 @@ DataStore.Scenario(
 
       assert.strictEqual(labelsCounter(results1, currentLabelName), 3, "Labels number don't match");
 
-      regions.forEach((region, idx) => {
+      regions.forEach((_region, idx) => {
         I.say(`Click label ${idx}`);
         AtOutliner.clickRegion(+idx + 1);
         AtLabels.clickLabel("Label");

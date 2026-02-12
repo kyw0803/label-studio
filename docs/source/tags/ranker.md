@@ -2,13 +2,13 @@
 title: Ranker
 type: tags
 order: 419
-meta_title: Ranker Tag 
-meta_description: Use the Ranker tag to sort list items. 
+meta_title: Ranker Tag
+meta_description: Use the Ranker tag to sort list items.
 ---
 
-You can use `Ranker` to select relevant items from a `List` and sort them. You can either sort them to order them or sort them into buckets (defined using a nested `Bucket` tag). 
+You can use `Ranker` to select relevant items from a `List` and sort them. You can either sort them to order them or sort them into buckets (defined using a nested `Bucket` tag).
 
-Use with the following data types: [`List`](list). 
+Use with the following data types: [`List`](list).
 
 
 {% insertmd includes/tags/ranker.md %}
@@ -80,11 +80,11 @@ In this example, the annotator moved the list item with `"id": "mdn"` to the top
 
 ## List + Ranker + Buckets
 
-When you use `Ranker` with a nested `Bucket`, you can sort list items into bucket categories. 
+When you use `Ranker` with a nested `Bucket`, you can sort list items into bucket categories.
 
-### Example labeling config 
+### Example labeling config
 
-See the [example above](#Example-labeling-config) for notes on adding styling. 
+See the [example above](#Example-labeling-config) for notes on adding styling.
 
 ```html
 <View>
@@ -98,7 +98,7 @@ See the [example above](#Example-labeling-config) for notes on adding styling.
 
 ### Example input data
 
-See the [example list](#Example-input-data) provided above. 
+See the [example list](#Example-input-data) provided above.
 
 ### Example results
 
@@ -129,9 +129,9 @@ The saved result is a dictionary where each key is the bucket name and each valu
 ]
 ```
 
-Note that the `"_"` array contains the list items that were **not** sorted into buckets. 
+Note that the `"_"` array contains the list items that were **not** sorted into buckets.
 
-You can change this behavior by designating a default bucket. See the example below. 
+You can change this behavior by designating a default bucket. See the example below.
 
 ### Default buckets
 
@@ -151,7 +151,7 @@ This does two things:
 
 - Hides the "Search Results" column (the column that contained all the unsorted list items)
 - Places the unsorted list items into the default bucket
-  
+
 This would also affect your results so that unsorted list items are stored under the default bucket key, for example:
 
 ```json

@@ -14,8 +14,8 @@ date: 2024-06-11 16:53:16
 
 ## Prerequisites
 
-* An [API key](prompts_keys) for your LLM. 
-* A project that meets the [criteria noted below](#Create-a-Prompt). 
+* An [API key](prompts_keys) for your LLM.
+* A project that meets the [criteria noted below](#Create-a-Prompt).
 
 ## Create a Prompt
 
@@ -33,7 +33,6 @@ From the Prompts page, click **Create Prompt** in the upper right and then compl
 
 !!! note Eligible projects
     Target projects must meet the following criteria:
-    * You must have access to the project. If you are in the Manager role, you need to be added to the project to have access. 
-    * The project cannot be located in your Personal Sandbox workspace. 
-    * While projects connected to an ML backend will still appear in the list of eligible projects, we do not recommend using Prompts with an ML backend as this can interfere with how accuracy and score are calculated when evaluating the prompt. 
-  
+    * You must have access to the project. If you are in the Manager role, you need to be added to the project to have access.
+    * The project cannot be located in your Personal Sandbox workspace.
+    * While projects connected to an ML backend will still appear in the list of eligible projects, we do not recommend using Prompts with an ML backend as this can interfere with how accuracy and score are calculated when evaluating the prompt.

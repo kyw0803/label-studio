@@ -14,7 +14,7 @@ Perform named entity recognition for HTML documents. Use this template to displa
 
 <!--Removing interactive template because it doesn't work due to the outdated version of LSF in playground-->
 
-## Labeling Configuration 
+## Labeling Configuration
 
 ```html
 <View>

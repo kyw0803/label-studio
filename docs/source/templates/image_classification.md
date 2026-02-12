@@ -53,7 +53,7 @@ Use the [Choices](/tags/choices.html) control tag to display the choices availab
     <Choice value="Violence" />
   </Choices>
 ```
-You can modify the values of the [Choice](/tags/choice.html) tag to provide different classification options. Review the available arguments for the Choices tag for customization options. 
+You can modify the values of the [Choice](/tags/choice.html) tag to provide different classification options. Review the available arguments for the Choices tag for customization options.
 
 ## Enhance this template
 
@@ -61,7 +61,7 @@ You can enhance this template in many ways.
 
 ### Add a sticky left column
 
-If you want the classification choices to appear to the left of the image, you can add styling to the [View](/tags/view.html) tag. 
+If you want the classification choices to appear to the left of the image, you can add styling to the [View](/tags/view.html) tag.
 
 ```xml
 <View style="display: flex;">
@@ -74,7 +74,7 @@ If you want the classification choices to appear to the left of the image, you c
     </Choices>
     </View>
   </View>
-    
+
   <View>
     <Image name="image" value="$image"/>
   </View>

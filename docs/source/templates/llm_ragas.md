@@ -5,7 +5,7 @@ category: LLM Evaluations
 cat: llm-evaluations
 order: 970
 is_new: t
-meta_description: Use Ragas metrics to evaluation LLM responses. 
+meta_description: Use Ragas metrics to evaluation LLM responses.
 date: 2024-07-26 14:49:57
 ---
 
@@ -13,19 +13,19 @@ date: 2024-07-26 14:49:57
 
 This template uses the [Ragas](https://docs.ragas.io/en/stable/) framework to evaluate your RAG pipeline. When given a prompt, it will use Ragas and OpenAI to return the following:
 
-* An LLM-generated response to the prompt (the ML backend example uses OpenAI). 
+* An LLM-generated response to the prompt (the ML backend example uses OpenAI).
 * Ragas scores for [faithfulness](https://docs.ragas.io/en/latest/concepts/metrics/faithfulness.html) and [answer relevancy](https://docs.ragas.io/en/latest/concepts/metrics/answer_relevance.html).
-* An LLM-generated evaluation of the response. 
-* A comprehensive overview of precisely which documents were used for context. 
+* An LLM-generated evaluation of the response.
+* A comprehensive overview of precisely which documents were used for context.
 
 ## Prerequisites
 
-This template requires an ML backend to work. Follow the instructions outlined in [RAG Quickstart Labeling](https://github.com/HumanSignal/label-studio-ml-backend/tree/agi-builders-workshop-rag/label_studio_ml/examples/rag_quickstart) to connect the ML backend to your project. 
+This template requires an ML backend to work. Follow the instructions outlined in [RAG Quickstart Labeling](https://github.com/HumanSignal/label-studio-ml-backend/tree/agi-builders-workshop-rag/label_studio_ml/examples/rag_quickstart) to connect the ML backend to your project.
 
-You will need an OpenAI API key and a directory with documentation files to use as context. 
+You will need an OpenAI API key and a directory with documentation files to use as context.
 
 !!! info Tip
-    If you are just looking to experiment with this template and the ML backend, you can clone the [Label Studio repository](https://github.com/HumanSignal/label-studio) and use the `label-studio\docs` directory as your context. 
+    If you are just looking to experiment with this template and the ML backend, you can clone the [Label Studio repository](https://github.com/HumanSignal/label-studio) and use the `label-studio\docs` directory as your context.
 
 ## Configure the labeling interface
 
@@ -124,9 +124,9 @@ Use the following labeling configuration for your project:
 This configuration includes the following elements:
 
 * `<View>` - All labeling configurations must include a base `View` tag. In this configuration, the `View` tag is used to configure the display of blocks, similar to the div tag in HTML. It helps in organizing the layout of the labeling interface.
-* `<Style>` - The `Style` tag is used to define CSS styles that apply to the elements within the `View`. In this configuration, it sets styles for various classes various sections of the labeling interface layout. 
-* `<Header>` - The `Header` tag is used to display a header or title within the labeling interface. The text of the header is defined in the `value` parameter. 
-* `<TextArea>` -  The `TextArea` tag provides a field where you can enter text. In this case, most of the text fields will be auto-completed by the ML backend. There is one field where you can provide additional instructions to the LLM (for example, by asking it to format the answer as a list). Press **Shift + Enter** to submit your instructions. 
+* `<Style>` - The `Style` tag is used to define CSS styles that apply to the elements within the `View`. In this configuration, it sets styles for various classes various sections of the labeling interface layout.
+* `<Header>` - The `Header` tag is used to display a header or title within the labeling interface. The text of the header is defined in the `value` parameter.
+* `<TextArea>` -  The `TextArea` tag provides a field where you can enter text. In this case, most of the text fields will be auto-completed by the ML backend. There is one field where you can provide additional instructions to the LLM (for example, by asking it to format the answer as a list). Press **Shift + Enter** to submit your instructions.
 
 
 ## Input data

@@ -50,7 +50,7 @@ function generateAnnotationParams(sybolsNum, regionsNum, seed = 42) {
     annotations: [
       {
         id: "test",
-        result: Array.from({ length: regionsNum }, (v, idx) => {
+        result: Array.from({ length: regionsNum }, (_v, idx) => {
           const startOffset = randomInt(0, text.length - 2);
           const endOffset = startOffset + Math.min(randomInt(1, 50), text.length - startOffset);
 

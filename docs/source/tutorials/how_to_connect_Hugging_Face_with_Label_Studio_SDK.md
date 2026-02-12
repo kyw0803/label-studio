@@ -611,9 +611,9 @@ Congratulations! You've built a complete Hugging Face + Label Studio integration
 
 ### What You Accomplished:
 
-✅ **HF → LS**: Loaded WikiANN dataset from Hugging Face into Label Studio  
-✅ **LS → HF**: Exported labeled data and converted to Hugging Face format with token alignment  
-✅ **HF → LS**: Generated pre-annotations using Hugging Face NER models  
+✅ **HF → LS**: Loaded WikiANN dataset from Hugging Face into Label Studio
+✅ **LS → HF**: Exported labeled data and converted to Hugging Face format with token alignment
+✅ **HF → LS**: Generated pre-annotations using Hugging Face NER models
 ✅ **Trained**: Fine-tuned a custom NER model on your labeled data
 
 ### The Complete Workflow:
@@ -621,7 +621,7 @@ Congratulations! You've built a complete Hugging Face + Label Studio integration
 ```
 1. Import data from Hugging Face → Label Studio
 2. Annotate tasks in Label Studio (with ML assistance)
-3. Export annotations → Train/fine-tune Hugging Face model  
+3. Export annotations → Train/fine-tune Hugging Face model
 4. Deploy updated model → Generate better predictions
 5. Repeat for continuous improvement! 🔄
 ```
@@ -698,4 +698,3 @@ The approach used in this tutorial (SDK's `create_prediction()`) is perfect for:
 | Production ready | ⚠️ | ✅ |
 
 Choose based on your use case!
-

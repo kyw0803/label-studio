@@ -1,5 +1,5 @@
 ---
-title: Time Series Forecasting 
+title: Time Series Forecasting
 type: templates
 category: Time Series Analysis
 cat: time-series-analysis
@@ -10,7 +10,7 @@ meta_description: Template for preparing time series data for forecasting use ca
 
 <img src="/images/templates/time-series-forecasting.png" alt="" class="gif-border" width="552px" height="408px" />
 
-To train a machine learning model to perform forecasting on time series data, create a dataset using this template. This template prompts annotators to highlight predictable region spans in the time series channels and label them as "Regions", then identify the trend forecast for a specific region. 
+To train a machine learning model to perform forecasting on time series data, create a dataset using this template. This template prompts annotators to highlight predictable region spans in the time series channels and label them as "Regions", then identify the trend forecast for a specific region.
 
 ## Interactive Template Preview
 
@@ -65,7 +65,7 @@ Use the [TimeSeriesLabels](/tags/timeserieslabels.html) control tag to provide a
 </TimeSeriesLabels>
 ```
 
-Use the [TimeSeries](/tags/timeseries.html) object tag to display time series data. The `valueType="url"` parameter specifies that the time series data is available as a URL, rather than a file, and the `value="$csv"` parameter specifies that the URL is stored in a data key called `csv`. The `sep=","` parameter specifies that a comma is the data separator, as is standard for a CSV-formatted file. The time parameters specify which column contains the time data, the format of the time data in the file, and how to display the time data on the labeling interface. 
+Use the [TimeSeries](/tags/timeseries.html) object tag to display time series data. The `valueType="url"` parameter specifies that the time series data is available as a URL, rather than a file, and the `value="$csv"` parameter specifies that the URL is stored in a data key called `csv`. The `sep=","` parameter specifies that a comma is the data separator, as is standard for a CSV-formatted file. The time parameters specify which column contains the time data, the format of the time data in the file, and how to display the time data on the labeling interface.
 ```xml
     <TimeSeries name="stock" valueType="url" value="$csv"
                 sep=","

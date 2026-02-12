@@ -8,9 +8,9 @@
     ff_back_dev_123_some_fixed_issue_231221_short=true
     ff_front_dev_456_my_super_feature_010122_long=true
     ```
-   or run label-studio this way: 
+   or run label-studio this way:
    ```
-   ff_back_dev_123_some_fixed_issue_231221_short=true label-studio 
+   ff_back_dev_123_some_fixed_issue_231221_short=true label-studio
    ```
 
 
@@ -23,11 +23,11 @@
       ff_back_dev_123_some_fixed_issue_231221_short: true
       ff_front_dev_456_my_super_feature_010122_long: true
     ```
-   
+
     Naming convention is presented [here](#feature-flags-namings)
-    
+
     [Read more](https://docs.launchdarkly.com/sdk/features/flags_from_files#creating_a_flag_data_file) about extended format
-    
+
 2. Set variables:
 
     ```

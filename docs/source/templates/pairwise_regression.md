@@ -10,7 +10,7 @@ meta_description: Template for performing pairwise comparison tasks for regressi
 
 <img src="/images/templates/pairwise-regression.png" alt="" class="gif-border" width="552px" height="408px" />
 
-If you need a dataset to train a pairwise regression model, use this template to rate pairs of images based on how similar they are. You can also customize this template to rate different properties of different types of data, such as rating whether the sentiment of two text excerpts of movie reviews is similar. 
+If you need a dataset to train a pairwise regression model, use this template to rate pairs of images based on how similar they are. You can also customize this template to rate different properties of different types of data, such as rating whether the sentiment of two text excerpts of movie reviews is similar.
 
 ## Interactive Template Preview
 
@@ -51,7 +51,7 @@ Use the [Image](/tags/image.html) object tag to specify two images on the labeli
 <Image name="image1" value="$image1" />
 <Image name="image2" value="$image2" />
 ```
-Close the [View](/tags/view.html) tag after the Image tags. 
+Close the [View](/tags/view.html) tag after the Image tags.
 
 Add a new [View](/tags/view.html) tag with styling to control how the rating option is displayed on the labeling interface:
 ```xml

@@ -29,12 +29,12 @@ Set up Amazon S3 as the persistent storage for Label Studio hosted in AWS or usi
 
 Start by [creating an S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html) following the Amazon Simple Storage Service User Guide steps.
 
-!!! note 
+!!! note
     If you want to secure the data stored in the S3 bucket at rest, you can [set up default server-side encryption for Amazon S3 buckets](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-encryption.html) following the steps in the Amazon Simple Storage Service User Guide.
 
 ### Configure CORS for the S3 bucket
 
-!!! note 
+!!! note
     In the case if you're going to use direct file upload feature and store media files like audio, video, csv you should complete this step.
 
 Set up Cross-Origin Resource Sharing (CORS) access to your bucket. See [Configuring cross-origin resource sharing (CORS)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html) in the Amazon S3 User Guide. Use or modify the following example:
@@ -76,7 +76,7 @@ Select the relevant tab and follow the steps for your desired option:
 <div class="code-tabs">
   <div data-name="IAM role (OIDC)">
 
-!!! note 
+!!! note
     To set up an IAM role using this method, you must have a configured and provisioned OIDC provider for your cluster. See [Create an IAM OIDC provider for your cluster](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html) in the Amazon EKS User Guide.
 
 
@@ -191,7 +191,7 @@ global:
         folder: ""
 ```
 
-!!! note 
+!!! note
     Optionally, you can use already existing Kubernetes secret and a key.
 
 
@@ -335,7 +335,7 @@ Set up Google Cloud Storage (GCS) as the persistent storage for Label Studio hos
 
 ### Configure CORS for the GCS bucket
 
-!!! note 
+!!! note
     In the case if you're going to use direct file upload feature and store media files like audio, video, csv you should complete this step.
 
 Set up CORS access to your bucket. See [Configuring cross-origin resource sharing (CORS)](https://cloud.google.com/storage/docs/configuring-cors#configure-cors-bucket) in the Google Cloud User Guide. Use or modify the following example:
@@ -367,7 +367,7 @@ After you create a bucket and set up IAM permissions, connect Label Studio to yo
 <div class="code-tabs">
 <div data-name="Workload Identity">
 
-!!! note 
+!!! note
     Make sure that Workload Identity is enabled on your GKE cluster and that you meet the necessary prerequisites. See [Using Workload Identity](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity) in the Google Kubernetes Engine guide.
 
 1. Set up the following environment variables, specifying the service account you created as the `GCP_SA` variable, and replacing the other references in `<>` as needed:
@@ -487,7 +487,7 @@ Create a Microsoft Azure Storage container to use as persistent storage with Lab
 
 1. Create an Azure storage account. See [Create a storage account](https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal) in the Microsoft Azure product documentation.
 
-!!! note 
+!!! note
     Make sure that you set **Stock Keeping Unit (SKU)** to `Premium_LRS` and the **kind** parameter to `BlockBlobStorage`. This configuration results in storage that uses solid state drives (SSDs) rather than standard hard disk drives (HDDs). If you set this parameter to an HDD-based storage option, your instance might be too slow and could malfunction.
 
 2. Find the generated key in the **Storage accounts > Access keys** section in the [Azure Portal](https://portal.azure.com/) or by running the following command:
@@ -504,7 +504,7 @@ az storage container create --name <YOUR_CONTAINER_NAME> \
 
 ### Configure CORS for the Azure bucket
 
-!!! note 
+!!! note
     In the case if you're going to use direct file upload feature and store media files like audio, video, csv you should complete this step.
 
 Set up CORS access to your bucket. See [Configuring cross-origin resource sharing (CORS)](https://docs.microsoft.com/en-us/rest/api/storageservices/cross-origin-resource-sharing--cors--support-for-the-azure-storage-services#enabling-cors-for-azure-storage) in the Azure User Guide. Use or modify the following example:

@@ -67,9 +67,9 @@ If you rotate bounding boxes, the saved JSON indicates the rotation is around th
 }
 ```
 
-You can create rotated bounding boxes on fashion items with a three-point click:  
-- First click sets the start location of the bounding box.  
-- Second click defines the rotation angle and width.  
+You can create rotated bounding boxes on fashion items with a three-point click:
+- First click sets the start location of the bounding box.
+- Second click defines the rotation angle and width.
 - Third click sets the height of the box.
 
 This allows precise annotation of angled garments or accessories.

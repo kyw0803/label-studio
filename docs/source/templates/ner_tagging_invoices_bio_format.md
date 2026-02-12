@@ -67,7 +67,7 @@ This configuration uses the following tags:
 ## Usage Instructions
 
 - **Text**:  Text showing the recognized text from the invoice.
-- **BIO Format Labels**: 
+- **BIO Format Labels**:
   - B- prefix: Beginning of an entity
   - I- prefix: Inside/continuation of an entity
   - O: Outside/not part of any entity
@@ -77,4 +77,3 @@ This configuration uses the following tags:
   - DATA: Date information
   - VALOR: Amount/Value
   - NUMFAT: Invoice number
-

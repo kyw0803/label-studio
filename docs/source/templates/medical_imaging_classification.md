@@ -44,7 +44,7 @@ This setup is useful in medical imaging tasks where you need to localize tumors 
 This displays the image. The `value="$image"` means it will use the image field from your task data.
 
 !!! info Tip
-    For example images, you can use a sample dataset available from [kaggle](https://www.kaggle.com/datasets/aryashah2k/breast-ultrasound-images-dataset?resource=download). 
+    For example images, you can use a sample dataset available from [kaggle](https://www.kaggle.com/datasets/aryashah2k/breast-ultrasound-images-dataset?resource=download).
 
 
 #### Bounding boxes
@@ -54,12 +54,12 @@ This displays the image. The `value="$image"` means it will use the image field 
   <Label value="Tumor" background="green"/>
 </RectangleLabels>
 ```
-This defines the image segmentation you can use. In this template, you're drawing rectangles (bounding boxes). 
+This defines the image segmentation you can use. In this template, you're drawing rectangles (bounding boxes).
 
-- The `RectangleLabels` tag creates a tool for drawing bounding boxes, and `toName="image"` means that the boxes will be associated with the tag named `image` (which in this example is the name assigned to the `<Image>` tag). 
+- The `RectangleLabels` tag creates a tool for drawing bounding boxes, and `toName="image"` means that the boxes will be associated with the tag named `image` (which in this example is the name assigned to the `<Image>` tag).
 - The `Label` tag specifies that the bounding boxes represent "Tumor" regions, displayed with a green background.
 
-For more information about working with bounding boxes, see [Object Detection with Bounding Boxes](image_bbox). 
+For more information about working with bounding boxes, see [Object Detection with Bounding Boxes](image_bbox).
 
 #### Classification
 
@@ -71,13 +71,13 @@ For more information about working with bounding boxes, see [Object Detection wi
 </Choices>
 ```
 
-This adds image-level classification choices. 
+This adds image-level classification choices.
 
 - The `<Choices>` tag provides a set of options for annotators to select.
 - `toName="image"` applies these choices to the entire image.
 - Annotators can classify the image as "Benign", "Malignant", or "Normal".
 
-You can change these classification options by editing them, adding more, or deleting them. If your needs are more complex, you can also use [nested choices](image_classification#Enhance-classification-templates-with-nested-choices). 
+You can change these classification options by editing them, adding more, or deleting them. If your needs are more complex, you can also use [nested choices](image_classification#Enhance-classification-templates-with-nested-choices).
 
 
 ## Related tags

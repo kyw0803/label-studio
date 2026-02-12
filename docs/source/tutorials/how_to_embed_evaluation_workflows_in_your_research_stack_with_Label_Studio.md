@@ -60,10 +60,10 @@ Your Label Studio **Owner/Admin** needs to:
 ### 🔬 **Part 2: ML Engineer Workflow (~15 minutes)**
 Any team member can run Part 2 repeatedly with:
 - `LABEL_STUDIO_API_KEY` - Your personal API token (any role)
-- `LABEL_STUDIO_URL` - Your LSE instance URL  
+- `LABEL_STUDIO_URL` - Your LSE instance URL
 - `EMBED_PRIVATE_KEY` - Private key shared by admin (from Part 1)
 
-**If you're an admin**: Run both parts end-to-end.  
+**If you're an admin**: Run both parts end-to-end.
 **If you're an ML engineer**: Get the private key from your admin, set all three env vars, then skip to Part 2.
 
 **How to set credentials:**
@@ -116,7 +116,7 @@ export LABEL_STUDIO_URL="https://app.humansignal.com"
 export EMBED_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
 ```
 
-**Using Google Colab?**  
+**Using Google Colab?**
 Click the 🔑 icon in the sidebar → Add secrets → Toggle "Notebook access" ON for each
 
 
@@ -282,7 +282,7 @@ try:
         <div style="padding: 15px; background: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 5px;">
             <strong>✅ Organization configured for embedding!</strong><br><br>
 
-            <strong>📋 ADMIN: Save this private key for your team</strong><br>
+            <strong>📋 ADMIN: Save this private key for your teams</strong><br>
             <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin: 10px 0; font-family: monospace; font-size: 11px; max-height: 150px; overflow-y: auto; white-space: pre-wrap; word-break: break-all;">
 {private_key_str}</div>
 
@@ -294,7 +294,7 @@ try:
             </button>
 
             <br><br>
-            <strong>⚠️ Next steps for your team:</strong><br>
+            <strong>⚠️ Next steps for your teams:</strong><br>
             1. Store this private key securely (password manager, secrets vault)<br>
             2. Share it with ML engineers who will use embedding<br>
             3. They should set: <code>export EMBED_PRIVATE_KEY="&lt;key_above&gt;"</code><br>
@@ -1322,8 +1322,8 @@ else:
 
 You now have a production-ready evaluation workflow that runs entirely in your notebook:
 
-**Data in** → Hugging Face dataset (100 medical Q&A pairs)  
-**Evaluate** → Embedded Label Studio with structured criteria  
+**Data in** → Hugging Face dataset (100 medical Q&A pairs)
+**Evaluate** → Embedded Label Studio with structured criteria
 **Analyze** → One-line pandas export → visualizations → insights
 
 **The key unlock**: Label Studio Enterprise's embed SDK + native pandas export means evaluation data flows seamlessly between human judgment and ML pipelines. No context switching, no manual data wrangling, no broken workflows.
@@ -1336,30 +1336,30 @@ The pattern you learned—embed, evaluate, export, analyze—works for any human
 
 ### Different Evaluation Scenarios
 
-**Content Moderation**  
+**Content Moderation**
 Rate toxicity, bias, and policy violations. Use the same embed pattern with custom criteria for safety teams.
 
-**Prompt Engineering**  
+**Prompt Engineering**
 A/B test prompt variations side-by-side. Load two model outputs per task, compare quality, iterate faster.
 
-**Data Quality Audits**  
+**Data Quality Audits**
 Validate training data annotations across your team. Export to pandas, identify annotation drift, fix systematically.
 
-**Model Comparison Studies**  
+**Model Comparison Studies**
 Evaluate GPT-4 vs Claude vs your fine-tuned model. Side-by-side comparison with structured feedback.
 
 ### Scale It Up
 
-**Distributed Evaluation**  
+**Distributed Evaluation**
 Replace the notebook embed with a web app (same SDK code). Add team collaboration, role-based access, review workflows.
 
-**Active Learning Pipelines**  
+**Active Learning Pipelines**
 Connect your ML model → export low-confidence predictions → embed in notebook → human evaluation → retrain automatically. Check the [Active Learning docs](https://docs.humansignal.com/guide/active_learning).
 
-**Real-Time Monitoring**  
+**Real-Time Monitoring**
 Set up [webhooks](https://docs.humansignal.com/guide/webhooks) to trigger actions when annotations are submitted. Get Slack notifications, update dashboards, flag critical issues.
 
-**MLOps Integration**  
+**MLOps Integration**
 - **MLflow**: `mlflow.log_metrics(df.mean().to_dict())` after pandas export
 - **W&B**: Log evaluation distributions as histograms
 - **Airflow/Prefect**: Orchestrate evaluation → training → deployment cycles
@@ -1368,24 +1368,24 @@ Set up [webhooks](https://docs.humansignal.com/guide/webhooks) to trigger action
 
 # 📚 Key Resources
 
-**Core Documentation**  
-→ [Embed SDK](https://docs.humansignal.com/guide/embed.html) - Authentication, events, advanced configs  
-→ [Python SDK](https://api.labelstud.io/) - Complete API reference  
+**Core Documentation**
+→ [Embed SDK](https://docs.humansignal.com/guide/embed.html) - Authentication, events, advanced configs
+→ [Python SDK](https://api.labelstud.io/) - Complete API reference
 
-**Advanced Features**  
-→ [Prompts](https://docs.humansignal.com/guide/prompts_overview) - LLM prompt evaluation  
-→ [Active Learning](https://docs.humansignal.com/guide/active_learning) - Auto-surface informative samples  
-→ [ML Backend Integration](https://docs.humansignal.com/guide/ml) - Bi-directional model sync  
+**Advanced Features**
+→ [Prompts](https://docs.humansignal.com/guide/prompts_overview) - LLM prompt evaluation
+→ [Active Learning](https://docs.humansignal.com/guide/active_learning) - Auto-surface informative samples
+→ [ML Backend Integration](https://docs.humansignal.com/guide/ml) - Bi-directional model sync
 → [Inter-Annotator Agreement](https://docs.humansignal.com/guide/stats) - Measure evaluator consistency
 
-**Production**  
-→ [Webhooks](https://docs.humansignal.com/guide/webhooks) - Event-driven automation  
-→ [Cloud Storage](https://docs.humansignal.com/guide/storage) - S3/GCS/Azure sync  
+**Production**
+→ [Webhooks](https://docs.humansignal.com/guide/webhooks) - Event-driven automation
+→ [Cloud Storage](https://docs.humansignal.com/guide/storage) - S3/GCS/Azure sync
 → [Export Formats](https://docs.humansignal.com/guide/export) - JSON, CSV, COCO, YOLO, etc.
 
-**Community**  
-→ [Join Slack](https://slack.labelstud.io) - Get help, share use cases  
-→ [GitHub](https://github.com/HumanSignal/label-studio) - Contribute, open issues  
+**Community**
+→ [Join Slack](https://slack.labelstud.io) - Get help, share use cases
+→ [GitHub](https://github.com/HumanSignal/label-studio) - Contribute, open issues
 → [Contact Sales](mailto:sales@humansignal.com) - Enterprise features & support
 
 ---
@@ -1399,4 +1399,3 @@ Fast feedback loops win. When evaluation is one cell away instead of one platfor
 That's the power of embedding evaluation workflows in your research stack.
 
 **Now go build something amazing.** 🚀
-

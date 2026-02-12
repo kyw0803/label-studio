@@ -251,18 +251,12 @@ class TaskPagination(PageNumberPagination):
 
         annotations_count_qs = Annotation.objects.filter(task_id__in=queryset, was_cancelled=False)
         self.total_annotations = await sync_to_async(annotations_count_qs.count, thread_sensitive=True)()
-        # Use .only('id') to avoid loading heavy task.data fields during pagination
-        # Full task objects are loaded later with proper annotations
-        id_only_queryset = queryset.only('id')
-        return await sync_to_async(super().paginate_queryset, thread_sensitive=True)(id_only_queryset, request, view)
+        return await sync_to_async(super().paginate_queryset, thread_sensitive=True)(queryset, request, view)
 
     def sync_paginate_queryset(self, queryset, request, view=None):
         self.total_predictions = Prediction.objects.filter(task_id__in=queryset).count()
         self.total_annotations = Annotation.objects.filter(task_id__in=queryset, was_cancelled=False).count()
-        # Use .only('id') to avoid loading heavy task.data fields during pagination
-        # Full task objects are loaded later with proper annotations
-        id_only_queryset = queryset.only('id')
-        return super().paginate_queryset(id_only_queryset, request, view)
+        return super().paginate_queryset(queryset, request, view)
 
     def paginate_totals_queryset(self, queryset, request, view=None):
         totals = queryset.values('id').aggregate(
@@ -271,10 +265,7 @@ class TaskPagination(PageNumberPagination):
         )
         self.total_annotations = totals['total_annotations']
         self.total_predictions = totals['total_predictions']
-        # Use .only('id') to avoid loading heavy task.data fields during pagination
-        # Full task objects are loaded later with proper annotations
-        id_only_queryset = queryset.only('id')
-        return super().paginate_queryset(id_only_queryset, request, view)
+        return super().paginate_queryset(queryset, request, view)
 
     def paginate_queryset(self, queryset, request, view=None):
         if flag_set('fflag_fix_back_optic_1407_optimize_tasks_api_pagination_counts'):

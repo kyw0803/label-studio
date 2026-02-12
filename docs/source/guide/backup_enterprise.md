@@ -15,7 +15,7 @@ date: 2024-01-22 15:54:30
 Backing up your Label Studio Enterprise on-prem installation involves more than just a database backup, although that is a critical component. Here's an overview of the steps you should take to back up your Label Studio Enterprise on-premises installation:
 
 1. **Back up your databases (development and production).** This is essential as it contains all your project data and configurations. If you're using PostgreSQL, you can use tools like **pg_dump** to create backups of your databases.
-   
+
 2. **Back up your file storage.** If you're using local file storage or have files stored in a cloud storage that's synced with Label Studio, ensure you back up these files. This includes any media files (images, audio, video) that you've uploaded for labeling.
 
 3. **Back up your configuration files that have environment variables.** This includes your `label-studio` configuration file (which might contain your database connection settings and other configurations) and any custom scripts or machine learning models that you've integrated with Label Studio.

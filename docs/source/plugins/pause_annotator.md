@@ -18,33 +18,33 @@ tier: enterprise
 
 ## About
 
-You can manually [pause an annotator](/guide/quality#Pause-an-annotator) to prevent stop them from completing tasks and revoke their project access. 
+You can manually [pause an annotator](/guide/quality#Pause-an-annotator) to prevent stop them from completing tasks and revoke their project access.
 
 This script automatically pauses an annotator who breaks any of the following rules and customizes the message that appears:
 
 * Too many duplicate values `timesInARow(3)`:
 
-    Checks if the last three submitted annotations in the `TextArea` field (`comment`) all have the same value. If they do, it returns a custom warning message. 
+    Checks if the last three submitted annotations in the `TextArea` field (`comment`) all have the same value. If they do, it returns a custom warning message.
 
     ![Screenshot of warning](/images/plugins/pause1.png)
 
-* Too many similar values `tooSimilar()`: 
+* Too many similar values `tooSimilar()`:
 
-    For the `Choices` options (`sentiment`), it computes a deviation over the past values. If the deviation is below a threshold (meaning the values are too uniform/similar), it returns a custom warning message. 
+    For the `Choices` options (`sentiment`), it computes a deviation over the past values. If the deviation is below a threshold (meaning the values are too uniform/similar), it returns a custom warning message.
 
     ![Screenshot of warning](/images/plugins/pause2.png)
  
-* Too many submissions over a period of time `tooFast()`: 
+* Too many submissions over a period of time `tooFast()`:
 
-    Monitors the overall speed of annotations. It checks if, for example, 20 annotations were submitted in less than 10 minutes. If so, a custom warning appears. 
+    Monitors the overall speed of annotations. It checks if, for example, 20 annotations were submitted in less than 10 minutes. If so, a custom warning appears.
 
     ![Screenshot of warning](/images/plugins/pause3.png)
 
-To unpause an annotator, use the [Members dashboard](/guide/quality#Pause-an-annotator). 
+To unpause an annotator, use the [Members dashboard](/guide/quality#Pause-an-annotator).
 
 !!! info Tip
 
-    If you hover over the **Paused** indicator, you can see the message that was shown to the user when they were paused. If a user was manually paused, it also shows who initiated the action.  
+    If you hover over the **Paused** indicator, you can see the message that was shown to the user when they were paused. If a user was manually paused, it also shows who initiated the action.
 
     ![Screenshot of hover](/images/plugins/pause_hover.png)
 
@@ -249,7 +249,7 @@ async function pause(verbose_reason) {
 **Related LSI instance methods:**
 
 * [on(eventName, handler)](custom#LSI-on-eventName-handler)
-  
+
 **Related frontend events:**
 
 * [submitAnnotation](/guide/frontend_reference#submitAnnotationn)
@@ -265,7 +265,7 @@ This labeling config presents users with text and asks them to:
 <View>
   <Text name="text" value="$text"/>
   <View style="box-shadow: 2px 2px 5px #999; padding: 20px; margin-top: 2em; border-radius: 5px;">
-    
+
     <Header value="What is the sentiment of this text?" />
     <Choices name="sentiment" toName="text" choice="single" showInLine="true">
       <Choice value="positive" hotkey="1" />
@@ -275,7 +275,7 @@ This labeling config presents users with text and asks them to:
 
     <Header value="Why?" />
     <TextArea name="comment" toName="text" rows="4" placeholder="Add your comment here..." />
-  
+
   </View>
 </View>
 

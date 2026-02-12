@@ -39,7 +39,7 @@ If you want to identify the intent of an audio recording, such as an interview o
 All labeling configurations must be wrapped in [View](/tags/view.html) tags.
 
 Use the [Labels](/tags/labels.html) control tag to label specific segments of the audio clip:
- 
+
 ```xml
 <Labels name="labels" toName="audio">
     <Label value="Segment" />

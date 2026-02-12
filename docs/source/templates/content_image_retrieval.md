@@ -10,7 +10,7 @@ meta_description: Template for labeling data for content-based image retrieval t
 
 <img src="/images/templates/content-based-image-search.png" alt="" class="gif-border" width="552px" height="408px" />
 
-If you want to train a machine learning model on content-based image retrieval computer vision tasks, use this template. This labeling configuration displays an image and prompts annotators to select a choice corresponding to one or more similar images.  
+If you want to train a machine learning model on content-based image retrieval computer vision tasks, use this template. This labeling configuration displays an image and prompts annotators to select a choice corresponding to one or more similar images.
 
 ## Interactive Template Preview
 
@@ -61,7 +61,7 @@ Use styling in the [View](/tags/view.html) tag to wrap multiple [Image](/tags/im
     <Image name="image3" value="$image3" />
   </View>
 ```
-  
+
 Use the [Choices](/tags/choices.html) control tag to display choices that apply to the original image, require a response, and allow annotators to select multiple choices:
 ```xml
 <Choices name="similar" toName="query" required="true" choice="multiple">
@@ -79,7 +79,7 @@ Use the [Style](/tags/style.html) tag to apply additional CSS styles to the div 
 </Style>
 ```
 The `[dataneedsupdate]` option associates the styling with the object tags used in the labeling configuration.
-  
+
 
 ## Related tags
 

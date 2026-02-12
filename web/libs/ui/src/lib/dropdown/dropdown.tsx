@@ -203,7 +203,7 @@ const DropdownComponent = forwardRef<DropdownRef, DropdownProps>(
 
         if (currentVisible !== newState) {
           props.onToggle?.(newState);
-          const animStart = performance.now();
+          const _animStart = performance.now();
           await performAnimation(newState, disableAnimation);
           setVisible(newState);
           props.onVisibilityChanged?.(newState);

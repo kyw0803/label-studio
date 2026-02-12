@@ -37,4 +37,3 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(normalize_paths, migrations.RunPython.noop),
     ]
-

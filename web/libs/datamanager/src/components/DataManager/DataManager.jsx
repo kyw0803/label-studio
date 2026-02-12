@@ -37,7 +37,7 @@ const switchInjector = inject(({ store }) => {
   return {
     sdk: store.SDK,
     views: store.viewsStore,
-    tabs: store.viewsStore?.all ?? [],
+    tabs: Array.from(store.viewsStore?.all ?? []),
     selectedKey: store.viewsStore?.selected?.key,
   };
 });
@@ -94,7 +94,6 @@ const TabsSwitch = switchInjector(
                 ref={provided.innerRef}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
-                tabIndex={-1}
                 style={{
                   background: snapshot.isDragging,
                   ...provided.draggableProps.style,

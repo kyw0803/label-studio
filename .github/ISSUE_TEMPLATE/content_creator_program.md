@@ -3,7 +3,7 @@ name: Content creator program
 about: Contribute to the Label Studio Creators program. Pitch your idea by opening an issue.
 title: ''
 labels: 'issue: content-creator'
-assignees: 
+assignees:
 
 ---
 
@@ -27,7 +27,7 @@ assignees:
 
 **Title**
 
-**Abstract** 
+**Abstract**
 (please include bullets on what you expect readers to learn or takeaway from the content)
 
 **Proposed length**

@@ -2,7 +2,7 @@ Feature("Bitmask tool").tag("@regress");
 
 const assert = require("assert");
 
-const IMAGE = "/public/files/images/0030019819f25b28.jpg";
+const IMAGE = "https://data.heartex.net/open-images/train_0/mini/0030019819f25b28.jpg";
 
 const config = `<View>
   <Image name="img" value="$image" smoothing="false"></Image>
@@ -233,7 +233,7 @@ Scenario("Verify Bitmask pixel content", async ({ I, LabelStudio, AtImageView, A
         attempts++;
         await I.wait(100); // Wait 100ms before retrying
       }
-    } catch (error) {
+    } catch (_error) {
       attempts++;
       await I.wait(100); // Wait 100ms before retrying
     }

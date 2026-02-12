@@ -54,14 +54,14 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 
 class ImageClassifierDataset(Dataset):
-        
+
     def __init__(self, image_urls, image_classes):
         self.images = []
         self.labels = []
-        
+
         self.classes = list(set(image_classes))
         self.class_to_label = {c: i for i, c in enumerate(self.classes)}
-        
+
         self.image_size = 224
         self.transforms = transforms.Compose([
             transforms.Resize(self.image_size),
@@ -69,22 +69,22 @@ class ImageClassifierDataset(Dataset):
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
-        
-        
+
+
         for image_url, image_class in zip(image_urls, image_classes):
             image = self._get_image_from_url(image_url)
             transformed_image = self.transforms(image)
             self.images.append(transformed_image)
-            
+
             label = self.class_to_label[image_class]
             self.labels.append(label)
-            
+
     def _get_image_from_url(self, url):
         pass
-    
+
     def __getitem__(self, index):
         return self.images[index], self.labels[index]
-    
+
     def __len__(self):
         return len(self.images)
 ```
@@ -93,27 +93,27 @@ Next, make a simple wrapper for the pretrained ResNet model:
 
 ```python
 class ImageClassifier(object):
-    
+
     def __init__(self, num_classes):
         self.model = models.resnet18(pretrained=True)
         num_ftrs = self.model.fc.in_features
         self.model.fc = nn.Linear(num_ftrs, num_classes)
-        
+
         self.model = self.model.to(device)
-        
+
         self.criterion = nn.CrossEntropyLoss()
         self.optimizer = optim.SGD(self.model.parameters(), lr=0.001, momentum=0.9)
-        
+
         # Decay LR by a factor of 0.1 every 7 epochs
         self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=7, gamma=0.1)
-    
+
     def save(self, path):
         torch.save(self.model.state_dict(), path)
-    
+
     def load(self, path):
         self.model.load_state_dict(torch.load(path))
         self.model.eval()
-        
+
     def train(self, dataloader, num_epochs=25):
         since = time.time()
 
@@ -121,9 +121,9 @@ class ImageClassifier(object):
         for epoch in range(num_epochs):
             print('Epoch {}/{}'.format(epoch, num_epochs - 1))
             print('-' * 10)
-            
+
             running_loss = 0.0
-            running_corrects = 0    
+            running_corrects = 0
             # Iterate over data.
             for inputs, labels in dataloader:
                 inputs = inputs.to(device)
@@ -147,7 +147,7 @@ class ImageClassifier(object):
             print('Train Loss: {:.4f} Acc: {:.4f}'.format(epoch_loss, epoch_acc))
 
         print()
-    
+
         time_elapsed = time.time() - since
         print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
 
@@ -160,12 +160,12 @@ Finally, override the API methods:
 from label_studio_ml.model import LabelStudioMLBase
 
 class ImageClassifierAPI(LabelStudioMLBase):
-    
+
     def __init__(self, **kwargs):
         self.model = ImageClassifier(resources['num_classes'])
         self.model.load(resources['model_path'])
         self.labels = resources['labels']
-        
+
     def predict(self, tasks, **kwargs):
         pass
 
@@ -185,7 +185,7 @@ label-studio-ml init my_backend
 
 The last command takes your script `./model.py` and creates an `./my_backend` directory at the same level, copying the configs and scripts needed to launch the ML backend in either development or production modes.
 
-!!! note 
+!!! note
     You can specify different location for your model script, for example: `label-studio-ml init my_backend --script /path/to/my/script.py`
 
 ### Launch ML backend server
@@ -204,7 +204,7 @@ The server started on `http://localhost:9090` and outputs logs in console.
 
 #### Production mode
 
-Production mode is powered by a Redis server and RQ jobs that take care of background training processes. This means that you can start training your model and continue making requests for predictions from the current model state. 
+Production mode is powered by a Redis server and RQ jobs that take care of background training processes. This means that you can start training your model and continue making requests for predictions from the current model state.
 After the model finishes the training process, the new model version updates automatically.
 
 For production mode, please make sure you have Docker and docker-compose installed on your system. Then run the following from the command line:

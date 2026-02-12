@@ -188,7 +188,7 @@ task_create_response_scheme = {
             <hr style="opacity:0.3">
 
             **For non-Community editions, this endpoint processes imports asynchronously.**
-            
+
             - The POST request **can fail** for invalid parameters, malformed request body, or other request-level validation errors.
             - However, **data validation errors** that occur during import processing are handled asynchronously and will not cause the POST request to fail.
             - Upon successful request validation, a response is returned: `{{"import": <import_id>}}`

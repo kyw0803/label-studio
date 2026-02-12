@@ -31,4 +31,3 @@ config: |
       [dataneedsupdate]~div form>* {flex-grow:1;margin-left:8px}
     </Style>
   </View>
-

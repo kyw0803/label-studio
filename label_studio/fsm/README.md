@@ -63,15 +63,15 @@ from fsm.registry import register_state_model
 class OrderState(BaseState):
     # Entity relationship
     order = models.ForeignKey('shop.Order', related_name='fsm_states', on_delete=models.CASCADE)
-    
+
     # Override state field with choices
     state = models.CharField(max_length=50, choices=OrderStateChoices.choices, db_index=True)
-    
+
     # Denormalized fields for performance
     customer_id = models.PositiveIntegerField(db_index=True)
     store_id = models.PositiveIntegerField(db_index=True)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    
+
     @classmethod
     def get_denormalized_fields(cls, entity):
         """Extract frequently queried fields to avoid JOINs."""
@@ -80,7 +80,7 @@ class OrderState(BaseState):
             'store_id': entity.store_id,
             'total_amount': entity.total_amount,
         }
-    
+
     class Meta:
         indexes = [
             models.Index(fields=['order_id', '-id'], name='order_current_state_idx'),
@@ -98,13 +98,13 @@ from pydantic import Field
 class ProcessOrderTransition(BaseTransition):
     processor_id: int = Field(..., description="ID of user processing the order")
     priority: str = Field('normal', description="Processing priority")
-    
+
     def get_target_state(self, context: Optional[TransitionContext] = None) -> str:
         return OrderStateChoices.PROCESSING
-    
+
     def validate_transition(self, context) -> bool:
         return context.current_state == OrderStateChoices.CREATED
-        
+
     def transition(self, context) -> dict:
         return {
             "processor_id": self.processor_id,
@@ -159,13 +159,13 @@ class MyStateManager(StateManager):
     def execute_transition(cls, entity, transition_name, **kwargs):
         # Add specific pre-processing
         cls.log_audit(entity, transition_name)
-        
-        # Call parent implementation  
+
+        # Call parent implementation
         result = super().execute_transition(entity, transition_name, **kwargs)
-        
+
         # Add specific post-processing
         cls.notify_systems(result)
-        
+
         return result
 
 # Configure in Django settings
@@ -179,7 +179,7 @@ The `get_state_manager()` function ensures all FSM operations use the correct im
 ### UUID7 Performance Optimization
 
 - **Natural Time Ordering**: UUID7 provides chronological ordering without separate timestamp indexes
-- **High Concurrency**: INSERT-only approach eliminates locking contention  
+- **High Concurrency**: INSERT-only approach eliminates locking contention
 - **Scalability**: Supports large amounts of state records with consistent performance
 
 ### Declarative Transitions
@@ -193,21 +193,21 @@ The `get_state_manager()` function ensures all FSM operations use the correct im
 class ShipOrderTransition(BaseTransition):
     tracking_number: str = Field(..., description="Shipping tracking number")
     carrier: str = Field(..., description="Shipping carrier")
-    
+
     def get_target_state(self, context: Optional[TransitionContext] = None) -> str:
         return OrderStateChoices.SHIPPED
-    
+
     def pre_transition_hook(self, context):
         # Called before state change
         self.validate_inventory(context.entity)
-    
+
     def transition(self, context) -> dict:
         return {
             "tracking_number": self.tracking_number,
             "carrier": self.carrier,
             "shipped_at": context.timestamp.isoformat()
         }
-    
+
     def post_transition_hook(self, context, state_record):
         # Called after state change
         self.send_shipping_notification(context.entity, state_record)
@@ -219,7 +219,7 @@ class ShipOrderTransition(BaseTransition):
 # Time-range queries using UUID7
 from datetime import datetime, timedelta
 recent_states = StateManager.get_states_in_time_range(
-    entity=order, 
+    entity=order,
     start_time=datetime.now() - timedelta(hours=24)
 )
 
@@ -285,7 +285,7 @@ errors = validate_transition_data(ProcessOrderTransition, data)
 ### Separation of Concerns
 
 - **Registry**: Pure storage and retrieval (no execution logic)
-- **Transitions**: Validation and business logic (no state management) 
+- **Transitions**: Validation and business logic (no state management)
 - **StateManager**: State persistence and caching (main entry point)
 - **TransitionExecutor**: Orchestrates execution (takes StateManager as parameter)
 

@@ -16,20 +16,20 @@ image: "/guide/ml_tutorials/sam2-images.png"
 
 # Using SAM2 with Label Studio for Image Annotation
 
-Segment Anything 2, or SAM 2, is a model released by Meta in July 2024. An update to the original Segment Anything Model, 
-SAM 2 provides even better object segmentation for both images and video. In this guide, we'll show you how to use 
-SAM 2 for better image labeling with label studio. 
+Segment Anything 2, or SAM 2, is a model released by Meta in July 2024. An update to the original Segment Anything Model,
+SAM 2 provides even better object segmentation for both images and video. In this guide, we'll show you how to use
+SAM 2 for better image labeling with label studio.
 
 Click on the image below to watch our ML Evangelist Micaela Kaplan explain how to link SAM 2 to your Label Studio Project.
-You'll need to follow the instructions below to stand up an instance of SAM2 before you can link your model! 
+You'll need to follow the instructions below to stand up an instance of SAM2 before you can link your model!
 
 [![Connecting SAM2 Model to Label Studio for Image Annotation ](https://img.youtube.com/vi/FTg8P8z4RgY/0.jpg)](https://www.youtube.com/watch?v=FTg8P8z4RgY)
 
 ## Before you begin
 
-Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart). 
+Before you begin, you must install the [Label Studio ML backend](https://github.com/HumanSignal/label-studio-ml-backend?tab=readme-ov-file#quickstart).
 
-This tutorial uses the [`segment_anything_2_image` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_2_image). 
+This tutorial uses the [`segment_anything_2_image` example](https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_2_image).
 
 Note that as of 8/1/2024, SAM2 only runs on GPU.
 
@@ -88,8 +88,8 @@ This means all three control tags should be represented in your labeling configu
       <View className="title">Choose Label</View>
       <View className="label">
         <BrushLabels name="tag" toName="image">
-          
-          
+
+
         <Label value="defect" background="#FFA39E"/></BrushLabels>
       </View>
     </View>
@@ -97,8 +97,8 @@ This means all three control tags should be represented in your labeling configu
       <View className="title">Use Keypoint</View>
       <View className="label">
         <KeyPointLabels name="tag2" toName="image" smart="true">
-          
-          
+
+
         <Label value="defect" background="#250dd3"/></KeyPointLabels>
       </View>
     </View>
@@ -106,8 +106,8 @@ This means all three control tags should be represented in your labeling configu
       <View className="title">Use Rectangle</View>
       <View className="label">
         <RectangleLabels name="tag3" toName="image" smart="true">
-          
-          
+
+
         <Label value="defect" background="#FFC069"/></RectangleLabels>
       </View>
     </View>

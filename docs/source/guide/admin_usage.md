@@ -6,24 +6,24 @@ tier: enterprise
 order: 0
 order_enterprise: 358
 meta_title: Usage & License
-meta_description: Find information about your Label Studio account and configure organization settings.  
+meta_description: Find information about your Label Studio account and configure organization settings.
 section: "Manage Your Organization"
 parent_enterprise: "admin_settings"
 ---
 
-You can find information about your plan and seat usage on this page. 
+You can find information about your plan and seat usage on this page.
 
 ## Label Studio Enterprise
 
 ### Seats in use
 
-Here you can see the number of seats compared with the number of active users. 
+Here you can see the number of seats compared with the number of active users.
 
-Each organization has a set amount of Label Studio seats in their license. To increase your seats, contact your HumanSignal account representative. 
+Each organization has a set amount of Label Studio seats in their license. To increase your seats, contact your HumanSignal account representative.
 
 ### License info
 
-This section includes general information about your Label Studio license, such as when it was issued and when it expires. 
+This section includes general information about your Label Studio license, such as when it was issued and when it expires.
 
 It also includes the following usage information:
 
@@ -31,19 +31,19 @@ It also includes the following usage information:
 <dt>Projects</dt>
 <dd>
 
-**Cloud/SaaS:** Every project that belongs to your current organization, regardless of state (draft/published) or workspace (meaning that it includes sandbox projects). 
+**Cloud/SaaS:** Every project that belongs to your current organization, regardless of state (draft/published) or workspace (meaning that it includes sandbox projects).
 
-**On-prem:** All projects on your server, regardless of state workspace. 
+**On-prem:** All projects on your server, regardless of state workspace.
 </dd>
 
 <dt>Results</dt>
 <dd>
 
-The total number of labeled regions (results) that your organization has created across all projects. A result is one item in an annotation’s result array — a bounding box, text span, relation between regions, etc. 
+The total number of labeled regions (results) that your organization has created across all projects. A result is one item in an annotation’s result array — a bounding box, text span, relation between regions, etc.
 </dd>
 </dl>
 
-### Security 
+### Security
 
 Only the org Owner can update these settings.
 
@@ -60,16 +60,16 @@ Only the org Owner can update these settings.
 
 <dt>Single Sign-On (SSO) enabled</dt>
 <dd>
-This indicates with your organization can use SSO. 
+This indicates with your organization can use SSO.
 
-SSO is not available if you are in a trial organization or if it is not enabled for your license. 
+SSO is not available if you are in a trial organization or if it is not enabled for your license.
 
 </dd>
 </dl>
 
 ### Embedding
 
- You can use these fields to set up [Label Studio Embeds](embed#Configure-embedding-in-Label-Studio). 
+ You can use these fields to set up [Label Studio Embeds](embed#Configure-embedding-in-Label-Studio).
 
 !!! note
     Embedding is not available to all customers. Contact your [HumanSignal account manager](mailto:sales@humansignal.com) to enable.
@@ -78,7 +78,7 @@ SSO is not available if you are in a trial organization or if it is not enabled 
 
 Only the org Owner can update these settings and request access.
 
-The features can be requested and enabled for your license. 
+The features can be requested and enabled for your license.
 
 | Field          | Description    |
 | ------------- | ------------ |
@@ -94,21 +94,21 @@ The features can be requested and enabled for your license.
 
 ### Email notification settings
 
-Determines what email preferences are available from the [**Account and Settings** page](user_account). 
+Determines what email preferences are available from the [**Account and Settings** page](user_account).
 
 Note the following:
 
-* New users will have their email preferences enabled by default. 
-* If you disable a notification here, that preference is hidden from their **Account and Settings** page and is blocked for all users in your organization. 
-* If you re-enable a notification, the preference will appear again in their **Account and Settings** page and will revert back to whatever state the user had it in before it was disabled for the organization. 
+* New users will have their email preferences enabled by default.
+* If you disable a notification here, that preference is hidden from their **Account and Settings** page and is blocked for all users in your organization.
+* If you re-enable a notification, the preference will appear again in their **Account and Settings** page and will revert back to whatever state the user had it in before it was disabled for the organization.
 
 ### Frequently asked Enterprise billing questions
 
-Find answers to common questions related to billing. 
+Find answers to common questions related to billing.
 
 #### What happens if my plan is inactive?
 
-If your subscription to Label Studio Enterprise expires or is cancelled, you can no longer perform labeling, review annotations, or add new users to your organization. You can log in and export your completed annotations. 
+If your subscription to Label Studio Enterprise expires or is cancelled, you can no longer perform labeling, review annotations, or add new users to your organization. You can log in and export your completed annotations.
 
 #### What happens if I have too many active users?
 
@@ -116,10 +116,10 @@ You need to purchase additional seats for your Label Studio Teams subscription i
 
 ## Label Studio Starter Cloud
 
-Label Studio Starter Cloud has the **Usage & Billing** page that shows information about your subscription and how many seats you have in use. 
+Label Studio Starter Cloud has the **Usage & Billing** page that shows information about your subscription and how many seats you have in use.
 
 !!! note
-    Only the Organization owner can access the Usage & Billing page. 
+    Only the Organization owner can access the Usage & Billing page.
 
 There are two components to the subscription:
 
@@ -130,17 +130,17 @@ There are two components to the subscription:
 
 #### Add seats
 
-As an Owner, go to **Organization > Usage & Billing**. Click **Manage Seats** and increase your seat count. 
+As an Owner, go to **Organization > Usage & Billing**. Click **Manage Seats** and increase your seat count.
 
-When you add seats, the cost is prorated and is reflected on your next invoice. An organization can have up to 12 seats. 
+When you add seats, the cost is prorated and is reflected on your next invoice. An organization can have up to 12 seats.
 
 #### Remove seats
 
 Before you can remove seats, you must deactivate their associated users. You cannot have more active users than seats.
 
-To deactivate a user, go to the **Organization > Members** page and set the user's role to **Deactivated**. 
+To deactivate a user, go to the **Organization > Members** page and set the user's role to **Deactivated**.
 
-Then click **Manage Seats** and decrease your seat count. 
+Then click **Manage Seats** and decrease your seat count.
 
 When you remove seats, the cost is prorated and is reflected on your next invoice.
 
@@ -148,7 +148,7 @@ When you remove seats, the cost is prorated and is reflected on your next invoic
 
 #### How do I cancel?
 
-As an Owner, go to **Organization > Usage & Billing** and click **Cancel**. 
+As an Owner, go to **Organization > Usage & Billing** and click **Cancel**.
 
 After cancellation, your account remains active until the end of your paid billing period. During this time, you have full access to the Label Studio Starter Cloud features.
 

@@ -165,7 +165,7 @@ stages:
     response:
       status_code: 200
       json:
-        result: 
+        result:
          - from_name: label
            to_name: text
            type: choices

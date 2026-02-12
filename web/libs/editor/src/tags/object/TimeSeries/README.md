@@ -23,7 +23,7 @@ TimeSeries (MST model + React container)
 ```
 
 * **Model** – `TimeSeriesModel` (MobX-state-tree). Holds data, view state and actions. Mixin order:
-  `SyncableMixin → ObjectBase → PersistentStateMixin → AnnotationMixin → Model`.  
+  `SyncableMixin → ObjectBase → PersistentStateMixin → AnnotationMixin → Model`.
 * **View**  – `HtxTimeSeriesViewRTS` (React) renders overview + channel children.
 * **Channels** – legacy rendering via `ChannelD3` (being replaced by TimeSeriesVisualizer).
 * **MultiChannel** – `MultiChannelModel` + `HtxMultiChannel` component that groups channels together.
@@ -181,9 +181,9 @@ The `helpers.js` file contains shared utility functions used across TimeSeries c
 * Automatically calls appropriate actions (`setCursor`, `_updateViewForTime`, `restartPlaybackFromTime`)
 * Ensures MobX-state-tree compliance by using proper actions instead of direct property modification
 
-### 6.2 Other utilities  
+### 6.2 Other utilities
 * **`sparseValues()`** – Data thinning for performance with large datasets
-* **`getRegionColor()`** – Color calculation for labeled regions  
+* **`getRegionColor()`** – Color calculation for labeled regions
 * **`formatTrackerTime()`** – Time formatting for tracker display
 * **`checkD3EventLoop()`** – D3 event loop prevention
 

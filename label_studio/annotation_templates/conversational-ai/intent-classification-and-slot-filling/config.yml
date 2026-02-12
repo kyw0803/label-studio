@@ -29,4 +29,3 @@ config: |
           <Choice value="Small talk"/>
       </Choices>
   </View>
-

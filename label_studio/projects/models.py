@@ -109,8 +109,9 @@ class ProjectManager(models.Manager):
         """Return ProjectQuerySet with FSM state annotation support"""
         return ProjectQuerySetWithFSM(self.model, using=self._db)
 
+    # 프로젝트의 contributor
     def for_user(self, user):
-        return self.get_queryset().filter(organization=user.active_organization)
+        return self.get_queryset().filter(contributor=user)
 
     def with_state(self):
         """
@@ -156,9 +157,42 @@ class ProjectVisibleManager(ProjectManager):
 
 ProjectMixin = load_func(settings.PROJECT_MIXIN)
 
-
 # LSE recalculate all stats
 recalculate_all_stats = load_func(settings.RECALCULATE_ALL_STATS)
+
+
+class Role(models.Model):
+    class RoleChoices(models.TextChoices):
+        ANNOTATOR = 'annotator', _('Annotator')
+        REVIEWER = 'reviewer', _('Reviewer')
+        PROJECT_MANAGER = 'project_manager', _('Project Manager')
+        WORKSPACE_MANAGER = 'workspace_manager', _('Workspace Manager')
+
+    role_name = models.CharField(choices=RoleChoices.choices, default=RoleChoices.ANNOTATOR, max_length=100)
+
+    class Meta:
+        db_table = 'role'
+
+
+class ProjectMemberRole(models.Model):
+    project_member = models.ForeignKey('ProjectMember', on_delete=models.CASCADE, related_name='project_member_roles')
+    role = models.ForeignKey('Role', on_delete=models.CASCADE, related_name='performed_by')
+
+    class Meta:
+        db_table = 'project_member_roles'
+
+
+class ProjectMember(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='project_memberships', help_text='User ID'
+    )
+    project = models.ForeignKey('Project', on_delete=models.CASCADE, related_name='members', help_text='Project ID')
+    allocated_task = models.ManyToManyField('tasks.TaskAssignment', related_name='allocated_by')
+    allocation_ratio = models.IntegerField(default=0, help_text='Allocation ratio')
+    enabled = models.BooleanField(default=True, help_text='Project member is enabled')
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('updated at'), auto_now=True)
+    role = models.ManyToManyField(Role, related_name='project_members', through=ProjectMemberRole)
 
 
 class Project(ProjectMixin, FsmHistoryStateModel):
@@ -174,6 +208,8 @@ class Project(ProjectMixin, FsmHistoryStateModel):
     objects = ProjectVisibleManager()
     all_objects = ProjectManager()
     __original_label_config = None
+
+    contributor = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='projects', through=ProjectMember)
 
     title = models.CharField(
         _('title'),
@@ -193,6 +229,9 @@ class Project(ProjectMixin, FsmHistoryStateModel):
 
     organization = models.ForeignKey(
         'organizations.Organization', on_delete=models.CASCADE, related_name='projects', null=True
+    )
+    workspace = models.ForeignKey(
+        'workspaces.WorkSpace', on_delete=models.CASCADE, related_name='projects', null=True, blank=True
     )
     label_config = models.TextField(
         _('label config'),
@@ -475,13 +514,19 @@ class Project(ProjectMixin, FsmHistoryStateModel):
         self.token = create_hash()
         self.save(update_fields=['token'])
 
-    def add_collaborator(self, user):
+    # project에 collaborator 추가
+    # project에 collaborator 추가
+    def add_collaborator(self, user, role=None):
         created = False
         with transaction.atomic():
             try:
                 ProjectMember.objects.get(user=user, project=self)
             except ProjectMember.DoesNotExist:
-                ProjectMember.objects.create(user=user, project=self)
+                # 1. ProjectMember를 먼저 생성 (role 없이)
+                project_member = ProjectMember.objects.create(user=user, project=self)
+                # 2. role이 제공된 경우에만 ProjectMemberRole 생성
+                if role:
+                    ProjectMemberRole.objects.create(project_member=project_member, role=role)
                 created = True
             else:
                 logger.debug(f'Project membership {self} for user {user} already exists')
@@ -543,9 +588,8 @@ class Project(ProjectMixin, FsmHistoryStateModel):
 
         if tasks_number_changed:
             # FSM: Recalculate project state after task deletion or import
-            if CurrentContext.is_fsm_enabled():
-                user = CurrentContext.get_user()
-                update_project_state_after_task_change(self, user=user)
+            user = CurrentContext.get_user()
+            update_project_state_after_task_change(self, user=user)
 
     def _batch_update_with_retry(self, queryset, batch_size=500, max_retries=3, **update_fields):
         batch_update_with_retry(queryset, batch_size, max_retries, **update_fields)
@@ -930,28 +974,25 @@ class Project(ProjectMixin, FsmHistoryStateModel):
 
     def get_member_ids(self):
         if hasattr(self, 'team_link'):
-            # project has defined team scope
-            # TODO: avoid checking team but rather add all project members when creating a project
+            # project has defined teams scope
+            # TODO: avoid checking teams but rather add all project members when creating a project
             return self.team_link.team.members.values_list('user', flat=True)
         else:
-            from users.models import User
-
-            # TODO: may want to return all users from organization
-            return User.objects.none()
+            return ProjectMember.objects.filter(project=self.pk).values_list('user', flat=True)
 
     def has_team_user(self, user):
         return hasattr(self, 'team_link') and self.team_link.team.has_user(user)
 
     def annotators(self):
-        """Annotators connected to this project including team members"""
+        """Annotators connected to this project including teams members"""
         from users.models import User
 
         member_ids = self.get_member_ids()
         team_members = User.objects.filter(id__in=member_ids).order_by('email')
 
         # add members from invited projects
-        project_member_ids = self.members.values_list('user__id', flat=True)
-        project_members = User.objects.filter(id__in=project_member_ids)
+        project_member_ids = self.members.values_list('user__id', flat=True)  # projectmember 테이블의 id 칼럼 값을 가져옴
+        project_members = User.objects.filter(id__in=project_member_ids)  # 위에서 가져온 id를 가지고 필터링
 
         annotators = team_members | project_members
 
@@ -1236,11 +1277,10 @@ class Project(ProjectMixin, FsmHistoryStateModel):
                 """
                 SELECT id,
                        octet_length(result::text) AS bytes
-                FROM   task_completion
-                WHERE  project_id = %s
-                ORDER  BY octet_length(result::text) DESC
-                LIMIT  1
-            """,
+                FROM task_completion
+                WHERE project_id = %s
+                ORDER BY octet_length(result::text) DESC LIMIT  1
+                """,
                 [self.id],
             )
 
@@ -1263,11 +1303,10 @@ class Project(ProjectMixin, FsmHistoryStateModel):
                 """
                 SELECT id,
                        octet_length(data::text) AS bytes
-                FROM   task
-                WHERE  project_id = %s
-                ORDER  BY octet_length(data::text) DESC
-                LIMIT  1
-            """,
+                FROM task
+                WHERE project_id = %s
+                ORDER BY octet_length(data::text) DESC LIMIT  1
+                """,
                 [self.id],
             )
 
@@ -1372,7 +1411,6 @@ class ProjectOnboarding(models.Model):
 
 
 class LabelStreamHistory(models.Model):
-
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='histories', help_text='User ID'
     )
@@ -1383,19 +1421,7 @@ class LabelStreamHistory(models.Model):
         constraints = [models.UniqueConstraint(fields=['user', 'project'], name='unique_history')]
 
 
-class ProjectMember(models.Model):
-
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='project_memberships', help_text='User ID'
-    )
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='members', help_text='Project ID')
-    enabled = models.BooleanField(default=True, help_text='Project member is enabled')
-    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
-    updated_at = models.DateTimeField(_('updated at'), auto_now=True)
-
-
 class ProjectSummary(models.Model):
-
     project = AutoOneToOneField(Project, primary_key=True, on_delete=models.CASCADE, related_name='summary')
     created_at = models.DateTimeField(_('created at'), auto_now_add=True, help_text='Creation time')
 

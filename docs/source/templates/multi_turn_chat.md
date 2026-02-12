@@ -5,7 +5,7 @@ category: LLM Evaluations
 cat: llm-evaluations
 order: 972
 meta_title: Multi-Turn Chat Evaluation Template
-meta_description: Use the SDK to create a dynamic template for evaluating multi-turn chats. 
+meta_description: Use the SDK to create a dynamic template for evaluating multi-turn chats.
 date: 2025-01-21 10:49:57
 ---
 
@@ -24,7 +24,7 @@ For this example, you will need the following:
 
 ## Labeling configuration
 
-In this example, the labeling configuration is dynamically generated. This is necessary because each chat has a different number of turns (questions and responses). 
+In this example, the labeling configuration is dynamically generated. This is necessary because each chat has a different number of turns (questions and responses).
 
 To build your own template XML, you will need to follow the steps outlined in the following notebook: [**Evaluating Virtual Assistant Conversations.ipynb**](https://github.com/HumanSignal/label-studio-examples/blob/main/multi-turn-chat/Evaluating%20Virtual%20Assistant%20Conversations.ipynb)
 
@@ -33,7 +33,7 @@ However, here is an example of the labeling configuration for a 5-turn chat:
 ```xml
 <View>
     <Style>
-        
+
 .root {
     font-family: Arial, sans-serif;
     display: flex;
@@ -101,7 +101,7 @@ However, here is an example of the labeling configuration for a 5-turn chat:
         border-radius: 5px;
         margin-bottom: 20px;
     }
-    
+
     .turn-2 {
         border: 2px solid #2E8B57;
         background-color: #EAF5F1;
@@ -109,7 +109,7 @@ However, here is an example of the labeling configuration for a 5-turn chat:
         border-radius: 5px;
         margin-bottom: 20px;
     }
-    
+
     .turn-3 {
         border: 2px solid #FF4500;
         background-color: #FFF4EC;
@@ -117,7 +117,7 @@ However, here is an example of the labeling configuration for a 5-turn chat:
         border-radius: 5px;
         margin-bottom: 20px;
     }
-    
+
     .turn-4 {
         border: 2px solid #DC143C;
         background-color: #FDECEC;
@@ -125,7 +125,7 @@ However, here is an example of the labeling configuration for a 5-turn chat:
         border-radius: 5px;
         margin-bottom: 20px;
     }
-    
+
     .turn-5 {
         border: 2px solid #4B0082;
         background-color: #F3EAFD;
@@ -133,7 +133,7 @@ However, here is an example of the labeling configuration for a 5-turn chat:
         border-radius: 5px;
         margin-bottom: 20px;
     }
-    
+
     </Style>
     <View className="root">
         <Header value="Dialogue and Questions" />
@@ -148,11 +148,11 @@ However, here is an example of the labeling configuration for a 5-turn chat:
                 <View className="questions">
                     <Header value="Answer the questions for each turn" className="section-header" />
                     <Collapse>
-                        
+
     <Panel value="Turn 1" className="panel-header">
         <View className="panel-turn turn-1">
             <Paragraphs name="turn1_prg" value="$turn1_dialogue" layout="dialogue" nameKey="role" textKey="content" />
-            
+
             <Header value="What is the user's intent in this turn?" />
             <Choices name="turn1_user_intent" toName="turn1_prg" choice="multiple">
                 <Choice value="Product Inquiry" />
@@ -190,11 +190,11 @@ However, here is an example of the labeling configuration for a 5-turn chat:
             </Choices>
         </View>
     </Panel>
-    
+
     <Panel value="Turn 2" className="panel-header">
         <View className="panel-turn turn-2">
             <Paragraphs name="turn2_prg" value="$turn2_dialogue" layout="dialogue" nameKey="role" textKey="content" />
-            
+
             <Header value="What is the user's intent in this turn?" />
             <Choices name="turn2_user_intent" toName="turn2_prg" choice="multiple">
                 <Choice value="Product Inquiry" />
@@ -232,11 +232,11 @@ However, here is an example of the labeling configuration for a 5-turn chat:
             </Choices>
         </View>
     </Panel>
-    
+
     <Panel value="Turn 3" className="panel-header">
         <View className="panel-turn turn-3">
             <Paragraphs name="turn3_prg" value="$turn3_dialogue" layout="dialogue" nameKey="role" textKey="content" />
-            
+
             <Header value="What is the user's intent in this turn?" />
             <Choices name="turn3_user_intent" toName="turn3_prg" choice="multiple">
                 <Choice value="Product Inquiry" />
@@ -274,11 +274,11 @@ However, here is an example of the labeling configuration for a 5-turn chat:
             </Choices>
         </View>
     </Panel>
-    
+
     <Panel value="Turn 4" className="panel-header">
         <View className="panel-turn turn-4">
             <Paragraphs name="turn4_prg" value="$turn4_dialogue" layout="dialogue" nameKey="role" textKey="content" />
-            
+
             <Header value="What is the user's intent in this turn?" />
             <Choices name="turn4_user_intent" toName="turn4_prg" choice="multiple">
                 <Choice value="Product Inquiry" />
@@ -316,11 +316,11 @@ However, here is an example of the labeling configuration for a 5-turn chat:
             </Choices>
         </View>
     </Panel>
-    
+
     <Panel value="Turn 5" className="panel-header">
         <View className="panel-turn turn-5">
             <Paragraphs name="turn5_prg" value="$turn5_dialogue" layout="dialogue" nameKey="role" textKey="content" />
-            
+
             <Header value="What is the user's intent in this turn?" />
             <Choices name="turn5_user_intent" toName="turn5_prg" choice="multiple">
                 <Choice value="Product Inquiry" />
@@ -358,7 +358,7 @@ However, here is an example of the labeling configuration for a 5-turn chat:
             </Choices>
         </View>
     </Panel>
-    
+
                     </Collapse>
                 </View>
             </View>
@@ -448,20 +448,20 @@ However, here is an example of the labeling configuration for a 5-turn chat:
 ```
 This displays the entire conversation in one column under “Full Conversation” using a Paragraphs tag. It shows each message (with role and content) as a dialogue.
 
-On the other column, it organizes annotation questions by turn. Each “Turn” is inside a collapsible `<Panel>` component and has its own `<Paragraphs>` tag. For example: 
+On the other column, it organizes annotation questions by turn. Each “Turn” is inside a collapsible `<Panel>` component and has its own `<Paragraphs>` tag. For example:
 
 ```xml
-<Paragraphs name="turn1_prg" value="$turn1_dialogue" layout="dialogue" … /> 
+<Paragraphs name="turn1_prg" value="$turn1_dialogue" layout="dialogue" … />
 ```
 This lets you see only the subset of the conversation relevant to that turn.
 
 #### Choices
 
-For each turn, there are multiple <Choices> blocks, each focusing on different questions: 
+For each turn, there are multiple <Choices> blocks, each focusing on different questions:
 
-1. User’s intent in this turn (multiple choice). 
-2. Whether the assistant’s response addresses that intent (single choice). 
-3. Whether the assistant’s response is accurate/helpful (single choice). 
+1. User’s intent in this turn (multiple choice).
+2. Whether the assistant’s response addresses that intent (single choice).
+3. Whether the assistant’s response is accurate/helpful (single choice).
 4. The implied “action” of the assistant’s response (multiple choice).
 
 The `toName` attributes (for instance, `toName="turn1_prg"`) tie each set of choices to that turn’s Paragraphs object, so each question is specifically linked to the text of that turn.

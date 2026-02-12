@@ -12,4 +12,3 @@
 | [strokeColor] | <code>string</code> | <code>&quot;#f48a42&quot;</code> | Stroke color in hexadecimal |
 | [strokeWidth] | <code>number</code> | <code>1</code> | Width of the stroke |
 | [value] | <code>string</code> |  | Task data field containing a list of dynamically loaded labels (see example below) |
-

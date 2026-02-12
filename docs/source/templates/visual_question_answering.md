@@ -10,7 +10,7 @@ meta_description: Template for performing visual question answering data labelin
 
 <img src="/images/templates/visual-question-answering.png" alt="" class="gif-border" width="552px" height="408px" />
 
-Create a dataset with answered questions about images using this visual question answering template. In response to an image, annotators can provide free-text answers to a question and also label components of a question with relevant aspects. 
+Create a dataset with answered questions about images using this visual question answering template. In response to an image, annotators can provide free-text answers to a question and also label components of a question with relevant aspects.
 
 ## Interactive Template Preview
 
@@ -64,8 +64,8 @@ Use the [Image](/tags/image.html) object tag to display an image:
 ```xml
 <Image name="image" value="$image"/>
 ```
-This image is stored in a Label Studio JSON-formatted file as a URL with the key "image". 
-  
+This image is stored in a Label Studio JSON-formatted file as a URL with the key "image".
+
 Use the [Labels](/tags/labels.html) control tag to apply specific labels to the first question about the image, to classify specific parts of the question being asked about the image:
 ```xml
   <Labels name="aspect" toName="q1">
@@ -93,11 +93,11 @@ Use the [Header](/tags/header.html) tag to provide context about the text sample
 <Header value="Q1:"/>
 ```
 
-Use the [Text](/tags/text.html) object tag to display a question. This 
+Use the [Text](/tags/text.html) object tag to display a question. This
 ```xml
 <Text name="q1" value="$q1"/>
 ```
-This text sample is stored in a Label Studio JSON-formatted file with the key "q1". 
+This text sample is stored in a Label Studio JSON-formatted file with the key "q1".
 
 Use the [Header](/tags/header.html) tag to provide context about the text sample to annotators:
 ```xml
@@ -108,7 +108,7 @@ Use the [TextArea](/tags/textarea.html) control tag to provide annotators a spot
 ```xml
 <TextArea name="answer1" toName="q1" rows="1" maxSubmissions="1"/>
 ```
-The text entered as part of this text box submission is stored in the exported Label Studio JSON under the name "answer1", and is associated with question 1 with the `toName` field. The text box only allows 1 submission, and is only 1 row long when displayed on the labeling interface. 
+The text entered as part of this text box submission is stored in the exported Label Studio JSON under the name "answer1", and is associated with question 1 with the `toName` field. The text box only allows 1 submission, and is only 1 row long when displayed on the labeling interface.
 
 At the end of the question and answer block, close the [View](/tags/view.html) tag:
 ```xml

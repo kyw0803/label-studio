@@ -275,7 +275,8 @@ def is_fsm_enabled(user=None) -> bool:
     """
     # Fast path: Check cached state from CurrentContext
     # This is set once per request when user is initialized
-    return CurrentContext.is_fsm_enabled()
+    # return CurrentContext.is_fsm_enabled()
+    return True
 
 
 def get_current_state_safe(entity, user=None) -> Optional[str]:

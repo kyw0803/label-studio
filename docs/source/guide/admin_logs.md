@@ -11,14 +11,14 @@ section: "Manage Your Organization"
 date: 2024-02-05 16:40:16
 ---
 
-You can view user logs from the **Organization > Activity Log** page. Only users with the Administrator or Owner role can access this page. 
+You can view user logs from the **Organization > Activity Log** page. Only users with the Administrator or Owner role can access this page.
 
-Activity logs are retained for 180 days. 
+Activity logs are retained for 180 days.
 
-Logs include user ID, IP address, a timestamp, and the type of action performed by logging the API request. You can find out more about each action being performed by clicking the API request. 
+Logs include user ID, IP address, a timestamp, and the type of action performed by logging the API request. You can find out more about each action being performed by clicking the API request.
 
 !!! note
-    In some cases, clicking the API request will not return additional information. This is typically because the request includes sensitive information, such as a password. 
+    In some cases, clicking the API request will not return additional information. This is typically because the request includes sensitive information, such as a password.
 
 You can filter the logs by the following:
 
@@ -27,6 +27,3 @@ You can filter the logs by the following:
 * Request type (GET, POST, PATCH, DELETE)
 * Date range
 * Request keyword
-
-
-

@@ -25,26 +25,26 @@ The illustrated templates provide both manual and automatic ways of tracking obj
 
 !!! attention "important"
 
-    1. Video classification and object tracking were available to preview prior to Label Studio version 1.6, but these features are now fully functional and production-ready. 
-    2. In Label Studio Enterprise, the video object tracking is called video labeling for video object detection. 
-    3. The supported video formats are `mpeg4/H.264 webp` and `webm`. The supported video format also depends on the browser, and any pre-conversions from the customer's side. 
+    1. Video classification and object tracking were available to preview prior to Label Studio version 1.6, but these features are now fully functional and production-ready.
+    2. In Label Studio Enterprise, the video object tracking is called video labeling for video object detection.
+    3. The supported video formats are `mpeg4/H.264 webp` and `webm`. The supported video format also depends on the browser, and any pre-conversions from the customer's side.
 
 
-## Prerequisites 
+## Prerequisites
 
 The prerequisites to use the video object detection feature are as follows:
 
 1. Prepare the data set that must be labeled.
-2. Use the data label and tool that supports it. 
+2. Use the data label and tool that supports it.
 3. Use the video player that is available for the video classification.
 4. Put all the bounding boxes onto the screen.
 
 
-## Key features supported 
+## Key features supported
 
 The following key features are supported by the video player:
 
-* The video and object detection use case using the bounding box on the video. 
+* The video and object detection use case using the bounding box on the video.
 * Video segmentation for the video by creating rectangles on the video.
 
 
@@ -75,14 +75,14 @@ You can add a [header](/tags/header.html) to provide instructions to the annotat
 <Header>Label the video:</Header>
 ```
 
-Use the [Video](/tags/video.html) object tag to specify the video data. The `framerate` parameter sets the frame rate of all videos in the project. Check all available parameters on the tag page reference. 
+Use the [Video](/tags/video.html) object tag to specify the video data. The `framerate` parameter sets the frame rate of all videos in the project. Check all available parameters on the tag page reference.
 ```xml
 <Video name="video" value="$video" frameRate="25.0"/>
 ```
 
 !!! note
-    Ensure the `frameRate` matches the video's framerate. If your video has defects or variable framerate, it might cause discrepancies. Transcoding the video to a constant framerate before uploading can help. 
-     
+    Ensure the `frameRate` matches the video's framerate. If your video has defects or variable framerate, it might cause discrepancies. Transcoding the video to a constant framerate before uploading can help.
+
 Use the [VideoRectangle](/tags/videorectangle.html) control tag to allow annotators to add rectangles to video frames:
 ```xml
 <VideoRectangle name="box" toName="video" />
@@ -101,7 +101,7 @@ You can replace and add more labels inside `<Labels>` section that correspond to
 
 ## Input data
 
-The input data by means of video stream URL is specified by `value` attribute in the `<Video>` tag. 
+The input data by means of video stream URL is specified by `value` attribute in the `<Video>` tag.
 For the example above, the following [importing JSON format](/guide/tasks.html#Basic-Label-Studio-JSON-format) is expected:
 
 ```json
@@ -116,9 +116,9 @@ The annotated data consists of manually created keyframes, as well as optionally
 
 | JSON key | type | Description |
 | --- | --- | --- |
-| id | string | region (tracked object) ID | 
-| type | string | "videorectangle" | 
-| value.labels | list of strings | object label(s) | 
+| id | string | region (tracked object) ID |
+| type | string | "videorectangle" |
+| value.labels | list of strings | object label(s) |
 | value.duration | numeric | total duration of object lifespan in video stream (in seconds) |
 | value.sequence | list of objects | list of keyframes |
 
@@ -178,14 +178,14 @@ The keyframe format inside `value.sequence` list is the following:
 
 ### Exporting with interpolated frames
 
-By default, only keyframes are included when exporting data. 
+By default, only keyframes are included when exporting data.
 
-When exporting your annotations, you may want to include interpolated frames. This would ensure that every frame in the video is included.  
+When exporting your annotations, you may want to include interpolated frames. This would ensure that every frame in the video is included.
 
 You can accomplish this by using the `interpolate_key_frames` parameter and one of the following methods:
 
 
-#### Use the API to create an export snapshot with interpolation enabled 
+#### Use the API to create an export snapshot with interpolation enabled
 
 You can use the Label Studio API to create an export snapshot with keyframe interpolation enabled.
 
@@ -311,9 +311,9 @@ The video player functionality includes the following UI enhancements:
 4. A cleaner interface to group, organize regions, link, add metadata, and delete regions, plus new functionality to lock regions.
 
 
-## Use cases 
+## Use cases
 
-The video player provides the following use cases: 
+The video player provides the following use cases:
 1. [Enhance images, making it easier for annotators to more precisely label blurry images](#enhance-images).
 2. [Add keyframes and adjust bounding boxes between keyframes to easily transition bounding box shapes and positions](#add-keyframes).
 3. [Select and label between timestamps on the video with improved timeline segmentation](#select-and-label-between-timestamps).
@@ -348,7 +348,7 @@ In the Label Studio UI, the video interface presents the main video canvas with 
 <i>Figure 4: Go one step back button. </i>
 
 
-**Play and pause.** 
+**Play and pause.**
 <img src="../images/play-pause.png" class="gif-border" />
 <i>Figure 5: Play and pause button. </i>
 
@@ -363,23 +363,23 @@ In the Label Studio UI, the video interface presents the main video canvas with 
 <i>Figure 7: Go to the next keyframe button. </i>
 
 
-**Toggle timeline.** 
+**Toggle timeline.**
 <img src="../images/toggle-timeline.png" class="gif-border" />
 <i>Figure 8: Toggle timeline button. </i>
 
 
 ### Add keyframes
-In the video player, you can see the number of frames, total frames, and the current one. You can navigate from one frame to the other or a specific frame number. During navigation, key points are added so that you can jump to previous key points or the previous frame. 
+In the video player, you can see the number of frames, total frames, and the current one. You can navigate from one frame to the other or a specific frame number. During navigation, key points are added so that you can jump to previous key points or the previous frame.
 
 
 <img src="../images/total-frames-current-frame.png" class="gif-border" />
 <i>Figure 9: Working with frames. </i>
 
-You can collapse or expand the timeline and also use the timer option to set and adjust the time for a video. 
+You can collapse or expand the timeline and also use the timer option to set and adjust the time for a video.
 <img src="../images/time-frame.png" class="gif-border" />
 <i>Figure 10: Navigate using time frames. </i>
 
-You can also adjust the rectangle frame to detect the object region of interest. 
+You can also adjust the rectangle frame to detect the object region of interest.
 <img src="../images/adjust-rectangle-frame-for-obj-detection.png" class="gif-border" />
 <i>Figure 11: Adjust rectangle frame for object detection. </i>
 
@@ -390,12 +390,12 @@ To detect the object on a badge, select the label and draw a rectangle on it.
 
 ### Use timestamps
 
-When you work with timestamps or timelines, you can add a keyframe on the bounding box and start at a particular frame number. A thin line (goes to the end of the video while scrolling) represents the transition or lifespan of the bounding box. You can track a badge using one frame after another. 
+When you work with timestamps or timelines, you can add a keyframe on the bounding box and start at a particular frame number. A thin line (goes to the end of the video while scrolling) represents the transition or lifespan of the bounding box. You can track a badge using one frame after another.
 
 <img src="../images/navigate-to-particular-framenumber.png" class="gif-border" />
 <i>Figure 13: Navigate to a particular frame number. </i>
 
-The grey rectangle and orange color diamond shape shows the selected keyframe. 
+The grey rectangle and orange color diamond shape shows the selected keyframe.
 <img src="../images/keyframe-timeline-to-create-bb.png" class="gif-border" />
 <i>Figure 14: Timeline for keyframes.</i>
 
@@ -411,7 +411,7 @@ Label and track objects across subsequent frames using the fine-grained control 
 
 **Shape transition**
 
-Shape transition occurs when you adjust the bounding box and the new keyframe appears in the timeline. For example, you can add a new keyframe and adjust the bounding box to fit the badge. Then navigate from one frame (say frame number 30) back to a previous frame (frame number 17). Now, you will see the bounding box shape changes across those frames. This action will help to easily transition the bounding box shape and adjust to the tracked object. You can add more key points or a key point to every frame to track the transition more precisely. 
+Shape transition occurs when you adjust the bounding box and the new keyframe appears in the timeline. For example, you can add a new keyframe and adjust the bounding box to fit the badge. Then navigate from one frame (say frame number 30) back to a previous frame (frame number 17). Now, you will see the bounding box shape changes across those frames. This action will help to easily transition the bounding box shape and adjust to the tracked object. You can add more key points or a key point to every frame to track the transition more precisely.
 
 <img src="../images/adjust-rectangle-frame-for-obj-detection.png" class="gif-border" />
 <i>Figure 16: Adjust the rectangle frame.</i>
@@ -419,7 +419,7 @@ Shape transition occurs when you adjust the bounding box and the new keyframe ap
 
 **Monitor the lifespan**
 
-When you are in a particular frame number and if the badge disappears then you don't need to track it anymore. 
+When you are in a particular frame number and if the badge disappears then you don't need to track it anymore.
 
 <img src="../images/disappears-badge.png" class="gif-border" />
 <i>Figure 17: Badge disappears.</i>
@@ -429,18 +429,18 @@ Now navigate to that particular frame number and press the **Toggle Interpolatio
 <img src="../images/activate-toggle-interpolation.png" class="gif-border" />
 <i>Figure 18: Activate toggle interpolation.</i>
 
-The disappeared badge in Figure 17 now reappears within the interpolation as you see in Figure 19. 
+The disappeared badge in Figure 17 now reappears within the interpolation as you see in Figure 19.
 <img src="../images/badge-appear-within-interpolation.png" class="gif-border" />
 <i>Figure 19: Badge appears within interpolation.</i>
 
 **Transition frames**
 
-If you don’t want to play video by itself, but prefer to see the transition of the frames then you can drag the frame indicator to see how it transitions, how frames appear, how they disappear, and so on. You can also set positions for the video by dragging the overview window that shows the current visible viewport. 
+If you don’t want to play video by itself, but prefer to see the transition of the frames then you can drag the frame indicator to see how it transitions, how frames appear, how they disappear, and so on. You can also set positions for the video by dragging the overview window that shows the current visible viewport.
 
-### Reconfigure annotation workspaces 
-You can reconfigure the annotation workspaces to simplify labeling larger tasks, including large images and longer videos with many regions. This allows you to view more of the video portion, a wider space for the timeline, and the ability to see many keyframes and regions. 
+### Reconfigure annotation workspaces
+You can reconfigure the annotation workspaces to simplify labeling larger tasks, including large images and longer videos with many regions. This allows you to view more of the video portion, a wider space for the timeline, and the ability to see many keyframes and regions.
 
-You can add key points by toggling the key points. For example, if you accidentally moved the bounding box, and it is not in the right place, then you must remove the key points to reset it to the initial position. You can add many bounding boxes for object detection. 
+You can add key points by toggling the key points. For example, if you accidentally moved the bounding box, and it is not in the right place, then you must remove the key points to reset it to the initial position. You can add many bounding boxes for object detection.
 
 <img src="../images/add-multiple-keyframes.png" class="gif-border" />
 <i>Figure 20: Add multiple key points.</i>
@@ -449,12 +449,12 @@ Figure 21 shows the available bounding boxes (`Car`, `Airplane`, or `Possum`) th
 <img src="../images/add-many-bb.png" class="gif-border" />
 <i>Figure 21: Add many bounding boxes.</i>
 
-A mini map shows separate lines for each added label region. In Figure 22, the mini map shows separate lines for each added `Car`, `Airplane`, or `Possum` label region. 
+A mini map shows separate lines for each added label region. In Figure 22, the mini map shows separate lines for each added `Car`, `Airplane`, or `Possum` label region.
 <img src="../images/mini-map-upto-5bb.png" class="gif-border" />
 <i>Figure 22: Mini map for multiple regions.</i>
 
-### Additional examples 
-The following shows additional examples of the video object tracking feature. 
+### Additional examples
+The following shows additional examples of the video object tracking feature.
 <img src="../images/videoplayer.png" class="gif-border" />
 <i>Figure 23: Example 1 of video object tracking.</i>
 

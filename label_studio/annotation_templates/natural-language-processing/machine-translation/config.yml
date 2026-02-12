@@ -25,4 +25,3 @@ config: |
               required="true"/>
     </View>
   </View>
-

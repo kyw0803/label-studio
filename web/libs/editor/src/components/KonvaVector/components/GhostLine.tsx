@@ -62,10 +62,8 @@ export const GhostLine: React.FC<GhostLineProps> = ({
   };
   // Get the active point for the ghost line
   const getActivePoint = () => {
-    // Always check activePointId first (works for both skeleton and non-skeleton mode)
-    // In skeleton mode: can be any point
-    // In non-skeleton mode: should be the endpoint we're drawing from
-    if (activePointId) {
+    // In skeleton mode, use the active point (selected point)
+    if (skeletonEnabled && activePointId) {
       const activePoint = initialPoints.find((p) => p.id === activePointId);
       if (activePoint) {
         return activePoint;
@@ -82,6 +80,7 @@ export const GhostLine: React.FC<GhostLineProps> = ({
       return initialPoints[selectedPointIndex];
     }
 
+    // In non-skeleton mode, use the last added point
     // Fallback to lastAddedPointId for backward compatibility
     if (lastAddedPointId) {
       const lastAddedPoint = initialPoints.find((p) => p.id === lastAddedPointId);

@@ -10,20 +10,20 @@ meta_description: Template for classifying a taxonomy or hierarchy with Label St
 
 <img src="/images/templates/taxonomy.png" alt="" class="gif-border" width="552px" height="408px" />
 
-Perform classification tasks within the context of a defined taxonomy or hierarchy of choices. 
+Perform classification tasks within the context of a defined taxonomy or hierarchy of choices.
 
-## Labeling configuration 
+## Labeling configuration
 
 You can approach your taxonomy definitions in several ways, including:
 
-* User-defined labels - Use the `Choice` tag to manually define your taxonomy. This is the default configuration in the template. 
+* User-defined labels - Use the `Choice` tag to manually define your taxonomy. This is the default configuration in the template.
 * External taxonomy - Define your taxonomy using a JSON-formatted file or API. This option provides better performance for large scale taxonomies.
 
 In both options, the following tags are required:
 
 * The labeling configuration must be wrapped in [`View`](/tags/view.html) tags.
 * Include the data type you are working with. The example template is classifying text, but the `Taxonomy` tag can also be used with audio, image, HTML, paragraphs, time series, and video.
-  
+
     ```xml
     <Text name="text" value="$text"/>
     ```
@@ -34,14 +34,14 @@ In both options, the following tags are required:
 
 ## Taxonomy as a labeling tool
 
-Typically, the `<Taxonomy>` tag is used to perform classification tasks. However, if you set `labeling="true"`, you can apply your taxonomy choices to regions within text. This can be especially useful for NER projects. 
+Typically, the `<Taxonomy>` tag is used to perform classification tasks. However, if you set `labeling="true"`, you can apply your taxonomy choices to regions within text. This can be especially useful for NER projects.
 
-Note that the `labeling` parameter is only supported when using `<Text> `or `<HyperText>` object tags. 
+Note that the `labeling` parameter is only supported when using `<Text> `or `<HyperText>` object tags.
 
 ![Screenshot of taxonomy as NER](/images/templates-misc/taxonomy_ner.png)
 
 !!! info Tip
-    You can use the `color` parameter on your taxonomy [`<Choice>`](/tags/choice) to color-code selected regions within the text. 
+    You can use the `color` parameter on your taxonomy [`<Choice>`](/tags/choice) to color-code selected regions within the text.
 
 ## Taxonomies defined using nested `Choice` tags
 
@@ -77,9 +77,9 @@ To call an external taxonomy, remove the `Choice` tags and specify the `apiUrl` 
 ```
 
 !!! todo Beta feature
-    The feature to call external taxonomies through `apiUrl` is currently in its beta phase.  
+    The feature to call external taxonomies through `apiUrl` is currently in its beta phase.
 
-For example: 
+For example:
 
 ```html
 <View>
@@ -88,7 +88,7 @@ For example:
 </View>
 ```
 
-The remote taxonomy must use JSON with items in the following format: 
+The remote taxonomy must use JSON with items in the following format:
 
 | Property | Description |
 | --- | --- |
@@ -102,40 +102,40 @@ The remote taxonomy must use JSON with items in the following format:
 ### Securing the taxonomy
 
 The `apiUrl` must be accessible to Label Studio. You can accomplish this in several ways:
-* The URL is public. 
-* The URL is hosted on a local server. 
-* The URL includes the username and password, for example `http://username:password@example.com/`. 
+* The URL is public.
+* The URL is hosted on a local server.
+* The URL includes the username and password, for example `http://username:password@example.com/`.
 
-    While in this case the taxonomy itself is not publicly accessible, anyone with access to view the project's labeling configuration would be able to see the credentials. Annotators would also be able to view the credentials through the Network tab in their browser's developer tools.   
-* The URL points to your private cloud environment. This is the most secure option. See [Using cloud storage with an external taxonomy](#Using-cloud-storage-with-an-external-taxonomy) below.  
+    While in this case the taxonomy itself is not publicly accessible, anyone with access to view the project's labeling configuration would be able to see the credentials. Annotators would also be able to view the credentials through the Network tab in their browser's developer tools.
+* The URL points to your private cloud environment. This is the most secure option. See [Using cloud storage with an external taxonomy](#Using-cloud-storage-with-an-external-taxonomy) below.
 
-### Using cloud storage with an external taxonomy 
-  
-1. Save your taxonomy in a separate bucket from your task data. 
+### Using cloud storage with an external taxonomy
 
-    If you are unable to use a separate bucket for your taxonomy, see the workaround below. 
+1. Save your taxonomy in a separate bucket from your task data.
+
+    If you are unable to use a separate bucket for your taxonomy, see the workaround below.
 2. [Follow these instructions](/guide/storage) to set up cloud storage for Label Studio. This should be a separate connection from your other storage connections.
 
     <div class="admonition note"><p class="admonition-title">note</p><p>Do not sync this storage connection. If you do, you will need to delete the task that is automatically created when syncing the taxonomy.</p></div>
 
-3. When configuring your labeling interface, format your `apiUrl` using the appropriate URL format for your cloud service provider: `gs://`, `s3://`, `azure-blob://`. 
+3. When configuring your labeling interface, format your `apiUrl` using the appropriate URL format for your cloud service provider: `gs://`, `s3://`, `azure-blob://`.
 
 
 !!! warning Note on setting up cloud storage
-    If you perform a sync operation on a storage connection that contains your taxonomy, then the entire taxonomy will be pulled into Label Studio as a task. The result may be severely degraded Label Studio performance, depending on the size of your taxonomy. This can present a problem when you are using cloud storage synchronization to populate Label Studio tasks. 
-    
+    If you perform a sync operation on a storage connection that contains your taxonomy, then the entire taxonomy will be pulled into Label Studio as a task. The result may be severely degraded Label Studio performance, depending on the size of your taxonomy. This can present a problem when you are using cloud storage synchronization to populate Label Studio tasks.
+
     There are several workarounds for this issue:
-    - After syncing, simply delete the task. 
-    - (Recommended) Establish two source storage connections and two external cloud buckets. One bucket can contain the data you need to sync for labeling tasks, and the other bucket could contain your taxonomy (which would not be synced). 
+    - After syncing, simply delete the task.
+    - (Recommended) Establish two source storage connections and two external cloud buckets. One bucket can contain the data you need to sync for labeling tasks, and the other bucket could contain your taxonomy (which would not be synced).
     - Establish two source storage connections and one external cloud bucket. Then use regex to to include/exclude the taxonomy when configuring the storage connection.
 
 
 
 ### Flat file format
 
-The basic requirements are to use JSON formatting, wrap the taxonomy structure in an `items` object, and include `value` properties for every item. 
+The basic requirements are to use JSON formatting, wrap the taxonomy structure in an `items` object, and include `value` properties for every item.
 
-In this example, you are using `children` to specify child nodes. All values are loaded in a single request. 
+In this example, you are using `children` to specify child nodes. All values are loaded in a single request.
 
 
 ```json
@@ -179,7 +179,7 @@ In this example, you are using `children` to specify child nodes. All values are
 
 When using this format, child nodes are only loaded when requested. Parent nodes are specified using `"isLeaf": false` and child nodes are called through the `path` parameter.
 
-For example, `taxonomy_api_url?path=node1` where `node1` is the alias (if specified) or the value (if no alias is specified). Therefore you must ensure that your API supports the `path` parameter. 
+For example, `taxonomy_api_url?path=node1` where `node1` is the alias (if specified) or the value (if no alias is specified). Therefore you must ensure that your API supports the `path` parameter.
 
 
 #### Taxonomy API spec
@@ -187,7 +187,7 @@ For example, `taxonomy_api_url?path=node1` where `node1` is the alias (if specif
 
 `GET /?[path=value1]&[path=value2]&...&[path=valueN]`
 
-Returns a JSON object with an `items` key, whose associated value is a list of Taxonomy items. 
+Returns a JSON object with an `items` key, whose associated value is a list of Taxonomy items.
 
 If `path` query params are provided, return the direct children of `valueN`. Note that for `i` in range `1..N-1`, `value[i+1]` must be a child node of `value[i]`.
 
@@ -204,7 +204,7 @@ Taxonomy item definition:
 {
 
   "alias": // Optional string, short name for use in output data and path values.
-  "value": // Required string, the displayed text for the taxonomy value. 
+  "value": // Required string, the displayed text for the taxonomy value.
            // Used same way as `alias` if alias is not specified (i.e., in output data and path values).
   "hint":  // Optional string, text displayed when user hovers over taxonomy item.
   "isLeaf": // Required boolean with default=false. Indicates whether this node has more children.
@@ -271,4 +271,3 @@ When the user expands the "Africa" option, the following request is sent to retr
 - [Text](/tags/text.html)
 - [Taxonomy](/tags/taxonomy.html)
 - [Choice](/tags/choice.html)
-

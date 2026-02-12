@@ -5,15 +5,15 @@ category: LLM Evaluations
 cat: llm-evaluations
 order: 960
 is_new: t
-meta_description: Evaluate a side-by-side comparison of two LLM responses. 
+meta_description: Evaluate a side-by-side comparison of two LLM responses.
 date: 2024-07-26 14:48:48
 ---
 
 <img src="/images/templates/side-by-side-comparison.png" alt="" class="gif-border" width="700px"/>
 
-Sometimes you need to compare two different model responses or compare the model response with a ground truth. In this template, two options are presented side by side, and then you click to select the one that matches your criteria. 
+Sometimes you need to compare two different model responses or compare the model response with a ground truth. In this template, two options are presented side by side, and then you click to select the one that matches your criteria.
 
-For a tutorial on how to use this template with the Label Studio SDK, see [Evaluate LLM Responses](https://api.labelstud.io/tutorials/tutorials/evaluate-llm-responses). 
+For a tutorial on how to use this template with the Label Studio SDK, see [Evaluate LLM Responses](https://api.labelstud.io/tutorials/tutorials/evaluate-llm-responses).
 
 ## Configure the labeling interface
 
@@ -104,13 +104,13 @@ For a tutorial on how to use this template with the Label Studio SDK, see [Evalu
 This configuration includes the following elements:
 
 * `<View>` - All labeling configurations must include a base `View` tag. In this configuration, the `View` tag is used to configure the display of blocks, similar to the div tag in HTML. It helps in organizing the layout of the labeling interface.
-* `<Style>` - The `Style` tag is used to define CSS styles that apply to the elements within the `View`. In this configuration, it sets styles for various classes various sections of the labeling interface layout. 
-* `<Text>` -  The `Text` tag is used to display text provided by the input data. Given the example input data below, the text blocks are either displaying information from the `prompt` or one of the responses (`answer1` or `answer2`). You will likely want to adjust the values to match your own JSON structure. 
+* `<Style>` - The `Style` tag is used to define CSS styles that apply to the elements within the `View`. In this configuration, it sets styles for various classes various sections of the labeling interface layout.
+* `<Text>` -  The `Text` tag is used to display text provided by the input data. Given the example input data below, the text blocks are either displaying information from the `prompt` or one of the responses (`answer1` or `answer2`). You will likely want to adjust the values to match your own JSON structure.
 * `<Pairwise>` - The `Pairwise` tag is used to display the selection element. It presents the options for the user to click and select. Read more about [Label Studio template for pairwise comparison](generative-pairwise-human-preference).
 
 ## Input data
 
-In this example, you are including the prompt and then two responses from different LLMs. 
+In this example, you are including the prompt and then two responses from different LLMs.
 
 ```json
 [

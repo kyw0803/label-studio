@@ -12,4 +12,3 @@ config: |
 
     <Text name="text" value="$corefText"/>
   </View>
-

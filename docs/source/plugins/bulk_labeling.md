@@ -19,9 +19,9 @@ tier: enterprise
 
 ## About
 
-This plugin automatically applies the same label to all matching text spans when you press the **Shift** key. 
+This plugin automatically applies the same label to all matching text spans when you press the **Shift** key.
 
-For example, if you apply the `PER` label to the text span `Smith`, this plugin will automatically find all instances of `Smith` in the text and apply the `PER` label to them. 
+For example, if you apply the `PER` label to the text span `Smith`, this plugin will automatically find all instances of `Smith` in the text and apply the `PER` label to them.
 
 ![Screenshot of bulk text labeling](/images/plugins/bulk_actions.gif)
 
@@ -159,7 +159,7 @@ LSI.on("entityCreate", (region) => {
 
 ## Labeling config
 
-This is a basic NER labeling config. 
+This is a basic NER labeling config.
 
 ```xml
 <View>

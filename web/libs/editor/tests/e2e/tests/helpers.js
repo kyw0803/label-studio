@@ -1,4 +1,4 @@
-const assert = require("assert");
+const _assert = require("assert");
 
 /**
  * Load custom example
@@ -48,7 +48,7 @@ async function initLabelStudio({
 const createMethodInjectionIntoScript = (fnName, fn) => {
   const args = new Array(fn.length)
     .fill()
-    .map((v, idx) => {
+    .map((_v, idx) => {
       return `v${idx}`;
     })
     .join(", ");
@@ -158,7 +158,7 @@ const hasFF = (fflag) => {
 const createAddEventListenerScript = (eventName, callback) => {
   const args = new Array(callback.length)
     .fill()
-    .map((v, idx) => {
+    .map((_v, idx) => {
       return `v${idx}`;
     })
     .join(", ");
@@ -909,7 +909,7 @@ function _not(predicate) {
   };
 }
 
-function saveDraftLocally(ls, annotation) {
+function saveDraftLocally(_ls, annotation) {
   window.LSDraft = annotation.serializeAnnotation();
 }
 function getLocallySavedDraft() {

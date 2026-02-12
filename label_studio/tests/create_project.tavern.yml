@@ -83,4 +83,3 @@ stages:
         id: 3
         image: 3
     status_code: 200
-

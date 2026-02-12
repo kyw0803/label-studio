@@ -3,10 +3,10 @@ title: Label Studio terminology
 short: Terminology
 tier: all
 type: guide
-order: 16 
+order: 16
 order_enterprise: 16
 meta_title: Label Studio terminology
-meta_description: A glossary of common terms seen throughout Label Studio. 
+meta_description: A glossary of common terms seen throughout Label Studio.
 section: "Discover & Learn"
 date: 2023-10-27 11:38:25
 ---
@@ -31,5 +31,3 @@ date: 2023-10-27 11:38:25
 | Task  | When you upload data to Label Studio, each item in the dataset becomes a labeling *task*. A task is a distinct item from a dataset that is ready to be labeled, pre-annotated, or has already been annotated. For example: a text snippet, an image, or a video clip.  |
 | Tags   | Configuration options to customize the labeling interface. See [more about tags](/tags).  |
 | Templates | Example labeling configurations that you can use to specify the type of labeling that you're performing with your dataset. See [all available templates](/templates) |
-
-

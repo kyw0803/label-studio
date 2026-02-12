@@ -6,7 +6,7 @@
   z-index: 3000;
   backdrop-filter: blur(2px) grayscale(80%);
   background: rgb(var(--color-neutral-background-raw) / 70%);
-  inset: 0;
+  inset: -16px -24px;
 }
 
 .container {
@@ -72,4 +72,3 @@
     white-space: nowrap;
   }
 }
-

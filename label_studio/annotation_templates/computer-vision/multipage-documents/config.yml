@@ -23,8 +23,8 @@ config: |
     </RectangleLabels>
     <Image valueList="$pages" name="pdf"/>
   </View>
-  
-  
+
+
   <!-- {
   "pages": [
       "https://htx-pub.s3.amazonaws.com/demo/images/demo_stock_purchase_agreement/0001.jpg",

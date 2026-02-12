@@ -29,7 +29,6 @@ export enum StateType {
   IN_PROGRESS = "in_progress",
   ATTENTION = "attention",
   TERMINAL = "terminal",
-  VERIFICATION = "verification",
 }
 
 /**
@@ -60,7 +59,6 @@ const STATE_TYPE_STYLES: Record<StateType, string> = {
   [StateType.INITIAL]: "bg-neutral-emphasis border-neutral-border text-neutral-content",
   [StateType.IN_PROGRESS]: "bg-primary-emphasis border-primary-border-subtlest text-primary-content",
   [StateType.ATTENTION]: "bg-warning-emphasis border-warning-border-subtlest text-warning-content",
-  [StateType.VERIFICATION]: "bg-accent-plum-subtle border-accent-plum-subtle text-accent-plum-bold",
   [StateType.TERMINAL]: "bg-positive-emphasis border-positive-border-subtlest text-positive-content",
 };
 

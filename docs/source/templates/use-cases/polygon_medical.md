@@ -68,4 +68,3 @@ Use the <a href="https://labelstud.io/tags/polygonlabels">PolygonLabels</a> cont
 ```
 
 Annotators can control the opacity of the polygons using the <code>opacity</code> argument, and the styling of the polygon tool using the <code>pointSize</code> and <code>strokeWidth</code> arguments. Use the <code>background</code> argument with the <a href="https://labelstud.io/tags/label">Label</a> control tag to assign distinct colors for each tissue or pathology label.
-

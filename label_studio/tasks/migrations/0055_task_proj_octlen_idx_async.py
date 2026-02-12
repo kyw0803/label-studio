@@ -27,7 +27,7 @@ def forward_migration(migration_name, db_alias):
     )
     if not created:
         return
-    
+
     logger.info(f'Start async migration {migration_name}')
     from django.db import connections
     cursor = connections[db_alias].cursor()

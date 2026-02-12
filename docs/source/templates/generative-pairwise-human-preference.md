@@ -23,7 +23,7 @@ Through ranking multiple responses based on quality, you can train a reward mode
 - [Talk: Improving Machine Learning from Human Feedback](https://youtu.be/nx_vJpux_Sg) : A talk from PyData Berlin on how to improve machine learning from Human Feedback using RLHF.
 - [Workshop: Getting Started with Reinforcement Learning](https://youtu.be/Oqo8k8SyMX4) : A workshop on how to get started with Reinforcement Learning.
 - [Guide: Five Large Language Models you can Fine-Tune Today](https://labelstud.io/blog/five-large-language-models-you-can-fine-tune-today/)
-  
+
 ## How to collect the dataset
 
 The dataset for RLHF consists of two parts:

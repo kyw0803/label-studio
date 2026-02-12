@@ -3,10 +3,10 @@ from __future__ import print_function
 """This file and its contents are licensed under the Apache License 2.0. Please see the included NOTICE for copyright information and LICENSE for a copy of the license.
 """
 """ Version Lib
-Copyright (C) 2019 Maxim Tkachenko 
+Copyright (C) 2019 Maxim Tkachenko
 
 This library automatically generates version of package based on git.
-If 'git desc' is successful it will write version to __version__.py:git_version.  
+If 'git desc' is successful it will write version to __version__.py:git_version.
 If 'git desc' is fail it will read __version__.py:git_version.
 
 ATTENTION: do not include version_.py to git! It will affect git commit always!

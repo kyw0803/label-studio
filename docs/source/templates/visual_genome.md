@@ -5,7 +5,7 @@ category: Computer Vision
 cat: computer-vision
 order: 155
 meta_title: Label different described features
-meta_description: 
+meta_description:
 ---
 
 Use the [Visual Genome](https://visualgenome.org/) task to connect structured image concepts to language.
@@ -30,7 +30,7 @@ Use the [Visual Genome](https://visualgenome.org/) task to connect structured im
       <Header value="Relationships"/>
     <RectangleLabels name="relationships" toName="image" value="$relationships"/>
     </View>
-  
+
   </View>
   <Image name="image" value="$image"/>
   <Style>

@@ -13,7 +13,7 @@ parent_page_extension: "html"
 ---
 
 
-This [Machine Learning backend](/guide/ml.html) lets you to automatically pre-annotate your images with bounding boxes. It's powered by the amazing [OpenMMLab MMDetection library](https://github.com/open-mmlab/mmdetection), which gives you access to many existing state-of-the-art models like FasterRCNN, RetinaNet, YOLO and others. 
+This [Machine Learning backend](/guide/ml.html) lets you to automatically pre-annotate your images with bounding boxes. It's powered by the amazing [OpenMMLab MMDetection library](https://github.com/open-mmlab/mmdetection), which gives you access to many existing state-of-the-art models like FasterRCNN, RetinaNet, YOLO and others.
 
 Follow this installation guide and then play around with them, picking the best model that suits your current dataset!
 
@@ -23,11 +23,11 @@ Follow this installation guide and then play around with them, picking the best 
 
 2. Run Label Studio, then go to the **Machine Learning** page in the project settings. Click **Add Model**, then paste the selected ML backend URL, by default `http://localhost:9090`.
 
-3. On the **Labeling Interface** page, select the `COCO annotation` or `Bbox object detection` template. 
+3. On the **Labeling Interface** page, select the `COCO annotation` or `Bbox object detection` template.
    Optionally, you can modify the label config with the `predicted_values` attribute. It provides a list of COCO labels separated by comma. If the object detector outputs any of these labels, they are translated to the actual label name from the `value` attribute.
 
     For example, if your labeling config contains the following:
-    
+
     ```xml
     <Label value="Airplane" predicted_values="airplane"/>
     <Label value="Car" predicted_values="car,truck"/>
@@ -36,7 +36,7 @@ Follow this installation guide and then play around with them, picking the best 
     - If the COCO object detector predicts a bbox with label `"airplane"`, you see the label `"Airplane"`.
     - If it predicts `"car"` or `"truck"`, either of those predictions are squashed to show the `"Car"` label on the task.
 
-   For more information, see [the full list of COCO labels](#The-full-list-of-COCO-labels). 
+   For more information, see [the full list of COCO labels](#The-full-list-of-COCO-labels).
 
 
 ## Installation
@@ -51,11 +51,11 @@ Follow this installation guide and then play around with them, picking the best 
 
 3. Download the `config_file` and `checkpoint_file` from MMDetection model zoo (use the [recommended Faster RCNN for a quickstart](https://mmdetection.readthedocs.io/en/latest/1_exist_data_model.html#inference-with-existing-models)). Place the `config_file` within the cloned [mmdetection repo](https://github.com/open-mmlab/mmdetection).
 
-The following sections present the different settings for how to run this ML backend based on a specific use case. 
+The following sections present the different settings for how to run this ML backend based on a specific use case.
 
 ## Run ML backend on the same machine as Label Studio
 
-If you run the ML backend on the same machine as Label Studio, you can upload images directly to Label Studio or specify them as remote URLs. 
+If you run the ML backend on the same machine as Label Studio, you can upload images directly to Label Studio or specify them as remote URLs.
 
 #### Images are uploaded in Label Studio UI
    ```bash
@@ -117,7 +117,7 @@ You can also tune the `score_threshold`. Lower values increase sensitivity but p
    checkpoint_file=/absolute/path/to/downloaded/checkpoint.pth \
    score_threshold=0.5
    ```
-     
+
 
 ## The full list of COCO labels
 ```text

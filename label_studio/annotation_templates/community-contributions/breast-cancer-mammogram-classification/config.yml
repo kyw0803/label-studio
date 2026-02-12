@@ -7,7 +7,7 @@ source_repo: https://github.com/humanSignal/awesome-label-studio-config/tree/mai
 config: |
   <View>
   <!-- Template sourced from awesome-label-studio-config repository: https://github.com/humanSignal/awesome-label-studio-config/tree/main/label-configs/breast-cancer-mammogram-classification -->
-  
+
     <Style>
       .mammogram-container {
         padding: var(--spacing-600);
@@ -15,12 +15,12 @@ config: |
         border-radius: var(--corner-radius-medium);
         margin-bottom: var(--spacing-800);
       }
-      
+
       .mammogram-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr;
-        grid-template-areas: 
+        grid-template-areas:
           'left-cc right-cc'
           'left-mlo right-mlo';
         gap: var(--spacing-600);
@@ -29,7 +29,7 @@ config: |
         margin-left: auto;
         margin-right: auto;
       }
-      
+
       .mammogram-view {
         text-align: center;
         border: 2px solid var(--color-neutral-border);
@@ -41,16 +41,16 @@ config: |
         display: flex;
         flex-direction: column;
       }
-      
+
       .mammogram-view:hover {
         border-color: var(--color-primary-border-subtle);
       }
-      
+
       .left-cc { grid-area: left-cc; }
       .right-cc { grid-area: right-cc; }
       .left-mlo { grid-area: left-mlo; }
       .right-mlo { grid-area: right-mlo; }
-      
+
       .mammogram-image {
         width: 100%;
         height: 400px;
@@ -58,7 +58,7 @@ config: |
         border-radius: var(--corner-radius-small);
         background: var(--color-neutral-background);
       }
-      
+
       .view-header {
         font-size: var(--font-size-16);
         font-weight: var(--font-weight-semibold);
@@ -70,7 +70,7 @@ config: |
         border-radius: var(--corner-radius-small);
         text-align: center;
       }
-      
+
       .instructions {
         background: var(--color-primary-background);
         padding: var(--spacing-500);
@@ -79,14 +79,14 @@ config: |
         margin-bottom: var(--spacing-600);
         line-height: var(--line-height-body-medium);
       }
-      
+
       .instructions-header {
         font-size: var(--font-size-16);
         margin-bottom: var(--spacing-400);
         line-height: var(--line-height-body-medium);
         color: var(--color-neutral-content);
       }
-      
+
       .birads-legend {
         background: var(--color-warning-background);
         color: var(--color-warning-content);
@@ -97,7 +97,7 @@ config: |
         font-size: var(--font-size-14);
         line-height: var(--line-height-body-small);
       }
-      
+
       .classification-section {
         background: var(--color-neutral-background);
         color: var(--color-neutral-content);
@@ -108,10 +108,10 @@ config: |
         border: 1px solid var(--color-neutral-border-subtle);
       }
     </Style>
-  
+
     <!-- Header for context -->
     <Header value="Breast Cancer Mammogram Classification" style="text-align: center; font-size: var(--font-size-24); color: var(--color-neutral-content); margin-bottom: var(--spacing-500);" />
-  
+
     <!-- Instructions -->
     <View className="instructions">
       <Header value="Please review the standard mammographic views (CC and MLO) of both breasts. Compare corresponding views (e.g., L-CC with R-CC). Label each breast individually, and report any findings." style="font-size: 16px; margin-bottom: 10px; height:auto;" />
@@ -119,7 +119,7 @@ config: |
         <Text name="birads_legend" value="BI-RADS: 0 = Incomplete, 1 = Negative, 2 = Benign, 3 = Probably Benign, 4 = Suspicious, 5 = Highly Suggestive of Malignancy, 6 = Known Cancer" />
       </View>
     </View>
-  
+
     <!-- Mammogram Views Grid -->
     <View className="mammogram-container">
       <View className="mammogram-grid">
@@ -128,19 +128,19 @@ config: |
           <Header value="Left CC" className="view-header" />
           <Image name="left_cc" value="$img1" className="mammogram-image" />
         </View>
-        
+
         <!-- Right CC -->
         <View className="mammogram-view right-cc">
           <Header value="Right CC" className="view-header" />
           <Image name="right_cc" value="$img3" className="mammogram-image" />
         </View>
-        
+
         <!-- Left MLO -->
         <View className="mammogram-view left-mlo">
           <Header value="Left MLO" className="view-header" />
           <Image name="left_mlo" value="$img2" className="mammogram-image" />
         </View>
-        
+
         <!-- Right MLO -->
         <View className="mammogram-view right-mlo">
           <Header value="Right MLO" className="view-header" />
@@ -148,7 +148,7 @@ config: |
         </View>
       </View>
     </View>
-  
+
     <!-- Left Breast Classification -->
     <View className="classification-section">
       <Header value="Left Breast: BI-RADS Classification" style="font-size: var(--font-size-20); color: var(--color-neutral-content); margin-bottom: var(--spacing-400);" />
@@ -161,7 +161,7 @@ config: |
         <Choice value="5 - Highly Suggestive of Malignancy" />
         <Choice value="6 - Known Biopsy-Proven Malignancy" />
       </Choices>
-  
+
       <Header value="Left Breast: Density" style="font-size: var(--font-size-16); color: var(--color-neutral-content-subtle); margin: var(--spacing-500) 0 var(--spacing-200) 0;" />
       <Choices name="density_left" toName="left_cc,right_cc,left_mlo,right_mlo" choice="single">
         <Choice value="A - Almost entirely fatty" />
@@ -169,7 +169,7 @@ config: |
         <Choice value="C - Heterogeneously dense" />
         <Choice value="D - Extremely dense" />
       </Choices>
-  
+
       <Header value="Left Breast: Findings (Optional)" style="font-size: var(--font-size-16); color: var(--color-neutral-content-subtle); margin: var(--spacing-500) 0 var(--spacing-200) 0;" />
       <Choices name="findings_left" toName="left_cc,right_cc,left_mlo,right_mlo" choice="multiple">
         <Choice value="Mass" />
@@ -179,7 +179,7 @@ config: |
         <Choice value="Skin/Nipple Retraction" />
       </Choices>
     </View>
-  
+
     <!-- Right Breast Classification -->
     <View className="classification-section">
       <Header value="Right Breast: BI-RADS Classification" style="font-size: var(--font-size-20); color: var(--color-neutral-content); margin-bottom: var(--spacing-400);" />
@@ -192,7 +192,7 @@ config: |
         <Choice value="5 - Highly Suggestive of Malignancy" />
         <Choice value="6 - Known Biopsy-Proven Malignancy" />
       </Choices>
-  
+
       <Header value="Right Breast: Density" style="font-size: var(--font-size-16); color: var(--color-neutral-content-subtle); margin: var(--spacing-500) 0 var(--spacing-200) 0;" />
       <Choices name="density_right" toName="left_cc,right_cc,left_mlo,right_mlo" choice="single">
         <Choice value="A - Almost entirely fatty" />
@@ -200,7 +200,7 @@ config: |
         <Choice value="C - Heterogeneously dense" />
         <Choice value="D - Extremely dense" />
       </Choices>
-  
+
       <Header value="Right Breast: Findings (Optional)" style="font-size: var(--font-size-16); color: var(--color-neutral-content-subtle); margin: var(--spacing-500) 0 var(--spacing-200) 0;" />
       <Choices name="findings_right" toName="left_cc,right_cc,left_mlo,right_mlo" choice="multiple">
         <Choice value="Mass" />
@@ -210,7 +210,7 @@ config: |
         <Choice value="Skin/Nipple Retraction" />
       </Choices>
     </View>
-  
+
     <!-- Additional Observations -->
     <View className="classification-section">
       <Header value="Additional Observations / Notes (Optional)" style="font-size: var(--font-size-20); color: var(--color-neutral-content); margin-bottom: var(--spacing-400);" />
@@ -223,7 +223,7 @@ config: |
       />
     </View>
   </View>
-  
+
   <!-- {
     "data": {
       "img1": "https://raw.githubusercontent.com/HumanSignal/awesome-label-studio-configs/refs/heads/main/label-configs/breast-cancer-mammogram-classification/assets/l-cc.png",

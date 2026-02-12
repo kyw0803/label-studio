@@ -13,13 +13,13 @@ date: 2025-01-15 12:11:22
 
 ## Example project types
 
-### Text classification  
+### Text classification
 
-Text classification is the process of assigning predefined categories or labels to segments of text based on their content. This involves analyzing the text and determining which category or label best describes its subject, sentiment, or purpose. The goal is to organize and categorize textual data in a way that makes it easier to analyze, search, and utilize. 
+Text classification is the process of assigning predefined categories or labels to segments of text based on their content. This involves analyzing the text and determining which category or label best describes its subject, sentiment, or purpose. The goal is to organize and categorize textual data in a way that makes it easier to analyze, search, and utilize.
 
 Text classification labeling tasks are fundamental in many applications, enabling efficient data organization, improving searchability, and providing valuable insights through data analysis. Some examples include:
 
-* **Spam Detection**: Classifying emails as "spam" or "ham" (not spam). 
+* **Spam Detection**: Classifying emails as "spam" or "ham" (not spam).
 * **Sentiment Analysis**: Categorizing user reviews as "positive," "negative," or "neutral."
 * **Topic Categorization**: Assigning articles to categories like "politics," "sports," "technology," etc.
 * **Support Ticket Classification**: Labeling customer support tickets based on the issue type, such as "billing," "technical support," or "account management."
@@ -35,20 +35,20 @@ NER labeling is crucial for industries such as finance, healthcare, and legal se
 
 Some examples include:
 
-* **News and Media Monitoring**: Media organizations use NER to automatically tag and categorize entities such as people, organizations, and locations in news articles. This helps in organizing news content, enabling efficient search and retrieval, and generating summaries or reports. 
+* **News and Media Monitoring**: Media organizations use NER to automatically tag and categorize entities such as people, organizations, and locations in news articles. This helps in organizing news content, enabling efficient search and retrieval, and generating summaries or reports.
 * **Intelligence and Risk Analysis**: By extracting entities such as personal names, organizations, IP addresses, and financial transactions from suspicious activity reports or communications, organizations can better assess risks and detect fraud or criminal activity.
-* **Specialized Document Review**: Once trained, NER can help extract industry-specific key entities for better document review, searching, and classification. 
+* **Specialized Document Review**: Once trained, NER can help extract industry-specific key entities for better document review, searching, and classification.
 * **Customer Feedback and Product Review**: Extract named entities like product names, companies, or services from customer feedback or reviews. This allows businesses to categorize and analyze feedback based on specific products, people, or regions, helping them make data-driven improvements.
 
 ### Text summarization
 
-Text summarization involves condensing large amounts of information into concise, meaningful summaries. 
+Text summarization involves condensing large amounts of information into concise, meaningful summaries.
 
 Models can be trained or fine-tuned to recognize essential information within a document and generate summaries that retain the core ideas while omitting less critical details. This capability is especially valuable in today’s information-heavy landscape, where professionals across various fields are often overwhelmed by the sheer volume of text data.
 
 Some examples include:
 
-* **Customer Support and Feedback Analysis**: Companies receive vast volumes of customer support tickets, reviews, and feedback that are often repetitive or lengthy. Auto-labeling can help summarize these inputs, focusing on core issues or themes, such as “billing issues” or “technical support.” 
+* **Customer Support and Feedback Analysis**: Companies receive vast volumes of customer support tickets, reviews, and feedback that are often repetitive or lengthy. Auto-labeling can help summarize these inputs, focusing on core issues or themes, such as “billing issues” or “technical support.”
 * **News Aggregation and Media Monitoring**: News organizations and media monitoring platforms need to process and distribute news stories efficiently. Auto-labeling can summarize articles while tagging them with labels like “politics,” “economy,” or “health,” making it easier for users to find relevant stories.
 * **Document Summarization**: Professionals often need to quickly understand the key points in lengthy contracts, research papers, and files.
 * **Educational Content Summarization**: EEducators and e-learning platforms need to distill complex material into accessible summaries for students. Auto-labeling can summarize key topics and categorize them under labels like “concept,” “example,” or “important fact.”
@@ -56,7 +56,7 @@ Some examples include:
 
 ### Image captioning and classification
 
-Image captioning involves applying descriptive text for images. This has valuable applications across industries, particularly where visual content needs to be systematically organized, analyzed, or made accessible. 
+Image captioning involves applying descriptive text for images. This has valuable applications across industries, particularly where visual content needs to be systematically organized, analyzed, or made accessible.
 
 You can also use Prompts to automatically categorizing images into predefined classes or categories, ensuring consistent labeling of large image datasets.
 
@@ -71,20 +71,20 @@ Some examples include:
 * **Accessibility for Visually Impaired Users**: Image captioning is essential for making digital content more accessible to visually impaired users by providing descriptive alt-text for images on websites, apps, or documents. For instance, an image of a cat playing with yarn might generate the caption, "A fluffy orange cat playing with a ball of blue yarn."
 
 !!! info Tip
-    You can use the `valueList` parameter to include a series of images within each task. See [this template](/templates/multi-page-document-annotation) for an example of `valueList` in use. 
+    You can use the `valueList` parameter to include a series of images within each task. See [this template](/templates/multi-page-document-annotation) for an example of `valueList` in use.
 
 ## Example Walkthroughs
 
-### Autolabel image captions 
+### Autolabel image captions
 
 This example demonstrates how to set up Prompts to predict image captions.
 
-1. [Create a new label studio project](setup_project) by importing image data via [cloud storage](storage). 
+1. [Create a new label studio project](setup_project) by importing image data via [cloud storage](storage).
 
     If you’d like to, you can generate a dataset to test the process using [https://data.heartex.net](https://data.heartex.net).
 
 !!! note
-    Prompts does not currently support image data uploaded as raw images. Only image references (HTTP URIs to images) or images imported via cloud storage are supported. 
+    Prompts does not currently support image data uploaded as raw images. Only image references (HTTP URIs to images) or images imported via cloud storage are supported.
 
 2. Create a [label config](setup) for image captioning (or Ask AI to create one for you), for example:
 
@@ -98,26 +98,26 @@ This example demonstrates how to set up Prompts to predict image captions.
 ```
 3. Navigate to **Prompts** from the sidebar, and [create a prompt](prompts_create) for the project
 
-    If you have not yet set up API the keys you want to use, do that now: [API keys](prompts_keys). 
+    If you have not yet set up API the keys you want to use, do that now: [API keys](prompts_keys).
 
 4. Add the instruction you’d like to provide the LLM to caption your images. For example:
 
     *Explain the contents of the following image: `{image}`*
 
 !!! note
-    Ensure you include `{image}` in your instructions. Click `image` above the instruction field to insert it. 
+    Ensure you include `{image}` in your instructions. Click `image` above the instruction field to insert it.
 
 !!! info Tip
-    You can also automatically generate the instructions using the [**Enhance Prompt** action](prompts_draft#Enhance-prompt). Before you can use this action, you must at least add the variable name `{image}` and then click **Save**. 
+    You can also automatically generate the instructions using the [**Enhance Prompt** action](prompts_draft#Enhance-prompt). Before you can use this action, you must at least add the variable name `{image}` and then click **Save**.
 
     ![Screenshot pointing to Enhance Prompt action](/images/prompts/example_enhance_prompt.png)
 
 5. Run the prompt! View predictions to accept or correct.
 
-    You can [read more about evaluation metrics](prompts_draft#Evaluation-results) and ways to assess your prompt performance. 
+    You can [read more about evaluation metrics](prompts_draft#Evaluation-results) and ways to assess your prompt performance.
 
 !!! info Tip
-    You can change the subset of data being used (e.g. only data with Ground Truth annotations, or a small sample of records). 
+    You can change the subset of data being used (e.g. only data with Ground Truth annotations, or a small sample of records).
 
     ![Screenshot pointing to subset dropdown](/images/prompts/example_subset.png)
 
@@ -128,7 +128,7 @@ This example demonstrates how to set up Prompts to predict image captions.
 
 This example demonstrates how to set up Prompts to evaluate if the LLM-generated output text is classified as harmful, offensive, or inappropriate.
 
-1. [Create a new label studio project](setup_project) by importing text data of LLM-generated outputs. 
+1. [Create a new label studio project](setup_project) by importing text data of LLM-generated outputs.
 
     For example: you can use the [jigsaw_toxicity](https://huggingface.co/datasets/tasksource/jigsaw_toxicity) dataset as an example. See [the appendix](#Appendix-Generate-dataset) for how you can pre-process and (optionally) downsample this dataset to use with this guide.
 
@@ -138,7 +138,7 @@ This example demonstrates how to set up Prompts to evaluate if the LLM-generated
 <View>
   <Header value="Comment" />
   <Text name="comment" value="$comment_text"/>
-  
+
   <Header value="Toxic" size="3"/>
   <Choices name="toxic" toName="comment" choice="single" showInline="true">
     <Choice value="Yes" alias="1"/>
@@ -169,7 +169,7 @@ This example demonstrates how to set up Prompts to evaluate if the LLM-generated
     <Choice value="Yes" alias="1"/>
     <Choice value="No" alias="0"/>
   </Choices>
-  
+
   <Header value="Reasoning" size="3"/>
   <TextArea name="reasoning" toName="comment" editable="true" placeholder="Provide reasoning for your choices here..."/>
 </View>
@@ -177,12 +177,12 @@ This example demonstrates how to set up Prompts to evaluate if the LLM-generated
 
 3. Navigate to **Prompts** from the sidebar, and [create a prompt](prompts_create) for the project
 
-    If you have not yet set up API the keys you want to use, do that now: [API keys](prompts_keys). 
+    If you have not yet set up API the keys you want to use, do that now: [API keys](prompts_keys).
 
 4. Add the instruction you’d like to provide the LLM to best evaluate the text. For example:
 
     *Determine whether the following text falls into any of the following categories (for each, provide a "0" for False and "1" for True):*
-    
+
     *toxic, severe_toxic, insult, threat, obscene, and identity_hate.*
 
     *Comment:*
@@ -191,23 +191,23 @@ This example demonstrates how to set up Prompts to evaluate if the LLM-generated
 
 
 !!! note
-    Ensure you include `{comment_text}` in your instructions. Click `comment_text` above the instruction field to insert it. 
+    Ensure you include `{comment_text}` in your instructions. Click `comment_text` above the instruction field to insert it.
 
 !!! info Tip
-    You can also automatically generate the instructions using the [**Enhance Prompt** action](prompts_draft#Enhance-prompt). Before you can use this action, you must at least add the variable name `{comment_text}` and then click **Save**. 
+    You can also automatically generate the instructions using the [**Enhance Prompt** action](prompts_draft#Enhance-prompt). Before you can use this action, you must at least add the variable name `{comment_text}` and then click **Save**.
 
     ![Screenshot pointing to Enhance Prompt action](/images/prompts/example_enhance_prompt.png)
 
 5. Run the prompt! View predictions to accept or correct.
 
-    You can [read more about evaluation metrics](prompts_draft#Evaluation-results) and ways to assess your prompt performance. 
+    You can [read more about evaluation metrics](prompts_draft#Evaluation-results) and ways to assess your prompt performance.
 
 !!! info Tip
-    You can change the subset of data being used (e.g. only data with Ground Truth annotations, or a small sample of records). 
+    You can change the subset of data being used (e.g. only data with Ground Truth annotations, or a small sample of records).
 
     ![Screenshot pointing to subset dropdown](/images/prompts/example_subset.png)
 
-6. Accept the [predictions as annotations](prompts_predictions#Create-annotations-from-predictions)! 
+6. Accept the [predictions as annotations](prompts_predictions#Create-annotations-from-predictions)!
 
 #### Appendix: Preprocess jigsaw toxicity dataset
 
@@ -257,18 +257,18 @@ with open(OUTPUT_PATH, "w") as f:
     json.dump(label_studio_tasks, f)
 ```
 
-If you choose to, you could also easily change how many records to use (or use the entire dataset by removing the sample step). 
+If you choose to, you could also easily change how many records to use (or use the entire dataset by removing the sample step).
 
 ### Generate Synthetic Q&A Datasets
 
 #### Overview
 
-Synthetic datasets are datasets artificially generated rather than being collected from real-world observations. They encode characteristics similar to real data, but allow for scaling up data diversity or volume gaps in general purpose application, such as model training and evaluation. Synthetic datasets also work well in enhancing AI systems that have unbound human context as inputs and output, such as chatbot question and answers, test datasets for evaluation, and rich knowledge datasets for contextual retrieval. LLMs are particularly effective for generating synthetic datasets for these use cases, and allow you to enhance your AI system’s performance by creating diversity to learn from. 
+Synthetic datasets are datasets artificially generated rather than being collected from real-world observations. They encode characteristics similar to real data, but allow for scaling up data diversity or volume gaps in general purpose application, such as model training and evaluation. Synthetic datasets also work well in enhancing AI systems that have unbound human context as inputs and output, such as chatbot question and answers, test datasets for evaluation, and rich knowledge datasets for contextual retrieval. LLMs are particularly effective for generating synthetic datasets for these use cases, and allow you to enhance your AI system’s performance by creating diversity to learn from.
 
 #### Example
 
 Let’s expand on the Q&A use case above with an example demonstrating how to use Prompts to generate synthetic user prompts for a chatbot RAG system. Given a dataset of chatbot answers, we’ll generate some questions that could return each answer.
- 
+
 
 1. [Create a new label studio project](setup_project) by importing chunks of text that would be meaningful answers from a chatbot.
 
@@ -284,18 +284,18 @@ Let’s expand on the Q&A use case above with an example demonstrating how to us
   <Text name="answer" value="$answer" />
 
   <Header value="Questions" />
-  <TextArea name="question1" toName="context" 
-            placeholder="Enter question 1" 
+  <TextArea name="question1" toName="context"
+            placeholder="Enter question 1"
             rows="2"
             maxSubmissions="1" />
 
-  <TextArea name="question2" toName="context" 
-            placeholder="Enter question 2" 
+  <TextArea name="question2" toName="context"
+            placeholder="Enter question 2"
             rows="2"
             maxSubmissions="1" />
 
-  <TextArea name="question3" toName="context" 
-            placeholder="Enter question 3" 
+  <TextArea name="question3" toName="context"
+            placeholder="Enter question 3"
             rows="2"
             maxSubmissions="1" />
 </View>
@@ -303,7 +303,7 @@ Let’s expand on the Q&A use case above with an example demonstrating how to us
 
 3. Navigate to **Prompts** from the sidebar, and [create a prompt](prompts_create) for the project
 
-    If you have not yet set up API the keys you want to use, do that now: [API keys](prompts_keys). 
+    If you have not yet set up API the keys you want to use, do that now: [API keys](prompts_keys).
 
 4. Add instructions to create 3 questions:
 
@@ -327,19 +327,19 @@ Let’s expand on the Q&A use case above with an example demonstrating how to us
 
 
 !!! note
-    Ensure you include `{answer}` and `{context}` in your instructions. Click `answer`/`context` above the instruction field to insert them. 
+    Ensure you include `{answer}` and `{context}` in your instructions. Click `answer`/`context` above the instruction field to insert them.
 
 !!! info Tip
-    You can also automatically generate the instructions using the [**Enhance Prompt** action](prompts_draft#Enhance-prompt). Before you can use this action, you must at least add a variable name (e.g. `{context}` or `{answer}`) and then click **Save**. 
+    You can also automatically generate the instructions using the [**Enhance Prompt** action](prompts_draft#Enhance-prompt). Before you can use this action, you must at least add a variable name (e.g. `{context}` or `{answer}`) and then click **Save**.
 
     ![Screenshot pointing to Enhance Prompt action](/images/prompts/example_enhance_prompt.png)
-    
+
 5. Run the Prompt! View predictions to accept or correct.
 
-    You can [read more about evaluation metrics](prompts_draft#Evaluation-results) and ways to assess your prompt performance. 
+    You can [read more about evaluation metrics](prompts_draft#Evaluation-results) and ways to assess your prompt performance.
 
 !!! info Tip
-    You can change the subset of data being used (e.g. only data with Ground Truth annotations, or a small sample of records). 
+    You can change the subset of data being used (e.g. only data with Ground Truth annotations, or a small sample of records).
 
     ![Screenshot pointing to subset dropdown](/images/prompts/example_subset.png)
 
@@ -367,4 +367,4 @@ with open(OUTPUT_PATH, "w") as f:
     json.dump(label_studio_tasks, f)
 ```
 
-If you choose to, you could also easily change how many records to use (or use the entire dataset by removing the sample step). 
+If you choose to, you could also easily change how many records to use (or use the entire dataset by removing the sample step).

@@ -44,4 +44,3 @@ config: |
                    legend="Acceleration"/>
       </TimeSeries>
   </View>
-

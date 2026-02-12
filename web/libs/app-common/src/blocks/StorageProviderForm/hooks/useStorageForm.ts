@@ -8,18 +8,27 @@ import type { FieldDefinition } from "../types/common";
 import { isDefined } from "@humansignal/core/lib/utils/helpers";
 
 interface UseStorageFormProps {
-  project: number;
+  project?: number;
+  workspace?: number;
   isEditMode: boolean;
   steps: Array<{ title: string; schema?: z.ZodSchema }>;
   storage?: any;
   defaultValues?: Record<string, Record<string, any>>;
 }
 
-export const useStorageForm = ({ project, isEditMode, steps, storage, defaultValues }: UseStorageFormProps) => {
+export const useStorageForm = ({
+  project,
+  workspace,
+  isEditMode,
+  steps,
+  storage,
+  defaultValues,
+}: UseStorageFormProps) => {
   const [formState, setFormState] = useState<FormState>({
     currentStep: 0,
     formData: {
-      project,
+      ...(project ? { project } : {}),
+      ...(workspace ? { workspace } : {}),
       provider: "s3",
       title: "",
       use_blob_urls: false,
@@ -129,7 +138,7 @@ export const useStorageForm = ({ project, isEditMode, steps, storage, defaultVal
                   } else {
                     formDataWithPlaceholders[field.name] = field.min || 0;
                   }
-                } catch (error) {
+                } catch (_error) {
                   formDataWithPlaceholders[field.name] = field.min || 0;
                 }
               }
@@ -205,16 +214,17 @@ export const useStorageForm = ({ project, isEditMode, steps, storage, defaultVal
     }
   }, [isEditMode, storage, setFormState, isInitialized]); // Removed providerRegistry from dependencies
 
-  // Initialize form data with project when it changes
+  // Initialize form data with project/workspace when it changes
   useEffect(() => {
     setFormState((prevState) => ({
       ...prevState,
       formData: {
         ...prevState.formData,
-        project: project,
+        ...(project ? { project } : {}),
+        ...(workspace ? { workspace } : {}),
       },
     }));
-  }, [project, setFormState]);
+  }, [project, workspace, setFormState]);
 
   // Validate a single field
   const validateSingleField = useCallback(
@@ -288,6 +298,7 @@ export const useStorageForm = ({ project, isEditMode, steps, storage, defaultVal
           // Get valid field names for the new provider
           const validFieldNames = new Set([
             "project", // Always include project
+            "workspace", // Always include workspace
             "provider", // Always include provider
             "title", // Always include title
             "prefix", // Common field for bucket prefix
@@ -312,7 +323,8 @@ export const useStorageForm = ({ project, isEditMode, steps, storage, defaultVal
             );
 
             const newFormData = {
-              project: prev.formData.project,
+              ...(prev.formData.project ? { project: prev.formData.project } : {}),
+              ...(prev.formData.workspace ? { workspace: prev.formData.workspace } : {}),
               title: prev.formData.title || "",
               use_blob_urls: prev.formData.use_blob_urls || false,
               recursive_scan: prev.formData.recursive_scan !== undefined ? prev.formData.recursive_scan : true,

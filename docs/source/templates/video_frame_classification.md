@@ -36,12 +36,12 @@ All labeling configurations must be wrapped in `<View>` tags.
 
 #### Video object tag
 
-Use the `<Video>` object tag to specify the video data. 
+Use the `<Video>` object tag to specify the video data.
 
 * The `frameRate` parameter sets the frame rate of the video. Ensure this matches the video's framerate. If your video has defects or variable framerate, it might cause discrepancies. Transcoding the video to a constant framerate before uploading can help.
-* Use `timelineHeight` to control the height of your timeline where you are selecting frames. 
-  
-For more parameters, see the [Video tag page](/tags/video). 
+* Use `timelineHeight` to control the height of your timeline where you are selecting frames.
+
+For more parameters, see the [Video tag page](/tags/video).
 
 ```xml
   <Video name="video" value="$video" frameRate="25.0" timelineHeight="120"/>
@@ -49,9 +49,9 @@ For more parameters, see the [Video tag page](/tags/video).
 
 #### TimelineLabels control tag
 
-Use the [TimelineLabels control tag](/tags/timelinelabels) to define labels that can be applied to specific frames of the video. 
+Use the [TimelineLabels control tag](/tags/timelinelabels) to define labels that can be applied to specific frames of the video.
 
-Use `Label` tags within `TimelineLabels` to define the labels that you want to use. 
+Use `Label` tags within `TimelineLabels` to define the labels that you want to use.
 
 ```xml
 <TimelineLabels name="videoLabels" toName="video">

@@ -10,16 +10,16 @@ meta_description: Template for performing dialogue analysis for conversational A
 
 <img src="/images/templates-misc/dialogue-analysis.png" alt="" class="gif-border" width="600px" height="512px" />
 
-If you want to evaluate and analyze the responses present in a dialogue that already happened, and optionally correct it, use this template. 
+If you want to evaluate and analyze the responses present in a dialogue that already happened, and optionally correct it, use this template.
 
-Use this template to provide a section of dialogue and classify it. Annotators then provide the best response to the section of dialogue. 
+Use this template to provide a section of dialogue and classify it. Annotators then provide the best response to the section of dialogue.
 
 ## Interactive Template Preview
 
 <div id="main-preview"></div>
 
 
-## Labeling Configuration 
+## Labeling Configuration
 
 ```html
 <View>
@@ -57,9 +57,9 @@ Use the [Choices](/tags/choices.html) control tag in combination with the [Choic
     <Choice value="Good answer"></Choice>
 </Choices>
 ```
-You can change the choice `value`s to provide different classification options. 
+You can change the choice `value`s to provide different classification options.
 
-Use the [TextArea](/tags/textarea.html) control tag to provide annotators with a free text box to supply their own response to the dialogue. Add the `editable=true` argument to allow them 
+Use the [TextArea](/tags/textarea.html) control tag to provide annotators with a free text box to supply their own response to the dialogue. Add the `editable=true` argument to allow them
     to edit their answer, or `required=true` to force annotators to supply an alternate response:
 ```xml
 <TextArea name="answer"></TextArea>

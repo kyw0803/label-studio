@@ -7,12 +7,12 @@ source_repo: https://github.com/humanSignal/awesome-label-studio-config/tree/mai
 config: |
   <View>
   <!-- Template sourced from awesome-label-studio-config repository: https://github.com/humanSignal/awesome-label-studio-config/tree/main/label-configs/two-level-sentiment-analysis-of-x-twitter-posts -->
-  
+
     <!-- CSS fix for the legacy plaground -->
     <Style>
       .htx-text{padding:0; background: transparent; border:none;}
     </Style>
-    <View 
+    <View
       style="
         border: 1px solid #e1e8ed;
         border-radius: 8px;
@@ -22,14 +22,14 @@ config: |
         font-family: Arial, sans-serif;
       "
     >
-      <View 
+      <View
         style="
           display: flex;
           align-items: center;
           gap: 10px;
         "
       >
-        <View 
+        <View
           style="
             width: 40px;
             height: 40px;
@@ -46,7 +46,7 @@ config: |
       <View style="margin-top: 8px;">
         <Text name="tweet" value="$tweet" />
       </View>
-      <View 
+      <View
         style="
           display: flex;
           justify-content: space-between;
@@ -62,13 +62,13 @@ config: |
         <Text name="other" value="🔖 ⬆" />
       </View>
     </View>
-  
+
     <Choices name="sentiment" toName="tweet" choice="single">
       <Choice value="Positive" hint="Click on it if it says something nice or good" />
       <Choice value="Neutral" hint="Click on it if overall it doesn't express any sentiment" />
       <Choice value="Negative" hint="Click on if it says something bad or unpleasant" />
     </Choices>
-    
+
     <Choices name="other-props" toName="tweet"
              choice="multiple" showInLine="true"
              visibleWhen="choice-selected"
@@ -83,7 +83,7 @@ config: |
       <Choice value="Sarcams" hint="Click on it if it shows ironic or sarcastic content"/>
     </Choices>
   </View>
-  
+
   <!-- [
     { "text": "💖😭 Just got accepted to my DREAM university!! Still shaking, still crying—this is the BEST day of my life!!! Hard work truly pays off!! 🎓✨ #Grateful #DreamComeTrue #BeyondHappy" },
     { "text": "The quarterly financial report was published today. Revenue increased by 2%, while operating costs remained stable compared to last quarter. #FinancialReport #Q1Results." },

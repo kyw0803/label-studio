@@ -3,7 +3,7 @@ title: Frontend reference
 short: Frontend
 type: guide
 tier: all
-order: 416 
+order: 416
 order_enterprise: 416
 meta_title: Frontend Library Reference
 meta_description: Reference documentation for implementing the Label Studio frontend into your own machine learning or data science application workflows.
@@ -13,7 +13,7 @@ section: "Integrate & Extend"
 Label Studio frontend (LSF) includes several UI options and callbacks that you can use when implementing the frontend with a custom labeling backend, or when customizing the Label Studio interface.
 
 !!! attention
-    As of [Label Studio 1.11.0](https://github.com/HumanSignal/label-studio/releases/tag/1.11.0), the Label Studio frontend has been deprecated as a separate library and is no longer supported as a standalone distribution. For information about using the frontend library within Label Studio, see [the README](https://github.com/HumanSignal/label-studio/blob/develop/web/libs/editor/README.md). 
+    As of [Label Studio 1.11.0](https://github.com/HumanSignal/label-studio/releases/tag/1.11.0), the Label Studio frontend has been deprecated as a separate library and is no longer supported as a standalone distribution. For information about using the frontend library within Label Studio, see [the README](https://github.com/HumanSignal/label-studio/blob/develop/web/libs/editor/README.md).
 
 ## Updates to LSF in version 1.0.0
 
@@ -210,7 +210,7 @@ This events group contains top-level events. Those events are not related to any
 
 ### `labelStudioLoad`
 
-Label Studio instance is loaded. 
+Label Studio instance is loaded.
 
 !!! warning
     This event does not work in plugins.
@@ -292,7 +292,7 @@ Draft is sent to the server.
 This events group contains events related to the annotation.
 
 ### `beforeSaveAnnotation`
-Annotation is going to be saved as the result of the `submit` or `update` action. 
+Annotation is going to be saved as the result of the `submit` or `update` action.
 Returning `false` from this event will prevent saving the annotation.
 
 | Argument         | Type     | Description                                                                                  |

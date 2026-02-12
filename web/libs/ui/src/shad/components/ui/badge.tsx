@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cnm } from "@humansignal/shad/utils";
@@ -32,10 +32,8 @@ const badgeVariants = cva(
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {}
 
-const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(({ className, variant, shape, ...props }, ref) => {
-  return <div ref={ref} className={cnm(badgeVariants({ variant, shape }), className)} {...props} />;
-});
-
-Badge.displayName = "Badge";
+function Badge({ className, variant, shape, ...props }: BadgeProps) {
+  return <div className={cnm(badgeVariants({ variant, shape }), className)} {...props} />;
+}
 
 export { Badge, badgeVariants };

@@ -13,7 +13,7 @@ parent_page_extension: "html"
 ---
 
 
-If you want to build a new chatbot, or just experiment with GPT-based text generators, this [Machine Learning backend](/guide/ml.html) example is for you! Powered by [HuggingFace's Transformers library](https://github.com/huggingface/transformers), 
+If you want to build a new chatbot, or just experiment with GPT-based text generators, this [Machine Learning backend](/guide/ml.html) example is for you! Powered by [HuggingFace's Transformers library](https://github.com/huggingface/transformers),
 it connects a GPT2-like language model to the Label Studio UI, giving you an opportunity to explore different text responses based on the chat history.
 
 
@@ -32,19 +32,19 @@ Follow this installation guide and then play around with the results. Generate y
     ```
 
 2. Start Label Studio and create a new project.
-   
-3. In the project **Settings**, set up the **Labeling Interface**.
-   
-4. Select **Browse Templates** and select the Conversational AI **Response Generation** template. 
 
-5. Open the **Machine Learning** settings and click **Add Model**. 
+3. In the project **Settings**, set up the **Labeling Interface**.
+
+4. Select **Browse Templates** and select the Conversational AI **Response Generation** template.
+
+5. Open the **Machine Learning** settings and click **Add Model**.
 
 6. Add the URL `http://localhost:9090` and save the model as an ML backend.
 
 
 You can import your chat dialogs in the input format of [`<Paragraphs>` object tag](/tags/paragraphs.html), or use a sample task import just to give it a try.
 
-After you import data, you'll see text boxes with generated answers. 
+After you import data, you'll see text boxes with generated answers.
 
 ## Tweaking parameters
 

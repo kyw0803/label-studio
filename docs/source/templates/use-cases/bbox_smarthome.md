@@ -41,7 +41,7 @@ This configuration defines rectangular bounding box labels that you can apply to
 Each label corresponds to a specific type of smart home device and is assigned a distinct background color for easy identification on the image.
 
 ```json
-{ 
+{
   "x": 50,  # top left corner of the bounding box from 0 to 100% of the image width
   "y": 60,  # top left corner of the bounding box from 0 to 100% of the image height
   "width": 10,  # width of the bounding box from 0 to 100% of the image width

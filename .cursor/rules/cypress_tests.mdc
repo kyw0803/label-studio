@@ -1,6 +1,6 @@
 ---
 description: Writing and updating cypress integration tests
-globs: 
+globs:
 alwaysApply: false
 ---
 ## Cypress Test Generation Rules for Label Studio
@@ -35,7 +35,7 @@ import { configName, dataName, resultName } from "../../data/folder_name/file_na
 **Available Helpers:**
 - `LabelStudio` - Core initialization and control
 - `ImageView` - Image interaction and drawing
-- `VideoView` - Video playback and interaction  
+- `VideoView` - Video playback and interaction
 - `AudioView` - Audio playback and regions
 - `Sidebar` - Outliner and region management
 - `Labels` - Label selection and management
@@ -453,16 +453,16 @@ export const ComponentName = {
   get root() {
     return cy.get(".component-selector");
   },
-  
+
   get subElement() {
     return this.root.find(".sub-element");
   },
-  
+
   performAction() {
     cy.log("Performing action on ComponentName");
     this.root.click();
   },
-  
+
   assertState(expectedValue: string) {
     this.subElement.should("contain.text", expectedValue);
   }
@@ -475,17 +475,17 @@ class ComponentHelper {
   private get _baseRootSelector() {
     return ".component-base";
   }
-  
+
   private _rootSelector: string;
-  
+
   constructor(rootSelector: string) {
     this._rootSelector = rootSelector.replace(/^\&/, this._baseRootSelector);
   }
-  
+
   get root() {
     return cy.get(this._rootSelector);
   }
-  
+
   performAction() {
     cy.log(`Performing action on ${this._rootSelector}`);
     this.root.click();
@@ -573,56 +573,56 @@ class NewComponentHelper {
   private get _baseRootSelector() {
     return ".lsf-new-component";
   }
-  
+
   private _rootSelector: string;
-  
+
   constructor(rootSelector: string) {
     this._rootSelector = rootSelector.replace(/^\&/, this._baseRootSelector);
   }
-  
+
   get root() {
     return cy.get(this._rootSelector);
   }
-  
+
   get input() {
     return this.root.find('input[type="text"]');
   }
-  
+
   get submitButton() {
     return this.root.find('[aria-label="submit"]');
   }
-  
+
   get items() {
     return this.root.find('.item');
   }
-  
+
   fillInput(text: string) {
     cy.log(`Fill input with: ${text}`);
     this.input.clear().type(text);
   }
-  
+
   selectItem(index: number) {
     cy.log(`Select item at index: ${index}`);
     this.items.eq(index).click();
   }
-  
+
   findItem(text: string) {
     return this.items.contains(text);
   }
-  
+
   submit() {
     cy.log("Submit form");
     this.submitButton.click();
   }
-  
+
   hasItem(text: string) {
     this.findItem(text).should("be.visible");
   }
-  
+
   hasNoItems() {
     this.items.should("not.exist");
   }
-  
+
   hasSelectedItem(text: string) {
     this.findItem(text).should("have.class", "selected");
   }
@@ -669,33 +669,33 @@ export const ConditionalComponent = {
 ```typescript
 drawComplexShape(points: [number, number][], options = {}) {
   cy.log(`Drawing complex shape with ${points.length} points`);
-  
+
   const drawingArea = this.root.scrollIntoView();
-  
+
   points.forEach((point, index) => {
     const [x, y] = point;
     const isFirst = index === 0;
     const isLast = index === points.length - 1;
-    
+
     if (isFirst) {
-      drawingArea.trigger("mousedown", x, y, { 
-        eventConstructor: "MouseEvent", 
+      drawingArea.trigger("mousedown", x, y, {
+        eventConstructor: "MouseEvent",
         buttons: 1,
-        ...options 
+        ...options
       });
     }
-    
-    drawingArea.trigger("mousemove", x, y, { 
-      eventConstructor: "MouseEvent", 
+
+    drawingArea.trigger("mousemove", x, y, {
+      eventConstructor: "MouseEvent",
       buttons: 1,
-      ...options 
+      ...options
     });
-    
+
     if (isLast) {
-      drawingArea.trigger("mouseup", x, y, { 
-        eventConstructor: "MouseEvent", 
+      drawingArea.trigger("mouseup", x, y, {
+        eventConstructor: "MouseEvent",
         buttons: 1,
-        ...options 
+        ...options
       });
     }
   });
@@ -736,4 +736,4 @@ shouldChangeVisually(name: string, threshold = 0.1) {
 16. **Test your helpers before using them in production tests**
 17. **Extract utility functions to separate utils files when they don't use Cypress**
 18. **Keep complex test scenarios in test files, not in helpers - helpers should be simple and reusable**
-19. **AVOID cy.wait(time) - use event-based or state-based waiting for more reliable tests** 
+19. **AVOID cy.wait(time) - use event-based or state-based waiting for more reliable tests**

@@ -1,5 +1,5 @@
 ---
-description: 
+description:
 globs: **/migrations/*.py
 alwaysApply: false
 ---
@@ -16,7 +16,7 @@ alwaysApply: false
 Even though Django provides `AddIndexConcurrently` and similar operations, they still cause deployment problems:
 
 **The Migration Runner Problem:**
-- Django's migration runner is fundamentally **synchronous** 
+- Django's migration runner is fundamentally **synchronous**
 - It waits for each operation to complete before marking the migration as "Applied"
 - Even `AddIndexConcurrently` blocks the **CI/CD pipeline** until the index finishes building (the database itself is not blocked)
 - Large tables (100M+ rows) can take **hours** to build indexes, far exceeding CI/CD timeouts (usually 5-15 minutes)
@@ -26,7 +26,7 @@ Even though Django provides `AddIndexConcurrently` and similar operations, they 
 # This STILL blocks the CI/CD deployment process
 operations = [
     AddIndexConcurrently(
-        model_name="task", 
+        model_name="task",
         index=BrinIndex(fields=["updated_at"])
     )
 ]
@@ -60,24 +60,24 @@ def forward_migration(migration_name):
         status=AsyncMigrationStatus.STATUS_STARTED,
     )
     logger.debug(f'Start async migration {migration_name}')
-    
+
     # Check database backend and use appropriate SQL
     if connection.vendor == 'postgresql':
         # PostgreSQL: Use CONCURRENTLY and specific index types (BRIN, GIN, etc.)
         sql = '''
-        CREATE INDEX CONCURRENTLY IF NOT EXISTS "task_updated_at_brin_idx" 
+        CREATE INDEX CONCURRENTLY IF NOT EXISTS "task_updated_at_brin_idx"
         ON "task" USING BRIN ("updated_at");
         '''
     else:
         # SQLite/Other: Fallback to standard B-tree index
         sql = '''
-        CREATE INDEX IF NOT EXISTS "task_updated_at_brin_idx" 
+        CREATE INDEX IF NOT EXISTS "task_updated_at_brin_idx"
         ON "task" ("updated_at");
         '''
-    
+
     with connection.cursor() as cursor:
         cursor.execute(sql)
-    
+
     migration.status = AsyncMigrationStatus.STATUS_FINISHED
     migration.save()
     logger.debug(f'Async migration {migration_name} complete')
@@ -89,16 +89,16 @@ def reverse_migration(migration_name):
         status=AsyncMigrationStatus.STATUS_STARTED,
     )
     logger.debug(f'Start async migration rollback {migration_name}')
-    
+
     # Drop index (handle database differences)
     if connection.vendor == 'postgresql':
         sql = 'DROP INDEX CONCURRENTLY IF EXISTS "task_updated_at_brin_idx";'
     else:
         sql = 'DROP INDEX IF EXISTS "task_updated_at_brin_idx";'
-    
+
     with connection.cursor() as cursor:
         cursor.execute(sql)
-    
+
     migration.status = AsyncMigrationStatus.STATUS_FINISHED
     migration.save()
     logger.debug(f'Async migration rollback {migration_name} complete')
@@ -118,10 +118,10 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(forwards, backwards),
     ]
-```  
+```
 
 ## Other Important Points
-- Label Studio uses two databases: SQLite and Postgres. All migrations should be designed for both of 
+- Label Studio uses two databases: SQLite and Postgres. All migrations should be designed for both of
 - Always use `CREATE INDEX CONCURRENTLY` and `DROP INDEX CONCURRENTLY` for non-blocking index operations in Postgres
 - Check `connection.vendor` to handle database differences (PostgreSQL vs SQLite/others)
 - SQLite doesn't support CONCURRENTLY, BRIN, GIN, or other PostgreSQL-specific features

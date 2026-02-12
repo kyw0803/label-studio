@@ -15,3 +15,7 @@ paths = [
     '''label_studio\/feature_flags\.json''',
     '''docs/.*'''
 ]
+commits = [
+    '''a9b10c16f382a90e5ef326467a963d298782f1db''',
+    '''e34a5d0720daa747a73fc0af1c8d8399c236f0fb''',
+]

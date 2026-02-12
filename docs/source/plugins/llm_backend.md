@@ -17,15 +17,15 @@ meta_description: Sends prompts to an LLM URL
 
 ## About
 
-This plugin connects to an open LLM endpoint, allowing you to generate responses as part of the annotation workflow. 
+This plugin connects to an open LLM endpoint, allowing you to generate responses as part of the annotation workflow.
 
 ![Screenshot of LLM analyzing](/images/plugins/llm-backend.gif)
 
 ## Plugin
 
-Before using this, replace the `MY_URL_ROOT` value with a URL that does not require authentication. This would typically be an internal service or an LLM behind a proxy. 
+Before using this, replace the `MY_URL_ROOT` value with a URL that does not require authentication. This would typically be an internal service or an LLM behind a proxy.
 
-```javascript 
+```javascript
 window.LSI = LSI;
 
 const baseUrl = "MY_URL_ROOT";
@@ -147,7 +147,7 @@ setup();
 ## Labeling config
 
 !!! info Tip
-    You can add `value="$text"` to the TextArea parameters of the prompt to pre-fill the text from your data. 
+    You can add `value="$text"` to the TextArea parameters of the prompt to pre-fill the text from your data.
 
 ```xml
 <View>

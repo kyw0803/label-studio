@@ -1,15 +1,15 @@
 ---
-title: Spreadsheet Editor
+title: Spreadsheet Editor 🔒
 type: templates
 category: Programmable Interfaces
-order: 750
+order: 350
 is_new: t
 meta_title: Template for spreadsheet editing
-meta_description: Template that uses a custom UI to edit a spreadsheet and then output any changes. 
+meta_description: Template that uses a custom UI to edit a spreadsheet and then output any changes.
 ---
 
 
-This template creates a custom spreadsheet editor built with `ReactCode` and allows users to view, edit, and manage product data in a table format. 
+This template creates a custom spreadsheet editor built with `ReactCode` and allows users to view, edit, and manage product data in a table format.
 
 The labeling interface provides a full-featured spreadsheet experience with capabilities that include:
 
@@ -24,11 +24,11 @@ The labeling interface provides a full-featured spreadsheet experience with capa
 !!! error Enterprise
     This template and the `ReactCode` tag can only be used in Label Studio Enterprise.
 
-    For more information, including simplified code examples, see [ReactCode](/tags/reactcode).
+    For more information, see [Programmable & Embeddable Interfaces](https://humansignal.com/programmable-ui/).
 
 ## Labeling configuration
 
-This labeling configuration creates a spreadsheet editor that tracks and exports only the changes made to the original data, rather than saving the entire spreadsheet state. 
+This labeling configuration creates a spreadsheet editor that tracks and exports only the changes made to the original data, rather than saving the entire spreadsheet state.
 
 The `ReactCode` follows a **change-tracking pattern** where:
 1. Original data is stored separately and never modified
@@ -79,7 +79,7 @@ The `ReactCode` follows a **change-tracking pattern** where:
   };
 
   const state = regions[0]?.value ?? defaultState;
-  
+
   // Initialize changes from existing region if present
   React.useEffect(() => {
     if (regions[0]?.value?.changes) {
@@ -91,7 +91,7 @@ The `ReactCode` follows a **change-tracking pattern** where:
   const extractRows = (data) => {
     try {
       const parsed = typeof data === 'string' ? JSON.parse(data) : data;
-      
+
       // Handle the nested structure: [{ data: { attributes_data: [...] } }]
       if (Array.isArray(parsed) && parsed.length > 0) {
         const firstItem = parsed[0];
@@ -99,22 +99,22 @@ The `ReactCode` follows a **change-tracking pattern** where:
           return firstItem.data.attributes_data;
         }
       }
-      
+
       // Handle direct array of rows
       if (Array.isArray(parsed)) {
         return parsed;
       }
-      
+
       // Handle object with attributes_data
       if (parsed && Array.isArray(parsed.attributes_data)) {
         return parsed.attributes_data;
       }
-      
+
       // Handle object with data.attributes_data
       if (parsed && parsed.data && Array.isArray(parsed.data.attributes_data)) {
         return parsed.data.attributes_data;
       }
-      
+
       return [];
     } catch (e) {
       console.error('Error parsing data:', e);
@@ -125,14 +125,14 @@ The `ReactCode` follows a **change-tracking pattern** where:
   // Initialize data and columns
   React.useEffect(() => {
     const rows = extractRows(data);
-    
+
     if (rows.length > 0) {
       setSpreadsheetData(rows);
       // Store original rows for comparison (only on first load)
       if (originalRows.length === 0) {
         setOriginalRows(JSON.parse(JSON.stringify(rows))); // Deep copy
       }
-      
+
       // Extract all unique column names from all rows (including all_attributes)
       const allColumns = new Set();
       rows.forEach(row => {
@@ -140,9 +140,9 @@ The `ReactCode` follows a **change-tracking pattern** where:
           allColumns.add(key); // Include all_attributes now
         });
       });
-      
+
       const columnList = Array.from(allColumns);
-      
+
       // Default columns if none exist
       const defaultColumns = [
         'product_id',
@@ -154,12 +154,12 @@ The `ReactCode` follows a **change-tracking pattern** where:
         'link',
         'all_attributes'
       ];
-      
+
       // Merge default columns with found columns, ensuring all_attributes is included
       const mergedColumns = [...new Set([...defaultColumns, ...columnList])];
       setColumns(mergedColumns);
       setOriginalColumns(mergedColumns); // Track original columns
-      
+
       // Initialize default column widths
       const defaultWidths = {
         'product_id': 120,
@@ -171,7 +171,7 @@ The `ReactCode` follows a **change-tracking pattern** where:
         'link': 200,
         'all_attributes': 300
       };
-      
+
       // Initialize region if it doesn't exist - only save empty changes object
       if (!regions[0]) {
         addRegion({
@@ -214,7 +214,7 @@ The `ReactCode` follows a **change-tracking pattern** where:
       setOriginalColumns(defaultCols);
       setSpreadsheetData([]);
       setColumnWidths(defaultWidths);
-      
+
       if (!regions[0]) {
         addRegion({
           changes: {
@@ -232,39 +232,39 @@ The `ReactCode` follows a **change-tracking pattern** where:
   // Get current rows by applying changes to original rows
   const currentRows = React.useMemo(() => {
     let rows = [...originalRows];
-    
+
     // Remove deleted rows first
     const deletedProductIds = new Set(changes.deletedRows.map(d => d.productId));
     rows = rows.filter(row => !deletedProductIds.has(row.product_id));
-    
+
     // Add new rows first
     rows = [...rows, ...changes.addedRows];
-    
+
     // Apply cell edits (using product_id or _tempId to find the row)
     changes.cellEdits.forEach(edit => {
-      const rowIndex = rows.findIndex(r => 
-        (r.product_id && r.product_id === edit.productId) || 
+      const rowIndex = rows.findIndex(r =>
+        (r.product_id && r.product_id === edit.productId) ||
         (r._tempId && r._tempId === edit.productId)
       );
       if (rowIndex >= 0) {
         rows[rowIndex] = { ...rows[rowIndex], [edit.column]: edit.newValue };
       }
     });
-    
+
     return rows;
   }, [originalRows, changes]);
-  
+
   const currentColumns = state.columns && state.columns.length > 0 ? state.columns : columns;
   const currentOriginalColumns = state.originalColumns && state.originalColumns.length > 0 ? state.originalColumns : originalColumns;
   const currentColumnWidths = state.columnWidths || columnWidths;
   const currentColumnFilters = state.columnFilters || columnFilters;
-  
+
   // Helper function to save only changes to region
   const saveChanges = (updatedChanges) => {
     const changesToSave = {
       changes: updatedChanges
     };
-    
+
     if (regions[0]) {
       regions[0].update(changesToSave);
     } else {
@@ -276,7 +276,7 @@ The `ReactCode` follows a **change-tracking pattern** where:
   // Filter rows based on filter text and column-specific filters
   const filteredRows = React.useMemo(() => {
     let filtered = currentRows;
-    
+
     // Apply global filter if present
     if (filterText.trim()) {
       const searchText = filterText.toLowerCase();
@@ -289,7 +289,7 @@ The `ReactCode` follows a **change-tracking pattern** where:
         });
       });
     }
-    
+
     // Apply column-specific filters
     const activeColumnFilters = Object.entries(currentColumnFilters).filter(([_, filterValue]) => filterValue && filterValue.trim());
     if (activeColumnFilters.length > 0) {
@@ -302,7 +302,7 @@ The `ReactCode` follows a **change-tracking pattern** where:
         });
       });
     }
-    
+
     return filtered;
   }, [currentRows, filterText, currentColumns, currentColumnFilters]);
 
@@ -314,12 +314,12 @@ The `ReactCode` follows a **change-tracking pattern** where:
     });
     // Add temporary ID for tracking
     newRow._tempId = `temp_${Date.now()}_${Math.random()}`;
-    
+
     const updatedChanges = {
       ...changes,
       addedRows: [...changes.addedRows, newRow]
     };
-    
+
     saveChanges(updatedChanges);
     setSpreadsheetData([...currentRows, newRow]);
   };
@@ -327,7 +327,7 @@ The `ReactCode` follows a **change-tracking pattern** where:
   // Delete row
   const deleteRow = (rowIndex) => {
     const rowToDelete = currentRows[rowIndex];
-    
+
     // Check if it's a newly added row (has temp ID)
     if (rowToDelete._tempId) {
       // Remove from addedRows
@@ -347,7 +347,7 @@ The `ReactCode` follows a **change-tracking pattern** where:
       };
       saveChanges(updatedChanges);
     }
-    
+
     const newRows = currentRows.filter((_, idx) => idx !== rowIndex);
     setSpreadsheetData(newRows);
   };
@@ -358,30 +358,30 @@ The `ReactCode` follows a **change-tracking pattern** where:
       alert('Please enter a column name');
       return;
     }
-    
+
     if (currentColumns.includes(newColumnName.trim())) {
       alert('Column already exists');
       return;
     }
-    
+
     const newCols = [...currentColumns, newColumnName.trim()];
-    
+
     // Add empty value for this column to all existing rows
     const newRows = currentRows.map(row => ({
       ...row,
       [newColumnName.trim()]: ''
     }));
-    
+
     // Add default width for new column
     const newWidths = { ...currentColumnWidths, [newColumnName.trim()]: 150 };
-    
+
     // Track new column addition
     const updatedChanges = {
       ...changes,
       addedColumns: [...changes.addedColumns, newColumnName.trim()]
     };
     saveChanges(updatedChanges);
-    
+
     setColumns(newCols);
     setColumnWidths(newWidths);
     setSpreadsheetData(newRows);
@@ -395,25 +395,25 @@ The `ReactCode` follows a **change-tracking pattern** where:
       alert('Cannot delete original columns. Only newly added columns can be deleted.');
       return;
     }
-    
+
     if (currentColumns.length <= 1) {
       alert('Cannot delete the last column');
       return;
     }
-    
+
     const newCols = currentColumns.filter(col => col !== colName);
     const newRows = currentRows.map(row => {
       const newRow = { ...row };
       delete newRow[colName];
       return newRow;
     });
-    
+
     // Remove width and filter for deleted column
     const newWidths = { ...currentColumnWidths };
     delete newWidths[colName];
     const newFilters = { ...currentColumnFilters };
     delete newFilters[colName];
-    
+
     // Track column deletion
     const updatedChanges = {
       ...changes,
@@ -422,7 +422,7 @@ The `ReactCode` follows a **change-tracking pattern** where:
       cellEdits: changes.cellEdits.filter(e => e.column !== colName)
     };
     saveChanges(updatedChanges);
-    
+
     setColumns(newCols);
     setColumnWidths(newWidths);
     setColumnFilters(newFilters);
@@ -434,7 +434,7 @@ The `ReactCode` follows a **change-tracking pattern** where:
     const row = currentRows[rowIndex];
     const oldValue = row[colName];
     const rowId = row.product_id || row._tempId;
-    
+
     // Find original value for this cell
     let originalValue = oldValue;
     if (row.product_id && !row._tempId) {
@@ -444,17 +444,17 @@ The `ReactCode` follows a **change-tracking pattern** where:
         originalValue = originalRow[colName];
       }
     }
-    
+
     // Check if this is actually a change from original
     const isNewRow = row._tempId !== undefined;
     const isActualChange = !isNewRow && JSON.stringify(originalValue) !== JSON.stringify(value);
-    
+
     if (isNewRow || isActualChange) {
       // Check if we already have an edit for this cell (using productId/tempId)
       const existingEditIndex = changes.cellEdits.findIndex(
         e => e.productId === rowId && e.column === colName
       );
-      
+
       let updatedEdits = [...changes.cellEdits];
       if (existingEditIndex >= 0) {
         // Update existing edit
@@ -471,15 +471,15 @@ The `ReactCode` follows a **change-tracking pattern** where:
           productId: rowId
         });
       }
-      
+
       const updatedChanges = {
         ...changes,
         cellEdits: updatedEdits
       };
-      
+
       saveChanges(updatedChanges);
     }
-    
+
     const newRows = [...currentRows];
     if (!newRows[rowIndex]) {
       newRows[rowIndex] = {};
@@ -496,12 +496,12 @@ The `ReactCode` follows a **change-tracking pattern** where:
   const handleColumnDragOver = (e, colIndex) => {
     e.preventDefault();
     if (draggedColumn === null || draggedColumn === colIndex) return;
-    
+
     const newColumns = [...currentColumns];
     const draggedCol = newColumns[draggedColumn];
     newColumns.splice(draggedColumn, 1);
     newColumns.splice(colIndex, 0, draggedCol);
-    
+
     setColumns(newColumns);
     setDraggedColumn(colIndex);
   };
@@ -538,7 +538,7 @@ The `ReactCode` follows a **change-tracking pattern** where:
     document.addEventListener('mouseup', handleResizeEnd);
     document.body.style.cursor = 'col-resize';
     document.body.style.userSelect = 'none';
-    
+
     return () => {
       document.removeEventListener('mousemove', handleResize);
       document.removeEventListener('mouseup', handleResizeEnd);
@@ -564,13 +564,13 @@ The `ReactCode` follows a **change-tracking pattern** where:
         submitted: true
       }
     };
-    
+
     if (regions[0]) {
       regions[0].update(submission);
     } else {
       addRegion(submission);
     }
-    
+
     const changeCount = changes.cellEdits.length + changes.addedRows.length + changes.deletedRows.length;
     alert(`Spreadsheet submitted successfully! ${changeCount} change(s) recorded.`);
   };
@@ -790,10 +790,10 @@ The `ReactCode` follows a **change-tracking pattern** where:
           React.createElement("tr", {},
             React.createElement("th", { style: { ...thStyle, width: '80px' } }, "Actions"),
             currentColumns.map((col, colIdx) =>
-              React.createElement("th", { 
-                key: colIdx, 
-                style: { 
-                  ...thStyle, 
+              React.createElement("th", {
+                key: colIdx,
+                style: {
+                  ...thStyle,
                   width: currentColumnWidths[col] || 150,
                   minWidth: currentColumnWidths[col] || 150,
                   maxWidth: currentColumnWidths[col] || 150,
@@ -862,17 +862,17 @@ The `ReactCode` follows a **change-tracking pattern** where:
           filteredRows.map((row, filteredIdx) => {
             // Find the actual index in currentRows by matching the row object reference or key fields
             let actualRowIndex = currentRows.findIndex(r => r === row);
-            
+
             // If reference match fails, try matching by key fields
             if (actualRowIndex < 0 && row.product_id && row.name) {
-              actualRowIndex = currentRows.findIndex(r => 
+              actualRowIndex = currentRows.findIndex(r =>
                 r.product_id === row.product_id && r.name === row.name
               );
             }
-            
+
             // Final fallback: use filtered index (shouldn't happen in normal cases)
             const rowIdx = actualRowIndex >= 0 ? actualRowIndex : filteredIdx;
-            
+
             return React.createElement("tr", { key: filteredIdx },
               // Actions column
               React.createElement("td", { style: tdStyle },
@@ -900,15 +900,15 @@ The `ReactCode` follows a **change-tracking pattern** where:
                   cellValue = cellValue || '';
                 }
                 const isEditing = editingCell && editingCell.row === rowIdx && editingCell.col === col;
-                
-                return React.createElement("td", { 
-                  key: colIdx, 
-                  style: { 
-                    ...tdStyle, 
+
+                return React.createElement("td", {
+                  key: colIdx,
+                  style: {
+                    ...tdStyle,
                     width: currentColumnWidths[col] || 150,
                     minWidth: currentColumnWidths[col] || 150,
                     maxWidth: currentColumnWidths[col] || 150
-                  } 
+                  }
                 },
                   (col === 'rationales' || col === 'all_attributes') ? (
                     React.createElement("textarea", {
@@ -965,7 +965,7 @@ The `ReactCode` follows a **change-tracking pattern** where:
     // Summary
     currentRows.length > 0 && React.createElement("div", { style: { marginTop: '20px', padding: '15px', backgroundColor: '#f9f9f9', borderRadius: '6px' } },
       React.createElement("p", { style: { margin: 0, fontSize: '14px', color: '#666' } },
-        filterText ? 
+        filterText ?
           `Showing ${filteredRows.length} of ${currentRows.length} rows | Total Columns: ${currentColumns.length}` :
           `Total Rows: ${currentRows.length} | Total Columns: ${currentColumns.length}`
       )
@@ -981,11 +981,11 @@ The `ReactCode` follows a **change-tracking pattern** where:
 
 
 
-## Example input 
+## Example input
 
-Copy this into a JSON file and then import it into a project with the example code above. 
+Copy this into a JSON file and then import it into a project with the example code above.
 
-This will create three rows in your spreadsheet editor. 
+This will create three rows in your spreadsheet editor.
 
 {% details <b>Click to expand</b> %}
 

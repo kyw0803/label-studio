@@ -28,6 +28,7 @@ jobs:
       - name: Validate
         uses: actions/github-script@v8
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const {repo, owner} = context.repo;
             const head_sha = '${{ github.event.pull_request.head.sha || github.event.after }}'
@@ -42,7 +43,7 @@ jobs:
                 regexp: /label-studio-sdk(\/archive|.git).*(?<sha>[a-f0-9]{40})/,
               },
             ];
-            
+
             async function getSubmoduleVersion(submodule, sha) {
                 const response = await github.rest.repos.getContent({
                     owner: owner,
@@ -54,22 +55,22 @@ jobs:
                 const match = content.match(submodule.regexp);
                 return match.groups.sha;
             }
-            
+
             async function validateSubmodule(submodule, base_sha, head_sha) {
                 const before = await getSubmoduleVersion(submodule, base_sha);
                 const after = await getSubmoduleVersion(submodule, head_sha);
-            
+
                 if (before === after && !strictCheck) {
                     return [true, 'Not changed']
                 }
-            
+
                 const {data: compare} = await github.rest.repos.compareCommits({
                     owner: submodule.owner,
                     repo: submodule.repo,
                     base: before,
                     head: after,
                 });
-            
+
                 const {data: submoduleRepo} = await github.rest.repos.get({
                     owner: submodule.owner,
                     repo: submodule.repo,
@@ -81,9 +82,9 @@ jobs:
                     per_page: 100,
                     sha: submoduleBranch,
                 });
-            
+
                 const commits = listCommits.map(e => e.sha)
-            
+
                 const headCommitNumber = commits.indexOf(after)
                 if (headCommitNumber === -1) {
                     return [false, `${after} from PR is not found in submodule ${submoduleBranch} branch`]
@@ -91,18 +92,18 @@ jobs:
                 if (strictCheck && headCommitNumber !== 0) {
                     return [false, `For the release branch, submodule should be pointed to the latest commit in submodule's corresponding release branch which is ${listCommits[0].html_url}`]
                 }
-            
+
                 const baseCommitNumber = commits.indexOf(before)
                 if (baseCommitNumber === -1) {
                     return [true, `${submodule.repo}: ${before} from ${targetBranch} is not found in submodule ${submoduleBranch} branch`]
                 }
-            
+
                 return [compare.behind_by === 0, `${after} is ${compare.ahead_by} ahead and ${compare.behind_by} behind ${before}: ${compare.html_url}`]
             }
-            
+
             const strictCheck = strictCheckBranchPrefixes.some(e => targetBranch.startsWith(e))
             console.log(`Strict check is ${strictCheck? 'on': 'off'}`)
-            
+
             let base_sha_redacted = base_sha
             if (base_sha === '0000000000000000000000000000000000000000') {
                 const {data: commit} = await github.rest.git.getCommit({
@@ -113,14 +114,14 @@ jobs:
                 base_sha_redacted = commit.parents[0].sha
                 console.log(`Branch creation event. Using head_sha (${base_sha_redacted}) parent as base_sha`)
             }
-            
+
             const {data: lsCompare} = await github.rest.repos.compareCommits({
                 owner: owner,
                 repo: repo,
                 base: base_sha_redacted,
                 head: head_sha,
             });
-            
+
             for (let submodule of submodules) {
                 let status = {}
                 if (lsCompare.files.some(e => e.filename === submodule.file_path)) {
@@ -128,7 +129,7 @@ jobs:
                 } else {
                     status = [true, `Not changed`]
                 }
-            
+
                 if (status[0] === false) {
                     core.setFailed(`${submodule.owner}/${submodule.repo}: ${status[1]}`)
                 } else {

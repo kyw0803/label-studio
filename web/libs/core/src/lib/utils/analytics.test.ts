@@ -60,7 +60,7 @@ describe("analytics", () => {
     window.__lsa("test.event", { data: "value" });
 
     expect(mockSendBeacon).toHaveBeenCalledTimes(1);
-    const [url, data] = mockSendBeacon.mock.calls[0];
+    const [url, _data] = mockSendBeacon.mock.calls[0];
 
     expect(url).toMatch(/^\/__lsa\/\?/);
     const params = new URLSearchParams(url.split("?")[1]);

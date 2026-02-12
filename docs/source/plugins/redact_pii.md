@@ -27,7 +27,7 @@ This script will then unhide annotator information, but only if the user is in a
 ![Screenshot of warning](/images/plugins/redact-show.png)
 
 !!! note
-    The labeling config CSS only hides information from the labeling and review streams. It does not hide information from the Data Manager. However, you can use the [project settings](/guide/project_settings_lse#Review) to disallow Annotators and Reviewers from accessing the Data Manager. 
+    The labeling config CSS only hides information from the labeling and review streams. It does not hide information from the Data Manager. However, you can use the [project settings](/guide/project_settings_lse#Review) to disallow Annotators and Reviewers from accessing the Data Manager.
 
 ## Plugin
 

@@ -1,0 +1,202 @@
+.workspaces-sidebar {
+  width: var(--menu-sidebar-width, 240px);
+  min-width: var(--menu-sidebar-width, 240px);
+
+  /* 배경을 투명하게 하거나 테마 표면색 사용 */
+  background: var(--color-neutral-surface);
+  border-right: 1px solid var(--color-neutral-border);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: calc(100vh - var(--header-height)); /* 최소 높이를 화면 전체로 설정 */
+
+  /* 기본 텍스트 색상 변수 사용 */
+  color: var(--color-neutral-content);
+
+  &__header {
+    /* 상단 패딩을 늘려 메인 컨텐츠와 라인을 맞춤 (기존 16px -> 24px 또는 30px) */
+    padding: 24px 20px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--color-neutral-border);
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+
+    /* 타이틀 색상 변수 사용 */
+    color: var(--color-neutral-content);
+  }
+
+  &__add-button {
+    padding: 4px;
+    border-radius: 4px;
+
+    /* 보조 텍스트 색상 변수 사용 */
+    color: var(--color-neutral-content-subtle);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: var(--color-neutral-surface-hover);
+      color: var(--color-primary-content-hover);
+    }
+  }
+
+  &__content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 12px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__item {
+    padding: 10px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    color: var(--color-neutral-content);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+    user-select: none;
+
+    &:hover {
+      background: var(--color-neutral-surface-hover);
+      color: var(--color-neutral-content);
+
+      .workspaces-sidebar__item-actions {
+        opacity: 1;
+      }
+    }
+
+    &_active {
+      /* 활성 상태 색상 변수 사용 */
+      background: var(--color-primary-surface);
+      color: var(--color-primary-content);
+      font-weight: 500;
+
+      &:hover {
+        background: var(--color-primary-surface);
+      }
+
+      .workspaces-sidebar__icon {
+        color: var(--color-primary-content);
+      }
+    }
+  }
+
+  &__item-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-neutral-content-subtle);
+    flex-shrink: 0;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &__item-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__item-actions {
+    opacity: 0;
+    transition: opacity 0.2s;
+    display: flex;
+    align-items: center;
+  }
+
+  &__action-button {
+    padding: 4px;
+    border-radius: 4px;
+    color: var(--color-neutral-content-subtle);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: var(--color-neutral-background);
+      color: var(--color-neutral-content);
+    }
+  }
+
+  &__loading,
+  &__error,
+  &__empty {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--color-neutral-content-subtle);
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__error-message {
+    color: var(--color-negative-content);
+    margin-bottom: 8px;
+  }
+
+  &__modal-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--color-neutral-border);
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    background-color: var(--color-neutral-background);
+    color: var(--color-neutral-content);
+
+    &:focus {
+      border-color: var(--color-primary-border);
+    }
+
+    &::placeholder {
+      color: var(--color-neutral-content-subtle);
+    }
+  }
+
+  &__modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 24px;
+  }
+}

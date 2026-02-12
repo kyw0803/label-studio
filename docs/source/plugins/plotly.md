@@ -18,14 +18,14 @@ tier: enterprise
 
 ## About
 
-Use [Plotly](https://plotly.com/) to insert charts and graphs into your labeling interface. Charts are rendered in every annotation opened by a user. 
+Use [Plotly](https://plotly.com/) to insert charts and graphs into your labeling interface. Charts are rendered in every annotation opened by a user.
 
 ![Screenshot of Plotly graph in Label Studio](/images/plugins/plotly.png)
 
 ## Plugin
 
 !!! note
-    Plotly should be loaded first from CDN: https://cdn.plot.ly/plotly-2.26.0.min.js. For security reasons, it's better to use a hash for script integrity. 
+    Plotly should be loaded first from CDN: https://cdn.plot.ly/plotly-2.26.0.min.js. For security reasons, it's better to use a hash for script integrity.
 
 ```javascript
 await LSI.import('https://cdn.plot.ly/plotly-2.26.0.min.js', 'sha384-xuh4dD2xC9BZ4qOrUrLt8psbgevXF2v+K+FrXxV4MlJHnWKgnaKoh74vd/6Ik8uF',);
@@ -43,7 +43,7 @@ if (window.Plotly && data) {
 
 ## Labeling config
 
-You need to add `<View idAttr="plot"/>` into your config to render the Plotly chart. 
+You need to add `<View idAttr="plot"/>` into your config to render the Plotly chart.
 
 For example:
 

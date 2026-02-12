@@ -167,7 +167,7 @@ jobs:
 
           release_dir=release_${{ inputs.release_tag }}
           echo "release_dir=$release_dir" >> $GITHUB_OUTPUT
-          
+
           mkdir -p $release_dir
           cp label_studio/core/version_.py $release_dir/
 

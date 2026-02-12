@@ -16,25 +16,25 @@ def forward_migration(migration_name, db_alias):
         status=AsyncMigrationStatus.STATUS_STARTED,
     )
     logger.debug(f'Start async migration {migration_name}')
-    
+
     # Check database backend and use appropriate SQL
     conn = connections[db_alias]
     if conn.vendor == 'postgresql':
         # Create BRIN index concurrently to avoid blocking writes
         sql = '''
-        CREATE INDEX CONCURRENTLY IF NOT EXISTS "task_updated_at_brin_idx" 
+        CREATE INDEX CONCURRENTLY IF NOT EXISTS "task_updated_at_brin_idx"
         ON "task" USING BRIN ("updated_at");
         '''
     else:
         # SQLite fallback - regular B-tree index
         sql = '''
-        CREATE INDEX IF NOT EXISTS "task_updated_at_brin_idx" 
+        CREATE INDEX IF NOT EXISTS "task_updated_at_brin_idx"
         ON "task" ("updated_at");
         '''
-    
+
     with conn.cursor() as cursor:
         cursor.execute(sql)
-    
+
     migration.status = AsyncMigrationStatus.STATUS_FINISHED
     migration.save(using=db_alias)
     logger.debug(f'Async migration {migration_name} complete')
@@ -45,17 +45,17 @@ def reverse_migration(migration_name, db_alias):
         status=AsyncMigrationStatus.STATUS_STARTED,
     )
     logger.debug(f'Start async migration rollback {migration_name}')
-    
+
     # Drop index (works for both PostgreSQL and SQLite)
     conn = connections[db_alias]
     if conn.vendor == 'postgresql':
         sql = 'DROP INDEX CONCURRENTLY IF EXISTS "task_updated_at_brin_idx";'
     else:
         sql = 'DROP INDEX IF EXISTS "task_updated_at_brin_idx";'
-    
+
     with conn.cursor() as cursor:
         cursor.execute(sql)
-    
+
     migration.status = AsyncMigrationStatus.STATUS_FINISHED
     migration.save(using=db_alias)
     logger.debug(f'Async migration rollback {migration_name} complete')
@@ -78,4 +78,4 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(forwards, backwards),
-    ] 
+    ]

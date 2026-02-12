@@ -18,11 +18,11 @@ tier: enterprise
 
 ## About
 
-This plugin checks to ensure that the annotation does not include obscenity or disallowed words. 
+This plugin checks to ensure that the annotation does not include obscenity or disallowed words.
 
-In the example below, if a user tries to submit an annotation with the word “hate” added to any audio transcription, they see a pop-up warning. 
+In the example below, if a user tries to submit an annotation with the word “hate” added to any audio transcription, they see a pop-up warning.
 
-Note that this is a "soft" block, meaning that the user can dismiss the modal and still proceed. For an example of a "hard" block, see [Validate JSON](json_validation). 
+Note that this is a "soft" block, meaning that the user can dismiss the modal and still proceed. For an example of a "hard" block, see [Validate JSON](json_validation).
 
 ![Screenshot of moderation modal in Label Studio](/images/plugins/moderation.png)
 
@@ -66,7 +66,7 @@ LSI.on("beforeSaveAnnotation", (store, ann) => {
 **Related LSI instance methods:**
 
 * [on(eventName, handler)](custom#LSI-on-eventName-handler)
-  
+
 **Related frontend events:**
 
 * [beforeSaveAnnotation](/guide/frontend_reference#beforeSaveAnnotation)

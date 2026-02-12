@@ -41,29 +41,29 @@ config: |
         border: 1px solid var(--color-accent-plum-subtle);
         border-radius: var(--corner-radius-medium);
       }
-      
+
       <!-- Allow enlarging the instruction text to better differentiate it-->
       .lsf-richtext__container.lsf-htx-richtext {
         font-size: 16px !important;
         line-height: 1.6;
       }
       <!-- Remove excess height from the chat to allow space for instruction text -->
-      .htx-chat { 
-        --excess-height: 300px 
+      .htx-chat {
+        --excess-height: 300px
       }
     </Style>
     <View style="display: flex; gap: var(--spacing-wide);">
-      
+
       <!-- Left: chat and instructions -->
       <View className="chat" style="flex: 2;">
-        
+
         <View className="instructions">
           <Text name="instructions" value="$text" />
         </View>
-              
-        <Chat name="chat" value="$chat" 
-              llm="openai/gpt-4.1-nano" 
-              minMessages="4" 
+
+        <Chat name="chat" value="$chat"
+              llm="openai/gpt-4.1-nano"
+              minMessages="4"
               editable="true" />
       </View>
 
@@ -96,4 +96,3 @@ config: |
       </View>
     </View>
   </View>
-

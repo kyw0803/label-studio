@@ -10,4 +10,3 @@ config: |
       <Image name="image1" value="$image1" />
       <Image name="image2" value="$image2" />
   </View>
-

@@ -6,4 +6,3 @@
 | [size] | <code>number</code> | <code>4</code> | Level of header on a page, used to control size of the text |
 | [style] | <code>string</code> |  | CSS style for the header |
 | [underline] | <code>boolean</code> | <code>false</code> | Whether to underline the header |
-

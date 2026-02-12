@@ -8,12 +8,12 @@ meta_description: Label Studio Enterprise documentation for setting up Google as
 hide_sidebar: true
 ---
 
-You can set up Label Studio to use Google's IdP for SSO. 
+You can set up Label Studio to use Google's IdP for SSO.
 
 You will need the following permissions:
 
-* Access to the [Google Admin console](https://admin.google.com/). Your account must have [super administrator privileges](https://support.google.com/a/answer/2405986#super_admin). 
-* Your Label Studio user role must be Owner or Administrator. 
+* Access to the [Google Admin console](https://admin.google.com/). Your account must have [super administrator privileges](https://support.google.com/a/answer/2405986#super_admin).
+* Your Label Studio user role must be Owner or Administrator.
 
 
 ## Step 1: Get Label Studio ACS endpoints as a Service Provider (SP)
@@ -24,7 +24,7 @@ You will need the following permissions:
    - Select **SSO & SAML** in the upper right.
 
 2. **Copy SAML configuration**
-   - From the **Details for Identity Provider** section, copy the following URLs: 
+   - From the **Details for Identity Provider** section, copy the following URLs:
         - **Assertion Consumer Service (ACS) URL**
         - **Login URL**
         - **Logout URL**
@@ -36,19 +36,19 @@ You will need the following permissions:
 1. **Access Google Admin Console:**
    - Log in to the [Google Admin console](https://admin.google.com/).
    - Go to **Directory** > **Groups**.
- 
+
     <img src="/images/google-saml/9-add-group.png" class="gif-border">
 
 2. **Add a new group:**
-   - Click **Create group** and follow the steps to create and save a new group. In this example, the group is named "TestGroup." 
- 
+   - Click **Create group** and follow the steps to create and save a new group. In this example, the group is named "TestGroup."
+
     <img src="/images/google-saml/10-add-group-2.png" class="gif-border">
 
 3. **Assign users to the new group:**
    - Go to **Directory** > **Users**.
    - Select the users you want to add to your new group.
-   - Select **More options > Add selected users to groups**. 
- 
+   - Select **More options > Add selected users to groups**.
+
     <img src="/images/google-saml/11-add-group-3.png" class="gif-border">
 
 
@@ -71,7 +71,7 @@ You will need the following permissions:
    - When given the option, download the IdP metadata file for your new app. This file contains all the necessary information to configure Label Studio.
 
     <img src="/images/google-saml/3-metadata.png" class="gif-border">
-   
+
 4. **Configure SAML settings:**
    - In the **Service Provider Details** section, enter the following:
      - **ACS URL**: Paste the ACS URL copied from Label Studio.
@@ -79,7 +79,7 @@ You will need the following permissions:
      - **Start URL**: (Optional) You can leave this blank or use the **Login URL** from Label Studio.
      - **Signed Response**: Leave this unchecked.
    - Click **Continue**.
- 
+
     <img src="/images/google-saml/5-acs-setup.png" class="gif-border">
 
 5. **Map attributes:**
@@ -117,12 +117,12 @@ You will need the following permissions:
     <img src="/images/google-saml/12-assign-group-1.png" class="gif-border">
 
 2. **Assign the Label Studio application to the group:**
-    - Click the **User access** card. 
-    - Search for and then assign the group to the app. 
-    - Enable the **Service status** toggle. 
+    - Click the **User access** card.
+    - Search for and then assign the group to the app.
+    - Enable the **Service status** toggle.
 
     <img src="/images/google-saml/13-assign-group-2.png" class="gif-border">
-    
+
 
 ## Step 6: Test the configuration
 

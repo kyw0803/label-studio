@@ -26,4 +26,3 @@ config: |
       <HyperText name="text" value="$html"/>
     </View>
   </View>
-

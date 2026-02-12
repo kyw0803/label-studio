@@ -23,7 +23,7 @@ global:
     MINIO_MIGRATION: true
 ```
 
-2. Redeploy a release by following the steps from [Upgrade Label Studio Enterprise](install_enterprise_k8s.html#Upgrade-Label-Studio-using-Helm). 
+2. Redeploy a release by following the steps from [Upgrade Label Studio Enterprise](install_enterprise_k8s.html#Upgrade-Label-Studio-using-Helm).
 
 ## Run migration script
 
@@ -40,14 +40,14 @@ JSON_LOG=0 python3 $LSE_DIR/label_studio_enterprise/manage.py minio-migrate
 ## Ensure a successful data migration
 
 
-!!! warning 
-    Minio service will be deleted in the next step. 
+!!! warning
+    Minio service will be deleted in the next step.
 
 
 - Try to run `Export` in your project.
 - Ensure that this data appears in your `bucket/volume` by `project_id/export`.
 
-!!! note 
+!!! note
     For more information or support, contact the [Heartex team](support@humansignal.com).
 
 ## Completely remove Minio service

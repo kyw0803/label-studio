@@ -22,9 +22,9 @@ def cleanup_inconsistent_filtergroup():
     migration, created = AsyncMigrationStatus.objects.get_or_create(name=migration_name, defaults={'status': AsyncMigrationStatus.STATUS_STARTED})
     if not created:
         return # migration already done or in progress
-    
+
     migration.meta['project_ids'] = []
-    
+
     filter_groups = FilterGroup.objects.annotate(view_count=Count('view')).filter(view_count__gt=1)
 
     for filter_group in filter_groups:
@@ -36,7 +36,7 @@ def cleanup_inconsistent_filtergroup():
 
             if view == first_view: # skip first view
                 continue
-            
+
             logger.info(f'Creating new filter group for view {view.id} for project {view.project_id}')
             # create new filter group and filters for the view
             new_filter_group = FilterGroup.objects.create(conjunction=filter_group.conjunction)
@@ -51,7 +51,7 @@ def cleanup_inconsistent_filtergroup():
                 new_filter_group.filters.add(new_filter)
             view.filter_group = new_filter_group
             view.save(update_fields=['filter_group'])
-            
+
             logger.info(f'Created new filter group {new_filter_group.id} for view {view.id} for project {view.project_id}')
 
     migration.status = AsyncMigrationStatus.STATUS_FINISHED

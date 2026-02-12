@@ -7,12 +7,12 @@ module.exports = function () {
         min_depth: 1,
         max_depth: 6,
       }, options);
-    
+
       const data = tocObj(str, { min_depth: options.min_depth, max_depth: options.max_depth });
 
-    
+
       if (!data.length) return '';
-    
+
       let html = '';
 
       data.forEach(item => {

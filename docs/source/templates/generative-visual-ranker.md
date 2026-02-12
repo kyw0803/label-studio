@@ -105,7 +105,7 @@ Use the following configuration for the labeling interface:
     <View>
       <List name="generated_images" value="$images" title="Generated Images" />
       <Ranker name="rank" toName="generated_images">
-  </Ranker> 
+  </Ranker>
     </View>
   </View>
 ```

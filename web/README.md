@@ -96,4 +96,3 @@ This software is licensed under the [Apache 2.0 LICENSE](../LICENSE) © [HumanSi
 [lsf]: libs/editor/README.md
 [dm]: libs/datamanager/README.md
 [lso]: apps/labelstudio/README.md
-

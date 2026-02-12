@@ -7,18 +7,18 @@ jest.mock("../../../../utils/bem", () => ({
   cn: (block: string) => ({
     elem: (elem: string) => ({
       toClassName: () => `dm-${block}__${elem}`,
-      mod: (mods: any) => ({
+      mod: (_mods: any) => ({
         toClassName: () => `dm-${block}__${elem}`,
       }),
     }),
-    mod: (mods: any) => ({
+    mod: (_mods: any) => ({
       toClassName: () => `dm-${block}`,
-      mix: (...args: any[]) => ({
+      mix: (..._args: any[]) => ({
         toClassName: () => `dm-${block}`,
       }),
     }),
     toClassName: () => `dm-${block}`,
-    mix: (...args: any[]) => ({
+    mix: (..._args: any[]) => ({
       toClassName: () => `dm-${block}`,
     }),
   }),
@@ -86,7 +86,7 @@ jest.mock("../../../../utils/docs", () => ({
 // Mock observer and inject
 jest.mock("mobx-react", () => ({
   observer: (component: any) => component,
-  inject: (storeName: string) => (component: any) => component,
+  inject: (_storeName: string) => (component: any) => component,
 }));
 
 describe("DetailsPanel", () => {

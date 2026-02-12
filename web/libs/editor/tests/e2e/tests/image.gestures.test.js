@@ -10,7 +10,8 @@ const DEFAULT_DIMENSIONS = {
 
 Feature("Creating regions with gesture");
 
-const IMAGE = "/public/files/images/nick-owuor-unsplash.jpg";
+const IMAGE =
+  "https://htx-pub.s3.us-east-1.amazonaws.com/examples/images/nick-owuor-astro-nic-visuals-wDifg5xc9Z4-unsplash.jpg";
 
 const BLUEVIOLET = {
   color: "#8A2BE2",
@@ -52,7 +53,7 @@ const createShape = {
         },
       };
     },
-    byDoubleClick(x, y, radius, opts = {}) {
+    byDoubleClick(x, y, _radius, opts = {}) {
       return {
         ...opts,
         action: "clickPointsKonva",
@@ -107,7 +108,7 @@ const createShape = {
         },
       };
     },
-    byDoubleClick(x, y, radius, opts = {}) {
+    byDoubleClick(x, y, _radius, opts = {}) {
       return {
         ...opts,
         action: "clickPointsKonva",
@@ -149,7 +150,7 @@ const createShape = {
         result: { radiusX: radius, radiusY: radius, rotation: 0, x, y },
       };
     },
-    byDoubleClick(x, y, radius, opts = {}) {
+    byDoubleClick(x, y, _radius, opts = {}) {
       return {
         ...opts,
         action: "clickPointsKonva",

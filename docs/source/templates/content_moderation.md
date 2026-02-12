@@ -5,14 +5,14 @@ category: Natural Language Processing
 cat: natural-language-processing
 order: 235
 meta_title: Content Moderation Labeling Template
-meta_description: Template for performing content moderation labeling tasks. 
+meta_description: Template for performing content moderation labeling tasks.
 ---
 
 <img src="/images/templates/content-moderation.png" alt="" class="gif-border" width="552px"  />
 
-You can use this template for a content moderation project. 
+You can use this template for a content moderation project.
 
-This template displays text from your source data, and then allows an annotator to pick any combination of content moderation labels. If the pre-configured options are not sufficient, they can add context or comments in the provided text area. 
+This template displays text from your source data, and then allows an annotator to pick any combination of content moderation labels. If the pre-configured options are not sufficient, they can add context or comments in the provided text area.
 
 ## Labeling configuration
 
@@ -42,7 +42,7 @@ This template displays text from your source data, and then allows an annotator 
 <Text name="text" value="$text"/>
 ```
 
-This displays the text that needs moderation. There are multiple ways to import text files. See the [Text tag documentation](/tags/text.html) and our [import documentation](/guide/tasks#Types-of-data-you-can-import-into-Label-Studio). 
+This displays the text that needs moderation. There are multiple ways to import text files. See the [Text tag documentation](/tags/text.html) and our [import documentation](/guide/tasks#Types-of-data-you-can-import-into-Label-Studio).
 
 #### Choices
 

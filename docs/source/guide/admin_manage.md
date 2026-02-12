@@ -12,9 +12,9 @@ date: 2024-02-06 16:36:44
 ---
 
 !!! error Enterprise
-    In Label Studio Community Edition, there are relatively limited options available for user management. 
-    
-    In Label Studio Enterprise, you can set roles for users, restrict their permissions, delete and deactivate users, and view detailed logs of user actions. For more information about the user management capabilities of Label Studio Enterprise, see [User management overview](https://docs.humansignal.com/guide/manage_users) in the Enterprise documentation. To start a free trial, [click here](https://app.heartex.com/user/trial).  
+    In Label Studio Community Edition, there are relatively limited options available for user management.
+
+    In Label Studio Enterprise, you can set roles for users, restrict their permissions, delete and deactivate users, and view detailed logs of user actions. For more information about the user management capabilities of Label Studio Enterprise, see [User management overview](https://docs.humansignal.com/guide/manage_users) in the Enterprise documentation. To start a free trial, [click here](https://app.heartex.com/user/trial).
 
 ## Retrieve user info from the command line
 
@@ -33,17 +33,17 @@ You can see user info, including their API token, as the last line of the respon
 {'id': 1, 'first_name': 'User', 'last_name': 'Somebody', 'username': 'label-studio', 'email': 'example@labelstud.io', 'last_activity': '2021-06-15T19:37:29.594618Z', 'avatar': '/data/avatars/img.jpg', 'initials': 'el', 'phone': '', 'active_organization': 1, 'token': '<api_token>', 'status': 'ok'}
 ```
 
-Users can also retrieve their own tokens from the Label Studio app. For more information, see [Access Tokes](access_tokens). 
+Users can also retrieve their own tokens from the Label Studio app. For more information, see [Access Tokes](access_tokens).
 
 
 ## Review existing accounts in Label Studio
 
 You can view the organization user list from Label Studio:
 
-1. Open Label Studio and click the menu in the upper left. 
-2. Select **Organization**. 
+1. Open Label Studio and click the menu in the upper left.
+2. Select **Organization**.
 
-Click the user's row to see additional details about their activity, such as when they were last active, which projects they created, and which projects they contributed to. 
+Click the user's row to see additional details about their activity, such as when they were last active, which projects they created, and which projects they contributed to.
 
 ## Reset passwords
 

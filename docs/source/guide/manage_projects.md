@@ -17,18 +17,18 @@ For more project actions, see:
 * [Publish a project](setup_project#Publish-a-project)
 * [Assign annotators to project tasks](manage_data#Assign-annotators-to-tasks)
 
-You can use the **All Projects** page to view projects across all workspaces. 
+You can use the **All Projects** page to view projects across all workspaces.
 
 ![Screenshot of the All Projects page](/images/project/projects_page.png)
 
 ## Search projects
 
-Use the search box in the upper right. You can search by project name. 
+Use the search box in the upper right. You can search by project name.
 
-* To search within a workspace, use the search field on the workspace page. 
-* To search across all projects, including those within archived workspaces, go to **All Projects** to perform your search. 
+* To search within a workspace, use the search field on the workspace page.
+* To search across all projects, including those within archived workspaces, go to **All Projects** to perform your search.
 
-The project search allows partial and case-insensitive matches.  
+The project search allows partial and case-insensitive matches.
 
 
 ## Create a project template
@@ -41,7 +41,7 @@ A project template includes the following:
 It does not include:
 
 * Project tasks or imported data
-* Project membership settings 
+* Project membership settings
 * Task assignments
 * External storage settings
 
@@ -62,7 +62,7 @@ When you duplicate a project, you can copy the following:
 
 Duplication does not include:
 
-* Project membership settings 
+* Project membership settings
 * Task assignments
 * Completed annotations
 * External storage settings
@@ -72,12 +72,12 @@ To duplicate a project:
 1. Click the overflow menu for the project and select **Duplicate project**:
 
     ![Screenshot of project menu](/images/project/project_menu_lse.png)
-2. Select the workspace in which you want the new project to be located. 
+2. Select the workspace in which you want the new project to be located.
 3. Enter a new name and (optionally) a description for the project.
-4. Select whether you only want to duplicate project settings (including the labeling configuration), or if you also want to include tasks. 
-5. Click **Duplicate**. 
+4. Select whether you only want to duplicate project settings (including the labeling configuration), or if you also want to include tasks.
+5. Click **Duplicate**.
 
-You may need to refresh the page before you can see the new project. 
+You may need to refresh the page before you can see the new project.
 
 ## Move projects between workspaces
 
@@ -92,11 +92,11 @@ To pin a project, click the overflow menu for the project and select **Pin proje
 
 ![Screenshot of project menu](/images/project/project_menu_lse.png)
 
-Pinned projects are pinned to the top of the Projects page. 
+Pinned projects are pinned to the top of the Projects page.
 
 
-## Delete projects 
+## Delete projects
 
-To delete a project, open the project settings and select the **Danger Zone** page. From here you can access the **Delete Project** action. 
+To delete a project, open the project settings and select the **Danger Zone** page. From here you can access the **Delete Project** action.
 
 Deleting a project permanently removes all tasks, annotations, and project data from Label Studio.

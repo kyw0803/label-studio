@@ -10,9 +10,9 @@ meta_description: Template for slot filling in natural language understanding us
 
 <img src="/images/templates/intent-classification-and-slot-filling.png" alt="" class="gif-border" width="552px" height="408px" />
 
-For natural language understanding cases when you need to detect the intent of a speaker in dialogue, perform intent classification and slot filling to identify the entities related to the intent of the dialogue, and classify those entities. 
+For natural language understanding cases when you need to detect the intent of a speaker in dialogue, perform intent classification and slot filling to identify the entities related to the intent of the dialogue, and classify those entities.
 
-Use this template to provide a section of dialogue, assign labels to spans of text in the dialogue, and classify the intent of the dialogue. 
+Use this template to provide a section of dialogue, assign labels to spans of text in the dialogue, and classify the intent of the dialogue.
 
 ## Interactive Template Preview
 
@@ -58,17 +58,17 @@ Use the [Paragraphs](/tags/paragraphs.html) object tag to display dialogue:
 ```xml
 <Paragraphs name="dialogue" value="$dialogue" layout="dialogue" />
 ```
-  
+
 Use the [Choices](/tags/choices.html) control tag to select a single classification tag for the dialogue and have annotators classify the intent of the dialogue:
 ```xml
-<Choices name="intent" toName="dialogue" 
+<Choices name="intent" toName="dialogue"
          choice="single" showInline="true">
     <Choice value="Greeting"/>
     <Choice value="Customer request"/>
     <Choice value="Small talk"/>
 </Choices>
 ```
-The `choice="single"` parameter restricts the annotators to one choice selection, and `showInline="true"` controls the display of the choices on the labeling interface. 
+The `choice="single"` parameter restricts the annotators to one choice selection, and `showInline="true"` controls the display of the choices on the labeling interface.
 
 ## Related tags
 

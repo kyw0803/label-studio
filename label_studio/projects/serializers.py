@@ -3,7 +3,7 @@
 import bleach
 from constants import SAFE_HTML_ATTRIBUTES, SAFE_HTML_TAGS
 from django.db.models import Q
-from drf_spectacular.utils import extend_schema_field, extend_schema_serializer
+from drf_spectacular.utils import extend_schema_serializer
 from fsm.serializer_fields import FSMStateField
 from label_studio_sdk.label_interface import LabelInterface
 from label_studio_sdk.label_interface.control_tags import (
@@ -29,22 +29,12 @@ from label_studio_sdk.label_interface.control_tags import (
     TimeSeriesLabelsTag,
     VideoRectangleTag,
 )
-from projects.models import Project, ProjectImport, ProjectOnboarding, ProjectReimport, ProjectSummary
+from projects.models import Project, ProjectImport, ProjectMember, ProjectOnboarding, ProjectReimport, ProjectSummary
 from rest_flex_fields import FlexFieldsModelSerializer
 from rest_framework import serializers
 from rest_framework.serializers import SerializerMethodField
 from tasks.models import Task
 from users.serializers import UserSimpleSerializer
-
-
-@extend_schema_field({'type': 'object', 'additionalProperties': True})
-class OpenApiObjectJSONField(serializers.JSONField):
-    """
-    A JSON field that is always rendered as a generic OpenAPI object.
-
-    drf-spectacular may otherwise produce a schema with only metadata (e.g. nullable/readOnly/description)
-    and omit `type`/`$ref`, which breaks some OpenAPI doc renderers.
-    """
 
 
 class CreatedByFromContext:
@@ -94,10 +84,7 @@ class ProjectSerializer(FlexFieldsModelSerializer):
 
     created_by = UserSimpleSerializer(default=CreatedByFromContext(), help_text='Project owner')
 
-    control_weights = OpenApiObjectJSONField(
-        required=False, allow_null=True, help_text='Dict of weights for each control tag in metric calculation.'
-    )
-    parsed_label_config = OpenApiObjectJSONField(
+    parsed_label_config = serializers.JSONField(
         default=None, read_only=True, help_text='JSON-formatted labeling configuration'
     )
     start_training_on_annotation_update = SerializerMethodField(
@@ -268,6 +255,7 @@ class ProjectSerializer(FlexFieldsModelSerializer):
             'queue_done',
             'config_suitable_for_bulk_annotation',
             'state',
+            'workspace',
         ]
 
     def validate_label_config(self, value):
@@ -342,10 +330,25 @@ class ProjectCountsSerializer(ProjectSerializer):
         ]
 
 
+class AllocateProjectMemberTaskSerializer(serializers.ModelSerializer):
+    user = UserSimpleSerializer(read_only=True)
+
+    class Meta:
+        model = ProjectMember
+        fields = ['allocation_ratio', 'user', 'is_labeled']
+
+
+class ProjectMemberSerializer(serializers.ModelSerializer):
+    user = UserSimpleSerializer(read_only=True)
+
+    class Meta:
+        model = ProjectMember
+        fields = ('id', 'project', 'user', 'role')
+
+
 class ProjectOnboardingSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectOnboarding
-        fields = '__all__'
 
 
 class ProjectLabelConfigSerializer(serializers.Serializer):

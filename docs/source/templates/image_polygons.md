@@ -52,7 +52,7 @@ Use the [Image](/tags/image.html) object tag to specify the image data and allow
 <Image name="image" value="$image" zoom="true"/>
 ```
 
-Use the [PolygonLabels](/tags/polygonlabels.html) control tag to allow annotators to create polygons for specific labels. 
+Use the [PolygonLabels](/tags/polygonlabels.html) control tag to allow annotators to create polygons for specific labels.
 ```xml
   <PolygonLabels name="label" toName="image"
                  strokeWidth="3" pointSize="small"

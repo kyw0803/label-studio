@@ -13,9 +13,9 @@ section: "Manage Your Organization"
 Sign up and create an account for Label Studio to start labeling data and setting up projects.
 
 !!! error Enterprise
-    In Label Studio Community Edition, all users have access to the same functionality and can see all projects. 
-    
-    If you require role-based access and permissions, consider upgrading to Label Studio Enterprise. For more information about the user management capabilities of Label Studio Enterprise, see [User management overview](https://docs.humansignal.com/guide/manage_users) in the Enterprise documentation. To start a free trial, [click here](https://app.heartex.com/user/trial).  
+    In Label Studio Community Edition, all users have access to the same functionality and can see all projects.
+
+    If you require role-based access and permissions, consider upgrading to Label Studio Enterprise. For more information about the user management capabilities of Label Studio Enterprise, see [User management overview](https://docs.humansignal.com/guide/manage_users) in the Enterprise documentation. To start a free trial, [click here](https://app.heartex.com/user/trial).
 
 ## Create an account
 
@@ -45,24 +45,24 @@ label-studio start --username <username> --password <password> [--user-token <to
 
 Once the initial organization account is created, you can begin inviting users:
 
-1. Open Label Studio and click the menu in the upper left. 
-2. Select **Organization**. 
-3. From the Organization page, click **Add Members**. 
+1. Open Label Studio and click the menu in the upper left.
+2. Select **Organization**.
+3. From the Organization page, click **Add Members**.
 
-From here you can copy a link that is unique to your organization. 
+From here you can copy a link that is unique to your organization.
 
-You can share this link with users, who can then complete the registration process. 
+You can share this link with users, who can then complete the registration process.
 
-Click **Reset Link** to reset the link. When reset, anyone who have the old link will be unable to register a new user account. 
+Click **Reset Link** to reset the link. When reset, anyone who have the old link will be unable to register a new user account.
 
 !!! warning Security Note
-    Resetting the invitation link is a security measure that should be part of a broader strategy of controlling access, which includes disabling the signup page. See [Require invites for new users](#Require-invites-for-new-users) below. 
+    Resetting the invitation link is a security measure that should be part of a broader strategy of controlling access, which includes disabling the signup page. See [Require invites for new users](#Require-invites-for-new-users) below.
 
 ## Require invites for new users
 
-While you can invite users to join your organization with the invite link, this does not prevent users from registering new account through the signup page. 
+While you can invite users to join your organization with the invite link, this does not prevent users from registering new account through the signup page.
 
-To ensure that only users with an invite link are able to join, you must configure your environment variables. 
+To ensure that only users with an invite link are able to join, you must configure your environment variables.
 
 ### Restrict signup for local deployments
 

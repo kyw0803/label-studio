@@ -18,13 +18,13 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  POETRY_VERSION: 2.3.2
+  POETRY_VERSION: 2.2.1
   SLACK_CHANNEL_ID: "C02LMULF4NA"
 
 jobs:
   sync:
     name: Sync PR
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latestb
     outputs:
       label-studio-sdk: "${{ fromJSON(steps.upstream-prs.outputs.shas).label-studio-sdk }}"
     steps:
@@ -112,13 +112,13 @@ jobs:
           COMMIT_MESSAGE_WORKFLOW_LINK: "Workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
         run: |
           set -xeuo pipefail
-          
+
           if [[ -n "${SDK_SHA}" ]]; then
             poetry add "https://github.com/HumanSignal/label-studio-sdk/archive/${SDK_SHA}.zip" --lock
           fi
-          
+
           poetry lock
-          
+
           git diff
           git add -A
           git status -s
